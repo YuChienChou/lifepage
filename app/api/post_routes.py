@@ -27,7 +27,7 @@ def posts_form():
 
 
 #create a new post
-@post_route.route('/<int:userId>/posts', methods=['POST'])
+@post_route.route('/<int:userId>/new', methods=['POST'])
 @login_required
 def create_post(userId): 
     # print("in the create post route!!!")
@@ -58,20 +58,20 @@ def create_post(userId):
     
 
 #update a post
-@post_route.route('<int:userId>/posts/<int:postId>', methods=["POST"])
+@post_route.route('/<int:postId>/edit', methods=["POST"])
 @login_required
-def edit_post(userId, postId):
+def edit_post(postId):
     # print("In the edit post route!!!!!!!!")
     form = PostForm()
     form["csrf_token"].data = request.cookies["csrf_token"]
-    userId = current_user.id
-    form.user_id.data = userId
+    # userId = current_user.id
+    form.user_id.data = current_user.id
 
     edit_post = Post.query.get(postId)
     # print("edit_post in the edit post route: ", edit_post.to_dict())
     try: 
 
-        if edit_post.user.id == userId:
+        if edit_post.user.id == current_user.id:
             edit_post.title = form.data['title']
             edit_post.img = form.data['img']
             edit_post.video = form.data['video']
@@ -98,8 +98,35 @@ def delete_post(postId):
     
     except Exception as e:
         return {"error" : str(e)}, 500
+    
+
+#get all post of current user 
+@post_route.route('/<int:userId>/all', methods=["GET"])
+@login_required
+def get_current_user_post(userId):
+
+    try: 
+        user_posts = Post.query.filter(Post.user_id == userId).all()
+        return [post.to_dict() for post in user_posts]
+    
+    except Exception as e:
+        return {"error" : str(e)}, 500
 
 
+#get a post by post id
+@post_route.route('/<int:postId>', methods=["GET"])
+@login_required
+def get_single_post(postId):
+    
+    try: 
+        single_post = Post.query.get(postId)
+        if single_post:
+            return single_post.to_dict()
+        else:
+            return "Post not found."
+    
+    except Exception as e:
+        return {"error" : str(e)}, 500
 
 
         
