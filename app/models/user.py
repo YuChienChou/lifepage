@@ -14,7 +14,7 @@ class User(db.Model, UserMixin):
     first_name = db.Column(db.String(40), nullable=False)
     last_name = db.Column(db.String(40), nullable=False)
     email = db.Column(db.String(255), nullable=False, unique=True)
-    phone = db.Column(db.Integer)
+    phone = db.Column(db.String(15))
     birth_date = db.Column(db.Date)
     bio = db.Column(db.String(500))
     hobbies = db.Column(db.String(500))
