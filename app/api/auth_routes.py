@@ -1,4 +1,4 @@
-from flask import Blueprint, jsonify, session, request
+from flask import Blueprint, jsonify, session, request, render_template
 from app.models import User, db
 from app.forms import LoginForm
 from app.forms import SignUpForm
@@ -54,6 +54,7 @@ def logout():
     return {'message': 'User logged out'}
 
 
+
 @auth_routes.route('/signup', methods=['POST'])
 def sign_up():
     """
@@ -64,6 +65,8 @@ def sign_up():
     if form.validate_on_submit():
         user = User(
             username=form.data['username'],
+            # first_name = form.data['first_name'],
+            # last_name = form.data['last_name'],
             email=form.data['email'],
             password=form.data['password']
         )
@@ -80,3 +83,10 @@ def unauthorized():
     Returns unauthorized JSON when flask-login authentication fails
     """
     return {'errors': ['Unauthorized']}, 401
+
+#test signup form
+@auth_routes.route('/signup', methods=['GET'])
+# @login_required
+def signup_form():
+    form = SignUpForm()
+    return render_template("signup.html", form=form)
