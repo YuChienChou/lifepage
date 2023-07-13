@@ -1,11 +1,13 @@
 import React from "react";
 import { login } from "../../store/session";
 import { useDispatch } from "react-redux";
+import { useHistory } from "react-router-dom";
 
 
 export default function DemoUser() {
 
     const dispatch = useDispatch();
+    const history = useHistory();
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -15,7 +17,8 @@ export default function DemoUser() {
             password: "password",
         }
 
-        return dispatch(login(userInfo));
+        dispatch(login(userInfo));
+        history.push('/user')
         
     }
 
