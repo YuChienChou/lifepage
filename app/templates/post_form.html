@@ -1,0 +1,8 @@
+<form method="post" action="">
+    {{ form.csrf_token }}
+    <p>{{form.title.label}}: {{form.title}}</p>
+    <p>{{form.img.label}}: {{form.img}}</p>
+    <p>{{form.video.label}}: {{form.video}}</p>
+    <p>{{form.body.label}}: {{form.body}}</p>
+    <p>{{form.submit}}</p>
+</form>

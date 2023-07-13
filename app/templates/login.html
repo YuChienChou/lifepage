@@ -1,7 +1,5 @@
 <form method="post" action="">
     {{ form.csrf_token }}
-    <p>{{form.first_name.label}}: {{form.first_name}}</p>
-    <p>{{form.last_name.label}}: {{form.last_name}}</p>
     <p>{{form.email.label}}: {{form.email}}</p>
     <p>{{form.password.label}}: {{form.password}}</p>
     <p>{{form.submit}}</p>
