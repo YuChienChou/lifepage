@@ -2,6 +2,8 @@ import React, { useEffect, useState} from 'react';
 import { useHistory, Link } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { login } from "../../store/session";
+import SignupFormModal from '../SignupFormModal';
+import OpenModalButton from '../OpenModalButton';
 
 
 export default function Home() {
@@ -83,10 +85,16 @@ export default function Home() {
             >Log in
             </button>
         </form>
-
-        
-        {hasSubmit  && <p>{validationError.email}</p>}
-        {hasSubmit && <p>{validationError.password}</p>}
+        <div id='error-area'>
+            {hasSubmit  && <p>{validationError.email}</p>}
+            {hasSubmit && <p>{validationError.password}</p>}
+        </div>
+        <div id='signup-modal'>
+            <OpenModalButton
+                buttonText="Create new account"
+                modalComponent={<SignupFormModal />}
+            />
+        </div>
             
         </>
     )
