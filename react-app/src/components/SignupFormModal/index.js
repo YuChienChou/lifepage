@@ -4,76 +4,110 @@ import { useModal } from "../../context/Modal";
 import { signUp } from "../../store/session";
 import "./SignupForm.css";
 
+const BIRTHDAYMONTH = ['Jan', 'Fab', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
+
+const BIRTHDAYDATE = [];
+for (let i = 1; i < 32; i++) {
+	BIRTHDAYDATE.push(i)
+}
+
+
 function SignupFormModal() {
 	const dispatch = useDispatch();
-	const [email, setEmail] = useState("");
-	const [username, setUsername] = useState("");
-	const [password, setPassword] = useState("");
-	const [confirmPassword, setConfirmPassword] = useState("");
-	const [errors, setErrors] = useState([]);
+	const [addFirstName, setAddFirstName] = useState("")
+	const [addLastName, setAddLastName] = useState("")
+	const [addEmail, setAddEmail] = useState("");
+	const [addPassword, setAddPassword] = useState("");
+	const [addBirthdayDate, setAddBirthdayDate] = useState(BIRTHDAYDATE[0]);
+	const [addBirthdayMonth, setAddBirthdayMonth] = useState(BIRTHDAYMONTH[0]);
+	const [validationError,  setValidationError] = useState({});
+	const [hasSubmit, setHasSubmit] = useState(false)
 	const { closeModal } = useModal();
+
+	
 
 	const handleSubmit = async (e) => {
 		e.preventDefault();
-		if (password === confirmPassword) {
-			const data = await dispatch(signUp(username, email, password));
-			if (data) {
-				setErrors(data);
-			} else {
-				closeModal();
-			}
-		} else {
-			setErrors([
-				"Confirm Password field must be the same as the Password field",
-			]);
+		setHasSubmit(true)
+
+		const signupInfo = {
+			firstName : addFirstName,
+			lastName : addLastName,
+			email : addEmail,
+			birthdayDate : addBirthdayDate,
+			birthedayMonth : addBirthdayMonth,
 		}
+
+
+	
 	};
 
 	return (
 		<>
 			<h1>Sign Up</h1>
-			<form onSubmit={handleSubmit}>
-				<ul>
-					{errors.map((error, idx) => (
-						<li key={idx}>{error}</li>
-					))}
-				</ul>
+			<p>It's quick and easy.</p>
+
+			<form>
 				<label>
-					Email
+					<input 
+						type='text'
+						value={addFirstName}
+						onChange={(e) => setAddFirstName(e.target.value)}
+						required
+						placeholder="First name"
+					/>
+				</label>
+				<label>
+					<input 
+						type='text'
+						value={addLastName}
+						onChange={(e) => setAddLastName(e.target.value)}
+						required
+						placeholder="Last name"
+					/>
+				</label>
+				<label>
 					<input
 						type="text"
-						value={email}
-						onChange={(e) => setEmail(e.target.value)}
+						value={addEmail}
+						onChange={(e) => setAddEmail(e.target.value)}
 						required
+						placeholder="Email"
 					/>
 				</label>
 				<label>
-					Username
-					<input
-						type="text"
-						value={username}
-						onChange={(e) => setUsername(e.target.value)}
-						required
-					/>
-				</label>
-				<label>
-					Password
 					<input
 						type="password"
-						value={password}
-						onChange={(e) => setPassword(e.target.value)}
+						value={addPassword}
+						onChange={(e) => setAddPassword(e.target.value)}
 						required
+						placeholder="New password"
 					/>
 				</label>
 				<label>
-					Confirm Password
-					<input
-						type="password"
-						value={confirmPassword}
-						onChange={(e) => setConfirmPassword(e.target.value)}
-						required
-					/>
+					Birthday
+					<select value={addBirthdayMonth} onChange={(e) => setAddBirthdayMonth(e.target.value)} required>
+						{BIRTHDAYMONTH.map(month => (
+							<option 
+								key={month}
+							>
+								{month}
+							</option>
+						))}
+					</select>
 				</label>
+				<label>
+					<select value={addBirthdayDate} onChange={(e) => setAddBirthdayDate(e.target.value)} required>
+							{BIRTHDAYDATE.map(date => (
+								<option 
+									key={date}
+								>
+									{date}
+								</option>
+							))}
+					</select>
+				</label>
+
 				<button type="submit">Sign Up</button>
 			</form>
 		</>
