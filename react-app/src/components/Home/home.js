@@ -4,6 +4,7 @@ import { useDispatch } from 'react-redux';
 import { login } from "../../store/session";
 import SignupFormModal from '../SignupFormModal';
 import OpenModalButton from '../OpenModalButton';
+import DemoUser from './demoUser';
 
 
 export default function Home() {
@@ -28,23 +29,21 @@ export default function Home() {
                 const [field, message] = error.split(" : ");
                 errors[field] = message;
             })
-            console.log("errors obj: ", errors)
+            // console.log("errors obj: ", errors)
             setValidationError(errors)
             // console.log("errors in the home component: ", validationError);
-            return;
+            return null;
         } else {
             // history.push('/user')
             console.log("Succefully logged in!!!!")
             return "Log in succefully"
         }
-
-
     }
 
     useEffect(() => {
         const errors = {}
         if(!email || !email.includes("@")) errors.email = "Please provide valid email";
-        if(!password) errors.password = "Pleasr provide password";
+        if(!password) errors.password = "Please provide password";
 
         setValidationError(errors)
     }, [email, password])
@@ -94,6 +93,9 @@ export default function Home() {
                 buttonText="Create new account"
                 modalComponent={<SignupFormModal />}
             />
+        </div>
+        <div>
+            <DemoUser />
         </div>
             
         </>

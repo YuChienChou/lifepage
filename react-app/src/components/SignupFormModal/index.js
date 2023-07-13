@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { useModal } from "../../context/Modal";
 import { signUp } from "../../store/session";
@@ -25,29 +25,54 @@ function SignupFormModal() {
 	const { closeModal } = useModal();
 
 	
-
 	const handleSubmit = async (e) => {
 		e.preventDefault();
-		setHasSubmit(true)
+		setHasSubmit(true);
 
 		const signupInfo = {
-			firstName : addFirstName,
-			lastName : addLastName,
-			email : addEmail,
-			birthdayDate : addBirthdayDate,
-			birthedayMonth : addBirthdayMonth,
+			first_name: addFirstName,
+			last_name: addLastName,
+			email: addEmail,
+			password: addPassword,
+			// addBirthdayDate,
+			// addBirthdayMonth,
 		}
 
+		const res = await dispatch(signUp(signupInfo));
 
-	
+		if(res && res.length > 0) {
+			const errors = {}
+            res.forEach((error) => {
+                const [field, message] = error.split(" : ");
+                errors[field] = message;
+            })
+
+			setValidationError(errors);
+			return;
+		} else {
+			console.log("Succefully sign up!!!!")
+			closeModal()
+		}
 	};
+
+	useEffect(() => {
+		const errors = {};
+		if(!addFirstName) errors.addFirstName = "Please enter your first name.";
+		if(!addLastName) errors.addFirstName = "Please enter your Last name.";
+		if(!addEmail || !addEmail.includes("@")) errors.addEmail = "Please provide valide email.";
+		if(!addPassword) errors.addPassword = "Please provide a password";
+
+		setValidationError(errors);
+	}, [addFirstName, addLastName, addEmail, addPassword])
+
 
 	return (
 		<>
 			<h1>Sign Up</h1>
 			<p>It's quick and easy.</p>
+			{hasSubmit && <p>{validationError.email}</p>}
 
-			<form>
+			<form onSubmit={handleSubmit}>
 				<label>
 					<input 
 						type='text'
@@ -68,7 +93,7 @@ function SignupFormModal() {
 				</label>
 				<label>
 					<input
-						type="text"
+						type="email"
 						value={addEmail}
 						onChange={(e) => setAddEmail(e.target.value)}
 						required
@@ -85,7 +110,7 @@ function SignupFormModal() {
 					/>
 				</label>
 				<label>
-					Birthday
+					Birthday (optional)
 					<select value={addBirthdayMonth} onChange={(e) => setAddBirthdayMonth(e.target.value)} required>
 						{BIRTHDAYMONTH.map(month => (
 							<option 
@@ -108,7 +133,10 @@ function SignupFormModal() {
 					</select>
 				</label>
 
-				<button type="submit">Sign Up</button>
+				<button 
+					type="submit"
+					// disabled={Object.values(validationError).length > 0}
+				>Sign Up</button>
 			</form>
 		</>
 	);
