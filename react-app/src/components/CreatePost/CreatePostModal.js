@@ -1,4 +1,4 @@
-import { useSelector, useDispatch } from "react-redux";
+import { useDispatch } from "react-redux";
 import { useState, useEffect } from 'react';
 import { createPostThunk } from "../../store/post";
 import { useModal } from "../../context/Modal";
@@ -40,7 +40,6 @@ export default function CreatePost({sessionUser}) {
 
         setValidationError(errors)
     }, [body]);
-
 
     return (
         <>

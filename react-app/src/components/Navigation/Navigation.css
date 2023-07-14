@@ -1,7 +1,62 @@
-.profile-dropdown {
-  position: absolute;
+
+
+#nav-bar {
+  width: 100%;
+  height: 56px;
+  padding: 0 16px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #FFFFFF;
+  position: fixed;
+  top: 0px;
 }
 
-.hidden {
-  display: none;
+#nav-link {
+  text-decoration: none;
+  background-color: #FFFFFF;
+  font-size: 24px;
+  font-weight: 900;
+  color: #1674EA;
 }
+
+#nav-bar img {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+#nav-user-info {
+      position: absolute;
+      top: 50px;
+      right: 30px;
+      padding: 10px;
+      background-color: #FFFFFF;
+      border-radius: 5px;
+      box-shadow: 2px 2px 2px #cdd2d8;
+}
+
+#nav-user-info p {
+  background-color: #FFFFFF;
+  border-bottom: 1px solid #393c3f;
+  padding: 5px;
+}
+
+#nav-user-info p:hover {
+  background-color: #F0F2F5;
+}
+
+#nav-user-info button {
+  border: none;
+  background-color: #FFFFFF;
+  padding: 5px;
+  font-size: 16px;
+  width: 100%;
+  cursor: pointer;
+}
+
+#nav-user-info button:hover {
+  background-color: #F0F2F5;
+}
+
