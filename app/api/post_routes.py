@@ -61,14 +61,14 @@ def create_post(userId):
 @post_route.route('/<int:postId>/edit', methods=["POST"])
 @login_required
 def edit_post(postId):
-    # print("In the edit post route!!!!!!!!")
+    print("In the edit post route!!!!!!!!")
     form = PostForm()
     form["csrf_token"].data = request.cookies["csrf_token"]
     # userId = current_user.id
     form.user_id.data = current_user.id
 
     edit_post = Post.query.get(postId)
-    # print("edit_post in the edit post route: ", edit_post.to_dict())
+    print("edit_post in the edit post route: ", edit_post.to_dict())
     try: 
 
         if edit_post.user.id == current_user.id:
@@ -76,8 +76,11 @@ def edit_post(postId):
             edit_post.img = form.data['img']
             edit_post.video = form.data['video']
             edit_post.body = form.data['body']
+            edit_post.updated_at = date.today()
             db.session.commit()
+            print("edited post in the edit post route: ", edit_post.to_dict())
             return edit_post.to_dict()
+
     
     except Exception as e: 
         return {"error" : str(e)}, 500
