@@ -13,7 +13,7 @@ print(__name__)
 @post_route.route('/', methods=["GET"])
 @login_required
 def get_all_posts():
-    print("in the get all posts route~~~~~~~~~~")
+    # print("in the get all posts route~~~~~~~~~~")
     posts = Post.query.all()
     return [post.to_dict() for post in posts]
     

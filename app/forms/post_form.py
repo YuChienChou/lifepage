@@ -5,10 +5,10 @@ from datetime import date
 
 
 class PostForm(FlaskForm):
-    title = StringField('title', validators=[DataRequired()])
+    title = StringField('title')
     img = StringField('img')
     video = StringField('video')
-    body = TextAreaField('body')
+    body = TextAreaField('body', validators=[DataRequired()])
     user_id = IntegerField('user id')
     created_at = date.today()
     updated_at = date.today()
