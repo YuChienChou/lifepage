@@ -43,6 +43,7 @@ class Post(db.Model):
                 'username' : self.user.username,
                 'firstname' : self.user.first_name,
                 'lastname' : self.user.last_name,
+                'profile_picture' : self.user.profile_picture,
             }
         }
 

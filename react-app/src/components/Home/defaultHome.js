@@ -1,12 +1,14 @@
 import React, { useEffect, useState} from 'react';
-import { useHistory, Link } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
+import { useHistory } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
 import { login } from "../../store/session";
 import SignupFormModal from '../SignupFormModal';
 import OpenModalButton from '../OpenModalButton';
+import DemoUser from './demoUser';
 
 
-export default function Home() {
+export default function DefaultHome() {
+    const sessionUser = useSelector((state) => state.session.user);
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [validationError, setValidationError] = useState({});
@@ -19,7 +21,12 @@ export default function Home() {
 
         setHasSubmit(true);
 
-        const res = await dispatch(login(email, password));
+        const userInfo = {
+            email,
+            password,
+        }
+
+        const res = await dispatch(login(userInfo));
         console.log("res in the home component: ", res)
 
         if(res && res.length > 0) {
@@ -28,23 +35,20 @@ export default function Home() {
                 const [field, message] = error.split(" : ");
                 errors[field] = message;
             })
-            console.log("errors obj: ", errors)
+            // console.log("errors obj: ", errors)
             setValidationError(errors)
             // console.log("errors in the home component: ", validationError);
-            return;
-        } else {
-            // history.push('/user')
-            console.log("Succefully logged in!!!!")
-            return "Log in succefully"
+            return null;
+        } 
+        else {
+            history.push(`/user`);
         }
-
-
     }
 
     useEffect(() => {
         const errors = {}
         if(!email || !email.includes("@")) errors.email = "Please provide valid email";
-        if(!password) errors.password = "Pleasr provide password";
+        if(!password) errors.password = "Please provide password";
 
         setValidationError(errors)
     }, [email, password])
@@ -60,7 +64,7 @@ export default function Home() {
         >
             <label>
                 <input
-                    type='text'
+                    type='email'
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
                     required
@@ -81,7 +85,7 @@ export default function Home() {
             <button
                 type='submit'
                 id='login-button'
-                disabled={Object.values(validationError).length > 0}
+                // disabled={Object.values(validationError).length > 0}
             >Log in
             </button>
         </form>
@@ -94,6 +98,9 @@ export default function Home() {
                 buttonText="Create new account"
                 modalComponent={<SignupFormModal />}
             />
+        </div>
+        <div>
+            <DemoUser />
         </div>
             
         </>
