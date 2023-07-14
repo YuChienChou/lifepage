@@ -5,7 +5,7 @@ import SignupFormPage from "./components/SignupFormPage";
 import LoginFormPage from "./components/LoginFormPage";
 import { authenticate } from "./store/session";
 import DefaultHome from "./components/Home/defaultHome";
-import UserHome from "./components/Home/userHome";
+import UserHome from "./components/User/userHome";
 
 function App() {
   const dispatch = useDispatch();
@@ -27,6 +27,9 @@ function App() {
           </Route>
           <Route exact path='/user'>
             <UserHome />
+          </Route>
+          <Route exact path ='/user/:userId'>
+
           </Route>
           <Route exact path='/'>
             <DefaultHome />

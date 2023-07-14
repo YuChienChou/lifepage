@@ -14,9 +14,9 @@ export default function CreatePost({sessionUser}) {
     const dispatch = useDispatch();
     const { closeModal } = useModal();
 
-    const showImgAreaFun = () => {{
+    const showImgAreaFun = () => {
         setShowImgArea(!showImgArea)
-    }}
+    }
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -29,7 +29,7 @@ export default function CreatePost({sessionUser}) {
             body,
             user_id: sessionUser.id,
         }
-        dispatch(createPostThunk(sessionUser.id, postInfo))
+        await dispatch(createPostThunk(sessionUser.id, postInfo))
         .then(closeModal())
     }
 
@@ -74,7 +74,10 @@ export default function CreatePost({sessionUser}) {
             }
 
             <div>
-                <button type='submit'>
+                <button 
+                    type='submit'
+                    disabled={Object.values(validationError).length > 0}
+                >
                     Add to your post
                 </button>
                 <div onClick={showImgAreaFun}>

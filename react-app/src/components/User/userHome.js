@@ -4,7 +4,7 @@ import { getAllPostsThunk } from '../../store/post';
 import Navigation from '../Navigation';
 import OpenModalButton from '../OpenModalButton';
 import CreatePost from '../CreatePost/CreatePostModal';
-
+import EditDeletePostModal from '../EditDeletePost/EditDeletePostModal';
 
 export default function UserHome() {
     const sessionUser = useSelector((state) => state.session.user);
@@ -41,16 +41,27 @@ export default function UserHome() {
                 {postsArr.reverse().map((post) => (
                     <li id={post.id} className='post-list'>
                         <div id={post.id}>
-                            <div id='user-img-name'>
-                                <img src={post.User.profile_picture} alt={post.User.first_name} />
-                                <p>{post.User.firstname} {post.User.lastname}</p>
+                            <div>
+                                <div id='user-img-name'>
+                                    <img src={post.User.profile_picture} alt={post.User.first_name} />
+                                    <p>{post.User.firstname} {post.User.lastname}</p>
+                                </div>
+                                {post.User.id === sessionUser.id ? 
+                               
+                                <div>
+                                    <OpenModalButton
+                                        buttonText="Edit/Delete"
+                                        modalComponent={<EditDeletePostModal sessionUser={sessionUser} post={post}/>}
+                                    />
+                                </div> : null 
+                                }
                             </div>
                             <div>
                                 <p>{post.title}</p>
                                 <p>{post.body}</p>
                                 <img src={post.img} alt=""/>
                             </div>
-                            {/* {post.video ? 
+                            {post.video ? 
                                 <div>
                                     <video controls width='250'>
                                         <source src={post.video} type='video/mp4'></source>
@@ -58,7 +69,7 @@ export default function UserHome() {
 
                                 </div> : null
                             
-                            } */}
+                            }
                         </div>
                     </li>
                 ))}
