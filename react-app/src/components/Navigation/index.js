@@ -1,5 +1,5 @@
 import React, { useState} from 'react';
-import { NavLink, useHistory } from 'react-router-dom';
+import { NavLink, useHistory, Link } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { logout } from '../../store/session';
 import './Navigation.css';
@@ -34,8 +34,8 @@ function Navigation({ isLoaded }){
 
 				{showInfo ? 
 					<div id='nav-user-info' onMouseLeave={hideInfoFunction}>
-						<p>{sessionUser.first_name} {sessionUser.last_name}</p>
-						<p>{sessionUser.email}</p>
+						<Link to={`/user/${sessionUser.id}`}><p>{sessionUser.first_name} {sessionUser.last_name}</p>
+						<p>{sessionUser.email}</p></Link>
 						<button onClick={handleLogout}>
 							Log out
 						</button>

@@ -1,10 +1,12 @@
 import { useSelector, useDispatch } from 'react-redux';
 import { useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import { getAllPostsThunk } from '../../store/post';
 import Navigation from '../Navigation';
 import OpenModalButton from '../OpenModalButton';
 import CreatePost from '../CreatePost/CreatePostModal';
 import EditDeletePostModal from '../EditDeletePost/EditDeletePostModal';
+import './user.css'
 
 export default function UserHome() {
     const sessionUser = useSelector((state) => state.session.user);
@@ -28,8 +30,14 @@ export default function UserHome() {
         <div id='user-home-container'>
             {/* <h1>this is the user landing page</h1> */}
             <div id='userhome-left'>
-                <i className="fa-solid fa-house"></i>
-                {/* <img src={sessionUser.profile_picture} alt={sessionUser.first_name} /> */}
+                <div id='userhome-home-link'>
+                    <Link to='/user'><i className="fa-solid fa-house"></i></Link>
+                    <p>Home</p>
+                </div>
+                <div id='userhome-user-link'>
+                    <img src={sessionUser.profile_picture} alt={sessionUser.first_name} />
+                    <p>{sessionUser.first_name} {sessionUser.last_name}</p>
+                </div>
             </div>
             <div id='userhome-middle'>
                 <div>
@@ -38,41 +46,43 @@ export default function UserHome() {
                         modalComponent={<CreatePost sessionUser={sessionUser}/>}
                     />
                 </div>
-                {postsArr.reverse().map((post) => (
-                    <li id={post.id} className='post-list'>
-                        <div id={post.id}>
-                            <div>
-                                <div id='user-img-name'>
-                                    <img src={post.User.profile_picture} alt={post.User.first_name} />
-                                    <p>{post.User.firstname} {post.User.lastname}</p>
+                <div id='post-list-container'>
+                    {postsArr.reverse().map((post) => (
+                        <li id={post.id} className='post-list'>
+                            <div id='post-list-div'>
+                                <div>
+                                    <div id='user-img-name'>
+                                        <Link to={`/user/${post.User.id}`}> <img src={post.User.profile_picture} alt={post.User.first_name} />
+                                        <p>{post.User.firstname} {post.User.lastname}</p></Link>
+                                    </div>
+                                    {post.User.id === sessionUser.id ? 
+                                
+                                    <div>
+                                        <OpenModalButton
+                                            buttonText="Edit/Delete"
+                                            modalComponent={<EditDeletePostModal sessionUser={sessionUser} post={post}/>}
+                                        />
+                                    </div> : null 
+                                    }
                                 </div>
-                                {post.User.id === sessionUser.id ? 
-                               
-                                <div>
-                                    <OpenModalButton
-                                        buttonText="Edit/Delete"
-                                        modalComponent={<EditDeletePostModal sessionUser={sessionUser} post={post}/>}
-                                    />
-                                </div> : null 
-                                }
-                            </div>
-                            <div>
-                                <p>{post.title}</p>
-                                <p>{post.body}</p>
-                                <img src={post.img} alt=""/>
-                            </div>
-                            {post.video ? 
-                                <div>
-                                    <video controls width='250'>
-                                        <source src={post.video} type='video/mp4'></source>
-                                    </video>
+                                <div id='post-content'>
+                                    <p>{post.title}</p>
+                                    <p>{post.body}</p>
+                                    <img src={post.img} alt=""/>
+                                </div>
+                                {/* {post.video ? 
+                                    <div>
+                                        <video controls width='250'>
+                                            <source src={post.video} type='video/mp4'></source>
+                                        </video>
 
-                                </div> : null
-                            
-                            }
-                        </div>
-                    </li>
-                ))}
+                                    </div> : null
+                                
+                                } */}
+                            </div>
+                        </li>
+                    ))}
+                </div>
             </div>
             <div id='userhome-right'>right div</div>
         </div>

@@ -1,6 +1,6 @@
 import React, { useEffect, useState} from 'react';
 import { useHistory } from 'react-router-dom';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { login } from "../../store/session";
 import SignupFormModal from '../SignupFormModal';
 import OpenModalButton from '../OpenModalButton';

@@ -25,8 +25,12 @@ def user(id):
     user = User.query.get(id)
     return user.to_dict()
 
+
 @user_routes.route('/current')
 @login_required
 def get_current_user():
+    """
+    Query for session user and returns that user in a dictionary
+    """
     user = current_user
     return user.to_dict()

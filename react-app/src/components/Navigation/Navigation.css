@@ -10,6 +10,7 @@
   background-color: #FFFFFF;
   position: fixed;
   top: 0px;
+  z-index: 2;
 }
 
 #nav-link {

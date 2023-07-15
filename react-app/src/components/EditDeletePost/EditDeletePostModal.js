@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { deletePostThunk, getAllPostsThunk} from '../../store/post';
 import { useModal } from '../../context/Modal';
@@ -8,11 +8,6 @@ import EditPostModal from './EditPostModal';
 
 
 export default function EditDeletePostModal({sessionUser, post}) {
-    const [title, setTitle] = useState("")
-    const [img, setImg] = useState("");
-    const [body, setBody] = useState("");
-    const [validationError, setValidationError] = useState({});
-    const [hasSubmit, setHasSubmit] = useState(false);
     const dispatch = useDispatch();
     const { closeModal } = useModal();
 

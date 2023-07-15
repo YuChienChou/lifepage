@@ -13,35 +13,6 @@
     padding: 20% 10% 20% 10%;
 }
 
-#user-home-container {
-    padding-top: 56px;
-    display: flex;
-}
-
-#userhome-left {
-    width: 300px;
-}
-
-#userhome-middle {
-    padding-left: 0 32px;
-}
-
-.post-list{
-    list-style: none;
-}
-
-#userhome-right {
-    width: 360px;
-}
-
-#user-img-name img {
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
-}
 
 
-#nodal {
-    background-color: pink;
-}
 

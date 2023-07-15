@@ -2,6 +2,8 @@ import { useDispatch } from "react-redux";
 import { useState, useEffect } from 'react';
 import { createPostThunk } from "../../store/post";
 import { useModal } from "../../context/Modal";
+import './createpost.css'
+
 
 export default function CreatePost({sessionUser}) {
     const [title, setTitle] = useState("")
@@ -44,8 +46,8 @@ export default function CreatePost({sessionUser}) {
     return (
         <>
         <h3>Create Post</h3>
-        <div>
-            <img src={sessionUser.profile_picture} />
+        <div id='create-post-user'>
+            <img src={sessionUser.profile_picture} alt={sessionUser.first_name}/>
             <p>{sessionUser.first_name} {sessionUser.last_name}</p>
         </div>
         <form onSubmit={handleSubmit}>
