@@ -1,14 +1,14 @@
 import React, { useEffect, useState} from 'react';
 import { useHistory } from 'react-router-dom';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { login } from "../../store/session";
 import SignupFormModal from '../SignupFormModal';
 import OpenModalButton from '../OpenModalButton';
 import DemoUser from './demoUser';
+import './Home.css';
 
 
 export default function DefaultHome() {
-    const sessionUser = useSelector((state) => state.session.user);
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [validationError, setValidationError] = useState({});
@@ -56,53 +56,62 @@ export default function DefaultHome() {
 
     return (
         <>
-        <h1>lifepage</h1>
-        <h3>Connect with friends and the world around you on Lifepage.</h3>
+        <div id='default-home-outer'>
+            <div id='default-home-container'>
+                <div>
+                    <h1>lifepage</h1>
+                    <h3>Connect with friends and the world around you on Lifepage.</h3>
+                </div>
 
-        <form id='login-form'
-        onSubmit={handleSubmit}
-        >
-            <label>
-                <input
-                    type='email'
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                    required
-                    placeholder='User Email'
-                    id='login-email'
-                />
-            </label>
-            <label>
-                <input 
-                    type='password'
-                    value={password}
-                    onChange={(e) => setPassword(e.target.value)}
-                    required
-                    placeholder='Password'
-                    id='login-password'
-                />
-            </label>
-            <button
-                type='submit'
-                id='login-button'
-                // disabled={Object.values(validationError).length > 0}
-            >Log in
-            </button>
-        </form>
-        <div id='error-area'>
-            {hasSubmit  && <p>{validationError.email}</p>}
-            {hasSubmit && <p>{validationError.password}</p>}
+                <div>
+                    <form id='login-form'
+                    onSubmit={handleSubmit}
+                    >
+                        <label>
+                            <input
+                                type='email'
+                                value={email}
+                                onChange={(e) => setEmail(e.target.value)}
+                                required
+                                placeholder='User Email'
+                                id='login-email'
+                            />
+                        </label>
+                        <label>
+                            <input 
+                                type='password'
+                                value={password}
+                                onChange={(e) => setPassword(e.target.value)}
+                                required
+                                placeholder='Password'
+                                id='login-password'
+                            />
+                        </label>
+                        <button
+                            type='submit'
+                            id='login-button'
+                            // disabled={Object.values(validationError).length > 0}
+                        >Log in
+                        </button>
+                    </form>
+                    <div id='error-area'>
+                        {hasSubmit  && <p>{validationError.email}</p>}
+                        {hasSubmit && <p>{validationError.password}</p>}
+                    </div>
+                    <div id='signup-modal'>
+                        <OpenModalButton
+                            buttonText="Create new account"
+                            modalComponent={<SignupFormModal />}
+                        />
+                    </div>
+                    <div>
+                        <DemoUser />
+                    </div>
+                </div>
+                
+            </div>
+            <div>Progammer info</div>
         </div>
-        <div id='signup-modal'>
-            <OpenModalButton
-                buttonText="Create new account"
-                modalComponent={<SignupFormModal />}
-            />
-        </div>
-        <div>
-            <DemoUser />
-        </div>
-            
         </>
     )
 }

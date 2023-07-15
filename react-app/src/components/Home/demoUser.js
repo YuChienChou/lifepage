@@ -9,7 +9,7 @@ export default function DemoUser() {
     const dispatch = useDispatch();
     const history = useHistory();
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
 
         const userInfo = {
@@ -17,9 +17,8 @@ export default function DemoUser() {
             password: "password",
         }
 
-        dispatch(login(userInfo));
+        await dispatch(login(userInfo));
         history.push('/user')
-        
     }
 
     return (
