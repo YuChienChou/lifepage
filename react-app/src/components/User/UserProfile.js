@@ -67,7 +67,7 @@ export default function UserPorfile() {
             
                 {userPostArr.length > 0 ? 
                     <div>
-                        {userPostArr.map((post) => (
+                        {userPostArr.reverse().map((post) => (
                             <li di={post.id}>
                                 <div id={post.id}>
                                 <div>

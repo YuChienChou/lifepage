@@ -1,6 +1,7 @@
 import { useDispatch } from "react-redux";
 import { useState, useEffect } from 'react';
-import { createPostThunk } from "../../store/post";
+import { createPostThunk, getUserPostsThunk } from "../../store/post";
+import { getSingleUserThunk } from "../../store/user";
 import { useModal } from "../../context/Modal";
 import './createpost.css'
 
@@ -31,8 +32,15 @@ export default function CreatePost({sessionUser}) {
             body,
             user_id: sessionUser.id,
         }
-        await dispatch(createPostThunk(sessionUser.id, postInfo))
-        .then(closeModal())
+
+        try {
+            await dispatch(createPostThunk(sessionUser.id, postInfo))
+            await dispatch(getSingleUserThunk(sessionUser.id))
+            await dispatch(getUserPostsThunk(sessionUser.id))
+            closeModal()
+        } catch(error) {
+            console.log(error);
+        }
     }
 
     useEffect(() => {
@@ -50,6 +58,9 @@ export default function CreatePost({sessionUser}) {
             <img src={sessionUser.profile_picture} alt={sessionUser.first_name}/>
             <p>{sessionUser.first_name} {sessionUser.last_name}</p>
         </div>
+        <div id='error-div'>
+            {hasSubmit && <p>{validationError.body}</p>}
+        </div>
         <form onSubmit={handleSubmit}>
             <div>
                 <input
@@ -59,6 +70,7 @@ export default function CreatePost({sessionUser}) {
                     onChange={(e) => setTitle(e.target.value)}
                 />
                 <textarea 
+                    type='text'
                     placeholder={`What's on your mind, ${sessionUser.first_name}`}
                     value={body}
                     onChange={(e) => setBody(e.target.value)}
@@ -68,6 +80,7 @@ export default function CreatePost({sessionUser}) {
             {showImgArea ? 
                 <div>
                     <input 
+                        type='text'
                         value={img}
                         onChange={(e) => setImg(e.target.value)}
                         placeholder="Please provide img url."

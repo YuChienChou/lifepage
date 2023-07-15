@@ -2,6 +2,8 @@ import { useState, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { editPostThunk } from '../../store/post';
 import { useModal } from '../../context/Modal';
+import { getAllPostsThunk, getUserPostsThunk } from '../../store/post';
+import { getSingleUserThunk } from '../../store/user';
 
 export default function EditPostModal({sessionUser, post, closeModalAndRefresh }) {
     console.log("post in editpostmodal: ", post);
@@ -24,9 +26,17 @@ export default function EditPostModal({sessionUser, post, closeModalAndRefresh }
             user_id : sessionUser.id
         }
         
-        await dispatch(editPostThunk(post.id, postInfo))
-        .then(closeModalAndRefresh);
-    }
+        try {
+            await dispatch(editPostThunk(post.id, postInfo))
+            await dispatch(getUserPostsThunk(sessionUser.id))
+            await dispatch(getAllPostsThunk())
+            await dispatch(getSingleUserThunk(sessionUser.id))
+            
+            closeModal();
+        } catch(error) {
+            console.log(error);
+        };
+    };
 
 
     useEffect(() => {

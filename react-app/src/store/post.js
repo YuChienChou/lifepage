@@ -122,7 +122,7 @@ export const deletePostThunk = (postId) => async (dispatch) => {
         });
 
         if(res.ok) {
-            dispatch(deletePost(postId));
+            await dispatch(deletePost(postId));
             return;
         }
     } catch(err) {
