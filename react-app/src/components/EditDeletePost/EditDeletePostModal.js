@@ -12,9 +12,9 @@ export default function EditDeletePostModal({sessionUser, post}) {
     const { closeModal } = useModal();
 
     const deletePost = async () => {
-        await dispatch(deletePostThunk(post.id))
-        await dispatch(getUserPostsThunk(sessionUser.id))
-        closeModal()
+        await dispatch(deletePostThunk(post.id));
+        await dispatch(getUserPostsThunk(sessionUser.id));
+        closeModal();
     };
 
     return (
@@ -27,10 +27,6 @@ export default function EditDeletePostModal({sessionUser, post}) {
                     buttonText="Edit post"
                     modalComponent={<EditPostModal sessionUser={sessionUser} post={post}/>}
                 />
-
-                <form id='edit-post-form'>
-
-                </form>
             </div>
             <div id='delete-post'>
                 <i className="fa-regular fa-trash-can" onClick={deletePost}></i>
@@ -38,5 +34,5 @@ export default function EditDeletePostModal({sessionUser, post}) {
             </div>
         </div>
         </>
-    )    
-}
+    );  
+};

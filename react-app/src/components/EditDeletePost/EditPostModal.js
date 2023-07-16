@@ -5,8 +5,8 @@ import { useModal } from '../../context/Modal';
 import { getAllPostsThunk, getUserPostsThunk } from '../../store/post';
 import { getSingleUserThunk } from '../../store/user';
 
-export default function EditPostModal({sessionUser, post, closeModalAndRefresh }) {
-    console.log("post in editpostmodal: ", post);
+export default function EditPostModal({sessionUser, post }) {
+    // console.log("post in editpostmodal: ", post);
     const [title, setTitle] = useState(post.title)
     const [img, setImg] = useState(post.img);
     const [body, setBody] = useState(post.body);
