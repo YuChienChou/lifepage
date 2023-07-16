@@ -1,9 +1,9 @@
-import { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
-import { deletePostThunk, getAllPostsThunk} from '../../store/post';
+import { deletePostThunk, getAllPostsThunk, getUserPostsThunk} from '../../store/post';
 import { useModal } from '../../context/Modal';
 import OpenModalButton from '../OpenModalButton';
 import EditPostModal from './EditPostModal';
+import { getSingleUserThunk } from '../../store/user';
 
 
 
@@ -11,21 +11,11 @@ export default function EditDeletePostModal({sessionUser, post}) {
     const dispatch = useDispatch();
     const { closeModal } = useModal();
 
-    const closeModalAndRefresh = () => {
+    const deletePost = async () => {
+        await dispatch(deletePostThunk(post.id));
+        await dispatch(getUserPostsThunk(sessionUser.id));
         closeModal();
-        dispatch(getAllPostsThunk());
-      };
-
-    const deletePost = async (e) => {
-        await dispatch(deletePostThunk(post.id))
-        .then(closeModal())
     };
-
-
-    useEffect(() => {
-        dispatch(getAllPostsThunk())
-    }, [dispatch])
-
 
     return (
         <>
@@ -35,12 +25,8 @@ export default function EditDeletePostModal({sessionUser, post}) {
                 <p>Edit post</p>
                 <OpenModalButton
                     buttonText="Edit post"
-                    modalComponent={<EditPostModal sessionUser={sessionUser} post={post} closeModalAndRefresh={closeModalAndRefresh}/>}
+                    modalComponent={<EditPostModal sessionUser={sessionUser} post={post}/>}
                 />
-
-                <form id='edit-post-form'>
-
-                </form>
             </div>
             <div id='delete-post'>
                 <i className="fa-regular fa-trash-can" onClick={deletePost}></i>
@@ -48,5 +34,5 @@ export default function EditDeletePostModal({sessionUser, post}) {
             </div>
         </div>
         </>
-    )    
-}
+    );  
+};

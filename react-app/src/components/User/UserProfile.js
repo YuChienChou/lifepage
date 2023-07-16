@@ -7,6 +7,7 @@ import Navigation from "../Navigation";
 import OpenModalButton from "../OpenModalButton";
 import CreatePost from "../CreatePost/CreatePostModal";
 import EditDeletePostModal from '../EditDeletePost/EditDeletePostModal';
+import Comment from "../Comments/Comment";
 import './user.css'
 
 export default function UserPorfile() {
@@ -18,7 +19,7 @@ export default function UserPorfile() {
     const userPostsStore = useSelector((state) => state.posts.userPosts);
     // console.log("user posts in user profile page: ", userPostsStore);
     const userPostArr = Object.values(userPostsStore);
-    console.log("user posts array in user profile page: ", userPostArr)
+    // console.log("user posts array in user profile page: ", userPostArr);
 
     const dispatch = useDispatch();
 
@@ -67,7 +68,7 @@ export default function UserPorfile() {
             
                 {userPostArr.length > 0 ? 
                     <div>
-                        {userPostArr.map((post) => (
+                        {userPostArr.reverse().map((post) => (
                             <li di={post.id}>
                                 <div id={post.id}>
                                 <div>
@@ -75,22 +76,21 @@ export default function UserPorfile() {
                                         <Link to={`/user/${post.User.id}`}> <img src={post.User.profile_picture} alt={post.User.first_name} />
                                         <p>{post.User.firstname} {post.User.lastname}</p></Link>
                                     </div>
-                                    {post.User.id === sessionUser.id ? 
-                                
-                                    <div>
-                                        <OpenModalButton
-                                            buttonText="Edit/Delete"
-                                            modalComponent={<EditDeletePostModal sessionUser={sessionUser} post={post}/>}
-                                        />
-                                    </div> : null 
-                                    }
+                                    {/* {post.User.id === sessionUser.id ?  */}
+                                        <div>
+                                            <OpenModalButton
+                                                buttonText="Edit/Delete"
+                                                modalComponent={<EditDeletePostModal sessionUser={sessionUser} post={post}/>}
+                                            />
+                                        </div> 
+                                    {/* // : null } */}
                                 </div>
                                 <div>
                                     <p>{post.title}</p>
                                     <p>{post.body}</p>
                                     <img src={post.img} alt=""/>
                                 </div>
-                                {post.video ? 
+                                {/* {post.video ? 
                                     <div>
                                         <video controls width='250'>
                                             <source src={post.video} type='video/mp4'></source>
@@ -98,9 +98,11 @@ export default function UserPorfile() {
 
                                     </div> : null
                                 
-                                }
+                                } */}
                             </div>
-                                
+                            
+                            <Comment sessionUser={sessionUser} post={post} />
+                            
                             </li>
                         ))}
                     </div> : <p>This user doesn't have any post.</p>

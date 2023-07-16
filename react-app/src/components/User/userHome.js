@@ -5,7 +5,9 @@ import { getAllPostsThunk } from '../../store/post';
 import Navigation from '../Navigation';
 import OpenModalButton from '../OpenModalButton';
 import CreatePost from '../CreatePost/CreatePostModal';
+import Comment from '../Comments/Comment';
 import EditDeletePostModal from '../EditDeletePost/EditDeletePostModal';
+
 import './user.css'
 
 export default function UserHome() {
@@ -14,7 +16,7 @@ export default function UserHome() {
     const postsStore = useSelector((state) => state.posts.allPosts);
     // console.log("postsStore in the post component: ", postsStore);
     const postsArr = Object.values(postsStore);
-    console.log("Post array in the user home component: ", postsArr)
+    // console.log("Post array in the user home component: ", postsArr);
 
     const dispatch = useDispatch();
 
@@ -28,7 +30,6 @@ export default function UserHome() {
         <>
         <Navigation />
         <div id='user-home-container'>
-            {/* <h1>this is the user landing page</h1> */}
             <div id='userhome-left'>
                 <div id='userhome-home-link'>
                     <Link to='/user'><i className="fa-solid fa-house"></i></Link>
@@ -47,41 +48,48 @@ export default function UserHome() {
                     />
                 </div>
                 <div id='post-list-container'>
-                    {postsArr.reverse().map((post) => (
-                        <li id={post.id} className='post-list'>
-                            <div id='post-list-div'>
-                                <div>
-                                    <div id='user-img-name'>
-                                        <Link to={`/user/${post.User.id}`}> <img src={post.User.profile_picture} alt={post.User.first_name} />
-                                        <p>{post.User.firstname} {post.User.lastname}</p></Link>
+                    <ul>
+                        {postsArr.reverse().map((post) => (
+                        // console.log("post in the for loop: ", post)
+                        
+                            <li key={post.id} className='post-list'>
+                                {/* {console.log("post in the for loop: ", post)} */}
+                                <div id='post-list-div'>
+                                    <div>
+                                        <div id='user-img-name'>
+                                            <Link to={`/user/${post.User.id}`}> <img src={post.User.profile_picture} alt={post.User.first_name} />
+                                            <p>{post.User.firstname} {post.User.lastname}</p></Link>
+                                        </div>
+                                        {post.User.id === sessionUser.id ? 
+                                            <div>
+                                                <OpenModalButton
+                                                    buttonText="Edit/Delete"
+                                                    modalComponent={<EditDeletePostModal sessionUser={sessionUser} post={post}/>}
+                                                />
+                                            </div> : null 
+                                        }
                                     </div>
-                                    {post.User.id === sessionUser.id ? 
-                                
-                                    <div>
-                                        <OpenModalButton
-                                            buttonText="Edit/Delete"
-                                            modalComponent={<EditDeletePostModal sessionUser={sessionUser} post={post}/>}
-                                        />
-                                    </div> : null 
-                                    }
-                                </div>
-                                <div id='post-content'>
-                                    <p>{post.title}</p>
-                                    <p>{post.body}</p>
-                                    <img src={post.img} alt=""/>
-                                </div>
-                                {/* {post.video ? 
-                                    <div>
-                                        <video controls width='250'>
-                                            <source src={post.video} type='video/mp4'></source>
-                                        </video>
+                                    <div id='post-content'>
+                                        <p>{post.title}</p>
+                                        <p>{post.body}</p>
+                                        <img src={post.img} alt=""/>
+                                    </div>
+                                    {/* {post.video ? 
+                                        <div>
+                                            <video controls width='250'>
+                                                <source src={post.video} type='video/mp4'></source>
+                                            </video>
 
-                                    </div> : null
-                                
-                                } */}
-                            </div>
-                        </li>
-                    ))}
+                                        </div> : null
+                                    
+                                    } */}
+                                </div>
+                                <Comment sessionUser={sessionUser} post={post} />
+                                            
+                            </li>
+                        
+                        ))}
+                    </ul>
                 </div>
             </div>
             <div id='userhome-right'>right div</div>
