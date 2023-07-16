@@ -11,7 +11,7 @@ print(__name__)
 @comment_route.route('/<int:commentId>/edit', methods=["POST"])
 @login_required
 def edit_comment(commentId):
-    
+    # print("in the edit comment route~~~~~")
     try:
         edit_comment = Comment.query.get(commentId)
 
