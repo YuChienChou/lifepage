@@ -27,7 +27,7 @@ export default function DefaultHome() {
         }
 
         const res = await dispatch(login(userInfo));
-        console.log("res in the home component: ", res)
+        // console.log("res in the home component: ", res)
 
         if(res && res.length > 0) {
             const errors = {}
@@ -43,11 +43,13 @@ export default function DefaultHome() {
         else {
             history.push(`/user`);
         }
+
+        setValidationError({})
     }
 
     useEffect(() => {
         const errors = {}
-        if(!email || !email.includes("@")) errors.email = "Please provide valid email";
+        if(!email) errors.email = "Please provide valid email";
         if(!password) errors.password = "Please provide password";
 
         setValidationError(errors)
@@ -58,16 +60,21 @@ export default function DefaultHome() {
         <>
         <div id='default-home-outer'>
             <div id='default-home-container'>
-                <div>
-                    <h1>lifepage</h1>
-                    <h3>Connect with friends and the world around you on Lifepage.</h3>
+                <div id='default-home-welcome'>
+                    <div id='logo'>
+                        <h1>lifepage</h1>
+                    </div>
+                    <div id='welcome'>
+                        <p>Connect with friends and the world around you on Lifepage.</p>
+                    </div>
+                    
                 </div>
 
-                <div>
+                <div id='login-form-div'>
                     <form id='login-form'
-                    onSubmit={handleSubmit}
+                        onSubmit={handleSubmit}
                     >
-                        <label>
+                    
                             <input
                                 type='email'
                                 value={email}
@@ -76,8 +83,8 @@ export default function DefaultHome() {
                                 placeholder='User Email'
                                 id='login-email'
                             />
-                        </label>
-                        <label>
+                
+                    
                             <input 
                                 type='password'
                                 value={password}
@@ -86,31 +93,35 @@ export default function DefaultHome() {
                                 placeholder='Password'
                                 id='login-password'
                             />
-                        </label>
+                        
                         <button
                             type='submit'
                             id='login-button'
-                            // disabled={Object.values(validationError).length > 0}
+                            disabled={Object.values(validationError).length > 0}
                         >Log in
                         </button>
+
+                        <div id='error-area'>
+                            {hasSubmit  && <p>{validationError.email}</p>}
+                            {hasSubmit && <p>{validationError.password}</p>}
+                        </div>
                     </form>
-                    <div id='error-area'>
-                        {hasSubmit  && <p>{validationError.email}</p>}
-                        {hasSubmit && <p>{validationError.password}</p>}
-                    </div>
+
                     <div id='signup-modal'>
                         <OpenModalButton
                             buttonText="Create new account"
                             modalComponent={<SignupFormModal />}
                         />
                     </div>
-                    <div>
+                    <div id='demo-user'>
                         <DemoUser />
                     </div>
                 </div>
                 
             </div>
-            <div>Progammer info</div>
+            <div id='programmer-info'>
+                {/* <p>Progammer info</p> */}
+            </div>
         </div>
         </>
     )

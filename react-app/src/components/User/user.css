@@ -1,25 +1,53 @@
 #user-home-container {
     padding-top: 56px;
-    display: grid;
-    grid-template-columns: 1fr 3fr 1fr;
     position: relative;
-    flex-shrink: 1;
 }
 
 #userhome-left {
-    width: 300px;
+    width: fit-content;
     position: fixed;
     top: 56px;
     height: 100%;
     padding: 20px 10px;
 }
 
+#userhome-left a {
+    text-decoration: none;
+}
+
+
 #userhome-home-link {
     display: flex;
+    grid-gap: 10px;
+    gap: 10px;
+    padding: 10px;
+    border-radius: 5px;
+}
+
+#userhome-home-link:hover {
+    background-color: #E4E6E8;
+}
+
+#userhome-home-link i,
+#userhome-home-link p {
+    background-color: transparent;
 }
 
 #userhome-user-link {
     display: flex;
+    grid-gap: 10px;
+    gap: 10px;
+    padding: 10px;
+    border-radius: 5px;
+}
+
+#userhome-user-link:hover {
+    background-color: #E4E6E8;
+}
+
+#userhome-user-link i,
+#userhome-user-link p {
+    background-color: transparent;
 }
 
 #userhome-user-link img {
@@ -29,15 +57,13 @@
 }
 
 #userhome-middle {
+    width: 100%;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    margin-left: 300px;
     padding: 20px;
-    /* position: absolute;
-    top: 56px;
-    z-index: 1; */
+
 }
 
 #post-list-container {
@@ -60,12 +86,13 @@
 }
 
 #userhome-right {
-    width: 360px;
+    width: fit-content;
     position: fixed;
     top: 56px;
     right: 0px;
     height: 100%;
     align-content: right;
+    padding: 10px;
 }
 
 #user-img-name img {

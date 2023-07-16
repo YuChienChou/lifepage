@@ -31,14 +31,14 @@ export default function UserHome() {
         <Navigation />
         <div id='user-home-container'>
             <div id='userhome-left'>
-                <div id='userhome-home-link'>
-                    <Link to='/user'><i className="fa-solid fa-house"></i></Link>
+                <Link to='/user'><div id='userhome-home-link'>
+                    <i className="fa-solid fa-house"></i>
                     <p>Home</p>
-                </div>
-                <div id='userhome-user-link'>
-                    <img src={sessionUser.profile_picture} alt={sessionUser.first_name} />
+                </div></Link>
+                <Link to={`/user/${sessionUser.id}`}><div id='userhome-user-link'>
+                   <img src={sessionUser.profile_picture} alt={sessionUser.first_name} />
                     <p>{sessionUser.first_name} {sessionUser.last_name}</p>
-                </div>
+                </div></Link>
             </div>
             <div id='userhome-middle'>
                 <div>

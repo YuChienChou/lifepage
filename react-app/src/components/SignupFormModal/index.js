@@ -3,6 +3,7 @@ import { useDispatch } from "react-redux";
 import { useModal } from "../../context/Modal";
 import { signUp } from "../../store/session";
 import "./SignupForm.css";
+import { useHistory } from "react-router-dom/";
 
 const BIRTHDAYMONTH = ['Jan', 'Fab', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
 
@@ -23,6 +24,7 @@ function SignupFormModal() {
 	const [validationError,  setValidationError] = useState({});
 	const [hasSubmit, setHasSubmit] = useState(false)
 	const { closeModal } = useModal();
+	const history = useHistory();
 
 	
 	const handleSubmit = async (e) => {
@@ -50,8 +52,9 @@ function SignupFormModal() {
 			setValidationError(errors);
 			return;
 		} else {
-			console.log("Succefully sign up!!!!")
+			// console.log("Succefully sign up!!!!")
 			closeModal()
+			history.push('/user')
 		}
 	};
 
@@ -68,48 +71,54 @@ function SignupFormModal() {
 
 	return (
 		<>
-			<h1>Sign Up</h1>
-			<p>It's quick and easy.</p>
+		<div id='sign-up-modal'>
+			<div id='sign-up-title'>
+				<h1>Sign Up</h1>
+				<p>It's quick and easy.</p>
+			</div>
 			{hasSubmit && <p>{validationError.email}</p>}
 
-			<form onSubmit={handleSubmit}>
-				<label>
-					<input 
-						type='text'
-						value={addFirstName}
-						onChange={(e) => setAddFirstName(e.target.value)}
-						required
-						placeholder="First name"
-					/>
-				</label>
-				<label>
-					<input 
-						type='text'
-						value={addLastName}
-						onChange={(e) => setAddLastName(e.target.value)}
-						required
-						placeholder="Last name"
-					/>
-				</label>
-				<label>
-					<input
-						type="email"
-						value={addEmail}
-						onChange={(e) => setAddEmail(e.target.value)}
-						required
-						placeholder="Email"
-					/>
-				</label>
-				<label>
-					<input
-						type="password"
-						value={addPassword}
-						onChange={(e) => setAddPassword(e.target.value)}
-						required
-						placeholder="New password"
-					/>
-				</label>
-				<label>
+			<form id='sign-up-form' onSubmit={handleSubmit}>
+				<div id='sign-up-name-div'>
+
+						<input id='first-name'
+							type='text'
+							value={addFirstName}
+							onChange={(e) => setAddFirstName(e.target.value)}
+							required
+							placeholder="First name"
+						/>
+					
+						<input 
+							type='text'
+							value={addLastName}
+							onChange={(e) => setAddLastName(e.target.value)}
+							required
+							placeholder="Last name"
+						/>
+			
+				</div>
+				
+						<input
+							type="email"
+							value={addEmail}
+							onChange={(e) => setAddEmail(e.target.value)}
+							required
+							placeholder="Email"
+						/>
+					
+				
+					
+						<input
+							type="password"
+							value={addPassword}
+							onChange={(e) => setAddPassword(e.target.value)}
+							required
+							placeholder="New password"
+						/>
+				
+			
+				{/* <label>
 					Birthday (optional)
 					<select value={addBirthdayMonth} onChange={(e) => setAddBirthdayMonth(e.target.value)} required>
 						{BIRTHDAYMONTH.map(month => (
@@ -131,13 +140,15 @@ function SignupFormModal() {
 								</option>
 							))}
 					</select>
-				</label>
+				</label> */}
 
 				<button 
 					type="submit"
+					id='sign-up-button'
 					// disabled={Object.values(validationError).length > 0}
 				>Sign Up</button>
 			</form>
+		</div>
 		</>
 	);
 }

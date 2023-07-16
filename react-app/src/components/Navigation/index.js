@@ -37,6 +37,7 @@ function Navigation({ isLoaded }){
 						<Link to={`/user/${sessionUser.id}`}><p>{sessionUser.first_name} {sessionUser.last_name}</p>
 						<p>{sessionUser.email}</p></Link>
 						<button onClick={handleLogout}>
+							<i className="fa-solid fa-right-from-bracket"></i>
 							Log out
 						</button>
 					</div> : null

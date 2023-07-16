@@ -8,9 +8,137 @@
 
 #default-home-container {
     width: 100%;
-    height: 50%;
+    height: 72%;
+    
     display: flex;
     padding: 20% 10% 20% 10%;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+}
+
+#default-home-welcome {
+    width: 580px;
+    margin: 0 30px;
+    padding: 50px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    height: 385.6px;
+}
+
+#logo h1 {
+    font-size: 50px;
+    color: #1877F2;
+}
+
+#welcome {
+    margin-top: 20px;
+}
+
+#welcome p {
+    font-size: 28px;
+    font-weight: light;
+}
+
+#login-form-div {
+    width: 396px;
+    height: fit-content;
+    background-color: #FFFFFF;
+    padding: 16px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgb(224, 218, 218);
+}
+
+#login-form {
+    width: 100%;
+    height: 80%;
+    background-color: #FFFFFF;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+#login-form input {
+    width: 100%;
+    border-radius: 10px;
+    padding: 14px 16px;
+    border: 1px solid #F0F2F5;
+    border-radius: 10px;
+    background-color: #FFFFFF;
+    font-size: 16px;
+}
+
+#login-button {
+    width: 100%;
+    background-color: #1877F2;
+    color: #FFFFFF;
+    padding: 14px 16px;
+    border-radius: 10px;
+    cursor: pointer;
+    border: none;
+    font-size: 20px;
+    font-weight: bold;
+    margin-top: 10px;
+}
+
+#signup-modal {
+    background-color: #FFFFFF;
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+}
+
+#signup-modal button {
+    border-radius: 10px;
+    border: none;
+    color: #FFFFFF;
+    font-size: 14px;
+    font-weight: bold;
+    background-color: #36A420;
+    padding: 16px;
+    cursor: pointer;
+}
+
+#error-area {
+    height: 40px;
+    border-bottom: 1px solid #F0F2F5;
+    background-color: #FFFFFF;
+}
+
+#error-area p{
+    color: red;
+    font-size: 14px;
+    text-align: center;
+    background-color: #FFFFFF;
+}
+
+#demo-user {
+    background-color: #FFFFFF;
+    display: flex;
+    justify-content: center;
+    margin: 10px 0;
+}
+
+#demo-user button {
+    background-color: #FFFFFF;
+    border: none;
+    cursor: pointer;
+    border-bottom: 1px solid #393c3f;
+    font-size: 14px;
+}
+
+#programmer-info {
+    height: 28%;
+    background-color: #FFF;
+    display: flex;
+    justify-content: center;
+    padding-top: 20px;
+}
+
+#programmer-info p {
+    background-color: #FFFFFF;
 }
 
 
