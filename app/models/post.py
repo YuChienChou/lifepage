@@ -44,7 +44,8 @@ class Post(db.Model):
                 'firstname' : self.user.first_name,
                 'lastname' : self.user.last_name,
                 'profile_picture' : self.user.profile_picture,
-            }
+            },
+            'Comments' : [comment.to_dict() for comment in self.comments]
         }
 
 

@@ -165,6 +165,7 @@ def get_post_comments(postId):
 @post_route.route('/<int:postId>/comments/new', methods=["POST"])
 @login_required
 def create_comment(postId):
+    # print("in the create comment route~~~~~~~~~~~~~~~~~~")
     try: 
         post = Post.query.get(postId)
 
@@ -173,8 +174,10 @@ def create_comment(postId):
         
         form = CommentForm()
         form["csrf_token"].data = request.cookies["csrf_token"]
+        # print("form data in create comment route: ", form.data)
 
-        if form.validate_on_submit:
+        if form.validate_on_submit():
+            # print("in the if statement of the create comment route!!")
             new_comment = Comment(
                 content = form.data['content'],
                 post_id = form.data['post_id'],
@@ -182,6 +185,7 @@ def create_comment(postId):
                 created_at = date.today(),
                 updated_at = date.today(),
             )
+
             db.session.add(new_comment)
             db.session.commit()
             return new_comment.to_dict()
