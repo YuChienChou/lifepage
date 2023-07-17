@@ -82,7 +82,7 @@
 }
 
 #post-list-container {
-    width: 700px;
+    width: 680px;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -223,22 +223,30 @@
 
 #img-post {
     margin-bottom: 10px;
+    background-color: #FFF;
 }
 
 #img-post img {
-    min-width: 640px;
+    min-width: 100%;
     max-width: 100%;
 }
 
 #video-post {
-    /* padding: 16px; */
-    width: 100%;
-    max-width: 100%;
+    width: 618px;
+    height: 360px;
     background-color: #FFF;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#video-post div {
+    max-width: 100%;
+    max-height: 100%;
 }
 
 #create-post-div {
-    width: 700px;
+    width: 680px;
     background-color: #FFFFFF;
     padding: 16px;
     border-radius: 10px;

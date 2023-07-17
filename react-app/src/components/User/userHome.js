@@ -8,6 +8,7 @@ import OpenModalButton from '../OpenModalButton';
 import CreatePost from '../CreatePost/CreatePostModal';
 import Comment from '../Comments/Comment';
 import EditDeletePostModal from '../EditDeletePost/EditDeletePostModal';
+import PostList from '../Comments/PostList/PostList';
 
 import './user.css'
 
@@ -53,6 +54,7 @@ export default function UserHome() {
                 <div id='post-list-container'>
                     <ul>
                         {postsArr.reverse().map((post) => (
+                            // <PostList sessionUser={sessionUser} post={post} />
                         // console.log("post in the for loop: ", post)
                         
                             <li key={post.id} className='post-list'>
@@ -87,7 +89,7 @@ export default function UserHome() {
                                         }  
                                         {post.video ? 
                                             <div id='video-post'>
-                                                <ReactPlayer url={post.video} controls />
+                                                <ReactPlayer url={post.video} controls width='100%' height='100%'/>
 
                                             </div> : null
                                     
