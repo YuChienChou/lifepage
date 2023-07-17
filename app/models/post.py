@@ -1,11 +1,11 @@
 from .db import db, environment, SCHEMA, add_prefix_for_prod
 
 #joined table
-posts_comments = db.Table(
-    "posts_comments",
-    db.Column("post_id", db.Integer, db.ForeignKey(add_prefix_for_prod("posts.id")), primary_key=True),
-    db.Column("comment_id", db.Integer, db.ForeignKey(add_prefix_for_prod("comments.id")), primary_key=True),
-)
+# posts_comments = db.Table(
+#     "posts_comments",
+#     db.Column("post_id", db.Integer, db.ForeignKey(add_prefix_for_prod("posts.id")), primary_key=True),
+#     db.Column("comment_id", db.Integer, db.ForeignKey(add_prefix_for_prod("comments.id")), primary_key=True),
+# )
 
 
 class Post(db.Model):
@@ -26,7 +26,7 @@ class Post(db.Model):
     user = db.relationship("User", back_populates="posts")
     comments = db.relationship('Comment', cascade="delete, merge, save-update", back_populates="post")
 
-    post_comments = db.relationship("Comment", secondary = "posts_comments", cascade="delete, merge, save-update", back_populates="post_comments")
+    # post_comments = db.relationship("Comment", secondary = "posts_comments", cascade="delete, merge, save-update", back_populates="post_comments")
 
     def to_dict(self):
         return {
