@@ -3,7 +3,7 @@ import { deletePostThunk, getAllPostsThunk, getUserPostsThunk} from '../../store
 import { useModal } from '../../context/Modal';
 import OpenModalButton from '../OpenModalButton';
 import EditPostModal from './EditPostModal';
-import { getSingleUserThunk } from '../../store/user';
+
 
 
 
@@ -14,6 +14,7 @@ export default function EditDeletePostModal({sessionUser, post}) {
     const deletePost = async () => {
         await dispatch(deletePostThunk(post.id));
         await dispatch(getUserPostsThunk(sessionUser.id));
+        await dispatch(getAllPostsThunk());
         closeModal();
     };
 
