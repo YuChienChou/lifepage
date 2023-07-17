@@ -18,6 +18,7 @@
 
 #userhome-home-link {
     display: flex;
+    align-items: center;
     grid-gap: 10px;
     gap: 10px;
     padding: 10px;
@@ -33,9 +34,15 @@
     background-color: transparent;
 }
 
+
+#userhome-home-link i {
+    font-size: 20px;
+}
+
+
 #userhome-user-link {
     display: flex;
-    grid-gap: 10px;
+    justify-content: center;
     gap: 10px;
     padding: 10px;
     border-radius: 5px;
@@ -51,9 +58,17 @@
 }
 
 #userhome-user-link img {
-    width: 20px;
-    height: 20px;
+    width: 24px;
+    height: 24px;
     border-radius: 50%;
+}
+
+
+#userhome-home-link p, 
+#userhome-user-link p {
+    display: flex;
+    flex-wrap: wrap;
+    align-content: center;
 }
 
 #userhome-middle {
@@ -144,4 +159,30 @@
 
 #post-content img {
     max-width: 680px;
+}
+
+#create-post-div {
+    width: 680px;
+    background-color: #FFFFFF;
+    padding: 10px 16px;
+    border-radius: 10px;
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+#create-post-div img {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+}
+
+#create-post-div button {
+    width: 100%;
+    border: none;
+    font-size: 16px;
+    padding: 10px;
+    border-radius: 30px;
+    text-align: left;
 }

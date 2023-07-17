@@ -41,9 +41,11 @@ export default function UserHome() {
                 </div></Link>
             </div>
             <div id='userhome-middle'>
-                <div>
+                
+                <div id='create-post-div'>
+                    <img src={sessionUser.profile_picture} alt={sessionUser.first_name} />
                     <OpenModalButton
-                        buttonText ={`What's on your mind, ${sessionUser.first_name}`}
+                        buttonText ={`What's on your mind, ${sessionUser.first_name}?`}
                         modalComponent={<CreatePost sessionUser={sessionUser}/>}
                     />
                 </div>

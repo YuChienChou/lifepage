@@ -86,11 +86,13 @@
 #signup-modal {
     background-color: #FFFFFF;
     display: flex;
-    justify-content: center;
+    /* justify-content: center; */
+    align-items: center;
     margin-bottom: 20px;
 }
 
 #signup-modal button {
+    width: 192px;
     border-radius: 10px;
     border: none;
     color: #FFFFFF;
