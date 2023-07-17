@@ -1,0 +1,29 @@
+#post-comment {
+    padding: 16px;
+    background-color: #FFF;
+}
+
+#comment-user-div {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px 0;
+    background-color: #FFF;
+}
+
+#user-comment {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    background-color: #FFF;
+}
+
+#user-comment p {
+    background-color: #FFF;
+    font-size: 14px;
+}
+
+#comment-user-div img {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+}

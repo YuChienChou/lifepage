@@ -82,22 +82,33 @@
 }
 
 #post-list-container {
+    width: 700px;
     display: flex;
     flex-direction: column;
     align-items: center;
     background-color: #FFFFFF;
 }
 
+#post-list-container ul {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
 .post-list {
+    width: 100%;
     list-style: none;
     display: flex;
     flex-direction: column;
-    background-color: pink;
-    padding: 20px;
+    background-color: #FFF;
+    padding: 16px;
+    border-radius: 10px;
 }
 
 #post-list-div {
     width: 100%;
+    border-radius: 10px;
 }
 
 #userhome-right {
@@ -110,10 +121,50 @@
     padding: 10px;
 }
 
+#user-img-name {
+    display: flex;
+    justify-content: space-between;
+    /* padding: 16px; */
+    background-color: #FFF;
+}
+
+#img-and-link {
+    display: flex;
+    align-items: center;
+    gap: 10px; 
+    background-color: #FFF;
+}
+
+#img-and-link a {
+    text-decoration: none;
+    background-color: #FFF;
+}
+
+
 #user-img-name img {
     width: 40px;
     height: 40px;
     border-radius: 50%;
+}
+
+#user-img-name button {
+    background-color: #FFF;
+    border: none;
+}
+
+#edit-post-div {
+    background-color: #F0F2F5;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#edit-post-div i,
+#edit-post-div button {
+    background-color: #F0F2F5;
 }
 
 
@@ -156,20 +207,49 @@
     border: 2px solid #FFFFFF;
 }
 
+#post-content {
+    width: 100%;
+    padding: 16px;
+    background-color: #FFF;
+}
 
-#post-content img {
-    max-width: 680px;
+#post-content p {
+    background-color: #FFF;
+}
+
+#content {
+    margin: 10px 0;
+}
+
+#img-post {
+    margin-bottom: 10px;
+}
+
+#img-post img {
+    min-width: 640px;
+    max-width: 100%;
+}
+
+#video-post {
+    /* padding: 16px; */
+    width: 100%;
+    max-width: 100%;
+    background-color: #FFF;
 }
 
 #create-post-div {
-    width: 680px;
+    width: 700px;
     background-color: #FFFFFF;
-    padding: 10px 16px;
+    padding: 16px;
     border-radius: 10px;
     margin-bottom: 20px;
     display: flex;
     align-items: center;
     gap: 15px;
+}
+
+#create-post-div a {
+    background-color: #FFF;
 }
 
 #create-post-div img {
@@ -185,4 +265,5 @@
     padding: 10px;
     border-radius: 30px;
     text-align: left;
+    cursor: pointer;
 }

@@ -9,16 +9,21 @@ import './createpost.css'
 export default function CreatePost({sessionUser}) {
     const [title, setTitle] = useState("")
     const [img, setImg] = useState("");
-    // const [video, setVideo] = useState("");
+    const [video, setVideo] = useState("");
     const [body, setBody] = useState("");
     const [validationError, setValidationError] = useState({});
     const [showImgArea, setShowImgArea] = useState(false);
+    const [showVideoArea, setShowVideoArea] = useState(false);
     const [hasSubmit, setHasSubmit] = useState(false);
     const dispatch = useDispatch();
     const { closeModal } = useModal();
 
     const showImgAreaFun = () => {
         setShowImgArea(!showImgArea)
+    }
+
+    const showVideoAreaFun = () => {
+        setShowVideoArea(!showVideoArea)
     }
 
     const handleSubmit = async (e) => {
@@ -28,7 +33,7 @@ export default function CreatePost({sessionUser}) {
         const postInfo = {
             title,
             img,
-            // video,
+            video,
             body,
             user_id: sessionUser.id,
         }
@@ -77,16 +82,27 @@ export default function CreatePost({sessionUser}) {
                     onChange={(e) => setBody(e.target.value)}
                 />
 
-            {showImgArea ? 
-                    <div id='add-image-div'>
-                        <input 
-                            type='text'
-                            value={img}
-                            onChange={(e) => setImg(e.target.value)}
-                            placeholder="Please provide img url."/>
-                    </div>
-                : null
-            }
+                {showImgArea ? 
+                        <div id='add-image-div'>
+                            <input 
+                                type='text'
+                                value={img}
+                                onChange={(e) => setImg(e.target.value)}
+                                placeholder="Please provide img url."/>
+                        </div>
+                    : null
+                }
+
+                {showVideoArea ? 
+                        <div id='add-video-div'>
+                            <input 
+                                type='text'
+                                value={video}
+                                onChange={(e) => setVideo(e.target.value)}
+                                placeholder="Please provide video url."/>
+                        </div>
+                    : null
+                }
 
                 <div id='create-post-button-div'>
                     <button 
@@ -95,8 +111,10 @@ export default function CreatePost({sessionUser}) {
                     >
                         Add to your post
                     </button>
-                    
+                    <div id='img-video'>
                         <i className="fa-solid fa-photo-film" onClick={showImgAreaFun}></i>
+                        <i className="fa-solid fa-video" onClick={showVideoAreaFun}></i>
+                    </div>
                     
                 </div>
          

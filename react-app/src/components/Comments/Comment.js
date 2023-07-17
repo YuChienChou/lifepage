@@ -4,6 +4,7 @@ import { createCommentThunk } from "../../store/comment";
 import { getAllPostsThunk, getUserPostsThunk } from "../../store/post";
 import EditDeleteCommentModal from "./EditDeleteCommentModal";
 import OpenModalButton from "../OpenModalButton";
+import './comment.css'
 
 
 
@@ -75,14 +76,22 @@ export default function Comment({sessionUser, post}) {
             {post.Comments.reverse().map((comment) => (
                 
                 <li key={comment.id}>
-                    <p>{comment.content}</p>
-                    {comment.User.id === sessionUser.id ?
-                    <OpenModalButton
-                        buttonText='Edit/Delete'
-                        modalComponent={<EditDeleteCommentModal sessionUser={sessionUser} post={post} comment={comment}/>} 
-                    
-                    />
-                    : null}
+                    <div id='comment-user-div'>
+                        <div id='user-comment'>
+                            <img src={comment.User.profile_picture} alt={comment.User.first_name} />
+                            <div id='comment-and-user-name'>
+                                <p id='comment-user-name'>{comment.User.first_name} {comment.User.last_name}</p>
+                                <p>{comment.content}</p>
+                            </div>
+                        </div>
+                        {comment.User.id === sessionUser.id ?
+                        <OpenModalButton
+                            buttonText='Edit/Delete'
+                            modalComponent={<EditDeleteCommentModal sessionUser={sessionUser} post={post} comment={comment}/>} 
+                        
+                        />
+                        : null}
+                    </div>
                 </li>
             ))}
 
