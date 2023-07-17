@@ -1,77 +1,170 @@
 #user-home-container {
     padding-top: 56px;
-    display: grid;
-    grid-template-columns: 1fr 3fr 1fr;
     position: relative;
-    flex-shrink: 1;
 }
 
 #userhome-left {
-    width: 300px;
+    width: fit-content;
     position: fixed;
     top: 56px;
     height: 100%;
     padding: 20px 10px;
 }
 
+#userhome-left a {
+    text-decoration: none;
+}
+
+
 #userhome-home-link {
     display: flex;
+    align-items: center;
+    grid-gap: 10px;
+    gap: 10px;
+    padding: 10px;
+    border-radius: 5px;
 }
+
+#userhome-home-link:hover {
+    background-color: #E4E6E8;
+}
+
+#userhome-home-link i,
+#userhome-home-link p {
+    background-color: transparent;
+}
+
+
+#userhome-home-link i {
+    font-size: 20px;
+}
+
 
 #userhome-user-link {
     display: flex;
+    justify-content: center;
+    gap: 10px;
+    padding: 10px;
+    border-radius: 5px;
+}
+
+#userhome-user-link:hover {
+    background-color: #E4E6E8;
+}
+
+#userhome-user-link i,
+#userhome-user-link p {
+    background-color: transparent;
 }
 
 #userhome-user-link img {
-    width: 20px;
-    height: 20px;
+    width: 24px;
+    height: 24px;
     border-radius: 50%;
 }
 
+
+#userhome-home-link p, 
+#userhome-user-link p {
+    display: flex;
+    flex-wrap: wrap;
+    align-content: center;
+}
+
 #userhome-middle {
+    width: 100%;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    margin-left: 300px;
     padding: 20px;
-    /* position: absolute;
-    top: 56px;
-    z-index: 1; */
+
 }
 
 #post-list-container {
+    width: 700px;
     display: flex;
     flex-direction: column;
     align-items: center;
     background-color: #FFFFFF;
 }
 
+#post-list-container ul {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
 .post-list {
+    width: 100%;
     list-style: none;
     display: flex;
     flex-direction: column;
-    background-color: pink;
-    padding: 20px;
+    background-color: #FFF;
+    padding: 16px;
+    border-radius: 10px;
 }
 
 #post-list-div {
     width: 100%;
+    border-radius: 10px;
 }
 
 #userhome-right {
-    width: 360px;
+    width: fit-content;
     position: fixed;
     top: 56px;
     right: 0px;
     height: 100%;
     align-content: right;
+    padding: 10px;
 }
+
+#user-img-name {
+    display: flex;
+    justify-content: space-between;
+    /* padding: 16px; */
+    background-color: #FFF;
+}
+
+#img-and-link {
+    display: flex;
+    align-items: center;
+    gap: 10px; 
+    background-color: #FFF;
+}
+
+#img-and-link a {
+    text-decoration: none;
+    background-color: #FFF;
+}
+
 
 #user-img-name img {
     width: 40px;
     height: 40px;
     border-radius: 50%;
+}
+
+#user-img-name button {
+    background-color: #FFF;
+    border: none;
+}
+
+#edit-post-div {
+    background-color: #F0F2F5;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#edit-post-div i,
+#edit-post-div button {
+    background-color: #F0F2F5;
 }
 
 
@@ -114,7 +207,63 @@
     border: 2px solid #FFFFFF;
 }
 
+#post-content {
+    width: 100%;
+    padding: 16px;
+    background-color: #FFF;
+}
 
-#post-content img {
-    max-width: 680px;
+#post-content p {
+    background-color: #FFF;
+}
+
+#content {
+    margin: 10px 0;
+}
+
+#img-post {
+    margin-bottom: 10px;
+}
+
+#img-post img {
+    min-width: 640px;
+    max-width: 100%;
+}
+
+#video-post {
+    /* padding: 16px; */
+    width: 100%;
+    max-width: 100%;
+    background-color: #FFF;
+}
+
+#create-post-div {
+    width: 700px;
+    background-color: #FFFFFF;
+    padding: 16px;
+    border-radius: 10px;
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+#create-post-div a {
+    background-color: #FFF;
+}
+
+#create-post-div img {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+}
+
+#create-post-div button {
+    width: 100%;
+    border: none;
+    font-size: 16px;
+    padding: 10px;
+    border-radius: 30px;
+    text-align: left;
+    cursor: pointer;
 }

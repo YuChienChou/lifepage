@@ -3,3 +3,122 @@
     height: 40px;
     border-radius: 50%;
 }
+
+#create-post-title {
+    border-radius: 10px 10px 0 0;
+    background-color: #FFF;
+}
+
+#create-post-title h3{
+    text-align: center;
+    padding: 16px;
+    border-bottom: 1px solid #F0F1F3;
+    border-radius: 10px 10px 0 0;
+    background-color: #FFF;
+}
+
+#create-post-user {
+    display: flex;
+    gap: 10px; 
+    padding: 16px;
+    background-color: #FFF;
+}
+
+#create-post-user p {
+    background-color: #FFF;
+    display: flex;
+    flex-wrap: wrap;
+    align-content: center;
+}
+
+#create-post-form {
+    border-radius: 0 0 10px 10px;
+    padding: 0 16px 16px 16px;
+    display: flex;
+    flex-direction: column;
+    background-color: #FFF;
+}
+
+#create-post-form textarea {
+    background-color: #FFF;
+    border: none;
+    width: 100%;
+    height: 154px;
+    font-size: 16px;    
+    margin-bottom: 10px;
+    padding: 16px;
+}
+
+#create-post-form input {
+    border: none;
+    background-color: #FFF;
+}
+
+
+#img-video {
+    display: flex;
+    gap: 15px;
+    background-color: #FFF;
+}
+
+#img-video i {
+    background-color: #FFF;
+}
+
+#add-image-div {
+    font-size: 16px;
+    height: 80px;
+    padding: 16px;
+    border: 1px solid #F0F1F3;
+    border-radius: 10px;
+    background-color: #FFF;
+    margin: 10px 0;
+}
+
+#add-image-div input {
+    font-size: 16px;
+    width: 100%;
+    height: 100%;
+}
+
+#add-video-div {
+    font-size: 16px;
+    height: 80px;
+    padding: 16px;
+    border: 1px solid #F0F1F3;
+    border-radius: 10px;
+    background-color: #FFF;
+    margin: 10px 0;
+}
+
+#add-video-div input {
+    font-size: 16px;
+    width: 100%;
+    height: 100%;
+}
+
+
+#create-post-button-div {
+    background-color: #FFF;
+    display: flex;
+    justify-content: space-between;
+    padding: 16px;
+    border: 1px solid #F0F1F3;
+    border-radius: 10px;
+}
+
+#create-post-button-div button {
+    background-color: #FFF;
+    border: none;
+    font-size: 16px;
+    cursor: pointer;
+    width: 250px;
+    text-align: start;
+}
+
+#create-post-button-div i {
+    font-size: 16px;
+    color: #41B35D;
+    background-color: #FFF;
+    cursor: pointer;
+}
