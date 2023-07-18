@@ -86,7 +86,7 @@ export default function EditPostModal({sessionUser, post }) {
                             <i className="fa-solid fa-photo-film"></i>
                             <textarea 
                                 type='text'
-                                value={post.img ? img : "Please provide image URL."}
+                                value={post.img ? img : "Please provide the image URL."}
                                 onChange={(e) => setImg(e.target.value)}
                             />
                         </div> 
@@ -99,7 +99,7 @@ export default function EditPostModal({sessionUser, post }) {
                             <i className="fa-solid fa-video"></i>
                             <textarea 
                                 type='text'
-                                value={post.video ? video : "Please provide video URL."}
+                                value={post.video ? video : "Please provide the video URL."}
                                 onChange={(e) => setVideo(e.target.value)}
                             />
                         </div>
