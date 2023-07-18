@@ -77,7 +77,7 @@ function SignupFormModal() {
 				<h1>Sign Up</h1>
 				<p>It's quick and easy.</p>
 			</div>
-			{hasSubmit && <p>{validationError.email}</p>}
+			
 
 			<form id='sign-up-form' onSubmit={handleSubmit}>
 				<div id='sign-up-name-div'>
@@ -143,8 +143,8 @@ function SignupFormModal() {
 					</select>
 				</label> */}
 				<div id='error-div'>
+					{hasSubmit && validationError.email && <p>{validationError.email}</p>}	
 					{hasSubmit && validationError.password && <p>password: {validationError.password}</p>}
-					{/* {hasSubmit && validationError.addPasswordlength && <p>{validationError.addPasswordlength}</p>} */}
 				</div>
 
 				<button 

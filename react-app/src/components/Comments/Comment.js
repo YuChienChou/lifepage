@@ -1,5 +1,6 @@
 import { useDispatch } from "react-redux";
 import { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import { createCommentThunk } from "../../store/comment";
 import { getAllPostsThunk, getUserPostsThunk } from "../../store/post";
 import EditComment from "./EditComment";
@@ -13,7 +14,7 @@ export default function Comment({sessionUser, post}) {
     // console.log("post in the comment component: ", post);
     // console.log("post comments in comment component: ", post.Comments);
     const [content, setContent] = useState("");
-    const [editComment, setEditComment] = useState("");
+    const [editComment, setEditComment] = useState(null);
     const [validationErrors, setValidationErrors] = useState({});
     const dispatch = useDispatch();
 
@@ -60,7 +61,7 @@ export default function Comment({sessionUser, post}) {
         <>
         <div id='comment-form-div'>
            <div id='user-comment'>
-                <img src={sessionUser.profile_picture} alt={sessionUser.first_name} />
+                <Link to={`/user/${sessionUser.id}`}><img src={sessionUser.profile_picture} alt={sessionUser.first_name} /></Link>
             </div>
            <form id='create-comment-form' onSubmit={handleSubmit}>
                 <textarea 
@@ -98,10 +99,10 @@ export default function Comment({sessionUser, post}) {
                 <li key={comment.id}>
                     <div id='comment-user-div'>
                         <div id='user-comment'>
-                            <img src={comment.User.profile_picture} alt={comment.User.first_name} />
+                            <Link to={`/user/${comment.User.id}`}><img src={comment.User.profile_picture} alt={comment.User.first_name} /></Link>
                             <div id='comment-and-user-name'>
                                 <div>
-                                    <p id='comment-user-name'>{comment.User.first_name} {comment.User.last_name}</p>
+                                    <Link to={`/user/${comment.User.id}`}><p id='comment-user-name'>{comment.User.first_name} {comment.User.last_name}</p></Link>
                                     <p id='comment-content'>{comment.content}</p>
                                 </div>
                            
@@ -144,7 +145,7 @@ export default function Comment({sessionUser, post}) {
             <div id='comment-form-div'>
 
                 <div id='user-comment'>
-                    <img src={sessionUser.profile_picture} alt={sessionUser.first_name} />
+                    <Link to={`/user/${sessionUser.id}`}><img src={sessionUser.profile_picture} alt={sessionUser.first_name} /></Link>
                 </div>
 
                 <form id='create-comment-form' onSubmit={handleSubmit} >
