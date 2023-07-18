@@ -30,7 +30,7 @@ function Navigation({ isLoaded }){
 		<nav>
 			<div id='nav-bar'>
 				<NavLink id='nav-link' exact to="/user">lifepage</NavLink>
-				<img src={sessionUser.profile_picture} alt={sessionUser.firstname} onClick={showInfoFuntion}/>
+				<img src={sessionUser.profile_picture ? sessionUser.profile_picture : "https://images.unsplash.com/photo-1517423738875-5ce310acd3da?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2570&q=80"} alt={sessionUser.firstname} onClick={showInfoFuntion}/>
 
 				{showInfo ? 
 					<div id='nav-user-info' onMouseLeave={hideInfoFunction}>

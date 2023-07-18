@@ -31,6 +31,13 @@
     align-content: center;
 }
 
+#create-post-user a {
+    text-decoration: none;
+    background-color: #FFF;
+    display: flex;
+    align-items: center;
+}
+
 #create-post-form {
     border-radius: 0 0 10px 10px;
     padding: 0 16px 16px 16px;

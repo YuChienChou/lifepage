@@ -30,6 +30,13 @@
     align-content: center;
 }
 
+#edit-post-user a {
+    background-color: #FFF;
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+}
+
 #edit-post-user img {
     width: 40px;
     height: 40px;

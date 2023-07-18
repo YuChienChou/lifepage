@@ -6,10 +6,10 @@ import { getSingleUserThunk } from "../../store/user";
 import Navigation from "../Navigation";
 import OpenModalButton from "../OpenModalButton";
 import CreatePost from "../CreatePost/CreatePostModal";
-import EditDeletePostModal from '../EditDeletePost/EditDeletePostModal';
-import Comment from "../Comments/Comment";
 import PostList from "../PostList/PostList";
 import './user.css'
+import './userprofile.css'
+
 
 
 export default function UserPorfile() {
@@ -41,34 +41,36 @@ export default function UserPorfile() {
         <div id="user-profile-container">
             <div id="user-profile-left">
                 <Link to='/user'><i className="fa-solid fa-house"></i></Link>
-                {/* "<img src={sessionUser.profile_picture} alt={sessionUser.first_name} /> */}
+                <Link to={`/user/${sessionUser.id}`}><div id='userprofile-user-link'>
+                   <img src={sessionUser.profile_picture ? sessionUser.profile_picture : "https://images.unsplash.com/photo-1517423738875-5ce310acd3da?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2570&q=80"} alt={sessionUser.first_name} />
+                </div></Link>
             </div>
             <div id='user-profile-right'>
                     <div id='user-intro'>
                         <div id='cover-photo'>
-                            <img src={user.cover_photo} alt={user.first_name} />
+                            <img src={user.cover_photo ? user.cover_photo : "https://images.unsplash.com/photo-1557683316-973673baf926?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1429&q=80"} 
+                            alt={user.first_name} />
                         </div>
                         <div id='profile-picture'>
-                            <img src={user.profile_picture} alt={user.first_name} />
+                            <img src={user.profile_picture ? sessionUser.profile_picture : "https://images.unsplash.com/photo-1517423738875-5ce310acd3da?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2570&q=80"} 
+                                 alt={user.first_name} />
                             <h4>{user.first_name} {user.last_name}</h4>
+
+                            
                         </div>
-                    <p>Posts</p>
-                    <p>Photos</p>
+                        <div id='post-photos'>
+                            <p>Posts</p>
+                            <p>Photos</p>
+                        </div>
                 </div>
 
                 <div id="user-photos">
 
                 </div>
-
-
-                {/* <div>
-                    <OpenModalButton
-                        buttonText ={`What's on your mind, ${sessionUser.first_name}`}
-                        modalComponent={<CreatePost sessionUser={sessionUser}/>}
-                    />
-                </div>    */}
                 <div id='create-post-div'>
-                    <Link to={`/user/${sessionUser.id}`}><img src={sessionUser.profile_picture} alt={sessionUser.first_name} /></Link>
+                    <Link to={`/user/${sessionUser.id}`}>
+                        <img src={sessionUser.profile_picture? sessionUser.profile_picture : "https://images.unsplash.com/photo-1517423738875-5ce310acd3da?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2570&q=80"} 
+                             alt={sessionUser.first_name} /></Link>
                     <OpenModalButton
                         buttonText ={`What's on your mind, ${sessionUser.first_name}?`}
                         modalComponent={<CreatePost sessionUser={sessionUser}/>}
@@ -76,46 +78,14 @@ export default function UserPorfile() {
                 </div>
             
                 {userPostArr.length > 0 ? 
-                    <div>
+                    <div id='post-list-container'>
+                    <ul>
                         {userPostArr.reverse().map((post) => (
                             <PostList sessionUser={sessionUser} post={post} />
-                            // <li di={post.id}>
-                            //     <div id={post.id}>
-                            //     <div>
-                            //         <div id='user-img-name'>
-                            //             <Link to={`/user/${post.User.id}`}> <img src={post.User.profile_picture} alt={post.User.first_name} />
-                            //             <p>{post.User.firstname} {post.User.lastname}</p></Link>
-                            //         </div>
-                            //         {/* {post.User.id === sessionUser.id ?  */}
-                            //             <div>
-                            //                 <OpenModalButton
-                            //                     buttonText="Edit/Delete"
-                            //                     modalComponent={<EditDeletePostModal sessionUser={sessionUser} post={post}/>}
-                            //                 />
-                            //             </div> 
-                            //         {/* // : null } */}
-                            //     </div>
-                            //     <div>
-                            //         <p>{post.title}</p>
-                            //         <p>{post.body}</p>
-                            //         <img src={post.img} alt=""/>
-                            //     </div>
-                            //     {/* {post.video ? 
-                            //         <div>
-                            //             <video controls width='250'>
-                            //                 <source src={post.video} type='video/mp4'></source>
-                            //             </video>
-
-                            //         </div> : null
-                                
-                            //     } */}
-                            // </div>
-                            
-                            // <Comment sessionUser={sessionUser} post={post} />
-                            
-                            // </li>
                         ))}
-                    </div> : <p>This user doesn't have any post.</p>
+                    </ul>
+                </div>
+                    : <p>This user doesn't have any post.</p>
                 }  
             
             </div>
