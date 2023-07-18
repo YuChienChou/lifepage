@@ -78,13 +78,13 @@ export default function PostList({sessionUser, post}) {
                     <img src={post.img} alt=""/></div>
                     : null
                     }  
-                    {post.video ? 
+                    {/* {post.video ? 
                         <div id='video-post'>
                             <ReactPlayer url={post.video} controls width='100%' height='100%'/>
 
                         </div> : null
                 
-                    }
+                    } */}
                 </div>
                 
             </div>
