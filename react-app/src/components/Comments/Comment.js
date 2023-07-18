@@ -109,9 +109,12 @@ export default function Comment({sessionUser, post}) {
                                         <i className="fa-solid fa-pen-to-square"></i>
                                     </div>                                
                                     : null
+
+
+                                    
                                 } 
 
-                                {editComment ? 
+                                { comment.User.id === sessionUser.id && editComment ? 
                                     <div id='edit-delete-comment-container' >
                                         <div id='edit-comment'>
                                             <i className="fa-solid fa-pen"></i>
