@@ -1,13 +1,11 @@
 import { useDispatch } from "react-redux";
 import { useState, useEffect } from 'react';
 import { createCommentThunk } from "../../store/comment";
-import { deleteCommentThunk } from "../../store/comment";
 import { getAllPostsThunk, getUserPostsThunk } from "../../store/post";
-import EditDeleteCommentModal from "./EditDeleteCommentModal";
 import EditComment from "./EditComment";
+import DeleteComment from "./DeleteCommentModal";
 import OpenModalButton from "../OpenModalButton";
 import './comment.css'
-
 
 
 export default function Comment({sessionUser, post}) {
@@ -15,24 +13,18 @@ export default function Comment({sessionUser, post}) {
     // console.log("post in the comment component: ", post);
     // console.log("post comments in comment component: ", post.Comments);
     const [content, setContent] = useState("");
-    const [editComment, setEditComment] = useState(false);
+    const [editComment, setEditComment] = useState("");
     const [validationErrors, setValidationErrors] = useState({});
     const dispatch = useDispatch();
 
-    const editCommentFun = () => {
-        setEditComment(!editComment);
+    const editCommentFun = (commentId) => {
+        setEditComment(commentId);
     };
 
     const hideEditCommentFun = () => {
-        setEditComment(false);
+        setEditComment(null);
     };
 
-    const deleteComment = async (commentId) => {
-        await dispatch(deleteCommentThunk(commentId));
-        await dispatch(getAllPostsThunk());
-        await dispatch(getUserPostsThunk(sessionUser.id));
-        // closeModal();
-    };
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -58,6 +50,7 @@ export default function Comment({sessionUser, post}) {
     useEffect(() => {
         const errors = {};
         if(!content) errors.content = "Please enter your comment.";
+        if(content.length > 500) errors.contentlength = "Please enter your comment less than 500 character."
 
         setValidationErrors(errors);
     }, [content])
@@ -76,6 +69,14 @@ export default function Comment({sessionUser, post}) {
                     value={content}
                     onChange={(e) => setContent(e.target.value)}
                 />
+
+                
+                {validationErrors.contentlength ? 
+                    <div id='add-comment-error-div'>
+                        {validationErrors.contentlength && <p>{validationErrors.contentlength}</p> }
+                    </div> 
+                    : null
+                }
                 <button 
                     type='submit'
                     disabled={Object.values(validationErrors).length > 0}
@@ -105,17 +106,14 @@ export default function Comment({sessionUser, post}) {
                                 </div>
                            
                                 {comment.User.id === sessionUser.id ?
-                                    <div id='edit-comment-button' onClick={editCommentFun}>
+                                    <div id='edit-comment-button' onClick={() => editCommentFun(comment.id)}>
                                         <i className="fa-solid fa-pen-to-square"></i>
                                     </div>                                
                                     : null
-
-
-                                    
                                 } 
 
-                                { comment.User.id === sessionUser.id && editComment ? 
-                                    <div id='edit-delete-comment-container' onMouseLeave={hideEditCommentFun}>
+                                { comment.User.id === sessionUser.id && editComment === comment.id ? 
+                                    <div id='edit-delete-comment-container' onMouseLeave={() => hideEditCommentFun(comment.id)} onClick={() => hideEditCommentFun(comment.id)}>
                                         <div id='edit-comment'>
                                             <i className="fa-solid fa-pen"></i>
                                             <OpenModalButton
@@ -125,13 +123,17 @@ export default function Comment({sessionUser, post}) {
                                         </div>
                                         <div id='delete-comment'>
                                             <i className="fa-regular fa-trash-can" ></i>
-                                            <p onClick={() => {deleteComment(comment.id)}}>Move to trash</p>
+                                            {/* <p onClick={() => {deleteComment(comment.id)}}>Move to trash</p> */}
+                                            <OpenModalButton
+                                                buttonText='Delete Comment'
+                                                modalComponent={<DeleteComment sessionUser={sessionUser} comment={comment} />}
+                                            />
+                                            
                                         </div>
                                     </div>
                                     : null
                                 }
 
-                                
                             </div>
                         </div>
                       
@@ -151,16 +153,24 @@ export default function Comment({sessionUser, post}) {
                         placeholder='Write a comment'
                         value={content}
                         onChange={(e) => setContent(e.target.value)}
-                    />
+                    />  
+
+                    {validationErrors.contentlength ? 
+                    <div id='add-comment-error-div'>
+                        {validationErrors.contentlength && <p>{validationErrors.contentlength}</p> }
+                    </div> 
+                    : null
+                    }
                     <button 
                         type='submit'
                         disabled={Object.values(validationErrors).length > 0}
                         id={Object.values(validationErrors).length > 0 ? 'send-comment-disabled' : 'send-comment-active'}
                     >
                         <i className="fa-solid fa-location-arrow"></i>
-                    </button>
-                </form>
-            </div>
+                    </button>     
+                </form>                     
+            </div> 
+            
 
         </div>
         </>

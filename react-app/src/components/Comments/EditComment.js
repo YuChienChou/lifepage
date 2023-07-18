@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 import { useModal } from "../../context/Modal";
 import { editCommentThunk } from "../../store/comment";
 import { getAllPostsThunk, getUserPostsThunk } from "../../store/post";
+import './EditComment.css';
 
 
 
@@ -35,6 +36,7 @@ export default function EditComment({sessionUser, post, comment}) {
     useEffect(() => {
         const errors = {};
         if(!content) errors.content = "Please enter your comment";
+        if(content.length > 500) errors.contentlength = "Please enter your comment less than 500 character."
 
         setValidationErrors(errors)
 
@@ -42,18 +44,28 @@ export default function EditComment({sessionUser, post, comment}) {
 
     return (
         <>
-        <div id='delete-comment-container'>
-            <form onSubmit={handleSubmit}>
-                <div>
-                    <input
-                        type="text"
-                        value={content}
-                        onChange={(e) => setContent(e.target.value)}
-                    />
+        <div id='edit-comment-container'>
+            <h3>Edit Comment</h3>
+            <form id='edit-comment-form' onSubmit={handleSubmit}>
+            
+                <textarea
+                    type="text"
+                    value={content}
+                    onChange={(e) => setContent(e.target.value)}
+                />
+
+                <div id='error-div'>
+                    {validationErrors.contentlength && <p>{validationErrors.contentlength}</p> }
                 </div>
+
+                
+            
                 <button
                     type="submit"
                     disabled={Object.values(validationErrors).length > 0}
+                    id={Object.values(validationErrors).length > 0 ? 
+                        'edit-comment-button-disabled' : 'edit-comment-button-active'
+                    }
                 >
                     Save
                 </button>

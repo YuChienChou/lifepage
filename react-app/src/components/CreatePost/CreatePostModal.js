@@ -7,13 +7,11 @@ import './createpost.css'
 
 
 export default function CreatePost({sessionUser}) {
-    const [title, setTitle] = useState("")
+    // const [title, setTitle] = useState("")
     const [img, setImg] = useState("");
     const [video, setVideo] = useState("");
     const [body, setBody] = useState("");
     const [validationError, setValidationError] = useState({});
-    const [showImgArea, setShowImgArea] = useState(false);
-    const [showVideoArea, setShowVideoArea] = useState(false);
     const [showItem, setShowItem] = useState(false)
     const [hasSubmit, setHasSubmit] = useState(false);
     const dispatch = useDispatch();
@@ -28,7 +26,7 @@ export default function CreatePost({sessionUser}) {
         setHasSubmit(true);
 
         const postInfo = {
-            title,
+            // title,
             img,
             video,
             body,

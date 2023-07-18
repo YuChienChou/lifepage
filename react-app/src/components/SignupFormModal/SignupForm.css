@@ -37,6 +37,7 @@
     border: 1px solid #F0F1F3;
     border-radius: 5px;
     font-size:15px;
+    outline: none;
 }
 
 #sign-up-name-div {
