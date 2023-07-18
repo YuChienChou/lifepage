@@ -115,7 +115,7 @@ export default function Comment({sessionUser, post}) {
                                 } 
 
                                 { comment.User.id === sessionUser.id && editComment ? 
-                                    <div id='edit-delete-comment-container' >
+                                    <div id='edit-delete-comment-container' onMouseLeave={hideEditCommentFun}>
                                         <div id='edit-comment'>
                                             <i className="fa-solid fa-pen"></i>
                                             <OpenModalButton
