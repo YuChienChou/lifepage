@@ -4,7 +4,6 @@ import { Link } from 'react-router-dom';
 import OpenModalButton from '../OpenModalButton';
 import Comment from '../Comments/Comment';
 import { useDispatch } from 'react-redux';
-import { deletePostThunk, getAllPostsThunk, getUserPostsThunk} from '../../store/post';
 import { useModal } from '../../context/Modal';
 import EditPostModal from '../EditDeletePost/EditPostModal';
 import DeletePostModal from '../EditDeletePost/DeletePostModal';
@@ -14,17 +13,7 @@ import './postList.css'
 
 export default function PostList({sessionUser, post}) {
     const [showEditPostDiv, setShowEditPostDiv] = useState(false);
-    const dispatch = useDispatch();
-    const { closeModal } = useModal();
-
-    // const deletePost = async () => {
-    //     await dispatch(deletePostThunk(post.id));
-    //     await dispatch(getUserPostsThunk(sessionUser.id));
-    //     await dispatch(getAllPostsThunk());
-    //     closeModal();
-    // };
-
-
+ 
     const showEditPostDivFun = () => {
         setShowEditPostDiv(!showEditPostDiv)
     }
@@ -42,7 +31,9 @@ export default function PostList({sessionUser, post}) {
             
                     <div id='user-img-name'>
                         <div id='img-and-link'>
-                            <Link to={`/user/${post.User.id}`}> <img src={post.User.profile_picture} alt={post.User.first_name} /></Link>
+                            <Link to={`/user/${post.User.id}`}> 
+                                <img src={post.User.profile_picture ? post.User.profile_picture : "https://images.unsplash.com/photo-1517423738875-5ce310acd3da?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2570&q=80"} 
+                                    alt={post.User.first_name} /></Link>
                             <Link to={`/user/${post.User.id}`}>{post.User.firstname} {post.User.lastname}</Link>
                         </div>
 

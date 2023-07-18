@@ -1,0 +1,106 @@
+#user-profile-container {
+    padding-top: 56px;
+    display: flex;
+    position: relative;
+}
+
+#user-profile-left {
+    width: fit-content;
+    position: fixed;
+    top: 56px;
+    height: 100%;
+    padding: 20px 18px;
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+#user-profile-left i {
+    font-size: 20px;
+}
+
+#user-profile-right {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin-left: 2%;
+    position: absolute;
+}
+
+#userprofile-user-link img {
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+}
+
+#user-intro {
+    position: relative;
+    width: 100%;
+    height: 600px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#cover-photo {
+    position: relative;
+    display: flex;
+    width: 100%;
+    height: 600px;
+    flex-direction: column;
+    align-items: center;
+    background: rgb(197,228,195);
+    background: linear-gradient(180deg, rgba(197,228,195,1) 0%, rgba(255,255,255,1) 50%, rgba(255,255,255,1) 100%);
+    /* background: rgb(255,192,203);
+    background: linear-gradient(180deg, rgba(255,192,203,1) 0%, rgba(255,255,255,1) 50%, rgba(255,255,255,1) 100%); */
+    
+}
+
+#cover-photo img {
+    width: 80%;
+    border-radius: 10px;
+    position: absolute;
+    bottom: 180px;
+}
+
+#profile-picture {
+    display: flex;
+    gap: 20px;
+    width: 100%;
+    position: absolute;
+    bottom: 110px;
+    padding-left: 15%;
+    background: transparent;
+}
+
+#profile-picture img {
+    width: 168px;
+    height: 168px;
+    border-radius: 50%;
+    border: 5px solid #FFFFFF;
+}
+
+#profile-picture h4 {
+    display: flex;
+    align-items: center;
+    background-color: transparent;
+    font-size: 35px;
+}
+
+#post-photos {
+    display: flex;
+    background-color: #FFF;
+    width: 100%;
+    justify-content: space-around;
+    gap: 20px;
+    padding: 20px;
+    border-top: 1px solid #E4E6EB;
+    margin-bottom: 20px;
+}
+
+#post-photos p {
+    background-color: #FFF;
+}

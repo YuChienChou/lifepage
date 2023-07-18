@@ -132,47 +132,6 @@
 }
 
 
-#user-profile-container {
-    padding-top: 56px;
-    display: flex;
-    position: relative;
-}
-
-#user-profile-left {
-    width: 50px;
-    position: fixed;
-    top: 56px;
-    height: 100%;
-    padding: 20px 10px;
-}
-
-#user-profile-right {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-
-#user-intro {
-    position: relative;
-}
-
-#profile-picture {
-    display: flex;
-    position: absolute;
-    bottom: 50px;
-    left: 30px;
-    background: transparent;
-
-}
-#profile-picture img {
-    width: 168px;
-    height: 168px;
-    border-radius: 50%;
-    border: 2px solid #FFFFFF;
-}
-
-
-
 #post-content p {
     background-color: #FFF;
 }

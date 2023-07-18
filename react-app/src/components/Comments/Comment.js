@@ -61,7 +61,9 @@ export default function Comment({sessionUser, post}) {
         <>
         <div id='comment-form-div'>
            <div id='user-comment'>
-                <Link to={`/user/${sessionUser.id}`}><img src={sessionUser.profile_picture} alt={sessionUser.first_name} /></Link>
+                <Link to={`/user/${sessionUser.id}`}>
+                    <img src={sessionUser.profile_picture ? post.User.profile_picture : "https://images.unsplash.com/photo-1517423738875-5ce310acd3da?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2570&q=80"} 
+                         alt={sessionUser.first_name} /></Link>
             </div>
            <form id='create-comment-form' onSubmit={handleSubmit}>
                 <textarea 
@@ -99,7 +101,9 @@ export default function Comment({sessionUser, post}) {
                 <li key={comment.id}>
                     <div id='comment-user-div'>
                         <div id='user-comment'>
-                            <Link to={`/user/${comment.User.id}`}><img src={comment.User.profile_picture} alt={comment.User.first_name} /></Link>
+                            <Link to={`/user/${comment.User.id}`}>
+                                <img src={comment.User.profile_picture ? post.User.profile_picture : "https://images.unsplash.com/photo-1517423738875-5ce310acd3da?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2570&q=80"} 
+                                     alt={comment.User.first_name} /></Link>
                             <div id='comment-and-user-name'>
                                 <div>
                                     <Link to={`/user/${comment.User.id}`}><p id='comment-user-name'>{comment.User.first_name} {comment.User.last_name}</p></Link>
@@ -145,7 +149,9 @@ export default function Comment({sessionUser, post}) {
             <div id='comment-form-div'>
 
                 <div id='user-comment'>
-                    <Link to={`/user/${sessionUser.id}`}><img src={sessionUser.profile_picture} alt={sessionUser.first_name} /></Link>
+                    <Link to={`/user/${sessionUser.id}`}>
+                        <img src={sessionUser.profile_picture ? post.User.profile_picture : "https://images.unsplash.com/photo-1517423738875-5ce310acd3da?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2570&q=80"} 
+                             alt={sessionUser.first_name} /></Link>
                 </div>
 
                 <form id='create-comment-form' onSubmit={handleSubmit} >
