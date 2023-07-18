@@ -1,0 +1,110 @@
+.post-list {
+    width: 100%;
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    background-color: #FFF;
+    padding: 16px;
+    border-radius: 10px;
+}
+
+#post-list-div {
+    width: 100%;
+    border-radius: 10px;
+}
+
+#post-content {
+    width: 100%;
+    padding: 8px 16px 16px 16px;
+    background-color: #FFF;
+}
+
+#userhome-right {
+    width: fit-content;
+    position: fixed;
+    top: 56px;
+    right: 0px;
+    height: 100%;
+    align-content: right;
+    padding: 10px;
+}
+
+#user-img-name {
+    display: flex;
+    justify-content: space-between;
+    /* padding: 16px; */
+    background-color: #FFF;
+    position: relative;
+}
+
+#img-and-link {
+    display: flex;
+    align-items: center;
+    gap: 10px; 
+    background-color: #FFF;
+}
+
+#img-and-link a {
+    text-decoration: none;
+    background-color: #FFF;
+}
+
+#edit-post-div {
+    position: relative;
+}
+
+#edit-delete-post-container {
+    position: absolute;
+    top: 40px;
+    right: -100px;
+    z-index: 1;
+    background-color: #FFF;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    padding: 16px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgb(224, 218, 218);
+}
+
+#edit-post,
+#edit-post i, 
+#edit-post button {
+    background-color: #FFF;
+}
+
+#delete-post, 
+#delete-post i,
+#delete-post p {
+    background-color: #FFF;
+}
+
+#edit-post {
+    display: flex;
+    gap: 8px;
+}
+
+
+#edit-post i {
+    font-size: 14px;
+}
+
+#edit-post button {
+    font-size: 14px;
+    cursor: pointer;
+}
+
+
+#delete-post {
+    display: flex;
+    gap: 8px;
+    /* cursor: pointer; */
+}
+
+#delete-post button {
+    font-size: 14px;
+    cursor: pointer;
+}
+
+
+

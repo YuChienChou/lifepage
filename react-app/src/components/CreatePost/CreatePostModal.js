@@ -14,16 +14,13 @@ export default function CreatePost({sessionUser}) {
     const [validationError, setValidationError] = useState({});
     const [showImgArea, setShowImgArea] = useState(false);
     const [showVideoArea, setShowVideoArea] = useState(false);
+    const [showItem, setShowItem] = useState(false)
     const [hasSubmit, setHasSubmit] = useState(false);
     const dispatch = useDispatch();
     const { closeModal } = useModal();
 
-    const showImgAreaFun = () => {
-        setShowImgArea(!showImgArea)
-    }
-
-    const showVideoAreaFun = () => {
-        setShowVideoArea(!showVideoArea)
+    const showItemFun = () => {
+        setShowItem(!showItem)
     }
 
     const handleSubmit = async (e) => {
@@ -51,7 +48,7 @@ export default function CreatePost({sessionUser}) {
     useEffect(() => {
         const errors = {}
         if(!body) errors.body = "please enter your post";
-        if(body.length > 2000) errors.body = "Please enter content less than 2000 characters.";
+        if(body.length > 3000) errors.bodylength = "Please enter content less than 3000 characters.";
 
         setValidationError(errors)
     }, [body]);
@@ -65,9 +62,7 @@ export default function CreatePost({sessionUser}) {
             <img src={sessionUser.profile_picture} alt={sessionUser.first_name}/>
             <p>{sessionUser.first_name} {sessionUser.last_name}</p>
         </div>
-        <div id='error-div'>
-            {hasSubmit && <p>{validationError.body}</p>}
-        </div>
+       
         <form id='create-post-form' onSubmit={handleSubmit}>
                 {/* <input
                     type='text' 
@@ -80,11 +75,16 @@ export default function CreatePost({sessionUser}) {
                     placeholder={`What's on your mind, ${sessionUser.first_name}?`}
                     value={body}
                     onChange={(e) => setBody(e.target.value)}
-                />
-
-                {showImgArea ? 
+                /> 
+                
+                <div id='error-div'>
+                    {validationError.bodylength && <p>{validationError.bodylength}</p>}
+                </div>
+    
+                {showItem ? 
                         <div id='add-image-div'>
-                            <input 
+                            <i className="fa-solid fa-photo-film"></i>
+                            <textarea 
                                 type='text'
                                 value={img}
                                 onChange={(e) => setImg(e.target.value)}
@@ -93,11 +93,12 @@ export default function CreatePost({sessionUser}) {
                     : null
                 }
 
-                {showVideoArea ? 
+                {showItem ? 
                         <div id='add-video-div'>
-                            <input 
+                            <i className="fa-solid fa-video"></i>
+                            <textarea 
                                 type='text'
-                                value={video}
+                                value={video}k
                                 onChange={(e) => setVideo(e.target.value)}
                                 placeholder="Please provide video url."/>
                         </div>
@@ -105,18 +106,23 @@ export default function CreatePost({sessionUser}) {
                 }
 
                 <div id='create-post-button-div'>
-                    <button 
-                        type='submit'
-                        disabled={Object.values(validationError).length > 0}
-                    >
+                    <div onClick={showItemFun}>
                         Add to your post
-                    </button>
+                    </div>
                     <div id='img-video'>
-                        <i className="fa-solid fa-photo-film" onClick={showImgAreaFun}></i>
-                        <i className="fa-solid fa-video" onClick={showVideoAreaFun}></i>
+                        <i className="fa-solid fa-photo-film" onClick={showItemFun}></i>
+                        <i className="fa-solid fa-video" onClick={showItemFun}></i>
                     </div>
                     
                 </div>
+
+                <button 
+                        type='submit'
+                        disabled={Object.values(validationError).length > 0}
+                        id={Object.values(validationError).length > 0 ? 'create-post-button-disabled' : 'create-post-button-active'}
+                    >
+                        Post
+                    </button>
          
         </form>
 
