@@ -1,8 +1,10 @@
 import { useDispatch } from "react-redux";
 import { useState, useEffect } from 'react';
 import { createCommentThunk } from "../../store/comment";
+import { deleteCommentThunk } from "../../store/comment";
 import { getAllPostsThunk, getUserPostsThunk } from "../../store/post";
 import EditDeleteCommentModal from "./EditDeleteCommentModal";
+import EditComment from "./EditComment";
 import OpenModalButton from "../OpenModalButton";
 import './comment.css'
 
@@ -13,9 +15,24 @@ export default function Comment({sessionUser, post}) {
     // console.log("post in the comment component: ", post);
     // console.log("post comments in comment component: ", post.Comments);
     const [content, setContent] = useState("");
-    const [validationErrors, setValidationErrors] = useState({})
+    const [editComment, setEditComment] = useState(false);
+    const [validationErrors, setValidationErrors] = useState({});
+    const dispatch = useDispatch();
 
-    const dispatch = useDispatch()
+    const editCommentFun = () => {
+        setEditComment(!editComment);
+    };
+
+    const hideEditCommentFun = () => {
+        setEditComment(false);
+    };
+
+    const deleteComment = async (commentId) => {
+        await dispatch(deleteCommentThunk(commentId));
+        await dispatch(getAllPostsThunk());
+        await dispatch(getUserPostsThunk(sessionUser.id));
+        // closeModal();
+    };
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -62,6 +79,7 @@ export default function Comment({sessionUser, post}) {
                 <button 
                     type='submit'
                     disabled={Object.values(validationErrors).length > 0}
+                    id={Object.values(validationErrors).length > 0 ? 'send-comment-disabled' : 'send-comment-active'}
                 >
                     <i className="fa-solid fa-location-arrow"></i>
                 </button>
@@ -71,28 +89,49 @@ export default function Comment({sessionUser, post}) {
         )
     }
 
-
     return (
         <>
         <div id='post-comment'>
-            {post.Comments.reverse().map((comment) => (
+            {post.Comments.map((comment) => (
                 
                 <li key={comment.id}>
                     <div id='comment-user-div'>
                         <div id='user-comment'>
                             <img src={comment.User.profile_picture} alt={comment.User.first_name} />
                             <div id='comment-and-user-name'>
-                                <p id='comment-user-name'>{comment.User.first_name} {comment.User.last_name}</p>
-                                <p>{comment.content}</p>
+                                <div>
+                                    <p id='comment-user-name'>{comment.User.first_name} {comment.User.last_name}</p>
+                                    <p id='comment-content'>{comment.content}</p>
+                                </div>
+                           
+                                {comment.User.id === sessionUser.id ?
+                                    <div id='edit-comment-button' onClick={editCommentFun}>
+                                        <i className="fa-solid fa-pen-to-square"></i>
+                                    </div>                                
+                                    : null
+                                } 
+
+                                {editComment ? 
+                                    <div id='edit-delete-comment-container' >
+                                        <div id='edit-comment'>
+                                            <i className="fa-solid fa-pen"></i>
+                                            <OpenModalButton
+                                                buttonText='Edit comment'
+                                                modalComponent={<EditComment sessionUser={sessionUser} post={post} comment={comment}/>}
+                                            />
+                                        </div>
+                                        <div id='delete-comment'>
+                                            <i className="fa-regular fa-trash-can" ></i>
+                                            <p onClick={() => {deleteComment(comment.id)}}>Move to trash</p>
+                                        </div>
+                                    </div>
+                                    : null
+                                }
+
+                                
                             </div>
                         </div>
-                        {comment.User.id === sessionUser.id ?
-                        <OpenModalButton
-                            buttonText='Edit/Delete'
-                            modalComponent={<EditDeleteCommentModal sessionUser={sessionUser} post={post} comment={comment}/>} 
-                        
-                        />
-                        : null}
+                      
                     </div>
                 </li>
             ))}
@@ -113,6 +152,7 @@ export default function Comment({sessionUser, post}) {
                     <button 
                         type='submit'
                         disabled={Object.values(validationErrors).length > 0}
+                        id={Object.values(validationErrors).length > 0 ? 'send-comment-disabled' : 'send-comment-active'}
                     >
                         <i className="fa-solid fa-location-arrow"></i>
                     </button>

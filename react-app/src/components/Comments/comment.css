@@ -6,7 +6,7 @@
 #comment-user-div {
     display: flex;
     justify-content: space-between;
-    padding: 10px 0;
+    padding: 5px 0;
     background-color: #FFF;
 }
 
@@ -17,10 +17,10 @@
     background-color: #FFF;
 }
 
-#user-comment p {
+/* #user-comment p {
     background-color: #FFF;
     font-size: 14px;
-}
+} */
 
 #user-comment img {
     width: 32px;
@@ -44,13 +44,115 @@
 
 #create-comment-form {
     width: 100%;
-    background-color: #FFF;
+    /* background-color: #FFF; */
+    display: flex;
+    border-radius: 30px;
+    align-items: center;
+    margin-top: 5px;
 }
 
 #create-comment-form textarea{
-    width: 90%;
+    width: 93%;
+    height: fit-content;
     background-color: none;
     border: none;
     padding: 10px;
+    border-radius: 30px;
+    resize: none;
+    outline: none;
+}
+
+#send-comment-disabled {
+    border: none;
+    
+}
+
+#send-comment-disabled i {
+    border: none;
+    font-size: 20px;
+    color: #BEC3C9;
+}
+
+#send-comment-active {
+    border: none;
+}
+
+#send-comment-active i {
+    color: #056BE1;
+    border: none;
+    font-size: 20px;
+    cursor: pointer;
+}
+
+#comment-and-user-name {
+    padding: 10px 15px;
+    border-radius: 30px;
+    display: flex;
+    justify-content: space-between;
+    gap: 50px;
+    position: relative;
+}
+
+#comment-user-name {
+    font-size: 13px;
+}
+
+#comment-content {
+    font-size: 15px;
+}
+
+#edit-comment-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#edit-comment-button button {
+    border: none;
+}
+
+#edit-comment-button i {
+    font-size: 16px;
+    border: none;
+}
+
+#edit-delete-comment-container {
+    position: absolute;
+    right: -140px;
+    display: flex;
+    background-color: #FFF;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    padding: 16px;
     border-radius: 10px;
+    box-shadow: 0 0 10px rgb(224, 218, 218);
+}
+
+#edit-comment {
+    display: flex;
+    gap: 8px;
+    background-color: #FFF;
+}
+
+#edit-comment i, 
+#edit-comment button,
+#delete-comment p  {
+    background-color: #FFF;
+    font-size: 14px;
+}
+
+#edit-comment button {
+    border: none;
+    cursor: pointer;
+}
+
+#delete-comment {
+    background-color: #FFF;
+    display: flex;
+    gap: 8px;
+}
+
+#delete-comment p {
+    cursor: pointer;
 }

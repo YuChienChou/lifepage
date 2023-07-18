@@ -43,10 +43,11 @@
     background-color: #FFF;
     border: none;
     width: 100%;
-    height: 160px;
+    height: 200px;
     font-size: 16px;    
     margin-bottom: 10px;
     padding: 16px;
+    resize: none;
 }
 
 #create-post-form input {
