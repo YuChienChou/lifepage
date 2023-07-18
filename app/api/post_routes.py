@@ -43,7 +43,7 @@ def create_post(userId):
     try: 
         if form.validate_on_submit:
             new_post = Post(
-                title = form.data['title'],
+                # title = form.data['title'],
                 img = form.data['img'],
                 video = form.data['video'],
                 body = form.data['body'],

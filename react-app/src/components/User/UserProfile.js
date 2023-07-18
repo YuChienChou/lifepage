@@ -8,7 +8,9 @@ import OpenModalButton from "../OpenModalButton";
 import CreatePost from "../CreatePost/CreatePostModal";
 import EditDeletePostModal from '../EditDeletePost/EditDeletePostModal';
 import Comment from "../Comments/Comment";
+import PostList from "../PostList/PostList";
 import './user.css'
+
 
 export default function UserPorfile() {
     const { userId } = useParams();
@@ -59,51 +61,59 @@ export default function UserPorfile() {
                 </div>
 
 
-                <div>
+                {/* <div>
                     <OpenModalButton
                         buttonText ={`What's on your mind, ${sessionUser.first_name}`}
                         modalComponent={<CreatePost sessionUser={sessionUser}/>}
                     />
-                </div>   
+                </div>    */}
+                <div id='create-post-div'>
+                    <Link to={`/user/${sessionUser.id}`}><img src={sessionUser.profile_picture} alt={sessionUser.first_name} /></Link>
+                    <OpenModalButton
+                        buttonText ={`What's on your mind, ${sessionUser.first_name}?`}
+                        modalComponent={<CreatePost sessionUser={sessionUser}/>}
+                    />
+                </div>
             
                 {userPostArr.length > 0 ? 
                     <div>
                         {userPostArr.reverse().map((post) => (
-                            <li di={post.id}>
-                                <div id={post.id}>
-                                <div>
-                                    <div id='user-img-name'>
-                                        <Link to={`/user/${post.User.id}`}> <img src={post.User.profile_picture} alt={post.User.first_name} />
-                                        <p>{post.User.firstname} {post.User.lastname}</p></Link>
-                                    </div>
-                                    {/* {post.User.id === sessionUser.id ?  */}
-                                        <div>
-                                            <OpenModalButton
-                                                buttonText="Edit/Delete"
-                                                modalComponent={<EditDeletePostModal sessionUser={sessionUser} post={post}/>}
-                                            />
-                                        </div> 
-                                    {/* // : null } */}
-                                </div>
-                                <div>
-                                    <p>{post.title}</p>
-                                    <p>{post.body}</p>
-                                    <img src={post.img} alt=""/>
-                                </div>
-                                {/* {post.video ? 
-                                    <div>
-                                        <video controls width='250'>
-                                            <source src={post.video} type='video/mp4'></source>
-                                        </video>
+                            <PostList sessionUser={sessionUser} post={post} />
+                            // <li di={post.id}>
+                            //     <div id={post.id}>
+                            //     <div>
+                            //         <div id='user-img-name'>
+                            //             <Link to={`/user/${post.User.id}`}> <img src={post.User.profile_picture} alt={post.User.first_name} />
+                            //             <p>{post.User.firstname} {post.User.lastname}</p></Link>
+                            //         </div>
+                            //         {/* {post.User.id === sessionUser.id ?  */}
+                            //             <div>
+                            //                 <OpenModalButton
+                            //                     buttonText="Edit/Delete"
+                            //                     modalComponent={<EditDeletePostModal sessionUser={sessionUser} post={post}/>}
+                            //                 />
+                            //             </div> 
+                            //         {/* // : null } */}
+                            //     </div>
+                            //     <div>
+                            //         <p>{post.title}</p>
+                            //         <p>{post.body}</p>
+                            //         <img src={post.img} alt=""/>
+                            //     </div>
+                            //     {/* {post.video ? 
+                            //         <div>
+                            //             <video controls width='250'>
+                            //                 <source src={post.video} type='video/mp4'></source>
+                            //             </video>
 
-                                    </div> : null
+                            //         </div> : null
                                 
-                                } */}
-                            </div>
+                            //     } */}
+                            // </div>
                             
-                            <Comment sessionUser={sessionUser} post={post} />
+                            // <Comment sessionUser={sessionUser} post={post} />
                             
-                            </li>
+                            // </li>
                         ))}
                     </div> : <p>This user doesn't have any post.</p>
                 }  

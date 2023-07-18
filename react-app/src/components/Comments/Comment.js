@@ -48,10 +48,12 @@ export default function Comment({sessionUser, post}) {
     if (post.Comments.length === 0) {
         return (
         <>
-        <div >
-           <p>Be the first to leave a comment.</p>
-           <form onSubmit={handleSubmit}>
-                <input 
+        <div id='comment-form-div'>
+           <div id='user-comment'>
+                <img src={sessionUser.profile_picture} alt={sessionUser.first_name} />
+            </div>
+           <form id='create-comment-form' onSubmit={handleSubmit}>
+                <textarea 
                     type='text'
                     placeholder='Write a comment'
                     value={content}
@@ -95,20 +97,27 @@ export default function Comment({sessionUser, post}) {
                 </li>
             ))}
 
-            <form onSubmit={handleSubmit} >
-                <input 
-                    type='text'
-                    placeholder='Write a comment'
-                    value={content}
-                    onChange={(e) => setContent(e.target.value)}
-                />
-                <button 
-                    type='submit'
-                    disabled={Object.values(validationErrors).length > 0}
-                >
-                    <i className="fa-solid fa-location-arrow"></i>
-                </button>
-            </form>
+            <div id='comment-form-div'>
+
+                <div id='user-comment'>
+                    <img src={sessionUser.profile_picture} alt={sessionUser.first_name} />
+                </div>
+
+                <form id='create-comment-form' onSubmit={handleSubmit} >
+                    <textarea 
+                        type='text'
+                        placeholder='Write a comment'
+                        value={content}
+                        onChange={(e) => setContent(e.target.value)}
+                    />
+                    <button 
+                        type='submit'
+                        disabled={Object.values(validationErrors).length > 0}
+                    >
+                        <i className="fa-solid fa-location-arrow"></i>
+                    </button>
+                </form>
+            </div>
 
         </div>
         </>

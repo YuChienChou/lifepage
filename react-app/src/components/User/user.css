@@ -9,6 +9,7 @@
     top: 56px;
     height: 100%;
     padding: 20px 10px;
+    z-index: 1;
 }
 
 #userhome-left a {
@@ -66,6 +67,7 @@
 
 #userhome-home-link p, 
 #userhome-user-link p {
+    font-size: 15px;
     display: flex;
     flex-wrap: wrap;
     align-content: center;
@@ -78,7 +80,9 @@
     align-items: center;
     justify-content: center;
     padding: 20px;
-
+    position: absolute;
+    /* padding-left: 10%; */
+    /* padding-left: 9%; */
 }
 
 #post-list-container {
@@ -96,50 +100,9 @@
     gap: 20px;
 }
 
-.post-list {
-    width: 100%;
-    list-style: none;
-    display: flex;
-    flex-direction: column;
-    background-color: #FFF;
-    padding: 16px;
-    border-radius: 10px;
-}
-
-#post-list-div {
-    width: 100%;
-    border-radius: 10px;
-}
-
-#userhome-right {
-    width: fit-content;
-    position: fixed;
-    top: 56px;
-    right: 0px;
-    height: 100%;
-    align-content: right;
-    padding: 10px;
-}
-
 #user-img-name {
-    display: flex;
-    justify-content: space-between;
-    /* padding: 16px; */
-    background-color: #FFF;
+    position: relative;
 }
-
-#img-and-link {
-    display: flex;
-    align-items: center;
-    gap: 10px; 
-    background-color: #FFF;
-}
-
-#img-and-link a {
-    text-decoration: none;
-    background-color: #FFF;
-}
-
 
 #user-img-name img {
     width: 40px;
@@ -154,17 +117,18 @@
 
 #edit-post-div {
     background-color: #F0F2F5;
-    width: 30px;
-    height: 30px;
+    width: 32px;
+    height: 32px;
     border-radius: 50%;
     display: flex;
     justify-content: center;
     align-items: center;
+    cursor: pointer;
 }
 
-#edit-post-div i,
-#edit-post-div button {
+#edit-post-div i {
     background-color: #F0F2F5;
+    cursor: pointer;
 }
 
 
@@ -207,11 +171,7 @@
     border: 2px solid #FFFFFF;
 }
 
-#post-content {
-    width: 100%;
-    padding: 16px;
-    background-color: #FFF;
-}
+
 
 #post-content p {
     background-color: #FFF;
@@ -232,7 +192,7 @@
 }
 
 #video-post {
-    width: 618px;
+    width: 616px;
     height: 360px;
     background-color: #FFF;
     display: flex;
