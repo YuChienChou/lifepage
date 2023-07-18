@@ -49,6 +49,7 @@
     border-radius: 30px;
     align-items: center;
     margin-top: 5px;
+    position: relative;
 }
 
 #create-comment-form textarea{
@@ -118,7 +119,7 @@
 
 #edit-delete-comment-container {
     position: absolute;
-    right: -140px;
+    right: -160px;
     display: flex;
     background-color: #FFF;
     display: flex;
@@ -127,6 +128,7 @@
     padding: 16px;
     border-radius: 10px;
     box-shadow: 0 0 10px rgb(224, 218, 218);
+    z-index: 1;
 }
 
 #edit-comment {
@@ -137,7 +139,8 @@
 
 #edit-comment i, 
 #edit-comment button,
-#delete-comment p  {
+#delete-comment p,
+#delete-comment button  {
     background-color: #FFF;
     font-size: 14px;
 }
@@ -156,3 +159,87 @@
 #delete-comment p {
     cursor: pointer;
 }
+
+#delete-comment i {
+    font-size: 16px;
+}
+#delete-comment button {
+    border: none;
+    cursor: pointer;
+}
+
+/*Delete comment Modal */
+
+
+#delete-comment-container {
+    border-radius: 10px;
+    background-color: #FFF;
+    /* padding: 16px; */
+}
+
+#delete-comment-container h3 {
+    text-align: center;
+    padding: 16px;
+    border-bottom: 1px solid #F0F1F3;
+    border-radius: 10px 10px 0 0;
+    background-color: #FFF;
+}
+#delete-comment-container p {
+    background-color: #FFF;
+    padding: 0 16px 16px 16px;
+    font-size: 14px;
+    margin: 16px 0;
+}
+#delete-comment-container button {
+    /* background-color: #FFF; */
+    font-size: 14px;
+    border: none;
+    border-radius: 10px;
+    padding: 10px;
+}
+
+
+#delete-comment-button-div {
+    display: flex;
+    justify-content: flex-end;
+    gap: 20px;
+    align-items: center;
+    background-color: #FFF;
+    margin: 16px 16px;
+}
+
+#cancel-delete {
+    color: #1A6ED8;
+    cursor: pointer;
+    background-color: #FFF;
+}
+
+#cancel-delete:hover {
+    background-color: #F0F2F5;
+}
+
+#confirm-delete {
+    background-color: #1A6ED8;
+    color: #FFF;
+    cursor: pointer;
+}
+
+
+#add-comment-error-div {
+    background-color: #FFF;
+    width: 150px;
+    border-radius: 10px;
+    padding: 10px;
+    position: absolute;
+    right: -70px;
+    top: -8px;
+    box-shadow: 0 0 10px rgb(224, 218, 218);
+}
+
+#add-comment-error-div p {
+    font-size: 12px;
+    color: red;
+    background-color: #FFF;
+}
+
+

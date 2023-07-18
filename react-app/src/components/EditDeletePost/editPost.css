@@ -53,6 +53,7 @@
     margin-bottom: 10px;
     padding: 16px;
     resize: none;
+    outline: none;
 }
 
 #edit-image-div textarea {
@@ -63,6 +64,7 @@
     background-color: #FFF;
     border-radius: 10px;
     border: 1px solid #F0F1F3;
+    outline: none;
 }
 
 #edit-image-div {
@@ -94,6 +96,7 @@
     background-color: #FFF;
     border-radius: 10px;
     border: 1px solid #F0F1F3;
+    outline: none;
 }
 
 #edit-video-div i {
@@ -128,22 +131,24 @@
     color: #FFF;
 }
 
+/*Delete post*/
 
 #delete-post-container {
     border-radius: 10px;
     background-color: #FFF;
-    padding: 16px;
+    /* padding: 16px; */
 }
 
 #delete-post-container h3 {
     text-align: center;
     padding: 16px;
     border-bottom: 1px solid #F0F1F3;
-    border-radius: 10px;
+    border-radius: 10px 10px 0 0;
     background-color: #FFF;
 }
 #delete-post-container p {
     background-color: #FFF;
+    padding: 0 16px 16px 16px;
     font-size: 14px;
     margin: 16px 0;
 }
@@ -162,7 +167,7 @@
     gap: 20px;
     align-items: center;
     background-color: #FFF;
-    margin: 0 16px;
+    margin: 16px 16px;
 }
 
 #cancel-delete {

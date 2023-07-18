@@ -19,14 +19,14 @@ export default function DeletePostModal({sessionUser, post}) {
 
     return (
         <>
-        <div id='delete-post-container'>
+        <div id='delete-comment-container'>
         
             <h3>Delete this post?</h3>
 
             <p>The post will be deleted permanently. Please confirm if you want to delete this post.</p>
             
 
-            <div id='delete-post-button-div'>
+            <div id='delete-comment-button-div'>
                 <button id='cancel-delete'onClick={closeModal}>
                     Cancel
                 </button>

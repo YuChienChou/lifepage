@@ -61,9 +61,10 @@ function SignupFormModal() {
 	useEffect(() => {
 		const errors = {};
 		if(!addFirstName) errors.addFirstName = "Please enter your first name.";
-		if(!addLastName) errors.addFirstName = "Please enter your Last name.";
+		if(!addLastName) errors.addLastName = "Please enter your Last name.";
 		if(!addEmail || !addEmail.includes("@")) errors.addEmail = "Please provide valide email.";
 		if(!addPassword) errors.addPassword = "Please provide a password";
+		if(addPassword.length < 6 || addPassword.length > 20) errors.addPasswordlength = "Please provide a password between 6 to 20 characters."
 
 		setValidationError(errors);
 	}, [addFirstName, addLastName, addEmail, addPassword])
@@ -141,6 +142,10 @@ function SignupFormModal() {
 							))}
 					</select>
 				</label> */}
+				<div id='error-div'>
+					{hasSubmit && validationError.password && <p>password: {validationError.password}</p>}
+					{/* {hasSubmit && validationError.addPasswordlength && <p>{validationError.addPasswordlength}</p>} */}
+				</div>
 
 				<button 
 					type="submit"

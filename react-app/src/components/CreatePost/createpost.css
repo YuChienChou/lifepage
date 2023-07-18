@@ -48,6 +48,7 @@
     margin-bottom: 10px;
     padding: 16px;
     resize: none;
+    outline: none;
 }
 
 #create-post-form input {
