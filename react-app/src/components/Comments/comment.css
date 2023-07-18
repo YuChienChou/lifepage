@@ -17,10 +17,9 @@
     background-color: #FFF;
 }
 
-/* #user-comment p {
+#user-comment a {
     background-color: #FFF;
-    font-size: 14px;
-} */
+}
 
 #user-comment img {
     width: 32px;
@@ -94,8 +93,15 @@
     position: relative;
 }
 
+#comment-and-user-name a {
+    text-decoration: none;
+    background-color: #FFF;
+}
+
+
 #comment-user-name {
     font-size: 13px;
+    margin-bottom: 5px;
 }
 
 #comment-content {
