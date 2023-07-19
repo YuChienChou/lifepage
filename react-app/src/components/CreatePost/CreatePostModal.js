@@ -109,11 +109,22 @@ export default function CreatePost({sessionUser}) {
                         </div>
                     : null
                 }
-
+                {validationError.imgFormat ? 
                 <div id='error-div'>
                     {validationError.imgFormat && <p>{validationError.imgFormat}</p>}
+                </div>
+                : null
+                }
+                {validationError.videoFormat ? 
+                <div id='error-div'>
                     {validationError.videoFormat && <p>{validationError.videoFormat}</p>}
                 </div>
+                : null
+                }
+                {/* <div id='error-div'>
+                    {validationError.imgFormat && <p>{validationError.imgFormat}</p>}
+                    {validationError.videoFormat && <p>{validationError.videoFormat}</p>}
+                </div> */}
 
                 <div id='create-post-button-div'>
                     <div onClick={showItemFun}>
