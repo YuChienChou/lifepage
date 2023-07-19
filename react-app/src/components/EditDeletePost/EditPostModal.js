@@ -5,6 +5,7 @@ import { editPostThunk } from '../../store/post';
 import { useModal } from '../../context/Modal';
 import { getAllPostsThunk, getUserPostsThunk } from '../../store/post';
 import { getSingleUserThunk } from '../../store/user';
+import userProfilePicture from '../resources/default-user-profile-picture.png';
 import './editPost.css'
 
 export default function EditPostModal({sessionUser, post }) {
@@ -47,14 +48,22 @@ export default function EditPostModal({sessionUser, post }) {
         };
     };
 
+    // const videoFrag = video.split("v=")[1].split("&")[0];
+    // console.log("video in editpostmodal: ", typeof video)
+    // console.log("video fragment in editpostmodal: ", videoFrag)
+
 
     useEffect(() => {
         const errors = {};
         if(!body) errors.body = "Please enter your post.";
-        if(body.length > 2000) errors.body = errors.body = "Please enter content less than 2000 characters.";
-
+        if(body.length > 2000) errors.body = errors.bodylength = "Please enter content less than 2000 characters.";
+        if(img && !img.endsWith('.jpg') && !img.endsWith('.png') && !img.endsWith('.jpeg')) errors.imgFormat = "Image URL needs to end in png or jpg (or jpeg)";
+        if(video) {
+            const videoFrag = video.split("=");
+            if(videoFrag[0] !== "https://www.youtube.com/watch?v" || !videoFrag[1].endsWith("channel"))  errors.videoFormat = "Please enter valid URL form youTube."}
+        
         setValidationError(errors)
-    }, [body])
+    }, [body, img, video])
 
     return (
         <>
@@ -63,7 +72,7 @@ export default function EditPostModal({sessionUser, post }) {
                 <h3>Edit Post</h3>
             </div>
             <div id='edit-post-user'>
-                <Link to={`/user/${sessionUser.id}`}><img src={sessionUser.profile_picture ? sessionUser.profile_picture : "https://images.unsplash.com/photo-1517423738875-5ce310acd3da?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2570&q=80"} 
+                <Link to={`/user/${sessionUser.id}`}><img src={sessionUser.profile_picture ? sessionUser.profile_picture : userProfilePicture} 
                      alt={sessionUser.first_name}/></Link>
                 <Link to={`/user/${sessionUser.id}`}><p>{sessionUser.first_name} {sessionUser.last_name}</p></Link>
             </div>
@@ -80,22 +89,28 @@ export default function EditPostModal({sessionUser, post }) {
                         value={body}
                         onChange={(e) => setBody(e.target.value)}
                     />
+
+                    <div id='error-div'>
+                        {validationError.bodylength && <p>{validationError.bodylength}</p>}
+                    </div>
                 
 
                  
                     {showItem? 
-                        <div id='edit-image-div'>
-                            <i className="fa-solid fa-photo-film"></i>
-                            <textarea 
-                                type='text'
-                                value={ img }
-                                onChange={(e) => setImg(e.target.value)}
-                            />
-                        </div> 
+                        <div id='edit-image-div-container'>
+                            <div id='edit-image-div'>
+                                <i className="fa-solid fa-photo-film"></i>
+                                <textarea 
+                                    type='text'
+                                    value={ img }
+                                    onChange={(e) => setImg(e.target.value)}
+                                    placeholder="Please provide img url ends with png, jpg, or jpeg."
+                                />
+                            </div>                             
+                        </div>
                         : null
                     }
-                 
-            
+                    
                     {showItem ? 
                         <div id='edit-video-div'>
                             <i className="fa-solid fa-video"></i>
@@ -103,11 +118,19 @@ export default function EditPostModal({sessionUser, post }) {
                                 type='text'
                                 value={ video }
                                 onChange={(e) => setVideo(e.target.value)}
+                                placeholder="Please provide valid video url from youTube."
                             />
                         </div>
+
+                        
                         : null
                     }
-                
+                    
+                    <div id='error-div'>
+                        {validationError.imgFormat && <p>{validationError.imgFormat}</p>}
+                        {validationError.videoFormat && <p>{validationError.videoFormat}</p>}
+                    </div>
+                    
 
                     <div id='create-post-button-div'>
                         <div onClick={showItemFun}>

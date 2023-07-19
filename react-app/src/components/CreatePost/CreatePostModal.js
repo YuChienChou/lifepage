@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import { createPostThunk, getUserPostsThunk } from "../../store/post";
 import { getSingleUserThunk } from "../../store/user";
 import { useModal } from "../../context/Modal";
+import userProfilePicture from '../resources/default-user-profile-picture.png';
 import './createpost.css'
 
 
@@ -48,9 +49,13 @@ export default function CreatePost({sessionUser}) {
         const errors = {}
         if(!body) errors.body = "please enter your post";
         if(body.length > 3000) errors.bodylength = "Please enter content less than 3000 characters.";
+        if(img && !img.endsWith('.jpg') && !img.endsWith('.png') && !img.endsWith('.jpeg')) errors.imgFormat = "Image URL needs to end in png or jpg (or jpeg)";
+        if(video) {
+            const videoFrag = video.split("=");
+            if(videoFrag[0] !== "https://www.youtube.com/watch?v" || !videoFrag[1].endsWith("channel"))  errors.videoFormat = "Please enter valid URL form youTube."}
 
         setValidationError(errors)
-    }, [body]);
+    }, [body, img, video]);
 
     return (
         <>
@@ -58,7 +63,7 @@ export default function CreatePost({sessionUser}) {
             <h3>Create Post</h3>
         </div>
         <div id='create-post-user'>
-           <Link to={`/user/${sessionUser.id}`}><img src={sessionUser.profile_picture ? sessionUser.profile_picture : "https://images.unsplash.com/photo-1517423738875-5ce310acd3da?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2570&q=80"} 
+           <Link to={`/user/${sessionUser.id}`}><img src={sessionUser.profile_picture ? sessionUser.profile_picture : userProfilePicture} 
             alt={sessionUser.first_name}/></Link>
             <Link to={`/user/${sessionUser.id}`}>{sessionUser.first_name} {sessionUser.last_name}</Link>
         </div>
@@ -88,7 +93,7 @@ export default function CreatePost({sessionUser}) {
                                 type='text'
                                 value={img}
                                 onChange={(e) => setImg(e.target.value)}
-                                placeholder="Please provide img url."/>
+                                placeholder="Please provide img url ends with png, jpg, or jpeg."/>
                         </div>
                     : null
                 }
@@ -100,10 +105,15 @@ export default function CreatePost({sessionUser}) {
                                 type='text'
                                 value={video}k
                                 onChange={(e) => setVideo(e.target.value)}
-                                placeholder="Please provide video url."/>
+                                placeholder="Please provide valid video url from youTube."/>
                         </div>
                     : null
                 }
+
+                <div id='error-div'>
+                    {validationError.imgFormat && <p>{validationError.imgFormat}</p>}
+                    {validationError.videoFormat && <p>{validationError.videoFormat}</p>}
+                </div>
 
                 <div id='create-post-button-div'>
                     <div onClick={showItemFun}>

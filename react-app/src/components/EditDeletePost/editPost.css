@@ -63,6 +63,10 @@
     outline: none;
 }
 
+#edit-image-div-container {
+    background-color: #FFF;
+}
+
 #edit-image-div textarea {
     height: fit-content;
     width: 100%;
