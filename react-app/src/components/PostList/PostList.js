@@ -3,10 +3,10 @@ import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import OpenModalButton from '../OpenModalButton';
 import Comment from '../Comments/Comment';
-import { useDispatch } from 'react-redux';
-import { useModal } from '../../context/Modal';
 import EditPostModal from '../EditDeletePost/EditPostModal';
 import DeletePostModal from '../EditDeletePost/DeletePostModal';
+import userCoverPhoto from '../resources/default-user-cover-photo.png';
+import userProfilePicture from '../resources/default-user-profile-picture.png';
 import './postList.css'
 
 
@@ -32,7 +32,7 @@ export default function PostList({sessionUser, post}) {
                     <div id='user-img-name'>
                         <div id='img-and-link'>
                             <Link to={`/user/${post.User.id}`}> 
-                                <img src={post.User.profile_picture ? post.User.profile_picture : "https://images.unsplash.com/photo-1517423738875-5ce310acd3da?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2570&q=80"} 
+                                <img src={post.User.profile_picture ? post.User.profile_picture : userProfilePicture} 
                                     alt={post.User.first_name} /></Link>
                             <Link to={`/user/${post.User.id}`}>{post.User.firstname} {post.User.lastname}</Link>
                         </div>
@@ -78,13 +78,13 @@ export default function PostList({sessionUser, post}) {
                     <img src={post.img} alt=""/></div>
                     : null
                     }  
-                    {/* {post.video ? 
+                    {post.video ? 
                         <div id='video-post'>
                             <ReactPlayer url={post.video} controls width='100%' height='100%'/>
 
                         </div> : null
                 
-                    } */}
+                    }
                 </div>
                 
             </div>
