@@ -7,6 +7,8 @@ import Navigation from "../Navigation";
 import OpenModalButton from "../OpenModalButton";
 import CreatePost from "../CreatePost/CreatePostModal";
 import PostList from "../PostList/PostList";
+import userCoverPhoto from '../resources/default-user-cover-photo.png';
+import userProfilePicture from '../resources/default-user-profile-picture.png';
 import './user.css'
 import './userprofile.css'
 
@@ -42,17 +44,17 @@ export default function UserPorfile() {
             <div id="user-profile-left">
                 <Link to='/user'><i className="fa-solid fa-house"></i></Link>
                 <Link to={`/user/${sessionUser.id}`}><div id='userprofile-user-link'>
-                   <img src={sessionUser.profile_picture ? sessionUser.profile_picture : "https://images.unsplash.com/photo-1517423738875-5ce310acd3da?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2570&q=80"} alt={sessionUser.first_name} />
+                   <img src={sessionUser.profile_picture ? sessionUser.profile_picture : userProfilePicture} alt={sessionUser.first_name} />
                 </div></Link>
             </div>
             <div id='user-profile-right'>
                     <div id='user-intro'>
                         <div id='cover-photo'>
-                            <img src={user.cover_photo ? user.cover_photo : "https://images.unsplash.com/photo-1557683316-973673baf926?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1429&q=80"} 
+                            <img src={user.cover_photo ? user.cover_photo : userCoverPhoto} 
                             alt={user.first_name} />
                         </div>
                         <div id='profile-picture'>
-                            <img src={user.profile_picture ? sessionUser.profile_picture : "https://images.unsplash.com/photo-1517423738875-5ce310acd3da?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2570&q=80"} 
+                            <img src={user.profile_picture ? sessionUser.profile_picture : userProfilePicture} 
                                  alt={user.first_name} />
                             <h4>{user.first_name} {user.last_name}</h4>
 
@@ -69,7 +71,7 @@ export default function UserPorfile() {
                 </div>
                 <div id='create-post-div'>
                     <Link to={`/user/${sessionUser.id}`}>
-                        <img src={sessionUser.profile_picture? sessionUser.profile_picture : "https://images.unsplash.com/photo-1517423738875-5ce310acd3da?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2570&q=80"} 
+                        <img src={sessionUser.profile_picture? sessionUser.profile_picture : userProfilePicture} 
                              alt={sessionUser.first_name} /></Link>
                     <OpenModalButton
                         buttonText ={`What's on your mind, ${sessionUser.first_name}?`}

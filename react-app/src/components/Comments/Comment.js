@@ -6,6 +6,8 @@ import { getAllPostsThunk, getUserPostsThunk } from "../../store/post";
 import EditComment from "./EditComment";
 import DeleteComment from "./DeleteCommentModal";
 import OpenModalButton from "../OpenModalButton";
+import userCoverPhoto from '../resources/default-user-cover-photo.png';
+import userProfilePicture from '../resources/default-user-profile-picture.png';
 import './comment.css'
 
 
@@ -62,7 +64,7 @@ export default function Comment({sessionUser, post}) {
         <div id='comment-form-div'>
            <div id='user-comment'>
                 <Link to={`/user/${sessionUser.id}`}>
-                    <img src={sessionUser.profile_picture ? post.User.profile_picture : "https://images.unsplash.com/photo-1517423738875-5ce310acd3da?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2570&q=80"} 
+                    <img src={sessionUser.profile_picture ? post.User.profile_picture : userProfilePicture} 
                          alt={sessionUser.first_name} /></Link>
             </div>
            <form id='create-comment-form' onSubmit={handleSubmit}>
@@ -102,7 +104,7 @@ export default function Comment({sessionUser, post}) {
                     <div id='comment-user-div'>
                         <div id='user-comment'>
                             <Link to={`/user/${comment.User.id}`}>
-                                <img src={comment.User.profile_picture ? post.User.profile_picture : "https://images.unsplash.com/photo-1517423738875-5ce310acd3da?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2570&q=80"} 
+                                <img src={comment.User.profile_picture ? post.User.profile_picture : userProfilePicture} 
                                      alt={comment.User.first_name} /></Link>
                             <div id='comment-and-user-name'>
                                 <div>
@@ -150,7 +152,7 @@ export default function Comment({sessionUser, post}) {
 
                 <div id='user-comment'>
                     <Link to={`/user/${sessionUser.id}`}>
-                        <img src={sessionUser.profile_picture ? post.User.profile_picture : "https://images.unsplash.com/photo-1517423738875-5ce310acd3da?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2570&q=80"} 
+                        <img src={sessionUser.profile_picture ? post.User.profile_picture : userProfilePicture} 
                              alt={sessionUser.first_name} /></Link>
                 </div>
 
