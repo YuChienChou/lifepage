@@ -54,7 +54,7 @@ export default function UserPorfile() {
                             alt={user.first_name} />
                         </div>
                         <div id='profile-picture'>
-                            <img src={user.profile_picture ? sessionUser.profile_picture : userProfilePicture} 
+                            <img src={user.profile_picture ? user.profile_picture : userProfilePicture} 
                                  alt={user.first_name} />
                             <h4>{user.first_name} {user.last_name}</h4>
 
@@ -87,7 +87,7 @@ export default function UserPorfile() {
                         ))}
                     </ul>
                 </div>
-                    : <p>This user doesn't have any post.</p>
+                    : <p>{user.first_name} doesn't have any post.</p>
                 }  
             
             </div>
