@@ -118,7 +118,7 @@ export default function EditPostModal({sessionUser, post }) {
                                 type='text'
                                 value={ video }
                                 onChange={(e) => setVideo(e.target.value)}
-                                placeholder="Please provide valid https://www. url from youTube."
+                                placeholder="Please provide valid https://www. url from YouTube."
                             />
                         </div>
 

@@ -103,4 +103,5 @@
 
 #post-photos p {
     background-color: #FFF;
+    cursor: pointer;
 }

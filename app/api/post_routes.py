@@ -64,7 +64,7 @@ def create_post(userId):
 def edit_post(postId):
 
     try: 
-        print("In the edit post route!!!!!!!!")
+        # print("In the edit post route!!!!!!!!")
         form = PostForm()
         form["csrf_token"].data = request.cookies["csrf_token"]
         # userId = current_user.id
@@ -73,7 +73,7 @@ def edit_post(postId):
         edit_post = Post.query.get(postId)
         if not edit_post:
             return "Post not found.", 404
-        print("edit_post in the edit post route: ", edit_post.to_dict())
+        # print("edit_post in the edit post route: ", edit_post.to_dict())
    
         if edit_post.user.id == current_user.id:
             edit_post.title = form.data['title']
