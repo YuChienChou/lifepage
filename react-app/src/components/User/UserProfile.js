@@ -27,6 +27,10 @@ export default function UserPorfile() {
 
     const dispatch = useDispatch();
 
+    const newFeatureFun = () => {
+        return window.alert("Feature coming soon! 🙂")
+    }
+
 
     useEffect(() => {
         dispatch(getSingleUserThunk(userId))
@@ -61,8 +65,8 @@ export default function UserPorfile() {
                             
                         </div>
                         <div id='post-photos'>
-                            <p>Posts</p>
-                            <p>Photos</p>
+                            <p onClick={newFeatureFun}>Posts</p>
+                            <p onClick={newFeatureFun}>Photos</p>
                         </div>
                 </div>
 
@@ -87,7 +91,7 @@ export default function UserPorfile() {
                         ))}
                     </ul>
                 </div>
-                    : <p>{user.first_name} doesn't have any post.</p>
+                    : <p>{user.first_name} doesn't have any posts yet.</p>
                 }  
             
             </div>
