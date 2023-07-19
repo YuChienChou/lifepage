@@ -7,6 +7,7 @@ import Navigation from "../Navigation";
 import OpenModalButton from "../OpenModalButton";
 import CreatePost from "../CreatePost/CreatePostModal";
 import PostList from "../PostList/PostList";
+import EditUserModal from "./EditUserModal";
 import userCoverPhoto from '../resources/default-user-cover-photo.png';
 import userProfilePicture from '../resources/default-user-profile-picture.png';
 import './user.css'
@@ -61,7 +62,14 @@ export default function UserPorfile() {
                             <img src={user.profile_picture ? user.profile_picture : userProfilePicture} 
                                  alt={user.first_name} />
                             <h4>{user.first_name} {user.last_name}</h4>
-
+                            <div>
+                                <i className="fa-solid fa-pen-to-square"></i>
+                                <OpenModalButton
+                                buttonText='Edit your profile'
+                                modalComponent={<EditUserModal sessionUser={sessionUser} />}
+                                />
+                            </div>
+                            
                             
                         </div>
                         <div id='post-photos'>
