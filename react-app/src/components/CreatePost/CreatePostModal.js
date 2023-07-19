@@ -52,7 +52,7 @@ export default function CreatePost({sessionUser}) {
         if(img && !img.endsWith('.jpg') && !img.endsWith('.png') && !img.endsWith('.jpeg')) errors.imgFormat = "Image URL needs to end in png or jpg (or jpeg)";
         if(video) {
             const videoFrag = video.split("=");
-            if(videoFrag[0] !== "https://www.youtube.com/watch?v" || !videoFrag[1].endsWith("channel"))  errors.videoFormat = "Please enter valid URL form youTube."}
+            if(videoFrag[0] !== "https://www.youtube.com/watch?v" || !videoFrag[1].endsWith("channel"))  errors.videoFormat = "Please enter valid URL form YouTube."}
 
         setValidationError(errors)
     }, [body, img, video]);
@@ -105,7 +105,7 @@ export default function CreatePost({sessionUser}) {
                                 type='text'
                                 value={video}k
                                 onChange={(e) => setVideo(e.target.value)}
-                                placeholder="Please provide valid https://www. url from YouTube."/>
+                                placeholder="Please provide valid url from YouTube."/>
                         </div>
                     : null
                 }
