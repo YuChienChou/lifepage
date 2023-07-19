@@ -61,13 +61,12 @@ export default function UserPorfile() {
                         <div id='profile-picture'>
                             <img src={user.profile_picture ? user.profile_picture : userProfilePicture} 
                                  alt={user.first_name} />
-                            <h4>{user.first_name} {user.last_name}</h4>
-                            <div>
-                                <i className="fa-solid fa-pen-to-square"></i>
+                            <div id='edit-profile-div'>
+                                <h4>{user.first_name} {user.last_name}</h4>
                                 <OpenModalButton
-                                buttonText='Edit your profile'
+                                buttonText={<i className="fa-solid fa-pen-to-square"></i>}
                                 modalComponent={<EditUserModal sessionUser={sessionUser} />}
-                                />
+                                    />
                             </div>
                             
                             

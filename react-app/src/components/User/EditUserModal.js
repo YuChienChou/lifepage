@@ -1,7 +1,10 @@
 import { useDispatch } from 'react-redux';
 import { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import { editUserThunk, getSingleUserThunk } from "../../store/user";
 import { useModal } from "../../context/Modal";
+import userProfilePicture from '../resources/default-user-profile-picture.png';
+import './edituser.css'
 
 
 export default function EditUserModal({sessionUser}) {
@@ -48,88 +51,120 @@ export default function EditUserModal({sessionUser}) {
 
     return (
         <>
-        <div>
+        <div id='edit-user-container'>
             <h3>Edit profile</h3>
         </div>
 
-        <form onSubmit={handleSubmit}>
-            <label>Phone
-                <input 
-                    type='text'
-                    placeholder='Please enter your phone'
-                    value={ phone }
-                    onChange={(e) => setPhone(e.target.value)}
-                />
-            </label>
-            {validationError.phone ? 
-                <div id='error-div'>
-                    {validationError.phone && <p>{validationError.phone}</p>}
-                </div>
-                : null
-            }
+        <div id='create-post-user'>
+           <Link to={`/user/${sessionUser.id}`}><img src={sessionUser.profile_picture ? sessionUser.profile_picture : userProfilePicture} 
+            alt={sessionUser.first_name}/></Link>
+            <Link to={`/user/${sessionUser.id}`}>{sessionUser.first_name} {sessionUser.last_name}</Link>
+        </div>
 
-            <label>Profile picture
-                <textarea
-                    type="text"
-                    placeholder='Please provide img url ends with png, jpg, or jpeg.'
-                    value={ profilePicture }
-                    onChange={(e) => setProfilePicture(e.target.value)}
-                />
-            </label>
-            {validationError.profilePictureFormat ? 
-                <div id='error-div'>
-                    {validationError.profilePictureFormat && <p>{validationError.profilePictureFormat}</p>}
+        <form id='edit-user-form' onSubmit={handleSubmit}>
+            {/* <div id='edit-user-phone'>
+                <div>
+                    <i className="fa-solid fa-phone">Phone</i>
+                    <input 
+                        type='text'
+                        placeholder='Please enter your phone'
+                        value={ phone }
+                        onChange={(e) => setPhone(e.target.value)}
+                    />
                 </div>
-                : null
-            }
 
-            <label>Cover photo
-                <textarea
-                    type='text'
-                    placeholder='Please provide img url ends with png, jpg, or jpeg.'
-                    value={ coverPhoto }
-                    onChange={(e) => setcoverPhoto(e.target.value)}
-                />
-            </label>
-            {validationError.coverPhotoFormat ? 
-                <div id='error-div'>
-                    {validationError.coverPhotoFormat && <p>{validationError.coverPhotoFormat}</p>}
+                {validationError.phone ? 
+                    <div id='error-div'>
+                        {validationError.phone && <p>{validationError.phone}</p>}
+                    </div>
+                    : null
+                }
+            </div>
+          */}
+
+            <div id="edit-user-profile-picture">
+                <div>
+                    <i className="fa-solid fa-image-portrait">Profile picture</i>
+                    <textarea
+                        type="text"
+                        placeholder='Please provide img url ends with png, jpg, or jpeg.'
+                        value={ profilePicture }
+                        onChange={(e) => setProfilePicture(e.target.value)}
+                    />
                 </div>
-                : null
-            }
 
-            <label>bio
-                <textarea
-                    type='text'
-                    placeholder='Please enter your bio.'
-                    value={ bio }
-                    onChange={(e) => setBio(e.target.value)}
-                />
-            </label>
-            {validationError.biolength ? 
+                {validationError.profilePictureFormat ? 
+                    <div id='error-div'>
+                        {validationError.profilePictureFormat && <p>{validationError.profilePictureFormat}</p>}
+                    </div>
+                    : null
+                }
+            </div>
+            
+
+            <div id='edit-user-cover-photo'>
+                <div> 
+                <i className="fa-solid fa-image">Cover photo</i>
+                    <textarea
+                        type='text'
+                        placeholder='Please provide img url ends with png, jpg, or jpeg.'
+                        value={ coverPhoto }
+                        onChange={(e) => setcoverPhoto(e.target.value)}
+                    />
+                </div>
+
+                {validationError.coverPhotoFormat ? 
+                    <div id='error-div'>
+                        {validationError.coverPhotoFormat && <p>{validationError.coverPhotoFormat}</p>}
+                    </div>
+                    : null
+                }
+            </div>
+            
+
+            {/* <div id='edit-user-bio'>
+                <div>
+                    <i className="fa-solid fa-book">Bio</i>
+                    <textarea
+                        type='text'
+                        placeholder='Please enter your bio.'
+                        value={ bio }
+                        onChange={(e) => setBio(e.target.value)}
+                    />
+                </div>
+
+                {validationError.biolength ? 
                 <div id='error-div'>
                     {validationError.biolength && <p>{validationError.biolength}</p>}
                 </div>
                 : null
             }
+            </div>
+            
 
-            <label>Hobbies
+            <div id='edit-user-hobbies'>
+                <div>
+                <i className="fa-solid fa-face-kiss-wink-heart">Hobbies</i>
                 <textarea
                     type='text'
                     placeholder='Please enter your hobbies'
                     onChange={(e) => setHobbies(e.target.value)}
-                />
-            </label>
-            {validationError.hobbylength ? 
-                <div id='error-div'>
-                    {validationError.hobbylength && <p>{validationError.hobbylength}</p>}
-                </div>
-                : null
-            }
+                /></div>
+
+                {validationError.hobbylength ? 
+                    <div id='error-div'>
+                        {validationError.hobbylength && <p>{validationError.hobbylength}</p>}
+                    </div>
+                    : null
+                }
+            </div>
+             */}
 
             <button 
-                id='edit-user-button'
                 disabled={Object.values(validationError).length > 0}
+                id={Object.values(validationError).length > 0 ? 
+                'edit-user-button-disabled' : 'edit-user-button-active'
+                }
             >
                 Edit your info
             </button>

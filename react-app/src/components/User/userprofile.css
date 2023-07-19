@@ -83,12 +83,7 @@
     border: 5px solid #FFFFFF;
 }
 
-#profile-picture h4 {
-    display: flex;
-    align-items: center;
-    background-color: transparent;
-    font-size: 35px;
-}
+
 
 #post-photos {
     display: flex;
@@ -104,4 +99,42 @@
 #post-photos p {
     background-color: #FFF;
     cursor: pointer;
+}
+
+
+#edit-profile-div {
+    background-color: transparent;
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    position: relative;
+
+}
+
+#edit-profile-div h4 {
+    display: flex;
+    align-items: center;
+    background-color: transparent;
+    font-size: 35px;
+    margin-bottom: 10px;
+}
+
+
+
+#edit-profile-div i {
+    background-color: #FFF;
+    font-size: 20px;
+    border: none;
+    cursor: pointer;
+    position: absolute;
+    top: 70px;
+}
+
+#edit-profile-div button {
+    background-color: transparent;
+    cursor: pointer;
+    border: none;
+    font-size: 16px;
+    display: flex;
+    align-items: center;
 }
