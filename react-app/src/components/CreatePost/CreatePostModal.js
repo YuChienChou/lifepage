@@ -105,7 +105,7 @@ export default function CreatePost({sessionUser}) {
                                 type='text'
                                 value={video}k
                                 onChange={(e) => setVideo(e.target.value)}
-                                placeholder="Please provide valid video url from youTube."/>
+                                placeholder="Please provide valid https://www. url from youTube."/>
                         </div>
                     : null
                 }

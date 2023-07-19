@@ -53,10 +53,17 @@
     height: 200px;
     font-size: 16px;    
     margin-bottom: 10px;
-    padding: 16px;
+    padding: 30px;
     resize: none;
     outline: none;
 }
+
+/* #create-post-form textarea::placeholder {
+    position: absolute;
+    top: 50%;
+    left: 36%;
+    transform: translate(-50%, -50%);
+  } */
 
 #create-post-form input {
     border: none;

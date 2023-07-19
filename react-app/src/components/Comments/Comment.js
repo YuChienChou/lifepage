@@ -64,11 +64,17 @@ export default function Comment({sessionUser, post}) {
         <div id='comment-form-div'>
            <div id='user-comment'>
                 <Link to={`/user/${sessionUser.id}`}>
-                    <img src={sessionUser.profile_picture ? post.User.profile_picture : userProfilePicture} 
+                    <img src={sessionUser.profile_picture ? sessionUser.profile_picture : userProfilePicture} 
                          alt={sessionUser.first_name} /></Link>
             </div>
            <form id='create-comment-form' onSubmit={handleSubmit}>
-                <textarea 
+                {/* <textarea 
+                    type='text'
+                    placeholder='Write a comment'
+                    value={content}
+                    onChange={(e) => setContent(e.target.value)}
+                /> */}
+                <input 
                     type='text'
                     placeholder='Write a comment'
                     value={content}
@@ -104,7 +110,7 @@ export default function Comment({sessionUser, post}) {
                     <div id='comment-user-div'>
                         <div id='user-comment'>
                             <Link to={`/user/${comment.User.id}`}>
-                                <img src={comment.User.profile_picture ? post.User.profile_picture : userProfilePicture} 
+                                <img src={comment.User.profile_picture ? comment.User.profile_picture : userProfilePicture} 
                                      alt={comment.User.first_name} /></Link>
                             <div id='comment-and-user-name'>
                                 <div>
@@ -157,12 +163,18 @@ export default function Comment({sessionUser, post}) {
                 </div>
 
                 <form id='create-comment-form' onSubmit={handleSubmit} >
-                    <textarea 
+                    {/* <textarea 
                         type='text'
                         placeholder='Write a comment'
                         value={content}
                         onChange={(e) => setContent(e.target.value)}
-                    />  
+                    />   */}
+                    <input 
+                        type='text'
+                        placeholder='Write a comment'
+                        value={content}
+                        onChange={(e) => setContent(e.target.value)}
+                    />
 
                     {validationErrors.contentlength ? 
                     <div id='add-comment-error-div'>
