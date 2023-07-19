@@ -6,7 +6,6 @@ import Navigation from '../Navigation';
 import OpenModalButton from '../OpenModalButton';
 import CreatePost from '../CreatePost/CreatePostModal';
 import PostList from '../PostList/PostList';
-import userCoverPhoto from '../resources/default-user-cover-photo.png';
 import userProfilePicture from '../resources/default-user-profile-picture.png';
 
 import './user.css'
