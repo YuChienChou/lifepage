@@ -35,7 +35,7 @@ function Navigation({ isLoaded }){
 
 				{showInfo ? 
 					<div id='nav-user-info' onMouseLeave={hideInfoFunction}>
-						<Link to={`/user/${sessionUser.id}`}><p>{sessionUser.first_name} {sessionUser.last_name}</p>
+						<Link to={`/user/${sessionUser.id}/posts`}><p>{sessionUser.first_name} {sessionUser.last_name}</p>
 						<p>{sessionUser.email}</p></Link>
 						<button onClick={handleLogout}>
 							<i className="fa-solid fa-right-from-bracket"></i>

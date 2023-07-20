@@ -7,7 +7,6 @@ import OpenModalButton from '../OpenModalButton';
 import CreatePost from '../CreatePost/CreatePostModal';
 import PostList from '../PostList/PostList';
 import userProfilePicture from '../resources/default-user-profile-picture.png';
-
 import './user.css'
 
 export default function UserHome() {
@@ -17,6 +16,8 @@ export default function UserHome() {
     // console.log("postsStore in the post component: ", postsStore);
     const postsArr = Object.values(postsStore);
     // console.log("Post array in the user home component: ", postsArr);
+    const reversedPostsArr = postsArr.slice().reverse();
+    // console.log("Reversed post arry in the user home component: ", reversedPostsArr);
 
     const dispatch = useDispatch();
 
@@ -35,7 +36,7 @@ export default function UserHome() {
                     <i className="fa-solid fa-house"></i>
                     <p>Home</p>
                 </div></Link>
-                <Link to={`/user/${sessionUser.id}`}><div id='userhome-user-link'>
+                <Link to={`/user/${sessionUser.id}/posts`}><div id='userhome-user-link'>
                    <img src={sessionUser.profile_picture ? sessionUser.profile_picture : userProfilePicture} alt={sessionUser.first_name} />
                     <p>{sessionUser.first_name} {sessionUser.last_name}</p>
                 </div></Link>
@@ -43,7 +44,7 @@ export default function UserHome() {
             <div id='userhome-middle'>
                 
                 <div id='create-post-div'>
-                    <Link to={`/user/${sessionUser.id}`}>
+                    <Link to={`/user/${sessionUser.id}/posts`}>
                         <img src={sessionUser.profile_picture ? sessionUser.profile_picture : userProfilePicture} 
                              alt={sessionUser.first_name} /></Link>
                     <OpenModalButton
@@ -53,7 +54,7 @@ export default function UserHome() {
                 </div>
                 <div id='post-list-container'>
                     <ul>
-                        {postsArr.reverse().map((post) => (
+                        {reversedPostsArr.map((post) => (
                             <PostList sessionUser={sessionUser} post={post} />
                         ))}
                     </ul>

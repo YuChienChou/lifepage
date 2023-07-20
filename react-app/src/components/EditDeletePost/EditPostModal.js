@@ -60,7 +60,7 @@ export default function EditPostModal({sessionUser, post }) {
         if(img && !img.endsWith('.jpg') && !img.endsWith('.png') && !img.endsWith('.jpeg')) errors.imgFormat = "Image URL needs to end in png or jpg (or jpeg)";
         if(video) {
             const videoFrag = video.split("=");
-            if(videoFrag[0] !== "https://www.youtube.com/")  errors.videoFormat = "Please enter valid URL form YouTube."}
+            if(!videoFrag[0].includes("https://www.youtube.com/"))  errors.videoFormat = "Please enter valid URL form YouTube."}
         
         setValidationError(errors)
     }, [body, img, video])
@@ -72,9 +72,9 @@ export default function EditPostModal({sessionUser, post }) {
                 <h3>Edit Post</h3>
             </div>
             <div id='edit-post-user'>
-                <Link to={`/user/${sessionUser.id}`}><img src={sessionUser.profile_picture ? sessionUser.profile_picture : userProfilePicture} 
+                <Link to={`/user/${sessionUser.id}/posts`}><img src={sessionUser.profile_picture ? sessionUser.profile_picture : userProfilePicture} 
                      alt={sessionUser.first_name}/></Link>
-                <Link to={`/user/${sessionUser.id}`}><p>{sessionUser.first_name} {sessionUser.last_name}</p></Link>
+                <Link to={`/user/${sessionUser.id}/posts`}><p>{sessionUser.first_name} {sessionUser.last_name}</p></Link>
             </div>
             <form id='edit-post-form' onSubmit={EditPost}>
                 

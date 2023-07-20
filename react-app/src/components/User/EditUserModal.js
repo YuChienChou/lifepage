@@ -56,9 +56,9 @@ export default function EditUserModal({sessionUser}) {
         </div>
 
         <div id='create-post-user'>
-           <Link to={`/user/${sessionUser.id}`}><img src={sessionUser.profile_picture ? sessionUser.profile_picture : userProfilePicture} 
+           <Link to={`/user/${sessionUser.id}/posts`}><img src={sessionUser.profile_picture ? sessionUser.profile_picture : userProfilePicture} 
             alt={sessionUser.first_name}/></Link>
-            <Link to={`/user/${sessionUser.id}`}>{sessionUser.first_name} {sessionUser.last_name}</Link>
+            <Link to={`/user/${sessionUser.id}/posts`}>{sessionUser.first_name} {sessionUser.last_name}</Link>
         </div>
 
         <form id='edit-user-form' onSubmit={handleSubmit}>

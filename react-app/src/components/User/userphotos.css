@@ -1,0 +1,30 @@
+#user-photos-ul {
+    display: flex;
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 15px;
+    padding:50px 8%;
+
+}
+
+#user-photos-li {
+    width: 395px;
+    list-style: none;
+}
+
+#user-photo-img {
+    
+}
+
+#user-photo-img img{
+    width: 395px;
+    height: 304px;
+}
+
+#user-photos-video {
+    width: 395px;
+    height: 304px;
+    
+}

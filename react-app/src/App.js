@@ -32,6 +32,9 @@ function App() {
           <Route exact path ='/user/:userId'>
             <UserPorfile />
           </Route>
+          <Route exact path ='/user/:userId/:page'>
+            <UserPorfile />
+          </Route>
           <Route exact path='/'>
             <DefaultHome />
           </Route>

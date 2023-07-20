@@ -27,7 +27,7 @@
 }
 
 #edit-comment-form textarea {
-    /* font-size: 16px; */
+    font-size: 16px;
     resize: none;
     outline: none;
     width: 100%;

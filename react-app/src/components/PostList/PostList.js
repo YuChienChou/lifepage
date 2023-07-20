@@ -5,7 +5,6 @@ import OpenModalButton from '../OpenModalButton';
 import Comment from '../Comments/Comment';
 import EditPostModal from '../EditDeletePost/EditPostModal';
 import DeletePostModal from '../EditDeletePost/DeletePostModal';
-import userCoverPhoto from '../resources/default-user-cover-photo.png';
 import userProfilePicture from '../resources/default-user-profile-picture.png';
 import './postList.css'
 
@@ -31,10 +30,10 @@ export default function PostList({sessionUser, post}) {
             
                     <div id='user-img-name'>
                         <div id='img-and-link'>
-                            <Link to={`/user/${post.User.id}`}> 
+                            <Link to={`/user/${post.User.id}/posts`}> 
                                 <img src={post.User.profile_picture ? post.User.profile_picture : userProfilePicture} 
                                     alt={post.User.first_name} /></Link>
-                            <Link to={`/user/${post.User.id}`}>{post.User.firstname} {post.User.lastname}</Link>
+                            <Link to={`/user/${post.User.id}/posts`}>{post.User.firstname} {post.User.lastname}</Link>
                         </div>
 
                         {post.User.id === sessionUser.id ? 
@@ -74,16 +73,15 @@ export default function PostList({sessionUser, post}) {
                         <p>{post.body}</p>
                     </div>
                     {post.img? 
-                    <div id='img-post'>
-                    <img src={post.img} alt=""/></div>
-                    : null
+                        <div id='img-post'>
+                        <img src={post.img} alt=""/></div>
+                        : null
                     }  
                     {post.video ? 
                         <div id='video-post'>
                             <ReactPlayer url={post.video} controls width='100%' height='100%'/>
-
-                        </div> : null
-                
+                        </div>
+                        : null
                     }
                 </div>
                 

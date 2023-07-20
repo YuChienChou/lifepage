@@ -6,7 +6,6 @@ import { getAllPostsThunk, getUserPostsThunk } from "../../store/post";
 import EditComment from "./EditComment";
 import DeleteComment from "./DeleteCommentModal";
 import OpenModalButton from "../OpenModalButton";
-import userCoverPhoto from '../resources/default-user-cover-photo.png';
 import userProfilePicture from '../resources/default-user-profile-picture.png';
 import './comment.css'
 
@@ -63,7 +62,7 @@ export default function Comment({sessionUser, post}) {
         <>
         <div id='comment-form-div'>
            <div id='user-comment'>
-                <Link to={`/user/${sessionUser.id}`}>
+                <Link to={`/user/${sessionUser.id}/posts`}>
                     <img src={sessionUser.profile_picture ? sessionUser.profile_picture : userProfilePicture} 
                          alt={sessionUser.first_name} /></Link>
             </div>
@@ -109,12 +108,12 @@ export default function Comment({sessionUser, post}) {
                 <li key={comment.id}>
                     <div id='comment-user-div'>
                         <div id='user-comment'>
-                            <Link to={`/user/${comment.User.id}`}>
+                            <Link to={`/user/${comment.User.id}/posts`}>
                                 <img src={comment.User.profile_picture ? comment.User.profile_picture : userProfilePicture} 
                                      alt={comment.User.first_name} /></Link>
                             <div id='comment-and-user-name'>
                                 <div>
-                                    <Link to={`/user/${comment.User.id}`}><p id='comment-user-name'>{comment.User.first_name} {comment.User.last_name}</p></Link>
+                                    <Link to={`/user/${comment.User.id}/posts`}><p id='comment-user-name'>{comment.User.first_name} {comment.User.last_name}</p></Link>
                                     <p id='comment-content'>{comment.content}</p>
                                 </div>
                            
