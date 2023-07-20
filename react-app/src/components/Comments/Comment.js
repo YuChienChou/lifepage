@@ -158,7 +158,7 @@ export default function Comment({sessionUser, post}) {
 
                 <div id='user-comment'>
                     <Link to={`/user/${sessionUser.id}`}>
-                        <img src={sessionUser.profile_picture ? post.User.profile_picture : userProfilePicture} 
+                        <img src={sessionUser.profile_picture ? sessionUser.profile_picture : userProfilePicture} 
                              alt={sessionUser.first_name} /></Link>
                 </div>
 

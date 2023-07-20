@@ -17,10 +17,11 @@ import './userprofile.css'
 
 export default function UserPorfile() {
     const { userId } = useParams();
-    // console.log("user Id in user profile page: ", userId)
+    console.log("user Id in user profile page: ", userId)
     const user = useSelector((state) => state.users.singleUser);
     // console.log("user in the user profile page: ", user)
     const sessionUser = useSelector((state) => state.session.user)
+    console.log("session user id in user profile page: ", sessionUser.id)
     const userPostsStore = useSelector((state) => state.posts.userPosts);
     // console.log("user posts in user profile page: ", userPostsStore);
     const userPostArr = Object.values(userPostsStore);
@@ -63,10 +64,14 @@ export default function UserPorfile() {
                                  alt={user.first_name} />
                             <div id='edit-profile-div'>
                                 <h4>{user.first_name} {user.last_name}</h4>
-                                <OpenModalButton
-                                buttonText={<i className="fa-solid fa-pen-to-square"></i>}
-                                modalComponent={<EditUserModal sessionUser={sessionUser} />}
-                                    />
+                                    {Number(userId) === sessionUser.id ? 
+                                    <OpenModalButton
+                                    buttonText={<i className="fa-solid fa-pen-to-square"></i>}
+                                    modalComponent={<EditUserModal sessionUser={sessionUser} />}
+                                        />
+                                    : null
+                                }
+                                
                             </div>
                             
                             
@@ -84,10 +89,13 @@ export default function UserPorfile() {
                     <Link to={`/user/${sessionUser.id}`}>
                         <img src={sessionUser.profile_picture? sessionUser.profile_picture : userProfilePicture} 
                              alt={sessionUser.first_name} /></Link>
-                    <OpenModalButton
-                        buttonText ={`What's on your mind, ${sessionUser.first_name}?`}
-                        modalComponent={<CreatePost sessionUser={sessionUser}/>}
-                    />
+                
+                        <OpenModalButton
+                            buttonText ={`What's on your mind, ${sessionUser.first_name}?`}
+                            modalComponent={<CreatePost sessionUser={sessionUser}/>}
+                        />
+                  
+                    
                 </div>
             
                 {userPostArr.length > 0 ? 

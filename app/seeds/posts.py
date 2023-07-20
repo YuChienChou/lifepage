@@ -30,62 +30,78 @@ def seed_posts():
     post4 = Post (
         img = 'https://images.pexels.com/photos/1640772/pexels-photo-1640772.jpeg',
         video = '',
-        body = 'Discover some mouth-watering recipes that are easy to make at home.',
-        user_id = ,
+        body = 'Delicious food always makes me happy~~ 😘',
+        user_id = 5,
         created_at = date.today(),
         updated_at = date.today(),
     )
     post5 = Post (
-        img = ,
-        video = ,
-        body = ,
-        user_id = ,
+        img = '',
+        video = 'https://www.youtube.com/watch?v=ukzFI9rgwfU&ab_channel=Simplilearn',
+        body = "Machine learning is a fascinating field with numerous applications.",
+        user_id = 5,
         created_at = date.today(),
         updated_at = date.today(),
     )
     post6 = Post (
-        img = ,
-        video = ,
-        body = ,
-        user_id = ,
+        img = '',
+        video = 'https://www.youtube.com/watch?v=H2U3HwAyBXg&ab_channel=MadFit',
+        body = 'Regular exercise has numerous benefits for both the body and mind.',
+        user_id = 4,
         created_at = date.today(),
         updated_at = date.today(),
     )
     post7 = Post (
-        img = ,
-        video = ,
-        body = ,
-        user_id = ,
+        img = 'https://images.pexels.com/photos/147640/pexels-photo-147640.jpeg',
+        video = '',
+        body = 'Feeling blessed and grateful today.',
+        user_id = 4,
         created_at = date.today(),
         updated_at = date.today(),
     )
     post8 = Post (
-        img = ,
-        video = ,
-        body = ,
-        user_id = ,
+        img = 'https://images.pexels.com/photos/4931332/pexels-photo-4931332.jpeg',
+        video = '',
+        body = 'Having a great time with friends! 😄',
+        user_id = 3,
         created_at = date.today(),
         updated_at = date.today(),
     )
     post9 = Post (
-        img = ,
-        video = ,
-        body = ,
-        user_id = ,
+        img = '',
+        video = 'https://www.youtube.com/watch?v=WqZiBugq4ts&ab_channel=HarvardBusinessReview',
+        body = 'Tips for Productive Remote Work.',
+        user_id = 6,
         created_at = date.today(),
         updated_at = date.today(),
     )
     post10 = Post (
-        img = ,
-        video = ,
-        body = ,
-        user_id = ,
+        img = 'https://images.pexels.com/photos/1188470/pexels-photo-1188470.jpeg',
+        video = '',
+        body = 'Throwback to an amazing vacation! ',
+        user_id = 6,
+        created_at = date.today(),
+        updated_at = date.today(),
+    )
+    post11 = Post (
+        img = 'https://images.pexels.com/photos/1684151/pexels-photo-1684151.jpeg',
+        video = '',
+        body = 'Just enjoying a cup of coffee and the beautiful view.',
+        user_id = 1,
+        created_at = date.today(),
+        updated_at = date.today(),
+    )
+    post12 = Post (
+        img = 'https://images.pexels.com/photos/3183150/pexels-photo-3183150.jpeg',
+        video = '',
+        body = 'Excited about the upcoming project! 🚀',
+        user_id = 2,
         created_at = date.today(),
         updated_at = date.today(),
     )
     
 
-    post_list = [post1, post2, post3, post4, post5, post6, post7, post8, post9, post10]
+    post_list = [post1, post2, post3, post4, post5, post6, post7, post8, post9, post10, post11, post12]
     db.session.add_all(post_list)
     db.session.commit()
     print("Posts seeded to db")
