@@ -11,12 +11,12 @@ def seed_users():
         password='password',
         first_name = 'Demo',
         last_name = 'Lition',
-        phone = '452-1236985',
+        phone = '4521236985',
         birth_date = date(2003, 10, 5),
         bio = "I love sharing my life with my family and friends!",
         hobbies = 'snowboarding',
-        profile_picture = 'https://images.unsplash.com/photo-1598084991540-50ea616becbd?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80',
-        cover_photo = 'https://images.unsplash.com/photo-1620771429110-ad0fc953bf93?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1331&q=80',
+        profile_picture = 'https://images.pexels.com/photos/457418/pexels-photo-457418.jpeg',
+        cover_photo = 'https://images.pexels.com/photos/268533/pexels-photo-268533.jpeg',
         created_at = date.today(),
         updated_at = date.today(),
         )
@@ -26,12 +26,12 @@ def seed_users():
         password='password',
         first_name = 'Marnie',
         last_name = 'Lovely',
-        phone = '745-8962135',
+        phone = '7458962135',
         birth_date = date(1998, 6, 15),
         bio = "Let the world knows that I'm one of the kind.",
         hobbies = 'Gaming',
-        profile_picture = 'https://plus.unsplash.com/premium_photo-1669689972354-dd07170fa47d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80',
-        cover_photo = 'https://images.unsplash.com/photo-1510070009289-b5bc34383727?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1169&q=80',
+        profile_picture = 'https://images.pexels.com/photos/1266808/pexels-photo-1266808.jpeg',
+        cover_photo = 'https://images.pexels.com/photos/295771/pexels-photo-295771.jpeg',
         created_at = date.today(),
         updated_at = date.today(),
         )
@@ -41,19 +41,64 @@ def seed_users():
         password='password',
         first_name = 'Bobbie',
         last_name = 'Handsome',
-        phone = '542-1236958',
+        phone = '5421236958',
         birth_date = date(1996, 4, 9),
         bio = "I'm Bobbie, I love my life!",
         hobbies = 'Taking adventures',
-        profile_picture = 'https://images.unsplash.com/photo-1555685812-4b943f1cb0eb?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80',
-        cover_photo = 'https://images.unsplash.com/photo-1510784722466-f2aa9c52fff6?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80',
+        profile_picture = 'https://images.pexels.com/photos/1563356/pexels-photo-1563356.jpeg',
+        cover_photo = 'https://images.pexels.com/photos/347149/pexels-photo-347149.jpeg',
         created_at = date.today(),
         updated_at = date.today(),
         )
+    menfred = User(
+        username='menfred',
+        email = 'menfred@aa.io' ,
+        password = 'password' ,
+        first_name = 'Menfred' ,
+        last_name = 'Lipsey' ,
+        phone = '5894452315',
+        birth_date = date(1995, 7, 13),
+        bio = 'Enjoy every moment of my life.',
+        hobbies = 'Gardening',
+        profile_picture = 'https://images.pexels.com/photos/1254140/pexels-photo-1254140.jpeg',
+        cover_photo = 'https://images.pexels.com/photos/949587/pexels-photo-949587.jpeg',
+        created_at = date.today(),
+        updated_at = date.today()
+    )
+    emily = User(
+        username='emily',
+        email = 'emily@aa.io',
+        password = 'password',
+        first_name = 'Emily',
+        last_name = 'Wallaker',
+        phone = '5489951273',
+        birth_date = date(1997, 2, 9),
+        bio = "Passionate explorer and lifelong learner, constantly seeking new adventures and knowledge to enrich my journey.",
+        hobbies = 'Learing new things!',
+        profile_picture = "https://images.pexels.com/photos/774909/pexels-photo-774909.jpeg",
+        cover_photo = "https://images.pexels.com/photos/301920/pexels-photo-301920.jpeg",
+        created_at = date.today(),
+        updated_at = date.today()
+    )
+    alex = User(
+        username= 'alex',
+        email = 'alex@aa.io',
+        password = 'password',
+        first_name = "Alex",
+        last_name = "Nelson",
+        phone = '7583125982',
+        birth_date = date(2003, 9, 21),
+        bio = "Advocate for sustainability and animal rights, striving to make a positive impact on the world through small daily actions.",
+        hobbies = 'Spending time with my puppy!',
+        profile_picture = 'https://images.pexels.com/photos/4666747/pexels-photo-4666747.jpeg',
+        cover_photo = "https://images.pexels.com/photos/994605/pexels-photo-994605.jpeg",
+        created_at = date.today(),
+        updated_at = date.today()
+    )
+    
 
-    db.session.add(demo)
-    db.session.add(marnie)
-    db.session.add(bobbie)
+    user_list = [demo, marnie, bobbie, menfred, emily, alex]
+    db.session.add_all(user_list)
     db.session.commit()
     print("Users seeded to db")
 

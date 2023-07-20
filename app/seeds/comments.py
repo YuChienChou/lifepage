@@ -46,9 +46,58 @@ def seed_comments():
         created_at = date.today(),
         updated_at = date.today(),
     )
+    comment7 = Comment(
+        content = 'Everybody loves delicious food~ 🤤',
+        post_id = 4,
+        user_id = 6,
+        created_at = date.today(),
+        updated_at = date.today(),
+    )
+    comment8 = Comment(
+        content = 'Yummy yummy!',
+        post_id = 4,
+        user_id = 5,
+        created_at = date.today(),
+        updated_at = date.today(),
+    )
+    comment9 = Comment(
+        content = "I'm greatful for each day of my life too!",
+        post_id = 7,
+        user_id = 4,
+        created_at = date.today(),
+        updated_at = date.today(),
+    )
+    comment10 = Comment(
+        content = 'Wish I could be with you guys!',
+        post_id = 8,
+        user_id = 6,
+        created_at = date.today(),
+        updated_at = date.today(),
+    )
+    comment11 = Comment(
+        content = 'Useful tips!',
+        post_id = 9,
+        user_id = 3,
+        created_at = date.today(),
+        updated_at = date.today(),
+    )
+    comment12 = Comment(
+        content = 'And feel the inner peace.',
+        post_id = 11,
+        user_id = 4,
+        created_at = date.today(),
+        updated_at = date.today(),
+    )
+    comment13 = Comment(
+        content = "GOGOGO!!!",
+        post_id = 12,
+        user_id = 5,
+        created_at = date.today(),
+        updated_at = date.today(),
+    )
 
 
-    comment_list = [comment1, comment2, comment3, comment4, comment5, comment6]
+    comment_list = [comment1, comment2, comment3, comment4, comment5, comment6, comment7, comment8, comment9, comment10, comment11, comment12, comment13]
     db.session.add_all(comment_list)
     db.session.commit()
     print("Comments seeded to db")
