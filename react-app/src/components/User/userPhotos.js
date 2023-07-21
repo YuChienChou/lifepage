@@ -7,7 +7,7 @@ import './userphotos.css'
 export default function UserPhotos({user, userPostArr}) {
     // console.log("userPost Store in user photos component: ", userPostsStore);
     const reversedUserPostArr = userPostArr.slice().reverse();
-    console.log("reversed user post array in user photos: ", reversedUserPostArr);
+    // console.log("reversed user post array in user photos: ", reversedUserPostArr);
 
 
     if(reversedUserPostArr.length === 0) {

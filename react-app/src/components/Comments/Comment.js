@@ -1,7 +1,7 @@
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { createCommentThunk } from "../../store/comment";
+import { createCommentThunk, getAllCommentsThunk } from "../../store/comment";
 import { getAllPostsThunk, getSinglePostThunk, getUserPostsThunk } from "../../store/post";
 import EditComment from "./EditComment";
 import CreateComment from "./CreateComment";
@@ -19,6 +19,7 @@ export default function Comment({sessionUser, post}) {
     const [editComment, setEditComment] = useState(null);
     const [validationErrors, setValidationErrors] = useState({});
     const dispatch = useDispatch();
+
 
     const editCommentFun = (commentId) => {
         setEditComment(commentId);
@@ -40,9 +41,11 @@ export default function Comment({sessionUser, post}) {
 
         try {
             await dispatch(createCommentThunk(post.id, commentInfo));
+            // await dispatch(getAllCommentsThunk(post.id));
+            await dispatch(getSinglePostThunk(post.id));
             await dispatch(getAllPostsThunk());
             await dispatch(getUserPostsThunk(sessionUser.id));
-            // await dispatch(getSinglePostThunk(post.id));
+            
         } catch(error) {
             console.log(error)
         };
@@ -57,7 +60,11 @@ export default function Comment({sessionUser, post}) {
         if(content.length > 500) errors.contentlength = "Please enter your comment less than 500 character."
 
         setValidationErrors(errors);
-    }, [content])
+    }, [content]);
+
+    useEffect(() => {
+        dispatch(getAllCommentsThunk(post.id));
+    }, [dispatch, post]);
 
     if (post.Comments.length === 0) {
         return (
@@ -134,7 +141,7 @@ export default function Comment({sessionUser, post}) {
                                             {/* <p onClick={() => {deleteComment(comment.id)}}>Move to trash</p> */}
                                             <OpenModalButton
                                                 buttonText='Delete Comment'
-                                                modalComponent={<DeleteComment sessionUser={sessionUser} comment={comment} />}
+                                                modalComponent={<DeleteComment sessionUser={sessionUser} post={post} comment={comment} />}
                                             />
                                             
                                         </div>

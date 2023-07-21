@@ -1,20 +1,22 @@
 import { useDispatch } from "react-redux";
 import { useModal } from "../../context/Modal";
-import { deleteCommentThunk } from "../../store/comment";
+import { deleteCommentThunk, getAllCommentsThunk } from "../../store/comment";
 import { getAllPostsThunk, getSinglePostThunk } from "../../store/post";
 import { getUserPostsThunk } from "../../store/post";
 import './comment.css';
 
-export default function DeleteComment({sessionUser, comment}) {
+export default function DeleteComment({sessionUser, post, comment}) {
     const dispatch = useDispatch();
     const { closeModal } = useModal();
 
 
     const deleteComment = async () => {
         await dispatch(deleteCommentThunk(comment.id));
+        // await dispatch(getAllCommentsThunk(post.id));
+        await dispatch(getSinglePostThunk(post.id));
         await dispatch(getAllPostsThunk());
         await dispatch(getUserPostsThunk(sessionUser.id));
-        // await dispatch(getSinglePostThunk(comment.Post.id));
+        
         closeModal();
     };
 

@@ -87,7 +87,6 @@ export default function PostList({sessionUser, post}) {
                 
             </div>
                 <Comment sessionUser={sessionUser} post={post} />
-                    
         </li>
         </>
     )
