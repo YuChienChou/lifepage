@@ -2,8 +2,9 @@ import { useDispatch } from "react-redux";
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { createCommentThunk } from "../../store/comment";
-import { getAllPostsThunk, getUserPostsThunk } from "../../store/post";
+import { getAllPostsThunk, getSinglePostThunk, getUserPostsThunk } from "../../store/post";
 import EditComment from "./EditComment";
+import CreateComment from "./CreateComment";
 import DeleteComment from "./DeleteCommentModal";
 import OpenModalButton from "../OpenModalButton";
 import userProfilePicture from '../resources/default-user-profile-picture.png';
@@ -40,7 +41,8 @@ export default function Comment({sessionUser, post}) {
         try {
             await dispatch(createCommentThunk(post.id, commentInfo));
             await dispatch(getAllPostsThunk());
-            await dispatch(getUserPostsThunk(sessionUser.id))
+            await dispatch(getUserPostsThunk(sessionUser.id));
+            // await dispatch(getSinglePostThunk(post.id));
         } catch(error) {
             console.log(error)
         };
@@ -67,12 +69,6 @@ export default function Comment({sessionUser, post}) {
                          alt={sessionUser.first_name} /></Link>
             </div>
            <form id='create-comment-form' onSubmit={handleSubmit}>
-                {/* <textarea 
-                    type='text'
-                    placeholder='Write a comment'
-                    value={content}
-                    onChange={(e) => setContent(e.target.value)}
-                /> */}
                 <input 
                     type='text'
                     placeholder='Write a comment'
@@ -145,13 +141,13 @@ export default function Comment({sessionUser, post}) {
                                     </div>
                                     : null
                                 }
-
                             </div>
                         </div>
-                      
                     </div>
                 </li>
             ))}
+
+            {/* <CreateComment sessionUser={sessionUser} post={post} /> */}
 
             <div id='comment-form-div'>
 
@@ -162,12 +158,7 @@ export default function Comment({sessionUser, post}) {
                 </div>
 
                 <form id='create-comment-form' onSubmit={handleSubmit} >
-                    {/* <textarea 
-                        type='text'
-                        placeholder='Write a comment'
-                        value={content}
-                        onChange={(e) => setContent(e.target.value)}
-                    />   */}
+              
                     <input 
                         type='text'
                         placeholder='Write a comment'
@@ -190,8 +181,6 @@ export default function Comment({sessionUser, post}) {
                     </button>     
                 </form>                     
             </div> 
-            
-
         </div>
         </>
     )

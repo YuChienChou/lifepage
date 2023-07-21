@@ -17,16 +17,10 @@ import './userprofile.css'
 
 export default function UserPorfile() {
     const { userId, page } = useParams();
-    // console.log("user Id in user profile page: ", userId);
-    // console.log("page in userprofile: ", page)
     const user = useSelector((state) => state.users.singleUser);
-    // console.log("user in the user profile page: ", user);
     const sessionUser = useSelector((state) => state.session.user)
-    // console.log("session user id in user profile page: ", sessionUser.id);
     const userPostsStore = useSelector((state) => state.posts.userPosts);
-    // console.log("user posts in user profile page: ", userPostsStore);
     const userPostArr = Object.values(userPostsStore);
-    // console.log("user posts array in user profile page: ", userPostArr);
 
     const dispatch = useDispatch();
 

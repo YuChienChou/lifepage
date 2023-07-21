@@ -1,11 +1,14 @@
 import ReactPlayer from 'react-player/youtube';
+import { Link } from 'react-router-dom';
+
 import './userphotos.css'
 
 
-export default function UserPhotos({user, userPostArr, userPostsStore}) {
-    console.log("userPost Store in user photos component: ", userPostsStore);
+export default function UserPhotos({user, userPostArr}) {
+    // console.log("userPost Store in user photos component: ", userPostsStore);
     const reversedUserPostArr = userPostArr.slice().reverse();
-    // console.log("reversed user post array in user photos: ", reversedUserPostArr);
+    console.log("reversed user post array in user photos: ", reversedUserPostArr);
+
 
     if(reversedUserPostArr.length === 0) {
         return (
@@ -29,19 +32,20 @@ export default function UserPhotos({user, userPostArr, userPostsStore}) {
 
                             <li key={post.id} id='user-photos-li'>
                                 {post.img? 
-                                    <div id='user-photo-img'><img src={post.img} alt=""/></div>
+                                    <Link to={`/posts/${post.id}`}><div id='user-photo-img'>
+                                        <img src={post.img} alt=""/>
+                                    </div></Link>
                                     : null
                                 }  
                                 {post.video ? 
-                                    <div id='user-photos-video'>
+                                    <Link to={`/posts/${post.id}`}><div id='user-photos-video'>
                                         <ReactPlayer url={post.video} controls width='100%' height='100%'/>
-                                    </div>
+                                    </div></Link>
                                     : null
                                 }
                             </li>
                             </>
-                        )
-                        
+                        ) 
                     }
                 })()
             ))}

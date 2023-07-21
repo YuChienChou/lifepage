@@ -73,8 +73,8 @@ export default function PostList({sessionUser, post}) {
                         <p>{post.body}</p>
                     </div>
                     {post.img? 
-                        <div id='img-post'>
-                        <img src={post.img} alt=""/></div>
+                        <Link to={`/posts/${post.id}`}><div id='img-post'>
+                        <img src={post.img} alt=""/></div></Link>
                         : null
                     }  
                     {post.video ? 

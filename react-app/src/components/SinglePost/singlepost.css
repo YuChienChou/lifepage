@@ -1,0 +1,89 @@
+#singlePost-container {
+    display: flex;
+    width: 100%;
+    height: 100%;
+}
+
+#single-post-logo-img-comment {
+    display: flex;
+    width: 100%;
+    height: 100%;
+}
+
+#single-post-logo-img {
+ width: 65%;
+ display: flex;
+ align-items: center;
+ justify-content: center;
+ height: 100vh;
+ position: relative;
+ background-color: black;
+}
+
+#single-post-logo {
+    position: absolute;
+    top: 30px;
+    left: 30px;
+    background-color: transparent;
+}
+
+
+#single-post-logo img {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+}
+
+
+#single-post-logo a {
+    background-color: transparent;
+    border: none;
+}
+
+#single-post-img {
+    width: 100%;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center; 
+}
+
+#single-post-img img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+#single-post-user-info-body {
+    height: 40%;
+    border-bottom: 1px solid black;
+    background-color: #FFF;
+    padding: 16px;
+}
+
+#single-post-user-info-body p {
+    background-color: #FFF;
+}
+
+#single-post-content-div {
+    width: 35%;
+    background-color: #FFF;
+}
+
+#single-post-content-div img {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+}
+
+#single-post-user-info {
+    display: flex;
+    gap: 10px;
+    background-color: #FFF;
+    align-items: center;
+    padding-bottom: 16px;
+}
+
+#single-post-user-info p {
+    background-color: #FFF;
+}
