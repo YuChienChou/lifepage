@@ -6,21 +6,21 @@ import Navigation from '../Navigation';
 import OpenModalButton from '../OpenModalButton';
 import CreatePost from '../CreatePost/CreatePostModal';
 import PostList from '../PostList/PostList';
+import CommentList from '../Comments/CommentList';
+import CreateComment from '../Comments/CreateComment';
 import userProfilePicture from '../resources/default-user-profile-picture.png';
 import './user.css'
+import { getAllCommentsThunk } from '../../store/comment';
 
 export default function UserHome() {
     const sessionUser = useSelector((state) => state.session.user);
-    // console.log("logged in user in the userHome page: ", sessionUser);
     const postsStore = useSelector((state) => state.posts.allPosts);
-    // console.log("postsStore in the post component: ", postsStore);
     const postsArr = Object.values(postsStore);
-    // console.log("Post array in the user home component: ", postsArr);
     const reversedPostsArr = postsArr.slice().reverse();
-    // console.log("Reversed post arry in the user home component: ", reversedPostsArr);
+ 
 
     const dispatch = useDispatch();
-
+ 
     useEffect(() => {
         dispatch(getAllPostsThunk());
     }, [dispatch]);
@@ -51,11 +51,21 @@ export default function UserHome() {
                         buttonText ={`What's on your mind, ${sessionUser.first_name}?`}
                         modalComponent={<CreatePost sessionUser={sessionUser}/>}
                     />
+
+
+
+                    
                 </div>
                 <div id='post-list-container'>
                     <ul>
                         {reversedPostsArr.map((post) => (
-                            <PostList sessionUser={sessionUser} post={post} />
+                            <>
+                            <li key={post.id}>
+                                <PostList sessionUser={sessionUser} post={post}/>
+                                <CommentList sessionUser={sessionUser} post={post}/>
+                                <CreateComment sessionUser={sessionUser} post={post} />
+                            </li>
+                            </>
                         ))}
                     </ul>
                 </div>

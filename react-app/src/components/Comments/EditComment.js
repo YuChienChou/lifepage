@@ -25,10 +25,9 @@ export default function EditComment({sessionUser, post, comment}) {
 
         try {
             await dispatch(editCommentThunk(comment.id, commentInfo));
-            // await dispatch(getAllCommentsThunk(post.id));
-            await dispatch(getSinglePostThunk(post.id));
-            await dispatch(getAllPostsThunk());
-            await dispatch(getUserPostsThunk(sessionUser.id));
+            // await dispatch(getSinglePostThunk(post.id));
+            //  await dispatch(getUserPostsThunk(sessionUser.id));
+            // await dispatch(getAllPostsThunk());
             
             closeModal()
         } catch (error) {

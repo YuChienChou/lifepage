@@ -56,7 +56,7 @@ export default function EditPostModal({sessionUser, post }) {
     useEffect(() => {
         const errors = {};
         if(!body) errors.body = "Please enter your post.";
-        if(body.length > 2000) errors.body = errors.bodylength = "Please enter content less than 2000 characters.";
+        if(body.length > 3000) errors.body = errors.bodylength = "Please enter content less than 2000 characters.";
         if(img && !img.endsWith('.jpg') && !img.endsWith('.png') && !img.endsWith('.jpeg')) errors.imgFormat = "Image URL needs to end in png or jpg (or jpeg)";
         if(video) {
             const videoFrag = video.split("=");

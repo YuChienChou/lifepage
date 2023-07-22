@@ -2,7 +2,8 @@ import ReactPlayer from 'react-player/youtube';
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import OpenModalButton from '../OpenModalButton';
-import Comment from '../Comments/Comment';
+import CommentList from '../Comments/CommentList';
+import CreateComment from '../Comments/CreateComment';
 import EditPostModal from '../EditDeletePost/EditPostModal';
 import DeletePostModal from '../EditDeletePost/DeletePostModal';
 import userProfilePicture from '../resources/default-user-profile-picture.png';
@@ -11,8 +12,7 @@ import './postList.css'
 
 
 export default function PostList({sessionUser, post}) {
-    const [showEditPostDiv, setShowEditPostDiv] = useState(false);
- 
+    const [showEditPostDiv, setShowEditPostDiv] = useState(false); 
     const showEditPostDivFun = () => {
         setShowEditPostDiv(!showEditPostDiv)
     }
@@ -86,7 +86,12 @@ export default function PostList({sessionUser, post}) {
                 </div>
                 
             </div>
-                <Comment sessionUser={sessionUser} post={post} />
+                {/* <CommentList sessionUser={sessionUser} post={post} /> */}
+                {/* <div id='create-comment-div'>
+                    <CreateComment sessionUser={sessionUser} post={post} />
+                </div> */}
+                
+
         </li>
         </>
     )

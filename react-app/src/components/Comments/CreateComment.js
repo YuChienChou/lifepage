@@ -22,9 +22,9 @@ export default function CreateComment({sessionUser, post}) {
 
         try {
             await dispatch(createCommentThunk(post.id, commentInfo));
-            await dispatch(getAllPostsThunk());
-            await dispatch(getUserPostsThunk(sessionUser.id));
-            await dispatch(getSinglePostThunk(post.id));
+            // await dispatch(getSinglePostThunk(post.id));
+            // await dispatch(getUserPostsThunk(sessionUser.id))
+            // await dispatch(getAllPostsThunk());
         } catch(error) {
             console.log(error);
         };

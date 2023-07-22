@@ -17,10 +17,12 @@ import './userprofile.css'
 
 export default function UserPorfile() {
     const { userId, page } = useParams();
+    console.log(" page in userprofile: ", page);
     const user = useSelector((state) => state.users.singleUser);
     const sessionUser = useSelector((state) => state.session.user)
     const userPostsStore = useSelector((state) => state.posts.userPosts);
     const userPostArr = Object.values(userPostsStore);
+    
 
     const dispatch = useDispatch();
 
@@ -73,7 +75,7 @@ export default function UserPorfile() {
                         </div>
                 </div>
                 {page === "posts" ? 
-                    <UserPosts sessionUser={sessionUser} user={user} userPostArr={userPostArr} />
+                    <UserPosts sessionUser={sessionUser} user={user} userPostArr={userPostArr} page={page}/>
                     : null
                 }
 

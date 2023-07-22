@@ -138,28 +138,28 @@ def get_single_post(postId):
     except Exception as e:
         return {"error" : str(e)}, 500
 
-#get all comments by post id
-@post_route.route('/<int:postId>/comments/all', methods=["GET"])
-@login_required
-def get_post_comments(postId):
+# #get all comments by post id
+# @post_route.route('/<int:postId>/comments/all', methods=["GET"])
+# @login_required
+# def get_post_comments(postId):
 
-    try: 
+#     try: 
 
-        post = Post.query.get(postId)
+#         post = Post.query.get(postId)
 
-        if not post:
-            return 'Post not found.', 404
+#         if not post:
+#             return 'Post not found.', 404
         
-        comment_list = post.comments
-        print("Comments in the get all post comment route:", comment_list)
+#         comment_list = post.comments
+#         print("Comments in the get all post comment route:", comment_list)
 
-        result = [comment.to_dict() for comment in comment_list]
-        print("Result in the get all post comment route: ", result)
+#         result = [comment.to_dict() for comment in comment_list]
+#         print("Result in the get all post comment route: ", result)
 
-        return result
+#         return result
     
-    except Exception as e:
-        return {"error": str(e)}, 500
+#     except Exception as e:
+#         return {"error": str(e)}, 500
 
 #post a comment for a post
 @post_route.route('/<int:postId>/comments/new', methods=["POST"])
