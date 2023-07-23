@@ -2,7 +2,6 @@ import { useDispatch } from "react-redux";
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { createCommentThunk } from "../../store/comment";
-import { getAllPostsThunk, getSinglePostThunk, getUserPostsThunk } from "../../store/post";
 import userProfilePicture from '../resources/default-user-profile-picture.png';
 import './comment.css'
 
@@ -22,9 +21,7 @@ export default function CreateComment({sessionUser, post}) {
 
         try {
             await dispatch(createCommentThunk(post.id, commentInfo));
-            // await dispatch(getSinglePostThunk(post.id));
-            // await dispatch(getUserPostsThunk(sessionUser.id))
-            // await dispatch(getAllPostsThunk());
+
         } catch(error) {
             console.log(error);
         };

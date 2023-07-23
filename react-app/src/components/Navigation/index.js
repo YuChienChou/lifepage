@@ -26,7 +26,6 @@ function Navigation(){
 	  };
 
 
-	
 	return (
 		<nav>
 			<div id='nav-bar'>

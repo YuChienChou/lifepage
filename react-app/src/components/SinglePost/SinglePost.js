@@ -1,43 +1,62 @@
 import { useDispatch, useSelector } from "react-redux";
 import { useParams, Link } from 'react-router-dom';
-import logo from '../resources/lifepage favicon.png';
 import { useEffect, useState } from "react";
-import OpenModalButton from "../OpenModalButton";
-import { getSinglePostThunk } from "../../store/post";
-import CreateComment from "../Comments/CreateComment";
-import EditComment from "../Comments/EditComment";
-import DeleteComment from "../Comments/DeleteComment";
-import userProfilePicture from '../resources/default-user-profile-picture.png';
-import './singlepost.css'
+import { editPostThunk, getSinglePostThunk } from "../../store/post";
+import EditPostModal from "../EditDeletePost/EditPostModal";
 import CommentList from "../Comments/CommentList";
+import CreateComment from "../Comments/CreateComment";
+import logo from '../resources/lifepage favicon.png';
+import './singlepost.css'
+import OpenModalButton from "../OpenModalButton";
+
 
 export default function SinglePost() {
-    const { postId, page } = useParams();
-    console.log("page in single post : " , page);
+    const { postId } = useParams();
+    // console.log("page in single post : " , page);
     const sessionUser = useSelector((state) => state.session.user);
     const singlePost = useSelector((state) => state.posts.singlePost);
-    const [editComment, setEditComment] = useState(null);
-    const [full, setFull] = useState(false)
+    console.log("single post in single post component: ", singlePost)
+    const [body, setBody] = useState(singlePost.body);
+    // const [img, setImg] = useState(singlePost.img);
+    // const [video, setVideo] = useState(singlePost.video);
+    const [editPost, setEditPost] = useState(false);
     const dispatch = useDispatch();
 
-    const setFullFun = () => {
-        setFull(!full);
-    };
+    const showEditFun = () => {
+        setEditPost(true);
+    }
 
-    const editCommentFun = (commentId) => {
-        setEditComment(commentId);
-    };
+    const editSinglePost = async (e) => {
+        e.preventDefault();
 
-    const hideEditCommentFun = () => {
-        setEditComment(null);
+        const postInfo = {
+            img: singlePost.img,
+            video: singlePost.video,
+            body,
+            user_id : sessionUser.id
+        }
+
+        try {
+            await dispatch(editPostThunk(singlePost.id, postInfo));
+            await dispatch(getSinglePostThunk(singlePost.id))
+        } catch (error) {
+            console.log(error);
+        };
+
+        setEditPost(false)
     };
 
     useEffect(() => {
+        setBody(singlePost.body);
+      }, [singlePost.body]);
+
+    useEffect(() => {
         dispatch(getSinglePostThunk(postId));
-        // dispatch(getAllCommentsThunk(singlePost.id));
     }, [dispatch, postId]);
 
-    if(!singlePost.User) return null;
+    if (!singlePost.id) {
+        return <div>Loading...</div>;
+      }
 
     return (
         <>
@@ -66,7 +85,41 @@ export default function SinglePost() {
                             </Link>
                         </div>
                         <div id='sp-body'>
-                            <p>{singlePost.body}</p>
+
+                            {(() => {
+                                if(singlePost.User.id === sessionUser.id) {
+
+                                        if(editPost === true) {
+
+                                            return (
+                                            <>
+                                            <form onSubmit={editSinglePost} id='edit-single-post-form'>
+                                                <textarea 
+                                                    type='text'
+                                                    value={body}
+                                                    onChange={(e) => setBody(e.target.value)}
+                                                />
+                                                <button type='submit'>Save</button>
+                                            </form>
+                                            </>
+                                        )
+                                    } else {
+                                        return  (
+                                        <>
+                                        <div id='sp-content'>
+                                            <p>{singlePost.body}</p>
+                                            <button onClick={showEditFun}>Edit</button>
+                                        </div>
+                                        </>)
+                                    }
+                                    
+                                } else {
+                                    return (<p>{singlePost.body}</p>)
+                                }
+                            }
+                            )()}
+                           
+                            
                          </div>
                     </div>
 
@@ -78,11 +131,6 @@ export default function SinglePost() {
                         <CreateComment sessionUser={sessionUser} post={singlePost} />  
                     </div>
             </div>
-
-
-           
-
-            
         </div>
         </>
     )

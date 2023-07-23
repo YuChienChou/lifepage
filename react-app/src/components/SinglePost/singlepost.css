@@ -141,6 +141,7 @@
 
 #sp-body {
     margin-top: 76px;
+    background-color: #FFF;
 }
 
 #single-post-user-info p {
@@ -331,4 +332,47 @@
     padding: 16px;
     width: 30%;
     background-color: #FFF;
+}
+
+#sp-body button {
+    padding: 10px;
+    background-color: #D8DADF;
+    border: none;
+    border-radius: 5px;
+    margin-top: 10px;
+    cursor: pointer;
+}
+
+
+#sp-content {
+    background-color: #FFF;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+#sp-content button {
+    width: 50px;
+
+}
+
+#edit-single-post-form {
+    background-color: #FFF;
+    display: flex;
+    flex-direction: column;
+}
+
+#edit-single-post-form textarea{
+    resize: none;
+    width: 100%;
+    height: fit-content;
+    background-color: #FFF;
+    border: none;
+    outline: none;
+    font-size: 16px;
+}
+
+#edit-single-post-form button {
+    margin: 0;
+    width: 50px;
 }

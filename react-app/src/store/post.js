@@ -197,7 +197,7 @@ const postReducer = (state = initialState, action) => {
             return newState;
         };
         case GET_SINGLE_POST: {
-            const newState = {...state, allPosts: {}, singlePost: {}, userPosts: {}}
+            const newState = {...state, singlePost: {}}
             newState.singlePost = action.post;
             return newState;
          };

@@ -6,26 +6,19 @@ import Navigation from '../Navigation';
 import OpenModalButton from '../OpenModalButton';
 import CreatePost from '../CreatePost/CreatePostModal';
 import PostList from '../PostList/PostList';
-import CommentList from '../Comments/CommentList';
-import CreateComment from '../Comments/CreateComment';
 import userProfilePicture from '../resources/default-user-profile-picture.png';
 import './user.css'
-import { getAllCommentsThunk } from '../../store/comment';
 
 export default function UserHome() {
     const sessionUser = useSelector((state) => state.session.user);
-    const postsStore = useSelector((state) => state.posts.allPosts);
-    const postsArr = Object.values(postsStore);
-    const reversedPostsArr = postsArr.slice().reverse();
  
-
     const dispatch = useDispatch();
  
     useEffect(() => {
         dispatch(getAllPostsThunk());
     }, [dispatch]);
 
-    if(!sessionUser || postsArr.length < 1) return null;
+    if(!sessionUser) return null;
 
     return (
         <>
@@ -50,23 +43,11 @@ export default function UserHome() {
                     <OpenModalButton
                         buttonText ={`What's on your mind, ${sessionUser.first_name}?`}
                         modalComponent={<CreatePost sessionUser={sessionUser}/>}
-                    />
-
-
-
-                    
+                    />                    
                 </div>
                 <div id='post-list-container'>
                     <ul>
-                        {reversedPostsArr.map((post) => (
-                            <>
-                            <li key={post.id}>
-                                <PostList sessionUser={sessionUser} post={post}/>
-                                <CommentList sessionUser={sessionUser} post={post}/>
-                                <CreateComment sessionUser={sessionUser} post={post} />
-                            </li>
-                            </>
-                        ))}
+                        <PostList sessionUser={sessionUser}/>
                     </ul>
                 </div>
             </div>

@@ -69,12 +69,6 @@ export default function CreatePost({sessionUser}) {
         </div>
        
         <form id='create-post-form' onSubmit={handleSubmit}>
-                {/* <input
-                    type='text' 
-                    placeholder="Title for your post"
-                    value={title}
-                    onChange={(e) => setTitle(e.target.value)}
-                /> */}
                 <textarea 
                     type='text'
                     placeholder={`What's on your mind, ${sessionUser.first_name}?`}
@@ -121,10 +115,6 @@ export default function CreatePost({sessionUser}) {
                 </div>
                 : null
                 }
-                {/* <div id='error-div'>
-                    {validationError.imgFormat && <p>{validationError.imgFormat}</p>}
-                    {validationError.videoFormat && <p>{validationError.videoFormat}</p>}
-                </div> */}
 
                 <div id='create-post-button-div'>
                     <div onClick={showItemFun}>
@@ -144,7 +134,6 @@ export default function CreatePost({sessionUser}) {
                     >
                         Post
                     </button>
-         
         </form>
 
         </>

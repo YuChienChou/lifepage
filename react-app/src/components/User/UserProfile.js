@@ -17,7 +17,7 @@ import './userprofile.css'
 
 export default function UserPorfile() {
     const { userId, page } = useParams();
-    console.log(" page in userprofile: ", page);
+    // console.log(" page in userprofile: ", page);
     const user = useSelector((state) => state.users.singleUser);
     const sessionUser = useSelector((state) => state.session.user)
     const userPostsStore = useSelector((state) => state.posts.userPosts);

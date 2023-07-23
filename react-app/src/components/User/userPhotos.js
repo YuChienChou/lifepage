@@ -1,6 +1,5 @@
 import ReactPlayer from 'react-player/youtube';
 import { Link } from 'react-router-dom';
-
 import './userphotos.css'
 
 

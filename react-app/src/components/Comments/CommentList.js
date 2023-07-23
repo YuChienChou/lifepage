@@ -9,14 +9,11 @@ import userProfilePicture from '../resources/default-user-profile-picture.png';
 import './comment.css'
 
 export default function CommentList({sessionUser, post}) {
-    // const [content, setContent] = useState("");
     const [editComment, setEditComment] = useState(null);
     const postCommentStore = useSelector((state) => state.comments.allComments);
     const postCommentArr = Object.values(postCommentStore).filter((comment) => comment.post_id === post.id);
-    console.log("postCommentArr in commentList : ", postCommentArr)
-    // const [validationErrors, setValidationErrors] = useState({});
-    const dispatch = useDispatch();
 
+    const dispatch = useDispatch();
 
     const editCommentFun = (commentId) => {
         setEditComment(commentId);

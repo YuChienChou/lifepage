@@ -1,14 +1,11 @@
 import { useDispatch } from "react-redux";
 import { useState, useEffect } from "react";
 import { useModal } from "../../context/Modal";
-import { editCommentThunk, getAllCommentsThunk } from "../../store/comment";
-import { getAllPostsThunk, getSinglePostThunk, getUserPostsThunk } from "../../store/post";
+import { editCommentThunk } from "../../store/comment";
 import './EditComment.css';
 
 
-
 export default function EditComment({sessionUser, post, comment}) {
-    // console.log("comment in edit comment component: ", comment)
     const [content, setContent] = useState(comment.content);
     const [validationErrors, setValidationErrors] = useState({});
     const dispatch = useDispatch();
@@ -25,9 +22,6 @@ export default function EditComment({sessionUser, post, comment}) {
 
         try {
             await dispatch(editCommentThunk(comment.id, commentInfo));
-            // await dispatch(getSinglePostThunk(post.id));
-            //  await dispatch(getUserPostsThunk(sessionUser.id));
-            // await dispatch(getAllPostsThunk());
             
             closeModal()
         } catch (error) {
@@ -60,8 +54,6 @@ export default function EditComment({sessionUser, post, comment}) {
                     {validationErrors.contentlength && <p>{validationErrors.contentlength}</p> }
                 </div>
 
-                
-            
                 <button
                     type="submit"
                     disabled={Object.values(validationErrors).length > 0}
