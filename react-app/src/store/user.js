@@ -1,6 +1,7 @@
 //type string
 const GET_ALL_USERS = "user/GET_ALL_USERS";
 const GET_SINGLE_USER = "user/GET_SINGLE_USER";
+const EDIT_USER = 'user/EDIT_USER';
 
 
 //action creator
@@ -18,6 +19,13 @@ const getSingleUser = (user) => {
         user,
     };
 };
+
+const editUser = (user) => {
+    return {
+        type: EDIT_USER,
+        user
+    }
+}
 
 
 //thunk creator
@@ -54,6 +62,27 @@ export const getSingleUserThunk = (userId) => async (dispatch) => {
 };
 
 
+export const editUserThunk = (userId, userInfo) => async (dispatch) => {
+    console.log("in the edit user thunk!!!!!!!!!!!!!!!!!!!!!")
+    try {
+        const res = await fetch(`/api/users/${userId}/edit`, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(userInfo),
+        });
+
+        if(res.ok) {
+            const updatedUser = await res.json();
+            dispatch(editUser(updatedUser));
+            return updatedUser;
+        }
+    } catch (err) {
+        const errors = await err.json()
+        return errors;
+    };
+};
+
+
 
 //reducer function
 
@@ -72,6 +101,11 @@ const userReducer = (state = initialState, action) => {
             const newState = {...state, singleUser: {}}
             newState.singleUser = action.user;
             return newState;
+        };
+        case EDIT_USER: {
+            const newState = {...state, singleUser: {...state.allUsers}}
+            newState.singleUser[action.user.id] = action.user;
+            return newState
         };
         default:
             return state;

@@ -36,9 +36,24 @@ const deleteComment = (commentId) => {
 
 //thunk creator
 
-export const getAllCommentsThunk = (postId) => async (dispatch) => {
+// export const getAllCommentsThunk = (postId) => async (dispatch) => {
+//     try {
+//         const res = await fetch(`/api/posts/${postId}/comments/all`)
+
+//         if(res.ok) {
+//             const allComments = await res.json();
+//             dispatch(getAllComments(allComments));
+//             return allComments;
+//         }
+//     } catch(err) {
+//         const errors = await err.json();
+//         return errors;
+//     };
+// };
+
+export const getAllCommentsThunk = () => async (dispatch) => {
     try {
-        const res = await fetch(`/api/posts/${postId}/comments/all`)
+        const res = await fetch('/api/comments/all')
 
         if(res.ok) {
             const allComments = await res.json();
@@ -50,7 +65,7 @@ export const getAllCommentsThunk = (postId) => async (dispatch) => {
         return errors;
     };
 };
-
+ 
 export const createCommentThunk = (postId, commentInfo) => async (dispatch) => {
     // console.log("in the create comment thunk!!!!!!!")
     try {

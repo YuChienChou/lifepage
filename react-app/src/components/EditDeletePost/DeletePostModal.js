@@ -1,7 +1,7 @@
 import { useDispatch } from "react-redux";
 import { deletePostThunk } from "../../store/post";
-import { getUserPostsThunk } from "../../store/post";
-import { getAllPostsThunk } from "../../store/post";
+import { getUserPostsThunk, getAllPostsThunk, getSinglePostThunk } from "../../store/post";
+import {} from "../../store/post";
 import { useModal } from '../../context/Modal';
 import './editPost.css'
 

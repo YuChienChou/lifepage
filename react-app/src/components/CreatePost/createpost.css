@@ -97,6 +97,7 @@
     background-color: #FFF;
     border-radius: 10px;
     border: 1px solid #F0F1F3;
+    resize: none;
 }
 
 #add-video-div {

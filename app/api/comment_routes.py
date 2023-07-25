@@ -7,6 +7,15 @@ from datetime import date
 comment_route = Blueprint('comments', __name__)
 print(__name__)
 
+#get all comments by post id
+@comment_route.route('/all', methods=["GET"])
+@login_required
+def get_all_comments():
+
+        all_comments = Comment.query.all()
+        return [comment.to_dict() for comment in all_comments]
+
+
 #Edit a comment 
 @comment_route.route('/<int:commentId>/edit', methods=["POST"])
 @login_required

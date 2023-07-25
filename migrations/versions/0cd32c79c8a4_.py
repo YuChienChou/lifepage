@@ -1,19 +1,16 @@
 """empty message
 
-Revision ID: 1a02d479ec22
+Revision ID: 0cd32c79c8a4
 Revises: 
-Create Date: 2023-07-17 09:23:48.338140
+Create Date: 2023-07-19 20:11:51.735868
 
 """
 from alembic import op
 import sqlalchemy as sa
 
-import os
-environment = os.getenv("FLASK_ENV")
-SCHEMA = os.environ.get("SCHEMA")
 
 # revision identifiers, used by Alembic.
-revision = '1a02d479ec22'
+revision = '0cd32c79c8a4'
 down_revision = None
 branch_labels = None
 depends_on = None
@@ -27,9 +24,9 @@ def upgrade():
     sa.Column('first_name', sa.String(length=40), nullable=False),
     sa.Column('last_name', sa.String(length=40), nullable=False),
     sa.Column('email', sa.String(length=255), nullable=False),
-    sa.Column('phone', sa.String(length=15), nullable=True),
+    sa.Column('phone', sa.String(length=10), nullable=True),
     sa.Column('birth_date', sa.Date(), nullable=True),
-    sa.Column('bio', sa.String(length=500), nullable=True),
+    sa.Column('bio', sa.String(length=1000), nullable=True),
     sa.Column('hobbies', sa.String(length=500), nullable=True),
     sa.Column('profile_picture', sa.String(length=255), nullable=True),
     sa.Column('cover_photo', sa.String(length=255), nullable=True),
@@ -43,7 +40,7 @@ def upgrade():
     sa.Column('id', sa.Integer(), nullable=False),
     sa.Column('img', sa.String(length=255), nullable=True),
     sa.Column('video', sa.String(length=255), nullable=True),
-    sa.Column('body', sa.String(length=2000), nullable=False),
+    sa.Column('body', sa.String(), nullable=False),
     sa.Column('user_id', sa.Integer(), nullable=True),
     sa.Column('created_at', sa.Date(), nullable=True),
     sa.Column('updated_at', sa.Date(), nullable=True),
@@ -61,11 +58,6 @@ def upgrade():
     sa.ForeignKeyConstraint(['user_id'], ['users.id'], ),
     sa.PrimaryKeyConstraint('id')
     )
-
-    if environment == "production":
-        op.execute(f"ALTER TABLE users SET SCHEMA {SCHEMA};")
-        op.execute(f"ALTER TABLE posts SET SCHEMA {SCHEMA};")
-        op.execute(f"ALTER TABLE comments SET SCHEMA {SCHEMA};")
     # ### end Alembic commands ###
 
 

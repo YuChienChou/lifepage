@@ -9,16 +9,17 @@ import EditPostModal from '../EditDeletePost/EditPostModal';
 import DeletePostModal from '../EditDeletePost/DeletePostModal';
 import userProfilePicture from '../resources/default-user-profile-picture.png';
 import './postList.css'
-import { getAllPostsThunk } from '../../store/post';
+import { getUserPostsThunk } from '../../store/post';
 
 
-export default function PostList({ sessionUser }) {
-    const postsStore = useSelector((state) => state.posts.allPosts);
-    const postsArr = Object.values(postsStore);
-    const reversedPostsArr = postsArr.slice().reverse();
+
+export default function UserPostList({ sessionUser, user, posts }) {
+    const userPostsStore = useSelector((state) => state.posts.userPosts);
+    const userPostArr = Object.values(userPostsStore);
+    const reversedPostsArr = userPostArr.slice().reverse();
     const [showEditPostDiv, setShowEditPostDiv] = useState({}); 
 
-    const dispatch = useDispatch()
+    const dispatch = useDispatch();
 
 
     const showEditPostDivFun = (postId) => {
@@ -35,15 +36,24 @@ export default function PostList({ sessionUser }) {
           }));
     }
 
-    useEffect(()=> {
-        dispatch(getAllPostsThunk());
-    }, [dispatch])
+    useEffect(() => {
+        dispatch(getUserPostsThunk(user.id))
+    }, [dispatch, user]);
+
+    if(reversedPostsArr.length === 0) {
+        return (
+            <>
+            <p>{user.first_name} doesn't have any posts yet.</p>
+            </>
+        )
+    }
     
     return (
         
         <>
         {reversedPostsArr.map((post) => (
         <li key={post.id} className='post-list'>
+
             <div id='post-list-div'>
             
                     <div id='user-img-name'>
@@ -55,7 +65,7 @@ export default function PostList({ sessionUser }) {
                         </div>
 
                         {post.User.id === sessionUser.id ? 
-                            <div id='edit-post-div' onClick={()=> showEditPostDivFun(post.id)}>
+                            <div id='edit-post-div' onClick={() => showEditPostDivFun(post.id)}>
                                 <i className="fa-solid fa-ellipsis"></i>
                                 
                             </div> : null }
@@ -65,7 +75,7 @@ export default function PostList({ sessionUser }) {
                             
                                 <div id='edit-post'>
                                     <i className="fa-solid fa-pen"></i>
-                                    {/* <p>Edit post</p> */}
+                                
                                     <OpenModalButton
                                         buttonText="Edit post"
                                         modalComponent={<EditPostModal sessionUser={sessionUser} post={post}/>}
@@ -74,7 +84,7 @@ export default function PostList({ sessionUser }) {
                             
                                 <div id='delete-post'>
                                     <i className="fa-regular fa-trash-can"></i>
-                                    {/* <p onClick={deletePost}>Move to trash</p> */}
+                                    
                                     <OpenModalButton 
                                         buttonText="Delete post"
                                         modalComponent={<DeletePostModal sessionUser={sessionUser} post={post} />}
@@ -87,7 +97,6 @@ export default function PostList({ sessionUser }) {
                     
                 <div id='post-content'>
                     <div id='content'>
-                        {/* <p>{post.title}</p> */}
                         <p>{post.body}</p>
                     </div>
                     {post.img? 
@@ -108,6 +117,8 @@ export default function PostList({ sessionUser }) {
                 
             </div>
         </li>
+       
+        
          ))}
          </>
     )

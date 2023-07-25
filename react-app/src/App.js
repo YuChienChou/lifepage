@@ -7,6 +7,7 @@ import { authenticate } from "./store/session";
 import DefaultHome from "./components/Home/defaultHome";
 import UserHome from "./components/User/userHome";
 import UserPorfile from "./components/User/UserProfile";
+import SinglePost from "./components/SinglePost/SinglePost";
 
 function App() {
   const dispatch = useDispatch();
@@ -31,6 +32,12 @@ function App() {
           </Route>
           <Route exact path ='/user/:userId'>
             <UserPorfile />
+          </Route>
+          <Route exact path ='/user/:userId/:page'>
+            <UserPorfile />
+          </Route>
+          <Route exact path='/posts/:postId'>
+            <SinglePost />
           </Route>
           <Route exact path='/'>
             <DefaultHome />
