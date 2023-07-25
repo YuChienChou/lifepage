@@ -94,17 +94,17 @@ export const createPostThunk = (userId, post) => async (dispatch) => {
 
 
 export const editPostThunk = (postId, postInfo) => async (dispatch) => {
-    console.log("in the edit post thunk~~~~~~~~~~~~~~~~~~~~~")
+    // console.log("in the edit post thunk~~~~~~~~~~~~~~~~~~~~~")
     try {
-        console.log("in the try block of the editpostthunk")
+        // console.log("in the try block of the editpostthunk")
         const res = await fetch(`/api/posts/${postId}/edit`, {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify(postInfo),
         });
-        console.log("after the res fetch of the editpostthunk")
+        // console.log("after the res fetch of the editpostthunk")
         if(res.ok) {
-            console.log("result from the backend in the edit post thunk: ", res)
+            // console.log("result from the backend in the edit post thunk: ", res)
             const updatedPost = await res.json();
             dispatch(editPost(updatedPost));
             return updatedPost;
@@ -198,7 +198,7 @@ const postReducer = (state = initialState, action) => {
         };
         case GET_SINGLE_POST: {
             const newState = {...state, singlePost: {}}
-            newState.singlePost[action.post.id] = action.post;
+            newState.singlePost = action.post;
             return newState;
          };
          case GET_USER_POSTS: {

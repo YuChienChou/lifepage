@@ -36,9 +36,9 @@ export default function CreatePost({sessionUser}) {
         }
 
         try {
-            await dispatch(createPostThunk(sessionUser.id, postInfo))
-            await dispatch(getSingleUserThunk(sessionUser.id))
-            await dispatch(getUserPostsThunk(sessionUser.id))
+            await dispatch(createPostThunk(sessionUser.id, postInfo));
+            await dispatch(getSingleUserThunk(sessionUser.id));
+            await dispatch(getUserPostsThunk(sessionUser.id));
             closeModal()
         } catch(error) {
             console.log(error);
@@ -52,7 +52,6 @@ export default function CreatePost({sessionUser}) {
         if(img && !img.endsWith('.jpg') && !img.endsWith('.png') && !img.endsWith('.jpeg')) errors.imgFormat = "Image URL needs to end in png or jpg (or jpeg)";
         if(video) {
             const videoFrag = video.split("=");
-            // if(videoFrag[0] !== "https://www.youtube.com/watch?v" || !videoFrag[1].endsWith("channel"))  errors.videoFormat = "Please enter valid URL form YouTube."}
             if(!videoFrag[0].includes("https://www.youtube.com/"))  errors.videoFormat = "Please enter valid URL form YouTube."}
 
         setValidationError(errors)
@@ -64,18 +63,12 @@ export default function CreatePost({sessionUser}) {
             <h3>Create Post</h3>
         </div>
         <div id='create-post-user'>
-           <Link to={`/user/${sessionUser.id}`}><img src={sessionUser.profile_picture ? sessionUser.profile_picture : userProfilePicture} 
+           <Link to={`/user/${sessionUser.id}/posts`}><img src={sessionUser.profile_picture ? sessionUser.profile_picture : userProfilePicture} 
             alt={sessionUser.first_name}/></Link>
-            <Link to={`/user/${sessionUser.id}`}>{sessionUser.first_name} {sessionUser.last_name}</Link>
+            <Link to={`/user/${sessionUser.id}/posts`}>{sessionUser.first_name} {sessionUser.last_name}</Link>
         </div>
        
         <form id='create-post-form' onSubmit={handleSubmit}>
-                {/* <input
-                    type='text' 
-                    placeholder="Title for your post"
-                    value={title}
-                    onChange={(e) => setTitle(e.target.value)}
-                /> */}
                 <textarea 
                     type='text'
                     placeholder={`What's on your mind, ${sessionUser.first_name}?`}
@@ -122,10 +115,6 @@ export default function CreatePost({sessionUser}) {
                 </div>
                 : null
                 }
-                {/* <div id='error-div'>
-                    {validationError.imgFormat && <p>{validationError.imgFormat}</p>}
-                    {validationError.videoFormat && <p>{validationError.videoFormat}</p>}
-                </div> */}
 
                 <div id='create-post-button-div'>
                     <div onClick={showItemFun}>
@@ -145,7 +134,6 @@ export default function CreatePost({sessionUser}) {
                     >
                         Post
                     </button>
-         
         </form>
 
         </>

@@ -17,20 +17,6 @@ function ProfileButton({ user }) {
     setShowMenu(true);
   };
 
-  // useEffect(() => {
-  //   if (!showMenu) return;
-
-  //   const closeMenu = (e) => {
-  //     if (!ulRef.current.contains(e.target)) {
-  //       setShowMenu(false);
-  //     }
-  //   };
-
-  //   document.addEventListener("click", closeMenu);
-
-  //   return () => document.removeEventListener("click", closeMenu);
-  // }, [showMenu]);
-
   const handleLogout = (e) => {
     e.preventDefault();
     dispatch(logout());

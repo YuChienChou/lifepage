@@ -44,13 +44,15 @@ def edit_user(userId):
     Query for session user and update user information 
     and return the user as a dictionary.
     """
-
+    print("in the edit user route~~~~~~")
     try: 
         form = UserForm()
         form["csrf_token"].data = request.cookies["csrf_token"]
         form.user_id.data = current_user.id
 
         edit_user = User.query.get(userId)
+
+        print("in the try block of the edit user route~~~~~~")
 
         if not edit_user:
             return "User not found", 404
@@ -64,6 +66,7 @@ def edit_user(userId):
             edit_user.updated_at = date.today()
             
             db.session.commit()
+            print("edited user in the edit user route: ", edit_user.to_dict())
             return edit_user.to_dict()
 
     except Exception as e:
