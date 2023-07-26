@@ -84,7 +84,7 @@ def seed_posts():
         updated_at = date.today(),
     )
     post11 = Post (
-        img = 'https://images.pexels.com/photos/1684151/pexels-photo-1684151.jpeg',
+        img = 'https://images.pexels.com/photos/8052693/pexels-photo-8052693.jpeg',
         video = '',
         body = 'Just enjoying a cup of coffee and the beautiful view.',
         user_id = 1,

@@ -7,6 +7,7 @@ import CommentList from '../Comments/CommentList';
 import CreateComment from '../Comments/CreateComment';
 import EditPostModal from '../EditDeletePost/EditPostModal';
 import DeletePostModal from '../EditDeletePost/DeletePostModal';
+import PostLikes from '../Likes/PostLikes';
 import userProfilePicture from '../resources/default-user-profile-picture.png';
 import './postList.css'
 import { getAllPostsThunk } from '../../store/post';
@@ -101,6 +102,8 @@ export default function PostList({ sessionUser }) {
                         </div>
                         : null
                     }
+
+                    <PostLikes sessionUser={sessionUser} postId={post.id} />
 
                     <CommentList sessionUser={sessionUser} post={post}/>
                     <CreateComment sessionUser={sessionUser} post={post} />

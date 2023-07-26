@@ -1,6 +1,6 @@
 from flask import Blueprint, render_template, request
 from flask_login import login_required, current_user
-from app.models import db, Post, Comment
+from app.models import db, User, Post, Comment
 from app.forms import PostForm
 from app.forms import CommentForm
 from datetime import date
@@ -82,7 +82,7 @@ def edit_post(postId):
             edit_post.body = form.data['body']
             edit_post.updated_at = date.today()
             db.session.commit()
-            print("edited post in the edit post route: ", edit_post.to_dict())
+            # print("edited post in the edit post route: ", edit_post.to_dict())
             return edit_post.to_dict()
 
     
@@ -170,6 +170,86 @@ def create_comment(postId):
     
     except Exception as e:
         return {"error": str(e)}, 500
+    
+
+@post_route.route('/user_likes', methods=["POST"])
+@login_required
+def add_like_to_post():
+    """
+    query the current user and the post and add them to user_likes table 
+    when the user likes a post
+    """
+
+    # print("in the add user like route~~~~~~~~~~~~")
+    try: 
+        user_id = request.json.get("user_id")
+        post_id = request.json.get("post_id")
+
+        user = User.query.get(user_id)
+        post = Post.query.get(post_id)
+
+        if not user or not post: 
+            return "User or post not found.", 404
+    
+        print("join table in the route: ", user.likes)
+        user.likes.append(post)
+        db.session.commit()
+        return post.to_dict()
+    
+    except Exception as e:
+        return{"error" : str(e)}, 500
+
+    
+
+@post_route.route('/<int:userId>/likes', methods=["GET"])
+@login_required
+def get_all_like_posts(userId):
+    """
+    Query user_likes table and return the list of posts which
+    are liked by current user
+    """
+
+    try: 
+        user = User.query.get(userId)
+
+        if not user: 
+            return "User not found.", 404
+    
+        like_posts = user.likes
+        # print("like_post in the post route: ", like_posts)
+        result = [post.to_dict() for post in like_posts]
+        # print("result in get user like posts route: ", result)
+
+        return result
+        
+    except Exception as e:
+        return {"error" : str(e)}, 500
+ 
+
+@post_route.route('/<int:postId>/likes/delete', methods=["DELETE"])
+@login_required
+def delete_like_from_post(postId):
+    """
+    Query the post in user_likes table and cancel like relationship. 
+    """
+    try:
+        user = current_user
+        post = Post.query.get(postId)
+
+        if not user or not post:
+            return "User or post not found.", 404
+        
+        user.likes.remove(post)
+        db.session.commit()
+        return "Remove post from user_likes table with current user."
+    
+    except Exception as e:
+        return {"error" : str(e)}, 500
+    
+
+
+
+
         
 
 

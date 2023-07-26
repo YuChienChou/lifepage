@@ -25,6 +25,7 @@ class Post(db.Model):
 
     user = db.relationship("User", back_populates="posts")
     comments = db.relationship('Comment', cascade="delete, merge, save-update", back_populates="post")
+    likes = db.relationship("User", secondary="user_likes", back_populates="likes")
 
     # post_comments = db.relationship("Comment", secondary = "posts_comments", cascade="delete, merge, save-update", back_populates="post_comments")
 
@@ -45,7 +46,7 @@ class Post(db.Model):
                 'lastname' : self.user.last_name,
                 'profile_picture' : self.user.profile_picture,
             },
-            'Comments' : [comment.to_dict() for comment in self.comments]
+            # 'Comments' : [comment.to_dict() for comment in self.comments]
         }
 
 
