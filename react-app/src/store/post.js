@@ -5,6 +5,9 @@ const EDIT_POST = "post/EDIT_POST";
 const DELETE_POST = "post/DELETE_POST";
 const GET_SINGLE_POST = 'post/GET_SINGLE_POST';
 const GET_USER_POSTS = "post/GET_USER_POSTS";
+const ADD_USER_LIKE_POST = "post/ADD_USER_LIKE_POST";
+const GET_USER_LIKE_POSTS = "post/GET_USER_LIKE_POSTS";
+const DELETE_USER_LIKE_POST = "post/DELETE_USER_LIKE_POST";
 
 
 //action creator
@@ -50,6 +53,26 @@ const getUserPosts = (posts) => {
     };
 };
 
+const addUserLikePost = (post) => {
+    return {
+        type: ADD_USER_LIKE_POST,
+        post
+    };
+};
+
+const getUserLikePosts = (posts) => {
+    return {
+        type: GET_USER_LIKE_POSTS,
+        posts
+    };
+};
+
+const deleteUserLikePost = (postId) => {
+    return {
+        type: DELETE_USER_LIKE_POST,
+        postId
+    }
+}
 
 
 //thunk creator
@@ -163,6 +186,69 @@ export const getUserPostsThunk = (userId) => async (dispatch) => {
     };
 };
 
+export const addUserLikePostThunk = (post) => async (dispatch) => {
+    console.log("in the addUserLikePostThunk!~~~~~~")
+    try {
+        const res = await fetch(`/api/posts/user_likes`, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(post)
+        });
+
+        if(res.ok) {
+            console.log("result in the addUserLikePostThunk~~~", res);
+            const likedPost = await res.json();
+            console.log("likedPost in the addUserLikePostThunk: ", likedPost)
+            dispatch(addUserLikePost(likedPost));
+            return likedPost;
+            // console.log("result in the addUserLikePostThunk~~~", res);
+            // const responseData = await res.json();
+            // console.log("responseData: ", responseData);
+            // dispatch(addUserLikePost(responseData));
+            // return responseData;
+        } 
+    } catch(err) {
+        const errors = await err.json();
+        return errors;
+    };
+};
+
+
+export const getUserLikePostsThunk = (userId) => async (dispatch) => {
+    // console.log("in the get user like post thunk~~~~~~~~~~~~~~~~~~")
+    try {
+        const res = await fetch(`/api/posts/${userId}/likes`)
+        // console.log("in the try block of getUserLikePOstsThunk~~~~~")
+        if(res.ok) {
+            // console.log("res in the getUserLIkePOstsThunk~~~", res)
+            const likedPosts = await res.json();
+            dispatch(getUserLikePosts(likedPosts));
+            return likedPosts;
+        };
+    } catch(err) {
+        const errors = await err.json();
+        return errors;
+    };
+};
+
+
+export const deleteUserLikePostThunk = (postId) => async (dispatch) => {
+    try {
+        const res = await fetch(`/api/posts/${postId}/likes/delete`, {
+            method: "DELETE",
+        })
+
+        if(res.ok) {
+            dispatch(deleteUserLikePost(postId));
+            return;
+        }
+    } catch(err) {
+        const errors = await err.json();
+        return errors;
+    };
+};
+
+
 
 //reducer function
 
@@ -170,6 +256,7 @@ const initialState = {
     allPosts: {},
     singlePost: {},
     userPosts: {},
+    userLikes: {},
 }
 
 const postReducer = (state = initialState, action) => {
@@ -207,7 +294,24 @@ const postReducer = (state = initialState, action) => {
                 newState.userPosts[post.id] = post;
             });
             return newState;
-         }
+         };
+         case ADD_USER_LIKE_POST: {
+            const newState = {...state, userLikes: {...state.userLikes}};
+            newState.userLikes[action.post.id] = action.post;
+            return newState;
+         };
+         case GET_USER_LIKE_POSTS: {
+            const newState = {...state, userLikes: {}};
+            action.posts.forEach((post) => {
+                newState.userLikes[post.id] = post;
+            });
+            return newState;
+         };
+         case DELETE_USER_LIKE_POST: {
+            const newState = {...state, userLikes: {...state.userLikes}};
+            delete newState.userLikes[action.postId];
+            return newState;
+         };
         default: 
             return state;
     };

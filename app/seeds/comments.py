@@ -61,7 +61,7 @@ def seed_comments():
         updated_at = date.today(),
     )
     comment9 = Comment(
-        content = "I'm greatful for each day of my life too!",
+        content = "I'm grateful for each day of my life too!",
         post_id = 7,
         user_id = 4,
         created_at = date.today(),
