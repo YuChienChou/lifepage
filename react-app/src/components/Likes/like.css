@@ -1,0 +1,24 @@
+#like {
+    border: none;
+    background-color: #FFF;
+}
+
+#like i {
+    color: #1674EA;
+    font-size: 20px;
+    border: none;
+    background-color: transparent;
+}
+
+#dislike {
+    border: none;
+    background-color: #FFF;
+}
+
+#dislike i {
+    /* color: #F0F2F5; */
+    font-size: 20px;
+    border: none;
+    background-color: transparent;
+    
+}

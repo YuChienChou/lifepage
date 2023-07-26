@@ -2,7 +2,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useParams, Link } from 'react-router-dom';
 import { useEffect, useState } from "react";
 import { editPostThunk, getSinglePostThunk } from "../../store/post";
-import EditPostModal from "../EditDeletePost/EditPostModal";
+import PostLikes from "../Likes/PostLikes";
 import CommentList from "../Comments/CommentList";
 import CreateComment from "../Comments/CreateComment";
 import logo from '../resources/lifepage favicon.png';
@@ -122,6 +122,7 @@ export default function SinglePost() {
                             
                          </div>
                     </div>
+                    <PostLikes sessionUser={sessionUser} postId={singlePost.id} />
 
                     <div id={singlePost.body.length >= 1000 ? 'single-post-comment-short' : 'single-post-comment'}>
                         <CommentList sessionUser={sessionUser} post={singlePost}/>
