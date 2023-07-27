@@ -23,9 +23,22 @@ class Post(db.Model):
     created_at = db.Column(db.Date)
     updated_at = db.Column(db.Date)
 
-    user = db.relationship("User", back_populates="posts")
-    comments = db.relationship('Comment', cascade="delete, merge, save-update", back_populates="post")
-    likes = db.relationship("User", secondary="user_likes", back_populates="likes")
+    user = db.relationship(
+        "User", 
+        back_populates="posts"
+    )
+    
+    comments = db.relationship(
+        'Comment', 
+        cascade="delete, merge, save-update", 
+        back_populates="post"
+    )
+
+    likes = db.relationship(
+        "User", 
+        secondary="user_likes", 
+        back_populates="likes"
+    )
 
     # post_comments = db.relationship("Comment", secondary = "posts_comments", cascade="delete, merge, save-update", back_populates="post_comments")
 

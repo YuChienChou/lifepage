@@ -191,7 +191,7 @@ def add_like_to_post():
         if not user or not post: 
             return "User or post not found.", 404
     
-        print("join table in the route: ", user.likes)
+        # print("join table in the route: ", user.likes)
         user.likes.append(post)
         db.session.commit()
         return post.to_dict()
