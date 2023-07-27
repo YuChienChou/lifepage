@@ -1,8 +1,8 @@
 """empty message
 
-Revision ID: 63c618509504
+Revision ID: 01f6649ac8b5
 Revises: 
-Create Date: 2023-07-25 14:36:13.076799
+Create Date: 2023-07-26 21:54:38.428737
 
 """
 from alembic import op
@@ -14,7 +14,7 @@ SCHEMA = os.environ.get("SCHEMA")
 
 
 # revision identifiers, used by Alembic.
-revision = '63c618509504'
+revision = '01f6649ac8b5'
 down_revision = None
 branch_labels = None
 depends_on = None
@@ -39,6 +39,13 @@ def upgrade():
     sa.Column('hashed_password', sa.String(length=255), nullable=False),
     sa.PrimaryKeyConstraint('id'),
     sa.UniqueConstraint('email')
+    )
+    op.create_table('follows',
+    sa.Column('follower', sa.Integer(), nullable=False),
+    sa.Column('followed', sa.Integer(), nullable=False),
+    sa.ForeignKeyConstraint(['followed'], ['users.id'], ),
+    sa.ForeignKeyConstraint(['follower'], ['users.id'], ),
+    sa.PrimaryKeyConstraint('follower', 'followed')
     )
     op.create_table('posts',
     sa.Column('id', sa.Integer(), nullable=False),
@@ -72,6 +79,7 @@ def upgrade():
 
     if environment == "production":
         op.execute(f"ALTER TABLE users SET SCHEMA {SCHEMA};")
+        op.execute(f"ALTER TABLE follows SET SCHEMA {SCHEMA};")
         op.execute(f"ALTER TABLE posts SET SCHEMA {SCHEMA};")
         op.execute(f"ALTER TABLE comments SET SCHEMA {SCHEMA};")
         op.execute(f"ALTER TABLE user_likes SET SCHEMA {SCHEMA};")
@@ -83,5 +91,6 @@ def downgrade():
     op.drop_table('user_likes')
     op.drop_table('comments')
     op.drop_table('posts')
+    op.drop_table('follows')
     op.drop_table('users')
     # ### end Alembic commands ###
