@@ -2,6 +2,16 @@ from .db import db, environment, SCHEMA, add_prefix_for_prod
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import UserMixin
 
+follows = db.Table(
+    "follows",
+    db.Column("follower", db.Integer, db.ForeignKey(add_prefix_for_prod("users.id")), primary_key=True),
+    db.Column("followed", db.Integer, db.ForeignKey(add_prefix_for_prod("users.id")), primary_key=True),
+)
+
+if environment == "production":
+    follows.schema = SCHEMA
+
+
 user_likes = db.Table(
     "user_likes",
     db.Column("user_id", db.Integer, db.ForeignKey(add_prefix_for_prod("users.id")), primary_key=True),
@@ -34,9 +44,32 @@ class User(db.Model, UserMixin):
     updated_at = db.Column(db.Date)
     hashed_password = db.Column(db.String(255), nullable=False)
 
-    posts = db.relationship("Post", back_populates="user", cascade="delete, merge, save-update")
-    comments = db.relationship("Comment", back_populates="user", cascade="delete, merge, save-update")
-    likes = db.relationship("Post", secondary = "user_likes", cascade="delete, merge, save-update", back_populates="likes")
+    posts = db.relationship(
+        "Post", 
+        back_populates="user", 
+        cascade="delete, merge, save-update"
+    )
+
+    comments = db.relationship(
+        "Comment", 
+        back_populates="user", 
+        cascade="delete, merge, save-update"
+    )
+
+    likes = db.relationship(
+        "Post", 
+        secondary = "user_likes", 
+        cascade="delete, merge, save-update", 
+        back_populates="likes"
+    )
+
+    followers = db.relationship(
+        "User", 
+        secondary="follows", 
+        primaryjoin=follows.columns.followed == id,
+        secondaryjoin=follows.columns.follower == id, 
+        backref="followed", 
+    )
 
 
 

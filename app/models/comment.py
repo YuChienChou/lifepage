@@ -13,8 +13,15 @@ class Comment(db.Model):
     created_at = db.Column(db.Date)
     updated_at = db.Column(db.Date)
 
-    user = db.relationship("User", back_populates="comments")
-    post = db.relationship("Post", back_populates="comments")
+    user = db.relationship(
+        "User", 
+        back_populates="comments"
+    )
+
+    post = db.relationship(
+        "Post", 
+        back_populates="comments"
+    )
 
     # post_comments = db.relationship("Post", secondary="posts_comments", back_populates="post_comments")
 
