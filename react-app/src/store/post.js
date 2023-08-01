@@ -187,7 +187,7 @@ export const getUserPostsThunk = (userId) => async (dispatch) => {
 };
 
 export const addUserLikePostThunk = (post) => async (dispatch) => {
-    console.log("in the addUserLikePostThunk!~~~~~~")
+    // console.log("in the addUserLikePostThunk!~~~~~~")
     try {
         const res = await fetch(`/api/posts/user_likes`, {
             method: "POST",
@@ -196,9 +196,9 @@ export const addUserLikePostThunk = (post) => async (dispatch) => {
         });
 
         if(res.ok) {
-            console.log("result in the addUserLikePostThunk~~~", res);
+            // console.log("result in the addUserLikePostThunk~~~", res);
             const likedPost = await res.json();
-            console.log("likedPost in the addUserLikePostThunk: ", likedPost)
+            // console.log("likedPost in the addUserLikePostThunk: ", likedPost)
             dispatch(addUserLikePost(likedPost));
             return likedPost;
             // console.log("result in the addUserLikePostThunk~~~", res);
