@@ -8,6 +8,7 @@ import CreateComment from '../Comments/CreateComment';
 import EditPostModal from '../EditDeletePost/EditPostModal';
 import DeletePostModal from '../EditDeletePost/DeletePostModal';
 import PostLikes from '../Likes/PostLikes';
+import UserFollows from '../Follow/UserFollows';
 import userProfilePicture from '../resources/default-user-profile-picture.png';
 import './postList.css'
 import { getAllPostsThunk } from '../../store/post';
@@ -53,6 +54,10 @@ export default function PostList({ sessionUser }) {
                                 <img src={post.User.profile_picture ? post.User.profile_picture : userProfilePicture} 
                                     alt={post.User.first_name} /></Link>
                             <Link to={`/user/${post.User.id}/posts`}>{post.User.firstname} {post.User.lastname}</Link>
+                            {post.User.id !== sessionUser.id ? 
+                                <UserFollows sessionUser={sessionUser} followedUserId={post.User.id}/>
+                                : null
+                            }
                         </div>
 
                         {post.User.id === sessionUser.id ? 
