@@ -164,7 +164,7 @@ def get_followed_user_list(userId):
 def delete_follow_rel(user1_id, user2_id):
     """
     Remove the following relationship between the current user
-    and the assigned user. 
+    and the selected user. 
     """
     try: 
         user1 = User.query.get(user1_id) #current user
