@@ -5,11 +5,11 @@ import './like.css'
 
 export default function PostLikes({sessionUser, postId}) {
 
-    console.log("post id in PostLikes component: ", postId)
+    // console.log("post id in PostLikes component: ", postId)
     const userLikePosts = useSelector((state) => state.posts.userLikes)
-    console.log("user like posts in PostLikes component: ", userLikePosts);
+    // console.log("user like posts in PostLikes component: ", userLikePosts);
     const userLikePostArr = Object.values(userLikePosts);
-    console.log("user like post array in PostLikes component: ", userLikePostArr);
+    // console.log("user like post array in PostLikes component: ", userLikePostArr);
 
     const dispatch = useDispatch();
 
