@@ -68,7 +68,7 @@ export default function CreatePost({sessionUser}) {
             <Link to={`/user/${sessionUser.id}/posts`}>{sessionUser.first_name} {sessionUser.last_name}</Link>
         </div>
        
-        <form id='create-post-form' onSubmit={handleSubmit}>
+        <form id='create-post-form' onSubmit={handleSubmit} encType="multipart/form-data">
                 <textarea 
                     type='text'
                     placeholder={`What's on your mind, ${sessionUser.first_name}?`}
@@ -83,11 +83,15 @@ export default function CreatePost({sessionUser}) {
                 {showItem ? 
                         <div id='add-image-div'>
                             <i className="fa-solid fa-photo-film"></i>
-                            <textarea 
+                            {/* <textarea 
                                 type='text'
                                 value={img}
                                 onChange={(e) => setImg(e.target.value)}
-                                placeholder="Please provide img url ends with png, jpg, or jpeg."/>
+                                placeholder="Please provide img url ends with png, jpg, or jpeg."/> */}
+                            <input
+                                type="file"
+                                onChange={(e) => setImg(e.target.files[0])}
+                                placeholder="Please provide image filename ends with png, jpg, or jpeg."/>
                         </div>
                     : null
                 }
@@ -95,11 +99,15 @@ export default function CreatePost({sessionUser}) {
                 {showItem ? 
                         <div id='add-video-div'>
                             <i className="fa-solid fa-video"></i>
-                            <textarea 
+                            {/* <textarea 
                                 type='text'
                                 value={video}k
                                 onChange={(e) => setVideo(e.target.value)}
-                                placeholder="Please provide valid url from YouTube."/>
+                                placeholder="Please provide valid url from YouTube."/> */}
+                            <input
+                                type='file'
+                                onChange={(e) => setVideo(e.target.files[0])}
+                                placeholder="Please provide video filename ends with mp4, avi, mov, or mkv"/>
                         </div>
                     : null
                 }

@@ -4,6 +4,8 @@ from app.models import db, User, Post, Comment
 from app.forms import PostForm
 from app.forms import CommentForm
 from datetime import date
+from app.api.aws_helpers import (
+    upload_file_to_s3, get_unique_filename)
 
 post_route = Blueprint('posts', __name__)
 print(__name__)
@@ -31,7 +33,7 @@ def posts_form():
 @post_route.route('/<int:userId>/new', methods=['POST'])
 @login_required
 def create_post(userId): 
-    # print("in the create post route!!!")
+    print("in the create post route!!!")
     form = PostForm()
     form["csrf_token"].data = request.cookies["csrf_token"]
     userId = current_user.id
@@ -41,11 +43,43 @@ def create_post(userId):
     # print("form data in create post routen ", form.data)
     # print("user id in the form data: ", form.data['user_id'])
     try: 
-        if form.validate_on_submit:
+        if form.validate_on_submit():
+            print("in the try block of the create post route~~~~")
+
+            image_url = ""
+            video_url = ""
+
+            image = form.data["img"] 
+            print("image form data: ", image)
+
+            upload_image = None
+            if image: 
+                image.filename = get_unique_filename(image.filename)
+                upload_image = upload_file_to_s3(image)
+                image_url = upload_image["url"]
+                print("uploaded image in create post route: ", upload_image)
+
+            
+            video = form.data["video"]
+            print("video form data: ", video)
+            
+            upload_video = None
+            if video: 
+                video.filename = get_unique_filename(video.filename)
+                upload_video = upload_file_to_s3(video)
+                video_url = upload_video["url"]
+                print("uploaded video in create post route: ", upload_video)
+
+            
+            if upload_image is not None and "url" not in upload_image or upload_video is not None and "url" not in upload_video:
+                return f"{upload_image} {upload_video}."
+            
             new_post = Post(
                 # title = form.data['title'],
-                img = form.data['img'],
-                video = form.data['video'],
+                # img = form.data['img'],
+                img = image_url,
+                # video = form.data['video'],
+                video = video_url,
                 body = form.data['body'],
                 user_id = form.data['user_id'],
                 created_at = date.today(),
