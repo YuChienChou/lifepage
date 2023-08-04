@@ -368,11 +368,13 @@
     height: fit-content;
     background-color: #FFF;
     border: none;
-    outline: none;
+    outline: 1px solid #D8DADF;
     font-size: 16px;
+    border-radius: 5px;
 }
 
 #edit-single-post-form button {
     margin: 0;
     width: 50px;
+    margin-top: 10px;
 }

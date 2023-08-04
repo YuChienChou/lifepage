@@ -47,6 +47,7 @@
 #img-and-link a {
     text-decoration: none;
     background-color: #FFF;
+    margin-right: 10px;
 }
 
 #edit-post-div {

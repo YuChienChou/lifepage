@@ -1,0 +1,15 @@
+#following {
+    padding: 5px;
+    background-color: #36A420;
+    font-size: 14px;
+    border-radius: 5px;
+    color: #FFFFFF;
+}
+
+#not-follow {
+    padding: 5px;
+    background-color: #BEC3C9;
+    font-size: 14px;
+    border-radius: 5px;
+    color: #FFFFFF;
+}
