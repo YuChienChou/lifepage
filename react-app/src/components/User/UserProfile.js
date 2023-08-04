@@ -2,7 +2,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { useEffect } from "react";
 import { getUserPostsThunk } from "../../store/post";
 import { useParams, Link, NavLink } from "react-router-dom";
-import { getSingleUserThunk } from "../../store/user";
+import { getAllUsersThunk, getSingleUserThunk } from "../../store/user";
 import Navigation from "../Navigation";
 import OpenModalButton from "../OpenModalButton";
 import UserPosts from "./userPosts";
@@ -30,7 +30,7 @@ export default function UserPorfile() {
 
     useEffect(() => {
         dispatch(getSingleUserThunk(userId))
-        .then(dispatch(getUserPostsThunk(userId)));
+        .then(dispatch(getUserPostsThunk(userId)))
     }, [dispatch, userId])
 
     if(!user) return null;

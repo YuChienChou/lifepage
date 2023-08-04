@@ -1,13 +1,14 @@
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { editUserThunk, getSingleUserThunk } from "../../store/user";
+import { editUserThunk, getSingleUserThunk, getAllUsersThunk } from "../../store/user";
 import { useModal } from "../../context/Modal";
 import userProfilePicture from '../resources/default-user-profile-picture.png';
 import './edituser.css'
 
 
 export default function EditUserModal({sessionUser}) {
+    
     const [phone, setPhone] = useState(sessionUser.phone);
     const [bio, setBio] = useState(sessionUser.bio);
     const [hobbies, setHobbies] = useState(sessionUser.hobbies);
@@ -32,6 +33,8 @@ export default function EditUserModal({sessionUser}) {
         try {
             await dispatch(editUserThunk(sessionUser.id, userInfo));
             await dispatch(getSingleUserThunk(sessionUser.id));
+            // await dispatch(getAllUsersThunk());
+
             closeModal();
         } catch(error) {
             console.log(error);
