@@ -58,16 +58,17 @@ export default function UserPorfile() {
                                  alt={user.first_name} />
                             <div id='edit-profile-div'>
                                 <h4>{user.first_name} {user.last_name}</h4>
-                                    {Number(userId) === sessionUser.id ? 
+                                {Number(userId) === sessionUser.id ? 
                                     <OpenModalButton
                                     buttonText={<i className="fa-solid fa-pen-to-square"></i>}
                                     modalComponent={<EditUserModal sessionUser={sessionUser} />}
                                         />
                                     : null
                                 }
-
-                                <UserFollows sessionUser={sessionUser} followedUserId={user.id} />
-                                
+                                {sessionUser.id === Number(userId) ? 
+                                    null
+                                    : <UserFollows sessionUser={sessionUser} followedUserId={user.id} />
+                                }
                             </div>
                             
                             
