@@ -8,6 +8,7 @@ import OpenModalButton from "../OpenModalButton";
 import UserPosts from "./userPosts";
 import UserPhotos from "./userPhotos";
 import EditUserModal from "./EditUserModal";
+import UserFollows from "../Follow/UserFollows";
 import userCoverPhoto from '../resources/default-user-cover-photo.png';
 import userProfilePicture from '../resources/default-user-profile-picture.png';
 import './user.css'
@@ -64,6 +65,8 @@ export default function UserPorfile() {
                                         />
                                     : null
                                 }
+
+                                <UserFollows sessionUser={sessionUser} followedUserId={user.id} />
                                 
                             </div>
                             

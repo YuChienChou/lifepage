@@ -176,6 +176,7 @@
     gap: 10px;
     align-items: center;
     position: relative;
+    margin-left: 10px;
 
 }
 
@@ -185,6 +186,7 @@
     background-color: transparent;
     font-size: 35px;
     margin-bottom: 10px;
+    margin-right: 10px;
 }
 
 

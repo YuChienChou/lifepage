@@ -7,7 +7,7 @@ export default function PostLikes({sessionUser, postId}) {
 
     // console.log("post id in PostLikes component: ", postId)
     const userLikePosts = useSelector((state) => state.posts.userLikes)
-    // console.log("user like posts in PostLikes component: ", userLikePosts);
+    console.log("user like posts in PostLikes component: ", userLikePosts);
     const userLikePostArr = Object.values(userLikePosts);
     // console.log("user like post array in PostLikes component: ", userLikePostArr);
 
@@ -25,7 +25,6 @@ export default function PostLikes({sessionUser, postId}) {
             user_id: sessionUser.id,
             post_id: postId,
         }
-
 
         if(res.includes(postId)) {
            await dispatch(deleteUserLikePostThunk(postId));
