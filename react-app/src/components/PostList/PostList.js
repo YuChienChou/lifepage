@@ -15,6 +15,7 @@ import { getAllPostsThunk } from '../../store/post';
 
 
 export default function PostList({ sessionUser }) {
+    const singleUser = useSelector((state) => state.users.singleUser)
     const postsStore = useSelector((state) => state.posts.allPosts);
     const postsArr = Object.values(postsStore);
     const reversedPostsArr = postsArr.slice().reverse();

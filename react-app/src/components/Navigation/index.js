@@ -6,7 +6,8 @@ import './Navigation.css';
 import userProfilePicture from '../resources/default-user-profile-picture.png';
 
 function Navigation(){
-	const sessionUser = useSelector(state => state.session.user);
+	const sessionUser = useSelector((state) => state.session.user);
+	const singleUser = useSelector((state) => state.users.singleUser);
 	const [showInfo, setShowInfo] = useState(false);
 	const dispatch = useDispatch();
 	const history = useHistory();
@@ -34,7 +35,7 @@ function Navigation(){
 
 				{showInfo ? 
 					<div id='nav-user-info' onMouseLeave={hideInfoFunction}>
-						<Link to={`/user/${sessionUser.id}/posts`}><p>{sessionUser.first_name} {sessionUser.last_name}</p>
+						<Link to={`/user/${singleUser.id}/posts`}><p>{sessionUser.first_name} {sessionUser.last_name}</p>
 						<p>{sessionUser.email}</p></Link>
 						<button onClick={handleLogout}>
 							<i className="fa-solid fa-right-from-bracket"></i>

@@ -20,7 +20,9 @@ export default function UserPorfile() {
     const { userId, page } = useParams();
     // console.log(" page in userprofile: ", page);
     const user = useSelector((state) => state.users.singleUser);
-    const sessionUser = useSelector((state) => state.session.user)
+    const sessionUser = useSelector((state) => state.session.user);
+    const singleUser = useSelector((state) => state.users.singleUser);
+    
     const userPostsStore = useSelector((state) => state.posts.userPosts);
     const userPostArr = Object.values(userPostsStore);
     
@@ -30,7 +32,7 @@ export default function UserPorfile() {
 
     useEffect(() => {
         dispatch(getSingleUserThunk(userId))
-        .then(dispatch(getUserPostsThunk(userId)))
+        // .then(dispatch(getUserPostsThunk(userId)))
     }, [dispatch, userId])
 
     if(!user) return null;
