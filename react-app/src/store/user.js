@@ -101,10 +101,10 @@ export const getSingleUserThunk = (userId) => async (dispatch) => {
 };
 
 
-export const editUserThunk = (userId, userInfo) => async (dispatch) => {
+export const editUserThunk = (userInfo) => async (dispatch) => {
     // console.log("in the edit user thunk!!!!!!!!!!!!!!!!!!!!!")
     try {
-        const res = await fetch(`/api/users/${userId}/edit`, {
+        const res = await fetch(`/api/users/current/edit`, {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify(userInfo),

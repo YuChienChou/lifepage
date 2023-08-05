@@ -11,6 +11,7 @@ import './user.css'
 
 export default function UserHome() {
     const sessionUser = useSelector((state) => state.session.user);
+    const currentUser = useSelector((state) => state.users.currentUser);
  
     const dispatch = useDispatch();
  
@@ -18,7 +19,7 @@ export default function UserHome() {
         dispatch(getAllPostsThunk());
     }, [dispatch]);
 
-    if(!sessionUser) return null;
+    if(!currentUser.id) return null;
 
     return (
         <>
@@ -29,25 +30,25 @@ export default function UserHome() {
                     <i className="fa-solid fa-house"></i>
                     <p>Home</p>
                 </div></Link>
-                <Link to={`/user/${sessionUser.id}/posts`}><div id='userhome-user-link'>
-                   <img src={sessionUser.profile_picture ? sessionUser.profile_picture : userProfilePicture} alt={sessionUser.first_name} />
-                    <p>{sessionUser.first_name} {sessionUser.last_name}</p>
+                <Link to={`/user/${currentUser.id}/posts`}><div id='userhome-user-link'>
+                   <img src={currentUser.profile_picture ? currentUser.profile_picture : userProfilePicture} alt={currentUser.first_name} />
+                    <p>{currentUser.first_name} {currentUser.last_name}</p>
                 </div></Link>
             </div>
             <div id='userhome-middle'>
                 
                 <div id='create-post-div'>
-                    <Link to={`/user/${sessionUser.id}/posts`}>
-                        <img src={sessionUser.profile_picture ? sessionUser.profile_picture : userProfilePicture} 
-                             alt={sessionUser.first_name} /></Link>
+                    <Link to={`/user/${currentUser.id}/posts`}>
+                        <img src={currentUser.profile_picture ? currentUser.profile_picture : userProfilePicture} 
+                             alt={currentUser.first_name} /></Link>
                     <OpenModalButton
-                        buttonText ={`What's on your mind, ${sessionUser.first_name}?`}
-                        modalComponent={<CreatePost sessionUser={sessionUser}/>}
+                        buttonText ={`What's on your mind, ${currentUser.first_name}?`}
+                        modalComponent={<CreatePost sessionUser={currentUser}/>}
                     />                    
                 </div>
                 <div id='post-list-container'>
                     <ul>
-                        <PostList sessionUser={sessionUser}/>
+                        <PostList sessionUser={currentUser}/>
                     </ul>
                 </div>
             </div>

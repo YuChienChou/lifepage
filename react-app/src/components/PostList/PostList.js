@@ -15,7 +15,7 @@ import { getAllPostsThunk } from '../../store/post';
 
 
 export default function PostList({ sessionUser }) {
-    const singleUser = useSelector((state) => state.users.singleUser)
+    const currentUser = useSelector((state) => state.users.currentUser);
     const postsStore = useSelector((state) => state.posts.allPosts);
     const postsArr = Object.values(postsStore);
     const reversedPostsArr = postsArr.slice().reverse();
@@ -56,7 +56,7 @@ export default function PostList({ sessionUser }) {
                                     alt={post.User.first_name} /></Link>
                             <Link to={`/user/${post.User.id}/posts`}>{post.User.firstname} {post.User.lastname}</Link>
                             {post.User.id !== sessionUser.id ? 
-                                <UserFollows sessionUser={sessionUser} followedUserId={post.User.id}/>
+                                <UserFollows sessionUser={currentUser} followedUserId={post.User.id}/>
                                 : null
                             }
                         </div>
@@ -75,7 +75,7 @@ export default function PostList({ sessionUser }) {
                                     {/* <p>Edit post</p> */}
                                     <OpenModalButton
                                         buttonText="Edit post"
-                                        modalComponent={<EditPostModal sessionUser={sessionUser} post={post}/>}
+                                        modalComponent={<EditPostModal sessionUser={currentUser} post={post}/>}
                                     />
                                 </div>
                             
@@ -109,10 +109,10 @@ export default function PostList({ sessionUser }) {
                         : null
                     }
 
-                    <PostLikes sessionUser={sessionUser} postId={post.id} />
+                    <PostLikes sessionUser={currentUser} postId={post.id} />
 
-                    <CommentList sessionUser={sessionUser} post={post}/>
-                    <CreateComment sessionUser={sessionUser} post={post} />
+                    <CommentList sessionUser={currentUser} post={post}/>
+                    <CreateComment sessionUser={currentUser} post={post} />
                 </div>
                 
             </div>

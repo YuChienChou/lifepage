@@ -31,7 +31,7 @@ export default function EditUserModal({sessionUser}) {
         };
 
         try {
-            await dispatch(editUserThunk(sessionUser.id, userInfo));
+            await dispatch(editUserThunk(userInfo));
             await dispatch(getSingleUserThunk(sessionUser.id));
             // await dispatch(getAllUsersThunk());
 

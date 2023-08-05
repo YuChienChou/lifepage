@@ -1,8 +1,7 @@
 import { useSelector, useDispatch } from "react-redux";
 import { useEffect } from "react";
-import { getUserPostsThunk } from "../../store/post";
 import { useParams, Link, NavLink } from "react-router-dom";
-import { getAllUsersThunk, getSingleUserThunk } from "../../store/user";
+import { getCurrentUserThunk, getSingleUserThunk } from "../../store/user";
 import Navigation from "../Navigation";
 import OpenModalButton from "../OpenModalButton";
 import UserPosts from "./userPosts";
@@ -18,10 +17,9 @@ import './userprofile.css'
 
 export default function UserPorfile() {
     const { userId, page } = useParams();
-    // console.log(" page in userprofile: ", page);
     const user = useSelector((state) => state.users.singleUser);
     const sessionUser = useSelector((state) => state.session.user);
-    const singleUser = useSelector((state) => state.users.singleUser);
+    const currentUser = useSelector((state) => state.users.currentUser)
     
     const userPostsStore = useSelector((state) => state.posts.userPosts);
     const userPostArr = Object.values(userPostsStore);
@@ -31,11 +29,11 @@ export default function UserPorfile() {
 
 
     useEffect(() => {
-        dispatch(getSingleUserThunk(userId))
+        dispatch(getCurrentUserThunk());
         // .then(dispatch(getUserPostsThunk(userId)))
     }, [dispatch, userId])
 
-    if(!user) return null;
+    if(!currentUser.id) { return <p>update image</p>};
 
 
     return (
@@ -45,8 +43,8 @@ export default function UserPorfile() {
         <div id="user-profile-container">
             <div id="user-profile-left">
                 <Link to='/user'><div id='userprofile-home-link'><i className="fa-solid fa-house"></i></div></Link>
-                <Link to={`/user/${sessionUser.id}/posts`}><div id='userprofile-user-link'>
-                   <img src={sessionUser.profile_picture ? sessionUser.profile_picture : userProfilePicture} alt={sessionUser.first_name} /></div>
+                <Link to={`/user/${currentUser.id}/posts`}><div id='userprofile-user-link'>
+                   <img src={currentUser.profile_picture ? currentUser.profile_picture : userProfilePicture} alt={sessionUser.first_name} /></div>
                 </Link>
             </div>
             <div id='user-profile-right'>
@@ -63,7 +61,7 @@ export default function UserPorfile() {
                                 {Number(userId) === sessionUser.id ? 
                                     <OpenModalButton
                                     buttonText={<i className="fa-solid fa-pen-to-square"></i>}
-                                    modalComponent={<EditUserModal sessionUser={sessionUser} />}
+                                    modalComponent={<EditUserModal sessionUser={currentUser} />}
                                         />
                                     : null
                                 }
@@ -81,7 +79,7 @@ export default function UserPorfile() {
                         </div>
                 </div>
                 {page === "posts" ? 
-                    <UserPosts sessionUser={sessionUser} user={user} userPostArr={userPostArr} page={page}/>
+                    <UserPosts sessionUser={currentUser} user={user} userPostArr={userPostArr} page={page}/>
                     : null
                 }
 
