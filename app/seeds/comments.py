@@ -63,7 +63,7 @@ def seed_comments():
     comment9 = Comment(
         content = "I'm grateful for each day of my life too!",
         post_id = 7,
-        user_id = 4,
+        user_id = 3,
         created_at = date.today(),
         updated_at = date.today(),
     )
