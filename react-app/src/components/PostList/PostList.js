@@ -15,8 +15,9 @@ import { getAllPostsThunk } from '../../store/post';
 
 
 export default function PostList({ sessionUser }) {
-    const currentUser = useSelector((state) => state.users.currentUser);
+    // const currentUser = useSelector((state) => state.users.currentUser);
     const postsStore = useSelector((state) => state.posts.allPosts);
+    // console.log("posts in post list component: ", postsStore);
     const postsArr = Object.values(postsStore);
     const reversedPostsArr = postsArr.slice().reverse();
     const [showEditPostDiv, setShowEditPostDiv] = useState({}); 
@@ -56,7 +57,7 @@ export default function PostList({ sessionUser }) {
                                     alt={post.User.first_name} /></Link>
                             <Link to={`/user/${post.User.id}/posts`}>{post.User.firstname} {post.User.lastname}</Link>
                             {post.User.id !== sessionUser.id ? 
-                                <UserFollows sessionUser={currentUser} followedUserId={post.User.id}/>
+                                <UserFollows sessionUser={sessionUser} followedUserId={post.User.id}/>
                                 : null
                             }
                         </div>
@@ -75,7 +76,7 @@ export default function PostList({ sessionUser }) {
                                     {/* <p>Edit post</p> */}
                                     <OpenModalButton
                                         buttonText="Edit post"
-                                        modalComponent={<EditPostModal sessionUser={currentUser} post={post}/>}
+                                        modalComponent={<EditPostModal sessionUser={sessionUser} post={post}/>}
                                     />
                                 </div>
                             
@@ -109,10 +110,10 @@ export default function PostList({ sessionUser }) {
                         : null
                     }
 
-                    <PostLikes sessionUser={currentUser} postId={post.id} />
+                    <PostLikes sessionUser={sessionUser} postId={post.id} />
 
-                    <CommentList sessionUser={currentUser} post={post}/>
-                    <CreateComment sessionUser={currentUser} post={post} />
+                    <CommentList sessionUser={sessionUser} post={post}/>
+                    <CreateComment sessionUser={sessionUser} post={post} />
                 </div>
                 
             </div>

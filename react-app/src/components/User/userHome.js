@@ -19,7 +19,7 @@ export default function UserHome() {
         dispatch(getAllPostsThunk());
     }, [dispatch]);
 
-    if(!currentUser.id) return null;
+    if(!sessionUser) return null;
 
     return (
         <>

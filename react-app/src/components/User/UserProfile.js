@@ -19,7 +19,7 @@ export default function UserPorfile() {
     const { userId, page } = useParams();
     const user = useSelector((state) => state.users.singleUser);
     const sessionUser = useSelector((state) => state.session.user);
-    const currentUser = useSelector((state) => state.users.currentUser)
+    const currentUser = useSelector((state) => state.users.currentUser);
     
     const userPostsStore = useSelector((state) => state.posts.userPosts);
     const userPostArr = Object.values(userPostsStore);
@@ -29,11 +29,9 @@ export default function UserPorfile() {
 
 
     useEffect(() => {
+        dispatch(getSingleUserThunk(userId));
         dispatch(getCurrentUserThunk());
-        // .then(dispatch(getUserPostsThunk(userId)))
     }, [dispatch, userId])
-
-    if(!currentUser.id) { return <p>update image</p>};
 
 
     return (
@@ -44,7 +42,7 @@ export default function UserPorfile() {
             <div id="user-profile-left">
                 <Link to='/user'><div id='userprofile-home-link'><i className="fa-solid fa-house"></i></div></Link>
                 <Link to={`/user/${currentUser.id}/posts`}><div id='userprofile-user-link'>
-                   <img src={currentUser.profile_picture ? currentUser.profile_picture : userProfilePicture} alt={sessionUser.first_name} /></div>
+                   <img src={currentUser.profile_picture ? currentUser.profile_picture : userProfilePicture} alt={currentUser.first_name} /></div>
                 </Link>
             </div>
             <div id='user-profile-right'>
