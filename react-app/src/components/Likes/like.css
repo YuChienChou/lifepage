@@ -5,7 +5,7 @@
     border-top: 1px solid #BEC3C9;
     border-bottom: 1px solid #BEC3C9;
     width: 100%;
-    margin-bottom: 8px;
+    /* margin-bottom: 8px; */
 }
 
 #like i {
@@ -22,7 +22,7 @@
     border-top: 1px solid #BEC3C9;
     border-bottom: 1px solid #BEC3C9;
     width: 100%;
-    margin-bottom: 8px;
+    /* margin-bottom: 8px; */
 }
 
 #dislike i {

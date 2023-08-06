@@ -99,7 +99,7 @@ export default function SinglePost() {
                                                     value={body}
                                                     onChange={(e) => setBody(e.target.value)}
                                                 />
-                                                <button type='submit'>Save</button>
+                                                <button type='submit'>{editPost ? "Save" : "Edit"}</button>
                                             </form>
                                             </>
                                         )
@@ -118,9 +118,8 @@ export default function SinglePost() {
                                 }
                             }
                             )()}
-                           
-                            
                          </div>
+                         
                     </div>
                     <PostLikes sessionUser={sessionUser} postId={singlePost.id} />
 

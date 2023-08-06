@@ -154,7 +154,7 @@
     background-color: #FFF;
     position: relative;
     overflow: scroll;
-    height: 80%;
+    height: 73%;
 }
 
 #single-post-comment-short {
@@ -230,7 +230,7 @@
     display: flex;
     border-radius: 30px;
     align-items: center;
-    margin-top: 5px;
+    margin-top: 10px;
     position: relative;
 }
 
@@ -371,6 +371,7 @@
     outline: 1px solid #D8DADF;
     font-size: 16px;
     border-radius: 5px;
+    padding: 10px;
 }
 
 #edit-single-post-form button {
