@@ -9,7 +9,7 @@ import { getCurrentUserThunk } from '../../store/user';
 function Navigation(){
 	const sessionUser = useSelector((state) => state.session.user);
 	const currentUser = useSelector((state) => state.users.currentUser);
-	console.log("currentUser in Navigation component: ", currentUser);
+	// console.log("currentUser in Navigation component: ", currentUser);
 	const singleUser = useSelector((state) => state.users.singleUser);
 	const [showInfo, setShowInfo] = useState(false);
 	const dispatch = useDispatch();
@@ -32,14 +32,14 @@ function Navigation(){
 	
 	useEffect(() => {
 		dispatch(getCurrentUserThunk());
-	}, dispatch)
+	}, [dispatch])
 
 	if(!currentUser.id) return null;
 
 	return (
 		<nav>
 			<div id='nav-bar'>
-				<Link id='nav-link' exact to="/user">lifepage</Link>
+				<Link id='nav-link' to="/user">lifepage</Link>
 				<img src={currentUser.profile_picture ? currentUser.profile_picture : userProfilePicture} alt={currentUser.firstname} onClick={showInfoFuntion}/>
 
 				{showInfo ? 

@@ -31,7 +31,7 @@ export default function CommentList({sessionUser, post}) {
         <>
         <div id='post-comment'>
             {postCommentArr.map((comment) => (
-                
+                <ul>
                 <li key={comment.id}>
                     <div id='comment-user-div'>
                         <div id='user-comment'>
@@ -76,6 +76,7 @@ export default function CommentList({sessionUser, post}) {
                         </div>
                     </div>
                 </li>
+                </ul>
             ))}
         </div>
         </>

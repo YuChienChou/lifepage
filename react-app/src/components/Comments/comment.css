@@ -3,6 +3,9 @@
     background-color: #FFF;
 }
 
+#post-comment ul li {
+    list-style: none;
+}
 #comment-user-div {
     display: flex;
     justify-content: space-between;
