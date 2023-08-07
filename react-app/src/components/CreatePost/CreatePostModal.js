@@ -1,8 +1,8 @@
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { createPostThunk, getUserPostsThunk } from "../../store/post";
-import { getSingleUserThunk } from "../../store/user";
+import { getAllUsersThunk, getSingleUserThunk } from "../../store/user";
 import { useModal } from "../../context/Modal";
 import userProfilePicture from '../resources/default-user-profile-picture.png';
 import './createpost.css'
@@ -10,6 +10,7 @@ import './createpost.css'
 
 export default function CreatePost({sessionUser}) {
     // const [title, setTitle] = useState("")
+    
     const [img, setImg] = useState("");
     const [video, setVideo] = useState("");
     const [body, setBody] = useState("");
@@ -39,6 +40,7 @@ export default function CreatePost({sessionUser}) {
             await dispatch(createPostThunk(sessionUser.id, postInfo));
             await dispatch(getSingleUserThunk(sessionUser.id));
             await dispatch(getUserPostsThunk(sessionUser.id));
+            
             closeModal()
         } catch(error) {
             console.log(error);

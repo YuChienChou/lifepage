@@ -14,7 +14,7 @@ export default function SinglePost() {
     // console.log("page in single post : " , page);
     const sessionUser = useSelector((state) => state.session.user);
     const singlePost = useSelector((state) => state.posts.singlePost);
-    console.log("single post in single post component: ", singlePost)
+    // console.log("single post in single post component: ", singlePost);
     const [body, setBody] = useState(singlePost.body);
     // const [img, setImg] = useState(singlePost.img);
     // const [video, setVideo] = useState(singlePost.video);
@@ -98,7 +98,7 @@ export default function SinglePost() {
                                                     value={body}
                                                     onChange={(e) => setBody(e.target.value)}
                                                 />
-                                                <button type='submit'>Save</button>
+                                                <button type='submit'>{editPost ? "Save" : "Edit"}</button>
                                             </form>
                                             </>
                                         )
@@ -117,9 +117,8 @@ export default function SinglePost() {
                                 }
                             }
                             )()}
-                           
-                            
                          </div>
+                         
                     </div>
                     <PostLikes sessionUser={sessionUser} postId={singlePost.id} />
 

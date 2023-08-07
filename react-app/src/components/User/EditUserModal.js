@@ -1,18 +1,19 @@
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { editUserThunk, getSingleUserThunk } from "../../store/user";
+import { editUserThunk, getCurrentUserThunk, getSingleUserThunk } from "../../store/user";
 import { useModal } from "../../context/Modal";
 import userProfilePicture from '../resources/default-user-profile-picture.png';
 import './edituser.css'
 
 
-export default function EditUserModal({sessionUser}) {
+export default function EditUserModal({sessionUser}) {    
     const [phone, setPhone] = useState(sessionUser.phone);
     const [bio, setBio] = useState(sessionUser.bio);
     const [hobbies, setHobbies] = useState(sessionUser.hobbies);
     const [profilePicture, setProfilePicture] = useState(sessionUser.profile_picture);
     const [coverPhoto, setcoverPhoto] = useState(sessionUser.cover_photo );
+    // console.log("coverPhoto in EditUserModal: ", coverPhoto);
     const [validationError, setValidationError] = useState({});
     const dispatch = useDispatch();
     const { closeModal } = useModal();
@@ -30,13 +31,16 @@ export default function EditUserModal({sessionUser}) {
         };
 
         try {
-            await dispatch(editUserThunk(sessionUser.id, userInfo));
+            await dispatch(editUserThunk(userInfo));
             await dispatch(getSingleUserThunk(sessionUser.id));
+            // await dispatch(getCurrentUserThunk());
+
             closeModal();
         } catch(error) {
             console.log(error);
         }
     }
+
 
     useEffect(() => {
         const errors = {};
@@ -48,6 +52,10 @@ export default function EditUserModal({sessionUser}) {
 
         setValidationError(errors);
     }, [phone, bio, hobbies, profilePicture, coverPhoto])
+
+    useEffect(() => {
+        dispatch(getSingleUserThunk(sessionUser.id));
+    }, [dispatch])
 
     return (
         <>

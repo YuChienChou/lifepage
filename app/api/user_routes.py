@@ -37,9 +37,9 @@ def get_current_user():
     user = current_user
     return user.to_dict()
 
-@user_routes.route('/<int:userId>/edit', methods=["POST"])
+@user_routes.route('/current/edit', methods=["POST"])
 @login_required
-def edit_user(userId):
+def edit_user():
     """
     Query for session user and update user information 
     and return the user as a dictionary.
@@ -49,25 +49,25 @@ def edit_user(userId):
         form = UserForm()
         form["csrf_token"].data = request.cookies["csrf_token"]
         form.user_id.data = current_user.id
+        print("current user id in edit user route: ", current_user.id)
 
-        edit_user = User.query.get(userId)
+        edit_user = User.query.get(current_user.id)
 
         print("in the try block of the edit user route~~~~~~")
 
         if not edit_user:
             return "User not found", 404
         
-        if edit_user.id == current_user.id:
-            edit_user.phone = form.data['phone']
-            edit_user.bio = form.data['bio']
-            edit_user.hobbies = form.data['hobbies']
-            edit_user.profile_picture = form.data['profile_picture']
-            edit_user.cover_photo = form.data['cover_photo']
-            edit_user.updated_at = date.today()
-            
-            db.session.commit()
-            print("edited user in the edit user route: ", edit_user.to_dict())
-            return edit_user.to_dict()
+        edit_user.phone = form.data['phone']
+        edit_user.bio = form.data['bio']
+        edit_user.hobbies = form.data['hobbies']
+        edit_user.profile_picture = form.data['profile_picture']
+        edit_user.cover_photo = form.data['cover_photo']
+        edit_user.updated_at = date.today()
+        
+        db.session.commit()
+        print("edited user in the edit user route: ", edit_user.to_dict())
+        return edit_user.to_dict()
 
     except Exception as e:
         return {"errors" : str(e)}, 500

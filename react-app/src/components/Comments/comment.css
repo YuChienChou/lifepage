@@ -3,10 +3,13 @@
     background-color: #FFF;
 }
 
+#post-comment ul li {
+    list-style: none;
+}
 #comment-user-div {
     display: flex;
     justify-content: space-between;
-    padding: 5px 0;
+    padding: 10px 0 5px 0;
     background-color: #FFF;
 }
 

@@ -26,7 +26,6 @@ export default function PostLikes({sessionUser, postId}) {
             post_id: postId,
         }
 
-
         if(res.includes(postId)) {
            await dispatch(deleteUserLikePostThunk(postId));
            await dispatch(getUserLikePostsThunk(sessionUser.id));

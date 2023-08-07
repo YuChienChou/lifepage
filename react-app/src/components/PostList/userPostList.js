@@ -11,10 +11,13 @@ import PostLikes from '../Likes/PostLikes';
 import userProfilePicture from '../resources/default-user-profile-picture.png';
 import './postList.css'
 import { getUserPostsThunk } from '../../store/post';
+import { getCurrentUserThunk } from '../../store/user';
 
 
 
 export default function UserPostList({ sessionUser, user, posts }) {
+    console.log("user id in userPostList: ", user.id)
+    const currentUser = useSelector((state) => state.users.currentUser);
     const userPostsStore = useSelector((state) => state.posts.userPosts);
     const userPostArr = Object.values(userPostsStore);
     const reversedPostsArr = userPostArr.slice().reverse();
@@ -38,7 +41,8 @@ export default function UserPostList({ sessionUser, user, posts }) {
     }
 
     useEffect(() => {
-        dispatch(getUserPostsThunk(user.id))
+        dispatch(getUserPostsThunk(user.id));
+        dispatch(getCurrentUserThunk());
     }, [dispatch, user]);
 
     if(reversedPostsArr.length === 0) {
@@ -111,9 +115,9 @@ export default function UserPostList({ sessionUser, user, posts }) {
                         </div>
                         : null
                     }
-                    <PostLikes sessionUser={sessionUser} postId={post.id} />
-                    <CommentList sessionUser={sessionUser} post={post}/>
-                    <CreateComment sessionUser={sessionUser} post={post} />
+                    <PostLikes sessionUser={currentUser} postId={post.id} />
+                    <CommentList sessionUser={currentUser} post={post}/>
+                    <CreateComment sessionUser={currentUser} post={post} />
                 </div>
                 
             </div>

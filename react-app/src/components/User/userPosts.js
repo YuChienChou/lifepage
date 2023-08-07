@@ -10,7 +10,7 @@ export default function UserPosts({sessionUser, user }) {
     return (
         <>
         <div id='create-post-div'>
-            <Link to={`/user/${sessionUser.id}`}>
+            <Link to={`/user/${sessionUser.id}/posts`}>
                 <img src={sessionUser.profile_picture? sessionUser.profile_picture : userProfilePicture} 
                         alt={sessionUser.first_name} /></Link>
         

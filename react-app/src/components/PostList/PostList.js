@@ -15,7 +15,9 @@ import { getAllPostsThunk } from '../../store/post';
 
 
 export default function PostList({ sessionUser }) {
+    // const currentUser = useSelector((state) => state.users.currentUser);
     const postsStore = useSelector((state) => state.posts.allPosts);
+    // console.log("posts in post list component: ", postsStore);
     const postsArr = Object.values(postsStore);
     const reversedPostsArr = postsArr.slice().reverse();
     const [showEditPostDiv, setShowEditPostDiv] = useState({}); 
