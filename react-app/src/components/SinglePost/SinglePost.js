@@ -7,7 +7,6 @@ import CommentList from "../Comments/CommentList";
 import CreateComment from "../Comments/CreateComment";
 import logo from '../resources/lifepage favicon.png';
 import './singlepost.css'
-import OpenModalButton from "../OpenModalButton";
 
 
 export default function SinglePost() {
