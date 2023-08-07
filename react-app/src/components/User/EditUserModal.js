@@ -13,7 +13,7 @@ export default function EditUserModal({sessionUser}) {
     const [hobbies, setHobbies] = useState(sessionUser.hobbies);
     const [profilePicture, setProfilePicture] = useState(sessionUser.profile_picture);
     const [coverPhoto, setcoverPhoto] = useState(sessionUser.cover_photo );
-    console.log("coverPhoto in EditUserModal: ", coverPhoto);
+    // console.log("coverPhoto in EditUserModal: ", coverPhoto);
     const [validationError, setValidationError] = useState({});
     const dispatch = useDispatch();
     const { closeModal } = useModal();
@@ -33,7 +33,7 @@ export default function EditUserModal({sessionUser}) {
         try {
             await dispatch(editUserThunk(userInfo));
             await dispatch(getSingleUserThunk(sessionUser.id));
-            await dispatch(getCurrentUserThunk());
+            // await dispatch(getCurrentUserThunk());
 
             closeModal();
         } catch(error) {
