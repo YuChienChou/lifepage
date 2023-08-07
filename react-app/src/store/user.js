@@ -6,6 +6,7 @@ const ADD_USER_FOLLOWS = "user/ADD_USER_FOLLOWS";
 const GET_USER_FOLLOWS = "user/GET_USER_FOLLOWS";
 const GET_USER_FOLLOWERS = "user/GET_USER_FOLLOWERS";
 const DELET_USER_FOLLOWS = "user/DELETE_USER_FOLLOWS";
+const GET_CURRENT_USER = "user/GET_CURRENT_USER";
 
 
 //action creator
@@ -59,6 +60,13 @@ const deleteUserFollows = (userId) => {
     };
 };
 
+const getCurrentUser = (user) => {
+    return {
+        type: GET_CURRENT_USER,
+        user
+    }
+}
+
 //thunk creator
 
 export const getAllUsersThunk = () => async (dispatch) => {
@@ -93,10 +101,10 @@ export const getSingleUserThunk = (userId) => async (dispatch) => {
 };
 
 
-export const editUserThunk = (userId, userInfo) => async (dispatch) => {
+export const editUserThunk = (userInfo) => async (dispatch) => {
     // console.log("in the edit user thunk!!!!!!!!!!!!!!!!!!!!!")
     try {
-        const res = await fetch(`/api/users/${userId}/edit`, {
+        const res = await fetch(`/api/users/current/edit`, {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify(userInfo),
@@ -182,6 +190,21 @@ export const deleteUserFollowsThunk = (user1Id, user2Id) => async (dispatch) => 
     };
 };
 
+export const getCurrentUserThunk = () => async (dispatch) => {
+    try {
+        const res = await fetch('/api/users/current');
+
+        if(res.ok) {
+            const currentUser = await res.json();
+            dispatch(getCurrentUser(currentUser));
+            return currentUser;
+        }
+    } catch (err) {
+        const errors = await err.json();
+        return errors;
+    };
+};
+
 
 
 //reducer function
@@ -191,6 +214,7 @@ const initialState = {
     singleUser: {}, 
     userFollows: {},
     userFollowers: {},
+    currentUser: {},
 }
 
 const userReducer = (state = initialState, action) => {
@@ -235,7 +259,12 @@ const userReducer = (state = initialState, action) => {
             const newState = {...state, userFollows: {...state.userFollows}};
             delete newState.userFollows[action.userId];
             return newState;
-        }
+        };
+        case GET_CURRENT_USER: {
+            const newState = {...state, currentUser: {}};
+            newState.currentUser = action.user;
+            return newState;
+        };
         default:
             return state;
     };

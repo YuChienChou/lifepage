@@ -30,9 +30,9 @@ function App() {
           <Route exact path='/user'>
             <UserHome />
           </Route>
-          <Route exact path ='/user/:userId'>
+          {/* <Route exact path ='/user/:userId'>
             <UserPorfile />
-          </Route>
+          </Route> */}
           <Route exact path ='/user/:userId/:page'>
             <UserPorfile />
           </Route>

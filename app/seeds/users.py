@@ -15,8 +15,8 @@ def seed_users():
         birth_date = date(2003, 10, 5),
         bio = "I love sharing my life with my family and friends!",
         hobbies = 'snowboarding',
-        profile_picture = 'https://images.pexels.com/photos/457418/pexels-photo-457418.jpeg',
-        cover_photo = 'https://images.pexels.com/photos/268533/pexels-photo-268533.jpeg',
+        profile_picture = 'https://images.pexels.com/photos/2069940/pexels-photo-2069940.jpeg',
+        cover_photo = 'https://images.pexels.com/photos/1415734/pexels-photo-1415734.jpeg',
         created_at = date.today(),
         updated_at = date.today(),
         )
