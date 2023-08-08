@@ -109,7 +109,7 @@ export default function PostList({ sessionUser }) {
                         </div>
                         : null
                     } */}
-                    {/**"pdf", "png", "jpg", "jpeg", "gif", "mp4", "avi", "mov", "mkv" */}
+                   
                     {(() => {
                         if(post.media) {
                             if(post.media.endsWith("pdf") ||
@@ -123,14 +123,14 @@ export default function PostList({ sessionUser }) {
                                 </>
                             } else {
                                 return <>
-                                {/* <div id='video-pot'>
-                                    <video controls>
+                                <div id='video-post'>
+                                    <video controls width="100%">
                                         <source src={post.media} type='video/mp4' />
                                     </video>
-                                </div> */}
-                                <div id='video-post'>
-                                    <ReactPlayer url={post.video} controls width='100%' height='100%'/>
                                 </div>
+                                {/* <div id='video-post'>
+                                    <ReactPlayer url={post.media} controls width='100%' height='100%'/>
+                                </div> */}
                                 </>
                             }
                         }

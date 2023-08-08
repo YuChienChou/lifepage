@@ -8,6 +8,7 @@ const GET_USER_POSTS = "post/GET_USER_POSTS";
 const ADD_USER_LIKE_POST = "post/ADD_USER_LIKE_POST";
 const GET_USER_LIKE_POSTS = "post/GET_USER_LIKE_POSTS";
 const DELETE_USER_LIKE_POST = "post/DELETE_USER_LIKE_POST";
+const EDIT_SINGLE_POST = "post/EDIT_SINGLE_POST";
 
 
 //action creator
@@ -74,6 +75,12 @@ const deleteUserLikePost = (postId) => {
     }
 }
 
+const editSinglePost = (post) => {
+    return {
+        type: EDIT_SINGLE_POST,
+        post,
+    }
+}
 
 //thunk creator
 
@@ -123,8 +130,9 @@ export const editPostThunk = (postId, postInfo) => async (dispatch) => {
         // console.log("in the try block of the editpostthunk")
         const res = await fetch(`/api/posts/${postId}/edit`, {
             method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify(postInfo),
+            // headers: { "Content-Type": "application/json" },
+            // body: JSON.stringify(postInfo),
+            body: postInfo
         });
         // console.log("after the res fetch of the editpostthunk")
         if(res.ok) {
@@ -197,16 +205,9 @@ export const addUserLikePostThunk = (post) => async (dispatch) => {
         });
 
         if(res.ok) {
-            // console.log("result in the addUserLikePostThunk~~~", res);
             const likedPost = await res.json();
-            // console.log("likedPost in the addUserLikePostThunk: ", likedPost)
             dispatch(addUserLikePost(likedPost));
             return likedPost;
-            // console.log("result in the addUserLikePostThunk~~~", res);
-            // const responseData = await res.json();
-            // console.log("responseData: ", responseData);
-            // dispatch(addUserLikePost(responseData));
-            // return responseData;
         } 
     } catch(err) {
         const errors = await err.json();
@@ -242,6 +243,26 @@ export const deleteUserLikePostThunk = (postId) => async (dispatch) => {
         if(res.ok) {
             dispatch(deleteUserLikePost(postId));
             return;
+        }
+    } catch(err) {
+        const errors = await err.json();
+        return errors;
+    };
+};
+
+
+export const editSinglePostThunk = (singlePostId, postInfo) => async (dispatch) => {
+    try {
+        const res = await fetch(`/api/posts/singlePost/${singlePostId}/edit`, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(postInfo)
+        })
+
+        if(res.ok) {
+            const editedSinglePost = await res.json();
+            dispatch(editSinglePost(editedSinglePost));
+            return editSinglePost;
         }
     } catch(err) {
         const errors = await err.json();
@@ -313,6 +334,11 @@ const postReducer = (state = initialState, action) => {
             delete newState.userLikes[action.postId];
             return newState;
          };
+         case EDIT_SINGLE_POST: {
+            const newState = {...state, singlePost: {...state.singlePost}};
+            newState.singlePost = action.post;
+            return newState;
+         }
         default: 
             return state;
     };

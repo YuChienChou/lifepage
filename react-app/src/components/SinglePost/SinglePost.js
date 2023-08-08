@@ -1,7 +1,7 @@
 import { useDispatch, useSelector } from "react-redux";
 import { useParams, Link } from 'react-router-dom';
 import { useEffect, useState } from "react";
-import { editPostThunk, getSinglePostThunk } from "../../store/post";
+import { getSinglePostThunk, editSinglePostThunk } from "../../store/post";
 import PostLikes from "../Likes/PostLikes";
 import CommentList from "../Comments/CommentList";
 import CreateComment from "../Comments/CreateComment";
@@ -14,10 +14,8 @@ export default function SinglePost() {
     // console.log("page in single post : " , page);
     const sessionUser = useSelector((state) => state.session.user);
     const singlePost = useSelector((state) => state.posts.singlePost);
-    // console.log("single post in single post component: ", singlePost);
+    console.log("single post media in single post component: ", singlePost.media);
     const [body, setBody] = useState(singlePost.body);
-    // const [img, setImg] = useState(singlePost.img);
-    // const [video, setVideo] = useState(singlePost.video);
     const [editPost, setEditPost] = useState(false);
     const dispatch = useDispatch();
 
@@ -25,19 +23,17 @@ export default function SinglePost() {
         setEditPost(true);
     }
 
-    const editSinglePost = async (e) => {
+    const EditSinglePost = async (e) => {
         e.preventDefault();
 
         const postInfo = {
-            img: singlePost.img,
-            video: singlePost.video,
             body,
             user_id : sessionUser.id
         }
-
+      
         try {
-            await dispatch(editPostThunk(singlePost.id, postInfo));
-            await dispatch(getSinglePostThunk(singlePost.id))
+            await dispatch(editSinglePostThunk(singlePost.id, postInfo));
+            await dispatch(getSinglePostThunk(singlePost.id));
         } catch (error) {
             console.log(error);
         };
@@ -69,7 +65,7 @@ export default function SinglePost() {
                         <Link to='/user'><img src={logo} alt='lifepage logo' /></Link>
                     </div>
                     <div id='single-post-img'>
-                        <img src={singlePost.img} alt="" />
+                        <img src={singlePost.media} alt="" />
                     </div>
                 </div>
        
@@ -92,7 +88,7 @@ export default function SinglePost() {
 
                                             return (
                                             <>
-                                            <form onSubmit={editSinglePost} id='edit-single-post-form'>
+                                            <form onSubmit={EditSinglePost} id='edit-single-post-form'>
                                                 <textarea 
                                                     type='text'
                                                     value={body}

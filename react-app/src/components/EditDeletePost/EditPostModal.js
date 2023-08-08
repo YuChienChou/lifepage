@@ -7,10 +7,8 @@ import userProfilePicture from '../resources/default-user-profile-picture.png';
 import './editPost.css'
 
 export default function EditPostModal({sessionUser, post }) {
-    // console.log("post in editpostmodal: ", post);
-    // const [title, setTitle] = useState(post.title);
-    const [img, setImg] = useState(post.img);
-    const [video, setVideo] = useState(post.video);
+    const [media, setMedia] = useState(post.media);
+    console.log("post media in editPostModal: ", post.media)
     const [body, setBody] = useState(post.body);
     const [validationError, setValidationError] = useState({});
     const [hasSubmit, setHasSubmit] = useState(false);
@@ -26,13 +24,10 @@ export default function EditPostModal({sessionUser, post }) {
         e.preventDefault();
         setHasSubmit(true);
 
-        const postInfo = {
-            // title, 
-            img, 
-            video,
-            body,
-            user_id : sessionUser.id
-        }
+        const postInfo = new FormData();
+        postInfo.append("media", media);
+        postInfo.append("body", body);
+        postInfo.append("user_id", sessionUser.id);
         
         try {
             await dispatch(editPostThunk(post.id, postInfo)) 
@@ -49,13 +44,24 @@ export default function EditPostModal({sessionUser, post }) {
         const errors = {};
         if(!body) errors.body = "Please enter your post.";
         if(body.length > 3000) errors.body = errors.bodylength = "Please enter content less than 3000 characters.";
-        if(img && !img.endsWith('.jpg') && !img.endsWith('.png') && !img.endsWith('.jpeg')) errors.imgFormat = "Image URL needs to end in png or jpg (or jpeg)";
-        if(video) {
-            const videoFrag = video.split("=");
-            if(!videoFrag[0].includes("https://www.youtube.com/"))  errors.videoFormat = "Please enter valid URL form YouTube."}
-        
+        // if(img && !img.endsWith('.jpg') && !img.endsWith('.png') && !img.endsWith('.jpeg')) errors.imgFormat = "Image URL needs to end in png or jpg (or jpeg)";
+        // if(video) {
+        //     const videoFrag = video.split("=");
+        //     if(!videoFrag[0].includes("https://www.youtube.com/"))  errors.videoFormat = "Please enter valid URL form YouTube."}
+        if(media) {
+            if(!media['name'].endsWith("pdf") && 
+               !media['name'].endsWith("png") &&
+               !media['name'].endsWith("jpg") &&
+               !media['name'].endsWith("jpeg") && 
+               !media['name'].endsWith("gif") && 
+               !media['name'].endsWith("mp4") && 
+               !media['name'].endsWith("avi") && 
+               !media['name'].endsWith("mov") &&
+               !media['name'].endsWith("mkv"))  
+               errors.mediaFormat = "Please provide valid image or video file."}
+
         setValidationError(errors)
-    }, [body, img, video])
+    }, [body, media])
 
     return (
         <>
@@ -68,7 +74,7 @@ export default function EditPostModal({sessionUser, post }) {
                      alt={sessionUser.first_name}/></Link>
                 <Link to={`/user/${sessionUser.id}/posts`}><p>{sessionUser.first_name} {sessionUser.last_name}</p></Link>
             </div>
-            <form id='edit-post-form' onSubmit={EditPost}>
+            <form id='edit-post-form' onSubmit={EditPost} encType="multipart/form-data">
       
                     <textarea 
                     
@@ -84,10 +90,9 @@ export default function EditPostModal({sessionUser, post }) {
                         <div id='edit-image-div-container'>
                             <div id='edit-image-div'>
                                 <i className="fa-solid fa-photo-film"></i>
-                                <textarea 
-                                    type='text'
-                                    value={ img }
-                                    onChange={(e) => setImg(e.target.value)}
+                                <input 
+                                    type='file'
+                                    onChange={(e) => setMedia(e.target.files[0])}
                                     placeholder="Please provide img url ends with png, jpg, or jpeg."
                                 />
                             </div>                             
@@ -95,7 +100,7 @@ export default function EditPostModal({sessionUser, post }) {
                         : null
                     }
                     
-                    {showItem ? 
+                    {/* {showItem ? 
                         <div id='edit-video-div'>
                             <i className="fa-solid fa-video"></i>
                             <textarea 
@@ -108,20 +113,20 @@ export default function EditPostModal({sessionUser, post }) {
 
                         
                         : null
-                    }
+                    } */}
 
-                    {validationError.imgFormat ? 
+                    {validationError.mediaFormat ? 
                         <div id='error-div'>
-                            {validationError.imgFormat && <p>{validationError.imgFormat}</p>}
+                            {validationError.mediaFormat && <p>{validationError.mediaFormat}</p>}
                         </div>
                         : null
                     }
-                    {validationError.videoFormat ? 
+                    {/* {validationError.videoFormat ? 
                         <div id='error-div'>
                             {validationError.videoFormat && <p>{validationError.videoFormat}</p>}
                         </div>
                         : null
-                    }
+                    } */}
 
                     <div id='create-post-button-div'>
                         <div onClick={showItemFun}>

@@ -4,7 +4,7 @@ from app.models import db, User, Post, Comment
 from app.forms import PostForm, CommentForm
 from datetime import date
 from app.api.aws_helpers import (
-    upload_file_to_s3, get_unique_filename)
+    upload_file_to_s3, get_unique_filename, remove_file_from_s3)
 
 post_route = Blueprint('posts', __name__)
 print(__name__)
@@ -88,12 +88,28 @@ def edit_post(postId):
         if not edit_post:
             return "Post not found.", 404
         # print("edit_post in the edit post route: ", edit_post.to_dict())
+
+        media_url = ""
+
+        media = form.data["media"] 
+        print("media form data: ", media)
+
+        upload_media = None
+        if media: 
+            media.filename = get_unique_filename(media.filename)
+            upload_media = upload_file_to_s3(media)
+            media_url = upload_media["url"]
+            print("uploaded media in create post route: ", upload_media)
+
+        if upload_media is not None and "url" not in upload_media:
+            return f"{upload_media}."
    
         if edit_post.user.id == current_user.id:
-            edit_post.title = form.data['title']
-            edit_post.img = form.data['img']
-            edit_post.video = form.data['video']
+            # edit_post.title = form.data['title']
+            remove_file_from_s3(edit_post.media)
+            edit_post.media = media_url
             edit_post.body = form.data['body']
+            edit_post.user_id = form.data['user_id']
             edit_post.updated_at = date.today()
             db.session.commit()
             # print("edited post in the edit post route: ", edit_post.to_dict())
@@ -103,6 +119,33 @@ def edit_post(postId):
     except Exception as e: 
         return {"error" : str(e)}, 500
     
+
+@post_route.route('/singlePost/<int:postId>/edit', methods=["POST"])
+@login_required
+def edit_single_post(postId):
+
+    print("in edit single post route~~~~~")
+
+    try:
+        form = PostForm()
+        form["csrf_token"].data = request.cookies["csrf_token"]
+
+        single_post = Post.query.get(postId)
+        print("single post in the try block : ", single_post)
+        if not single_post:
+            return "Post not found.", 404
+        
+        if single_post.user.id == current_user.id:
+            # single_post.media = single_post.media
+            single_post.body = form.data['body']
+            single_post.user_id = form.data['user_id']
+            single_post.updated_at = date.today()
+            db.session.commit()
+            return single_post.to_dict()
+        
+    except Exception as e:
+        return {"errors" : str(e)}, 500
+
 
 #delete a post 
 @post_route.route('/<int:postId>/delete', methods=["DELETE"])
@@ -116,6 +159,7 @@ def delete_post(postId):
             return "Post not found.", 404
 
         if delete_post.user.id == current_user.id:
+            remove_file_from_s3(delete_post.media)
             db.session.delete(delete_post)
             db.session.commit()
             return "Your post has been deleted."
@@ -264,4 +308,5 @@ def delete_like_from_post(postId):
     except Exception as e:
         return {"error" : str(e)}, 500
     
+
 

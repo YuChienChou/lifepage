@@ -104,7 +104,7 @@ export default function UserPostList({ sessionUser, user, posts }) {
                     <div id='content'>
                         <p>{post.body}</p>
                     </div>
-                    {post.img? 
+                    {/* {post.img? 
                         <Link to={`/posts/${post.id}`}><div id='img-post'>
                         <img src={post.img} alt=""/></div></Link>
                         : null
@@ -114,7 +114,32 @@ export default function UserPostList({ sessionUser, user, posts }) {
                             <ReactPlayer url={post.video} controls width='100%' height='100%'/>
                         </div>
                         : null
-                    }
+                    } */}
+
+                    {(() => {
+                        if(post.media) {
+                            if(post.media.endsWith("pdf") ||
+                               post.media.endsWith("png") ||
+                               post.media.endsWith("jpg") ||
+                               post.media.endsWith("jpeg") ||
+                               post.media.endsWith("gif")) {
+                                return <>
+                                <Link to={`/posts/${post.id}`}><div id='img-post'>
+                                <img src={post.media} alt=""/></div></Link>
+                                </>
+                            } else {
+                                return <>
+                                <div id='video-pot'>
+                                    <video controls width="100%">
+                                        <source src={post.media} type='video/mp4' />
+                                    </video>
+                                </div>
+                                </>
+                            }
+                        }
+
+                    })()}
+
                     <PostLikes sessionUser={currentUser} postId={post.id} />
                     <CommentList sessionUser={currentUser} post={post}/>
                     <CreateComment sessionUser={currentUser} post={post} />

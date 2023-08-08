@@ -96,7 +96,7 @@ export default function CreatePost({sessionUser}) {
                             <input
                                 type="file"
                                 onChange={(e) => setMedia(e.target.files[0])}
-                                placeholder="Please provide image filename ends with png, jpg, or jpeg."/>
+                                placeholder="Please provide image filename ends with pdf, png, jpg, jpeg, gif, mp4, avi, mov, mkv."/>
                         </div>
                     : null
                 }
