@@ -100,8 +100,9 @@ export const createPostThunk = (userId, post) => async (dispatch) => {
     try {
         const res = await fetch(`/api/posts/${userId}/new`, {
             method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify(post),
+            // headers: { "Content-Type": "application/json" },
+            // body: JSON.stringify(post),
+            body: post,
         });
 
         if(res.ok) {

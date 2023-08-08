@@ -98,7 +98,7 @@ export default function PostList({ sessionUser }) {
                         {/* <p>{post.title}</p> */}
                         <p>{post.body}</p>
                     </div>
-                    {post.img? 
+                    {/* {post.img ? 
                         <Link to={`/posts/${post.id}`}><div id='img-post'>
                         <img src={post.img} alt=""/></div></Link>
                         : null
@@ -108,7 +108,34 @@ export default function PostList({ sessionUser }) {
                             <ReactPlayer url={post.video} controls width='100%' height='100%'/>
                         </div>
                         : null
-                    }
+                    } */}
+                    {/**"pdf", "png", "jpg", "jpeg", "gif", "mp4", "avi", "mov", "mkv" */}
+                    {(() => {
+                        if(post.media) {
+                            if(post.media.endsWith("pdf") ||
+                               post.media.endsWith("png") ||
+                               post.media.endsWith("jpg") ||
+                               post.media.endsWith("jpeg") ||
+                               post.media.endsWith("gif")) {
+                                return <>
+                                <Link to={`/posts/${post.id}`}><div id='img-post'>
+                                <img src={post.media} alt=""/></div></Link>
+                                </>
+                            } else {
+                                return <>
+                                {/* <div id='video-pot'>
+                                    <video controls>
+                                        <source src={post.media} type='video/mp4' />
+                                    </video>
+                                </div> */}
+                                <div id='video-post'>
+                                    <ReactPlayer url={post.video} controls width='100%' height='100%'/>
+                                </div>
+                                </>
+                            }
+                        }
+
+                    })()}
 
                     <PostLikes sessionUser={sessionUser} postId={post.id} />
 

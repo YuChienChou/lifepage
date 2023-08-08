@@ -9,16 +9,15 @@ import './createpost.css'
 
 
 export default function CreatePost({sessionUser}) {
-    // const [title, setTitle] = useState("")
-    
-    const [img, setImg] = useState("");
-    const [video, setVideo] = useState("");
+    const [media, setMedia] = useState("");
     const [body, setBody] = useState("");
     const [validationError, setValidationError] = useState({});
     const [showItem, setShowItem] = useState(false)
     const [hasSubmit, setHasSubmit] = useState(false);
     const dispatch = useDispatch();
     const { closeModal } = useModal();
+
+    console.log("media in createPostModal component: ", media)
 
     const showItemFun = () => {
         setShowItem(!showItem)
@@ -28,13 +27,11 @@ export default function CreatePost({sessionUser}) {
         e.preventDefault();
         setHasSubmit(true);
 
-        const postInfo = {
-            // title,
-            img,
-            video,
-            body,
-            user_id: sessionUser.id,
-        }
+        const postInfo = new FormData();
+        postInfo.append("media", media);
+        postInfo.append("body", body);
+        postInfo.append("user_id", sessionUser.id);
+    
 
         try {
             await dispatch(createPostThunk(sessionUser.id, postInfo));
@@ -51,13 +48,24 @@ export default function CreatePost({sessionUser}) {
         const errors = {}
         if(!body) errors.body = "please enter your post";
         if(body.length > 3000) errors.bodylength = "Please enter content less than 3000 characters.";
-        if(img && !img.endsWith('.jpg') && !img.endsWith('.png') && !img.endsWith('.jpeg')) errors.imgFormat = "Image URL needs to end in png or jpg (or jpeg)";
-        if(video) {
-            const videoFrag = video.split("=");
-            if(!videoFrag[0].includes("https://www.youtube.com/"))  errors.videoFormat = "Please enter valid URL form YouTube."}
+        // if(img && !img.endsWith('.jpg') && !img.endsWith('.png') && !img.endsWith('.jpeg')) errors.imgFormat = "Image URL needs to end in png or jpg (or jpeg)";
+        // if(video) {
+        //     const videoFrag = video.split("=");
+        //     if(!videoFrag[0].includes("https://www.youtube.com/"))  errors.videoFormat = "Please enter valid URL form YouTube."}
+        if(media) {
+            if(!media['name'].endsWith("pdf") && 
+               !media['name'].endsWith("png") &&
+               !media['name'].endsWith("jpg") &&
+               !media['name'].endsWith("jpeg") && 
+               !media['name'].endsWith("gif") && 
+               !media['name'].endsWith("mp4") && 
+               !media['name'].endsWith("avi") && 
+               !media['name'].endsWith("mov") &&
+               !media['name'].endsWith("mkv"))  
+               errors.mediaFormat = "Please provide valid image or video file."}
 
         setValidationError(errors)
-    }, [body, img, video]);
+    }, [body, media]);
 
     return (
         <>
@@ -85,46 +93,36 @@ export default function CreatePost({sessionUser}) {
                 {showItem ? 
                         <div id='add-image-div'>
                             <i className="fa-solid fa-photo-film"></i>
-                            {/* <textarea 
-                                type='text'
-                                value={img}
-                                onChange={(e) => setImg(e.target.value)}
-                                placeholder="Please provide img url ends with png, jpg, or jpeg."/> */}
                             <input
                                 type="file"
-                                onChange={(e) => setImg(e.target.files[0])}
+                                onChange={(e) => setMedia(e.target.files[0])}
                                 placeholder="Please provide image filename ends with png, jpg, or jpeg."/>
                         </div>
                     : null
                 }
 
-                {showItem ? 
+                {/* {showItem ? 
                         <div id='add-video-div'>
                             <i className="fa-solid fa-video"></i>
-                            {/* <textarea 
-                                type='text'
-                                value={video}k
-                                onChange={(e) => setVideo(e.target.value)}
-                                placeholder="Please provide valid url from YouTube."/> */}
                             <input
                                 type='file'
                                 onChange={(e) => setVideo(e.target.files[0])}
                                 placeholder="Please provide video filename ends with mp4, avi, mov, or mkv"/>
                         </div>
                     : null
-                }
-                {validationError.imgFormat ? 
+                } */}
+                {validationError.mediaFormat ? 
                 <div id='error-div'>
-                    {validationError.imgFormat && <p>{validationError.imgFormat}</p>}
+                    {validationError.mediaFormat && <p>{validationError.mediaFormat}</p>}
                 </div>
                 : null
                 }
-                {validationError.videoFormat ? 
+                {/* {validationError.videoFormat ? 
                 <div id='error-div'>
                     {validationError.videoFormat && <p>{validationError.videoFormat}</p>}
                 </div>
                 : null
-                }
+                } */}
 
                 <div id='create-post-button-div'>
                     <div onClick={showItemFun}>

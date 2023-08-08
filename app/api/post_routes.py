@@ -1,8 +1,7 @@
 from flask import Blueprint, render_template, request
 from flask_login import login_required, current_user
 from app.models import db, User, Post, Comment
-from app.forms import PostForm
-from app.forms import CommentForm
+from app.forms import PostForm, CommentForm
 from datetime import date
 from app.api.aws_helpers import (
     upload_file_to_s3, get_unique_filename)
@@ -38,53 +37,34 @@ def create_post(userId):
     form["csrf_token"].data = request.cookies["csrf_token"]
     userId = current_user.id
     form.user_id.data = userId
-    # print("current user Id in create post route: ", current_user.id)
-    # print("userId in create post route: ", userId)
-    # print("form data in create post routen ", form.data)
-    # print("user id in the form data: ", form.data['user_id'])
     try: 
         if form.validate_on_submit():
             print("in the try block of the create post route~~~~")
 
-            image_url = ""
-            video_url = ""
+            media_url = ""
 
-            image = form.data["img"] 
-            print("image form data: ", image)
+            media = form.data["media"] 
+            print("media form data: ", media)
 
-            upload_image = None
-            if image: 
-                image.filename = get_unique_filename(image.filename)
-                upload_image = upload_file_to_s3(image)
-                image_url = upload_image["url"]
-                print("uploaded image in create post route: ", upload_image)
+            upload_media = None
+            if media: 
+                media.filename = get_unique_filename(media.filename)
+                upload_media = upload_file_to_s3(media)
+                media_url = upload_media["url"]
+                print("uploaded media in create post route: ", upload_media)
 
-            
-            video = form.data["video"]
-            print("video form data: ", video)
-            
-            upload_video = None
-            if video: 
-                video.filename = get_unique_filename(video.filename)
-                upload_video = upload_file_to_s3(video)
-                video_url = upload_video["url"]
-                print("uploaded video in create post route: ", upload_video)
-
-            
-            if upload_image is not None and "url" not in upload_image or upload_video is not None and "url" not in upload_video:
-                return f"{upload_image} {upload_video}."
+            if upload_media is not None and "url" not in upload_media:
+                return f"{upload_media}."
             
             new_post = Post(
-                # title = form.data['title'],
-                # img = form.data['img'],
-                img = image_url,
-                # video = form.data['video'],
-                video = video_url,
+                media = media_url,
                 body = form.data['body'],
                 user_id = form.data['user_id'],
                 created_at = date.today(),
                 updated_at = date.today(),
             )
+
+            print("new post in create post route: ", new_post)
             db.session.add(new_post)
             db.session.commit()
             return new_post.to_dict()
@@ -177,6 +157,10 @@ def get_single_post(postId):
 @post_route.route('/<int:postId>/comments/new', methods=["POST"])
 @login_required
 def create_comment(postId):
+    """
+    Query the post and create a comment for the selected post
+    and return a dictionary of the new comment.
+    """
     # print("in the create comment route~~~~~~~~~~~~~~~~~~")
     try: 
         post = Post.query.get(postId)
@@ -280,12 +264,4 @@ def delete_like_from_post(postId):
     except Exception as e:
         return {"error" : str(e)}, 500
     
-
-
-
-
-        
-
-
-        
 

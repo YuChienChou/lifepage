@@ -50,6 +50,8 @@ class User(db.Model, UserMixin):
         cascade="delete, merge, save-update"
     )
 
+
+
     comments = db.relationship(
         "Comment", 
         back_populates="user", 
