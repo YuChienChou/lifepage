@@ -98,7 +98,8 @@ export default function SinglePost() {
                                             </form>
                                             </>
                                         )
-                                    } else {
+                                    } 
+                                    else {
                                         return  (
                                         <>
                                         <div id='sp-content'>
@@ -113,7 +114,8 @@ export default function SinglePost() {
                                 }
                             }
                             )()}
-                         </div>
+
+                        </div>
                          
                     </div>
                     <PostLikes sessionUser={sessionUser} postId={singlePost.id} />

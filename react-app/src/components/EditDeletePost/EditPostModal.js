@@ -2,13 +2,13 @@ import { useState, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { useModal } from '../../context/Modal';
-import { editPostThunk, getAllPostsThunk, getUserPostsThunk } from '../../store/post';
+import { editPostThunk, editSinglePostThunk, getAllPostsThunk, getUserPostsThunk } from '../../store/post';
 import userProfilePicture from '../resources/default-user-profile-picture.png';
 import './editPost.css'
 
 export default function EditPostModal({sessionUser, post }) {
-    const [media, setMedia] = useState(post.media);
-    console.log("post media in editPostModal: ", post.media)
+    const [media, setMedia] = useState("");
+    // console.log("post media in editPostModal: ", post.media)
     const [body, setBody] = useState(post.body);
     const [validationError, setValidationError] = useState({});
     const [hasSubmit, setHasSubmit] = useState(false);
@@ -24,20 +24,40 @@ export default function EditPostModal({sessionUser, post }) {
         e.preventDefault();
         setHasSubmit(true);
 
-        const postInfo = new FormData();
-        postInfo.append("media", media);
-        postInfo.append("body", body);
-        postInfo.append("user_id", sessionUser.id);
-        
-        try {
-            await dispatch(editPostThunk(post.id, postInfo)) 
-            await dispatch(getUserPostsThunk(sessionUser.id));
-            await dispatch(getAllPostsThunk());           
+        if(media) {
+            const postInfo = new FormData();
+            postInfo.append("media", media);
+            postInfo.append("body", body);
+            postInfo.append("user_id", sessionUser.id);
             
-            closeModal();
-        } catch(error) {
-            console.log(error);
-        };
+            try {
+                await dispatch(editPostThunk(post.id, postInfo)) 
+                await dispatch(getUserPostsThunk(sessionUser.id));
+                await dispatch(getAllPostsThunk());           
+                
+                closeModal();
+            } catch(error) {
+                console.log(error);
+            };
+        } else {
+            const postInfo = {
+                media : post.media,
+                body : body,
+                user_id : sessionUser.id
+            }
+
+            try {
+                await dispatch(editSinglePostThunk(post.id, postInfo)) 
+                await dispatch(getUserPostsThunk(sessionUser.id));
+                await dispatch(getAllPostsThunk());           
+                
+                closeModal();
+            } catch(error) {
+                console.log(error);
+            };
+        }
+
+       
     };
 
     useEffect(() => {
