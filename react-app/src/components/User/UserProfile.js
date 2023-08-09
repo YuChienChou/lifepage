@@ -48,8 +48,10 @@ export default function UserPorfile() {
             <div id='user-profile-right'>
                     <div id='user-intro'>
                         <div id='cover-photo'>
-                            <img src={user.cover_photo ? user.cover_photo : userCoverPhoto} 
-                            alt={user.first_name} />
+                            <div id='cover-photo-img'>
+                                <img src={user.cover_photo ? user.cover_photo : userCoverPhoto} 
+                                alt={user.first_name} />
+                            </div>
                         </div>
                         <div id='profile-picture'>
                             <img src={user.profile_picture ? user.profile_picture : userProfilePicture} 

@@ -64,6 +64,11 @@
     outline: none;
 }
 
+#edit-user-profile-picture input,
+#edit-user-cover-photo input {
+    padding: 10px;
+}
+
 #edit-user-button-disabled {
     background-color: #E4E6EB;
     border: none;

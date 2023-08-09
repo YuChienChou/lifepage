@@ -58,12 +58,6 @@
     outline: none;
 }
 
-/* #create-post-form textarea::placeholder {
-    position: absolute;
-    top: 50%;
-    left: 36%;
-    transform: translate(-50%, -50%);
-  } */
 
 #create-post-form input {
     border: none;
@@ -85,19 +79,9 @@
     background-color: #FFF;
     display: flex;
     align-items: center;
-    margin-bottom: 10px;
+    padding: 10px;
+    margin-bottom: 15px;
     gap: 10px;
-}
-
-#add-image-div textarea {
-    height: fit-content;
-    width: 100%;
-    padding: 16px;
-    border: none;
-    background-color: #FFF;
-    border-radius: 10px;
-    border: 1px solid #F0F1F3;
-    resize: none;
 }
 
 #add-video-div {

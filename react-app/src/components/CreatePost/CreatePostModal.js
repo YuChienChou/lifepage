@@ -96,33 +96,17 @@ export default function CreatePost({sessionUser}) {
                             <input
                                 type="file"
                                 onChange={(e) => setMedia(e.target.files[0])}
-                                placeholder="Please provide image filename ends with pdf, png, jpg, jpeg, gif, mp4, avi, mov, mkv."/>
+                                />
                         </div>
                     : null
                 }
 
-                {/* {showItem ? 
-                        <div id='add-video-div'>
-                            <i className="fa-solid fa-video"></i>
-                            <input
-                                type='file'
-                                onChange={(e) => setVideo(e.target.files[0])}
-                                placeholder="Please provide video filename ends with mp4, avi, mov, or mkv"/>
-                        </div>
-                    : null
-                } */}
                 {validationError.mediaFormat ? 
                 <div id='error-div'>
                     {validationError.mediaFormat && <p>{validationError.mediaFormat}</p>}
                 </div>
                 : null
                 }
-                {/* {validationError.videoFormat ? 
-                <div id='error-div'>
-                    {validationError.videoFormat && <p>{validationError.videoFormat}</p>}
-                </div>
-                : null
-                } */}
 
                 <div id='create-post-button-div'>
                     <div onClick={showItemFun}>
