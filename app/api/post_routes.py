@@ -92,14 +92,14 @@ def edit_post(postId):
         media_url = ""
 
         media = form.data["media"] 
-        print("media form data: ", media)
+        # print("media form data: ", media)
 
         upload_media = None
         if media: 
             media.filename = get_unique_filename(media.filename)
             upload_media = upload_file_to_s3(media)
             media_url = upload_media["url"]
-            print("uploaded media in create post route: ", upload_media)
+            # print("uploaded media in create post route: ", upload_media)
 
         if upload_media is not None and "url" not in upload_media:
             return f"{upload_media}."

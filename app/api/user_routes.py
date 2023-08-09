@@ -52,11 +52,11 @@ def edit_user_info():
         form = UserForm()
         form["csrf_token"].data = request.cookies["csrf_token"]
         form.user_id.data = current_user.id
-        print("current user id in edit user route: ", current_user.id)
+        # print("current user id in edit user route: ", current_user.id)
 
         edit_user = User.query.get(current_user.id)
 
-        print("in the try block of the edit user route~~~~~~")
+        # print("in the try block of the edit user route~~~~~~")
 
         if not edit_user:
             return "User not found", 404
@@ -69,7 +69,7 @@ def edit_user_info():
         edit_user.updated_at = date.today()
         
         db.session.commit()
-        print("edited user in the edit user route: ", edit_user.to_dict())
+        # print("edited user in the edit user route: ", edit_user.to_dict())
         return edit_user.to_dict()
 
     except Exception as e:
@@ -83,14 +83,14 @@ def edit_user_profile_picture():
     Query for session user and update user information 
     and return the user as a dictionary.
     """
-    print("in the edit user route~~~~~~")
+    # print("in the edit user route~~~~~~")
     try: 
         form = UserForm()
         form["csrf_token"].data = request.cookies["csrf_token"]
 
         edit_user = User.query.get(current_user.id)
 
-        print("in the try block of the edit user profile picture route~~~~~~")
+        # print("in the try block of the edit user profile picture route~~~~~~")
 
         if not edit_user:
             return "User not found", 404
@@ -105,12 +105,13 @@ def edit_user_profile_picture():
             new_profile_picture.filename = get_unique_filename(new_profile_picture.filename)
             upload_profile_picture = upload_file_to_s3(new_profile_picture)
             new_profile_picture_url = upload_profile_picture["url"]
-            print("uploaded profile picture in edit profile picture route: ", upload_profile_picture)
+            # print("uploaded profile picture in edit profile picture route: ", upload_profile_picture)
 
         if upload_profile_picture is not None and "url" not in upload_profile_picture:
             return f'{upload_profile_picture}'
         
         if edit_user.id == current_user.id:
+            remove_file_from_s3(edit_user.profile_picture)
             edit_user.phone = form.data['phone']
             edit_user.bio = form.data['bio']
             edit_user.hobbies = form.data['hobbies']
@@ -119,7 +120,7 @@ def edit_user_profile_picture():
             edit_user.updated_at = date.today()
             
             db.session.commit()
-            print("edited user in the edit user profile picture route: ", edit_user.to_dict())
+            # print("edited user in the edit user profile picture route: ", edit_user.to_dict())
             return edit_user.to_dict()
 
     except Exception as e:
@@ -156,12 +157,13 @@ def edit_user_cover_photo():
             new_cover_photo.filename = get_unique_filename(new_cover_photo.filename)
             upload_cover_photo = upload_file_to_s3(new_cover_photo)
             new_cover_photo_url = upload_cover_photo["url"]
-            print("uploaded cover photo in edit profile picture route: ", upload_cover_photo)
+            # print("uploaded cover photo in edit profile picture route: ", upload_cover_photo)
 
         if upload_cover_photo is not None and "url" not in upload_cover_photo:
             return f'{upload_cover_photo}'
         
         if edit_user.id == current_user.id:
+            remove_file_from_s3(edit_user.cover_photo)
             edit_user.phone = form.data['phone']
             edit_user.bio = form.data['bio']
             edit_user.hobbies = form.data['hobbies']
@@ -170,7 +172,7 @@ def edit_user_cover_photo():
             edit_user.updated_at = date.today()
             
             db.session.commit()
-            print("edited user in the edit user route: ", edit_user.to_dict())
+            # print("edited user in the edit user route: ", edit_user.to_dict())
             return edit_user.to_dict()
 
     except Exception as e:
@@ -235,7 +237,7 @@ def get_following_user_list(userId):
             return "User not found.", 404
         
         user_following = user.followed
-        print("user following list in the route: ", user_following)
+        # print("user following list in the route: ", user_following)
         result = [user.to_dict() for user in user_following]
         return result
     
