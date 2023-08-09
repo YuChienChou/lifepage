@@ -78,7 +78,7 @@ export default function EditPostModal({sessionUser, post }) {
                !media['name'].endsWith("avi") && 
                !media['name'].endsWith("mov") &&
                !media['name'].endsWith("mkv"))  
-               errors.mediaFormat = "Please provide valid image or video file."}
+               errors.mediaFormat = "Please provide valid image or video file ends with pdf, png, jpg, gif, jpeg, gif, mp4, avi, mov, or mkv"}
 
         setValidationError(errors)
     }, [body, media])
@@ -101,6 +101,15 @@ export default function EditPostModal({sessionUser, post }) {
                         value={body}
                         onChange={(e) => setBody(e.target.value)}
                     />
+
+                    {hasSubmit ? 
+                        <div id="animationDiv" className="animation-container">
+                            <div className="loading-spinner"></div>
+                            <p>Uploading...</p>
+                        </div>
+                        :
+                        null
+                    }
 
                     <div id='error-div'>
                         {validationError.bodylength && <p>{validationError.bodylength}</p>}
