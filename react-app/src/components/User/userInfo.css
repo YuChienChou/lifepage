@@ -1,0 +1,19 @@
+#user-info-container {
+    padding: 16px 16px 8px 16px;
+    background-color: #FFF;
+    border-radius: 10px;
+}
+
+#user-info-container h3,
+#user-info-container h5,
+#user-info-container p {
+    background-color: #FFF;
+    margin-bottom: 8px;
+}
+
+#user-info-container p {
+    padding: 10px;
+    background-color: #F0F2F5;
+    font-size: 15px;
+    border-radius: 5px;
+}

@@ -6,6 +6,10 @@
     border-bottom: 1px solid #BEC3C9;
     width: 100%;
     /* margin-bottom: 8px; */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
 }
 
 #like i {
@@ -22,7 +26,10 @@
     border-top: 1px solid #BEC3C9;
     border-bottom: 1px solid #BEC3C9;
     width: 100%;
-    /* margin-bottom: 8px; */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
 }
 
 #dislike i {
@@ -31,4 +38,20 @@
     border: none;
     background-color: transparent;
     
+}
+
+#like-p {
+    display: flex;
+    align-items: center;
+    color: #1674EA;
+    background-color: #FFF;
+    font-size: 14px;
+    font-weight: bold;
+}
+
+#dislike-p {
+    display: flex;
+    align-items: center;
+    background-color: #FFF;
+    font-size: 14px;
 }

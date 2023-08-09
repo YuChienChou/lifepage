@@ -109,12 +109,38 @@ export default function EditPostModal({sessionUser, post }) {
                     {showItem? 
                         <div id='edit-image-div-container'>
                             <div id='edit-image-div'>
-                                <i className="fa-solid fa-photo-film"></i>
-                                <input 
-                                    type='file'
-                                    onChange={(e) => setMedia(e.target.files[0])}
-                                    placeholder="Please provide img url ends with png, jpg, or jpeg."
-                                />
+                                {/* <img src={post.media} alt='' /> */}
+                                {(() => {
+                                    if(post.media) {
+                                        if(post.media.endsWith("pdf") ||
+                                        post.media.endsWith("png") ||
+                                        post.media.endsWith("jpg") ||
+                                        post.media.endsWith("jpeg") ||
+                                        post.media.endsWith("gif")) {
+                                            return <>
+                                            
+                                            <img src={post.media} alt=""/>
+                                            </>
+                                        } else {
+                                            return <>
+                            
+                                                <video width="100px">
+                                                    <source src={post.media} type='video/mp4' />
+                                                </video>
+                                            
+                                            </>
+                                        }
+                                    }
+
+                                })()}
+                                <div id='edit-post-image-div'>
+                                    
+                                    <i className="fa-solid fa-photo-film"></i>
+                                    <input 
+                                        type='file'
+                                        onChange={(e) => setMedia(e.target.files[0])}
+                                    />
+                                </div>
                             </div>                             
                         </div>
                         : null

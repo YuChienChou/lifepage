@@ -217,3 +217,22 @@
     align-items: center;
     margin-right: 10px;
 }
+
+#user-info-post-container {
+    display: flex;
+    padding: 5%;
+    gap: 20px;
+    width: 100%;
+}
+
+#userinfo {
+    width: 30%;
+}
+
+#userposts {
+    width: 65%;
+}
+
+#userposts > div {
+    width: 100%;
+}

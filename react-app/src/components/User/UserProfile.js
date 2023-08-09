@@ -57,7 +57,7 @@ export default function UserPorfile() {
                             <img src={user.profile_picture ? user.profile_picture : userProfilePicture} 
                                  alt={user.first_name} />
                             <div id='edit-profile-div'>
-                                <h4>{user.first_name} {user.last_name}</h4>
+                                <h4>{user.username ? user.username : user.first_name}</h4>
                                 {Number(userId) === sessionUser.id ? 
                                     <OpenModalButton
                                     buttonText={<i className="fa-solid fa-pen-to-square"></i>}

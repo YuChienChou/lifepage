@@ -45,7 +45,7 @@ export default function UserFollows({sessionUser, followedUserId}) {
     if(userFollowsArr.length === 0) {
         return (
             <>
-            <><p onClick={UserFollowFun}>Follow</p></>
+            <><p id='not-follow' onClick={UserFollowFun}>Follow</p></>
             </>
         )
     }
@@ -57,7 +57,7 @@ export default function UserFollows({sessionUser, followedUserId}) {
             {res.includes(followedUserId) ? 
                 <p id='following' onClick={UserFollowFun}>Following</p>      
                 : 
-                <p id='not-follow'onClick={UserFollowFun}>Follow</p>      
+                <p id='not-follow' onClick={UserFollowFun}>Follow</p>      
             }
         </div>
 

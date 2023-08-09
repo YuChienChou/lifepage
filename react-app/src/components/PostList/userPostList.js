@@ -48,7 +48,10 @@ export default function UserPostList({ sessionUser, user, posts }) {
     if(reversedPostsArr.length === 0) {
         return (
             <>
-            <p>{user.first_name} doesn't have any posts yet.</p>
+            <div>
+                <p id='no-post'>{user.username} doesn't have any posts yet.</p>
+            </div>
+            
             </>
         )
     }

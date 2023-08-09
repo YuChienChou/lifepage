@@ -81,7 +81,7 @@ export default function CreatePost({sessionUser}) {
         <form id='create-post-form' onSubmit={handleSubmit} encType="multipart/form-data">
                 <textarea 
                     type='text'
-                    placeholder={`What's on your mind, ${sessionUser.first_name}?`}
+                    placeholder={`What's on your mind, ${sessionUser.username? sessionUser.username : sessionUser.first_name}?`}
                     value={body}
                     onChange={(e) => setBody(e.target.value)}
                 /> 

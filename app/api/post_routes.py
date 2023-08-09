@@ -106,7 +106,8 @@ def edit_post(postId):
    
         if edit_post.user.id == current_user.id:
             # edit_post.title = form.data['title']
-            remove_file_from_s3(edit_post.media)
+            if edit_post.media: 
+                remove_file_from_s3(edit_post.media)
             edit_post.media = media_url
             edit_post.body = form.data['body']
             edit_post.user_id = form.data['user_id']
@@ -159,7 +160,8 @@ def delete_post(postId):
             return "Post not found.", 404
 
         if delete_post.user.id == current_user.id:
-            remove_file_from_s3(delete_post.media)
+            if delete_post.media:
+                remove_file_from_s3(delete_post.media)
             db.session.delete(delete_post)
             db.session.commit()
             return "Your post has been deleted."

@@ -60,7 +60,7 @@ def edit_user_info():
 
         if not edit_user:
             return "User not found", 404
-        
+        edit_user.username = form.data['username']
         edit_user.phone = form.data['phone']
         edit_user.bio = form.data['bio']
         edit_user.hobbies = form.data['hobbies']
@@ -111,7 +111,9 @@ def edit_user_profile_picture():
             return f'{upload_profile_picture}'
         
         if edit_user.id == current_user.id:
-            remove_file_from_s3(edit_user.profile_picture)
+            if edit_user.profile_picture: 
+                remove_file_from_s3(edit_user.profile_picture)
+            edit_user.username = form.data['username']
             edit_user.phone = form.data['phone']
             edit_user.bio = form.data['bio']
             edit_user.hobbies = form.data['hobbies']
@@ -163,7 +165,9 @@ def edit_user_cover_photo():
             return f'{upload_cover_photo}'
         
         if edit_user.id == current_user.id:
-            remove_file_from_s3(edit_user.cover_photo)
+            if edit_user.cover_photo:
+                remove_file_from_s3(edit_user.cover_photo)
+            edit_user.username = form.data['username']
             edit_user.phone = form.data['phone']
             edit_user.bio = form.data['bio']
             edit_user.hobbies = form.data['hobbies']

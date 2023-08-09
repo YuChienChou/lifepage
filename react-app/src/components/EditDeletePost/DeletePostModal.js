@@ -7,6 +7,7 @@ import './editPost.css'
 
 
 export default function DeletePostModal({sessionUser, post}) {
+    console.log("delete post id in delete post component: ", post.id)
     const dispatch = useDispatch();
     const { closeModal } = useModal()
 

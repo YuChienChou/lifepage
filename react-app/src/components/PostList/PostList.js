@@ -98,17 +98,6 @@ export default function PostList({ sessionUser }) {
                         {/* <p>{post.title}</p> */}
                         <p>{post.body}</p>
                     </div>
-                    {/* {post.img ? 
-                        <Link to={`/posts/${post.id}`}><div id='img-post'>
-                        <img src={post.img} alt=""/></div></Link>
-                        : null
-                    }  
-                    {post.video ? 
-                        <div id='video-post'>
-                            <ReactPlayer url={post.video} controls width='100%' height='100%'/>
-                        </div>
-                        : null
-                    } */}
                    
                     {(() => {
                         if(post.media) {
@@ -128,9 +117,6 @@ export default function PostList({ sessionUser }) {
                                         <source src={post.media} type='video/mp4' />
                                     </video>
                                 </div>
-                                {/* <div id='video-post'>
-                                    <ReactPlayer url={post.media} controls width='100%' height='100%'/>
-                                </div> */}
                                 </>
                             }
                         }

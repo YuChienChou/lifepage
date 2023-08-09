@@ -53,7 +53,11 @@ export default function PostLikes({sessionUser, postId}) {
                 : 
                 <i className="fa-regular fa-thumbs-up"></i>
             }
-            
+            {res.includes(postId) ? 
+                <p id='like-p'>Like</p>
+                :
+                <p id='dislike-p'>Like</p>
+            }
         </button>
         </>
     );

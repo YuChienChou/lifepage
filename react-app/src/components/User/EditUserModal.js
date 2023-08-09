@@ -7,14 +7,15 @@ import userProfilePicture from '../resources/default-user-profile-picture.png';
 import './edituser.css'
 
 
-export default function EditUserModal({sessionUser}) {    
+export default function EditUserModal({sessionUser}) { 
+    const [username, setUsername] = useState(sessionUser.username);
     const [phone, setPhone] = useState(sessionUser.phone);
-    const [bio, setBio] = useState(sessionUser.bio);
-    const [hobbies, setHobbies] = useState(sessionUser.hobbies);
+    const [bio, setBio] = useState(sessionUser.bio ? sessionUser.bio : "");
+    const [hobbies, setHobbies] = useState(sessionUser.hobbies ? sessionUser.hobbies : "");
     const [profilePicture, setProfilePicture] = useState('');
     // console.log("sessionuser profile picture in EditUserModal: ", sessionUser.profile_picture)
     // console.log("profiel picture in EditUserModal: ", profilePicture);
-    const [coverPhoto, setcoverPhoto] = useState('');
+    const [coverPhoto, setCoverPhoto] = useState('');
     // console.log("sessionuser cover photo in EditUserModal: ", sessionUser.cover_photo)
     // console.log("coverPhoto in EditUserModal: ", coverPhoto);
     const [validationError, setValidationError] = useState({});
@@ -26,6 +27,7 @@ export default function EditUserModal({sessionUser}) {
 
         if(profilePicture) {
             const userInfo = new FormData();
+            userInfo.append("username", username);
             userInfo.append("phone", phone);
             userInfo.append("bio", bio);
             userInfo.append("hobbies", hobbies);
@@ -39,6 +41,7 @@ export default function EditUserModal({sessionUser}) {
         } 
         if(coverPhoto) {
             const userInfo = new FormData();
+            userInfo.append("username", username);
             userInfo.append("phone", phone);
             userInfo.append("bio", bio);
             userInfo.append("hobbies", hobbies);
@@ -53,6 +56,7 @@ export default function EditUserModal({sessionUser}) {
 
         if(!profilePicture && !coverPhoto) {
             const userInfo = {
+                username: username,
                 phone: phone,
                 bio: bio,
                 hobbies: hobbies,
@@ -72,8 +76,8 @@ export default function EditUserModal({sessionUser}) {
     useEffect(() => {
         const errors = {};
         if(phone && phone.length > 10) errors.phone = "Please enter valid phone number.";
-        if(bio && bio.length > 1000) errors.biolength = "Please enter your bio within 1000 characters."
-        if(hobbies && hobbies.length > 500) errors.hobbylength = "Please enter your hobbies within 500 characters."
+        if(bio && bio.length > 500) errors.biolength = "Please enter your bio within 500 characters."
+        if(hobbies && hobbies.length > 300) errors.hobbylength = "Please enter your hobbies within 300 characters."
         if(profilePicture && 
            !profilePicture["name"].endsWith('.jpg') && 
            !profilePicture["name"].endsWith('.png') && 
@@ -107,10 +111,26 @@ export default function EditUserModal({sessionUser}) {
         <form id='edit-user-form' onSubmit={handleSubmit} encType="multipart/form-data">
             <div id='edit-user-phone'>
                 <div>
+                    <i className="fa-solid fa-user">user name</i>
+                    <input 
+                        type='text'
+                        value={ username }
+                        onChange={(e) => setUsername(e.target.value)}
+                    />
+                </div>
+
+                {validationError.phone ? 
+                    <div id='error-div'>
+                        {validationError.phone && <p>{validationError.phone}</p>}
+                    </div>
+                    : null
+                }
+            </div>
+            <div id='edit-user-phone'>
+                <div>
                     <i className="fa-solid fa-phone">Phone</i>
                     <input 
                         type='text'
-                        placeholder='Please enter your phone'
                         value={ phone }
                         onChange={(e) => setPhone(e.target.value)}
                     />
@@ -127,11 +147,15 @@ export default function EditUserModal({sessionUser}) {
 
             <div id="edit-user-profile-picture">
                 <div>
+                    
                     <i className="fa-solid fa-image-portrait">Profile picture</i>
-                    <input
-                        type="file"
-                        onChange={(e) => setProfilePicture(e.target.files[0])}
-                    />
+                    <div id="edit-user-info-images-div">
+                        <img src={sessionUser.profile_picture} alt={sessionUser.username} />
+                        <input
+                            type="file"
+                            onChange={(e) => setProfilePicture(e.target.files[0])}
+                        />
+                    </div>
                 </div>
 
                 {validationError.profilePictureFormat ? 
@@ -145,11 +169,14 @@ export default function EditUserModal({sessionUser}) {
 
             <div id='edit-user-cover-photo'>
                 <div> 
-                <i className="fa-solid fa-image">Cover photo</i>
-                    <input
-                        type='file'
-                        onChange={(e) => setcoverPhoto(e.target.files[0])}
-                    />
+                    <i className="fa-solid fa-image">Cover photo</i>
+                    <div id="edit-user-info-images-div">
+                        <img src={sessionUser.cover_photo} alt={sessionUser.username} />
+                        <input
+                            type='file'
+                            onChange={(e) => setCoverPhoto(e.target.files[0])}
+                        />
+                    </div>
                 </div>
 
                 {validationError.coverPhotoFormat ? 
@@ -166,7 +193,6 @@ export default function EditUserModal({sessionUser}) {
                     <i className="fa-solid fa-book">Bio</i>
                     <textarea
                         type='text'
-                        placeholder='Please enter your bio.'
                         value={ bio }
                         onChange={(e) => setBio(e.target.value)}
                     />
@@ -187,7 +213,6 @@ export default function EditUserModal({sessionUser}) {
                 <textarea
                     type='text'
                     value={ hobbies }
-                    placeholder='Please enter your hobbies'
                     onChange={(e) => setHobbies(e.target.value)}
                 /></div>
 
