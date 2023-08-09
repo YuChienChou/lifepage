@@ -124,14 +124,14 @@ def edit_post(postId):
 @login_required
 def edit_single_post(postId):
 
-    print("in edit single post route~~~~~")
+    # print("in edit single post route~~~~~")
 
     try:
         form = PostForm()
         form["csrf_token"].data = request.cookies["csrf_token"]
 
         single_post = Post.query.get(postId)
-        print("single post in the try block : ", single_post)
+        # print("single post in the try block : ", single_post)
         if not single_post:
             return "Post not found.", 404
         
