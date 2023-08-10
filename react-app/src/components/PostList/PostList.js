@@ -42,6 +42,8 @@ export default function PostList({ sessionUser }) {
     useEffect(()=> {
         dispatch(getAllPostsThunk());
     }, [dispatch])
+
+    if(postsArr.length < 1) return null;
     
     return (
         
@@ -95,7 +97,6 @@ export default function PostList({ sessionUser }) {
                     
                 <div id='post-content'>
                     <div id='content'>
-                        {/* <p>{post.title}</p> */}
                         <p>{post.body}</p>
                     </div>
                    
@@ -110,7 +111,15 @@ export default function PostList({ sessionUser }) {
                                 <Link to={`/posts/${post.id}`}><div id='img-post'>
                                 <img src={post.media} alt=""/></div></Link>
                                 </>
-                            } else {
+                            } 
+                            else if(post.media.startsWith('https://www.youtube.com')) {
+                                return <>
+                                    <div id='video-post'>
+                                        <ReactPlayer url={post.media} controls width='100%' height='100%'/>
+                                    </div>
+                                </>
+                            }
+                            else {
                                 return <>
                                 <div id='video-post'>
                                     <video controls width="100%">
