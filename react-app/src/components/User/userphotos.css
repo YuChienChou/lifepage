@@ -10,21 +10,48 @@
 }
 
 #user-photos-li {
-    width: 395px;
+    width: 30%;
+    list-style: none;
+    display: flex;
+    align-items: center;
+}
+
+#user-photos-li a{
+    width: 100%;
+    height: fit-content;
     list-style: none;
 }
 
-#user-photo-img {
-    
+
+#image-post {
+    width: 100%;
+    height: fit-content;
 }
 
-#user-photo-img img{
-    width: 395px;
-    height: 304px;
+#image-post img{
+    width: 100%;
+    /* height: 100%; */
 }
 
-#user-photos-video {
-    width: 395px;
-    height: 304px;
-    
+#youtube-video-post {
+    width: 100%;
+    height: 100%;
+}
+
+
+
+#youtube-video-post > div{
+    width: 100%;
+    height: 190px;
+}
+
+#user-video-post {
+    min-width: 100%;
+    max-width: 100%;
+    /* height: 360px; */
+}
+
+#user-video-post video{
+    min-width: 100%;
+    max-width: 100%;
 }
