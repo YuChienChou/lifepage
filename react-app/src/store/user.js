@@ -1,12 +1,14 @@
 //type string
 const GET_ALL_USERS = "user/GET_ALL_USERS";
 const GET_SINGLE_USER = "user/GET_SINGLE_USER";
-const EDIT_USER = 'user/EDIT_USER';
+const EDIT_USER_INFO = 'user/EDIT_USER_INFO';
 const ADD_USER_FOLLOWS = "user/ADD_USER_FOLLOWS";
 const GET_USER_FOLLOWS = "user/GET_USER_FOLLOWS";
 const GET_USER_FOLLOWERS = "user/GET_USER_FOLLOWERS";
 const DELET_USER_FOLLOWS = "user/DELETE_USER_FOLLOWS";
 const GET_CURRENT_USER = "user/GET_CURRENT_USER";
+const EDIT_USER_PROFILE_PICTURE = "user/EDIT_USER_PROFILE_PICTURE";
+const EDIT_USER_COVER_PHOTO = 'user/EDIT_USER_COVER_PHOTO';
 
 
 //action creator
@@ -25,12 +27,29 @@ const getSingleUser = (user) => {
     };
 };
 
-const editUser = (user) => {
+const editUserInfo = (user) => {
     return {
-        type: EDIT_USER,
+        type: EDIT_USER_INFO,
         user
     }
 }
+
+
+const editUserProfilePicture = (user) => {
+    return {
+        type: EDIT_USER_PROFILE_PICTURE,
+        user,
+    }
+}
+
+const editUserCoverPhoto = (user) => {
+    return {
+        type: EDIT_USER_COVER_PHOTO,
+        user,
+    }
+}
+
+
 
 const addUserFollows = (user) => {
     return {
@@ -101,10 +120,10 @@ export const getSingleUserThunk = (userId) => async (dispatch) => {
 };
 
 
-export const editUserThunk = (userInfo) => async (dispatch) => {
+export const editUserInfoThunk = (userInfo) => async (dispatch) => {
     // console.log("in the edit user thunk!!!!!!!!!!!!!!!!!!!!!")
     try {
-        const res = await fetch(`/api/users/current/edit`, {
+        const res = await fetch(`/api/users/current/info/edit`, {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify(userInfo),
@@ -112,7 +131,7 @@ export const editUserThunk = (userInfo) => async (dispatch) => {
 
         if(res.ok) {
             const updatedUser = await res.json();
-            dispatch(editUser(updatedUser));
+            dispatch(editUserInfo(updatedUser));
             return updatedUser;
         }
     } catch (err) {
@@ -120,6 +139,49 @@ export const editUserThunk = (userInfo) => async (dispatch) => {
         return errors;
     };
 };
+export const editUserProfilePictureThunk = (userInfo) => async (dispatch) => {
+    // console.log("in the edit user thunk!!!!!!!!!!!!!!!!!!!!!")
+    try {
+        const res = await fetch(`/api/users/current/profile_picture/edit`, {
+            method: "POST",
+            // headers: { "Content-Type": "application/json" },
+            // body: JSON.stringify(userInfo),
+            body: userInfo,
+        });
+
+        if(res.ok) {
+            const updatedUser = await res.json();
+            dispatch(editUserProfilePicture(updatedUser));
+            return updatedUser;
+        }
+    } catch (err) {
+        const errors = await err.json()
+        return errors;
+    };
+};
+export const editUserCoverPhotoThunk = (userInfo) => async (dispatch) => {
+    // console.log("in the edit user thunk!!!!!!!!!!!!!!!!!!!!!")
+    try {
+        const res = await fetch(`/api/users/current/cover_photo/edit`, {
+            method: "POST",
+            // headers: { "Content-Type": "application/json" },
+            // body: JSON.stringify(userInfo),
+            body: userInfo
+        });
+
+        if(res.ok) {
+            const updatedUser = await res.json();
+            dispatch(editUserCoverPhoto(updatedUser));
+            return updatedUser;
+        }
+    } catch (err) {
+        const errors = await err.json()
+        return errors;
+    };
+};
+
+
+
 
 
 export const addUserFollowsThunk = (user1Id, user2Id, followInfo) => async (dispatch) => {
@@ -231,11 +293,21 @@ const userReducer = (state = initialState, action) => {
             newState.singleUser = action.user;
             return newState;
         };
-        case EDIT_USER: {
+        case EDIT_USER_INFO: {
             const newState = {...state, singleUser: {...state.allUsers}};
             newState.singleUser[action.user.id] = action.user;
             return newState
         };
+        case EDIT_USER_PROFILE_PICTURE: {
+            const newState = {...state, currentUser: {...state.currentUser}};
+            newState.currentUser = action.user;
+            return newState;
+        };
+        case EDIT_USER_COVER_PHOTO: {
+            const newState = {...state, currentUser: {...state.currentUser}};
+            newState.currentUser = action.user;
+            return newState;
+        }
         case ADD_USER_FOLLOWS: {
             const newState = {...state, userFollows: {...state.userFollows}};
             newState.userFollows[action.user.id] = action.user;

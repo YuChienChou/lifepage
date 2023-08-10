@@ -1,12 +1,5 @@
 from .db import db, environment, SCHEMA, add_prefix_for_prod
 
-#joined table
-# posts_comments = db.Table(
-#     "posts_comments",
-#     db.Column("post_id", db.Integer, db.ForeignKey(add_prefix_for_prod("posts.id")), primary_key=True),
-#     db.Column("comment_id", db.Integer, db.ForeignKey(add_prefix_for_prod("comments.id")), primary_key=True),
-# )
-
 
 class Post(db.Model):
     __tablename__ = 'posts'
@@ -16,8 +9,9 @@ class Post(db.Model):
 
     id = db.Column(db.Integer, primary_key=True)
     # title = db.Column(db.String(100))
-    img = db.Column(db.String(255))
-    video = db.Column(db.String(255))
+    # img = db.Column(db.String(255))
+    # video = db.Column(db.String(255))
+    media = db.Column(db.String(500))
     body = db.Column(db.String, nullable=False)
     user_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod("users.id")))
     created_at = db.Column(db.Date)
@@ -27,6 +21,12 @@ class Post(db.Model):
         "User", 
         back_populates="posts"
     )
+
+    # medias = db.relationship(
+    #     'Media',
+    #     cascade="delete, merge, save-update",
+    #     back_populates="post"
+    # )
     
     comments = db.relationship(
         'Comment', 
@@ -40,14 +40,13 @@ class Post(db.Model):
         back_populates="likes"
     )
 
-    # post_comments = db.relationship("Comment", secondary = "posts_comments", cascade="delete, merge, save-update", back_populates="post_comments")
-
     def to_dict(self):
         return {
             'id': self.id,
             # 'title': self.title,
-            'img' : self.img,
-            'video' : self.video,
+            # 'img' : self.img,
+            # 'video' : self.video,
+            "media" : self.media,
             'body' : self.body,
             'user_id' : self.user_id,
             'created_at' : self.created_at,
@@ -60,6 +59,7 @@ class Post(db.Model):
                 'profile_picture' : self.user.profile_picture,
             },
             # 'Comments' : [comment.to_dict() for comment in self.comments]
+            # 'Medias' : [media.to_dict() for media in self.medias]
         }
 
 

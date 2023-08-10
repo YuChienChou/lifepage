@@ -1,8 +1,8 @@
 """empty message
 
-Revision ID: 01f6649ac8b5
+Revision ID: 478d803cd7b8
 Revises: 
-Create Date: 2023-07-26 21:54:38.428737
+Create Date: 2023-08-09 16:58:57.993380
 
 """
 from alembic import op
@@ -14,7 +14,7 @@ SCHEMA = os.environ.get("SCHEMA")
 
 
 # revision identifiers, used by Alembic.
-revision = '01f6649ac8b5'
+revision = '478d803cd7b8'
 down_revision = None
 branch_labels = None
 depends_on = None
@@ -28,10 +28,10 @@ def upgrade():
     sa.Column('first_name', sa.String(length=40), nullable=False),
     sa.Column('last_name', sa.String(length=40), nullable=False),
     sa.Column('email', sa.String(length=255), nullable=False),
-    sa.Column('phone', sa.String(length=10), nullable=True),
+    sa.Column('phone', sa.String(length=12), nullable=True),
     sa.Column('birth_date', sa.Date(), nullable=True),
-    sa.Column('bio', sa.String(length=1000), nullable=True),
-    sa.Column('hobbies', sa.String(length=500), nullable=True),
+    sa.Column('bio', sa.String(length=500), nullable=True),
+    sa.Column('hobbies', sa.String(length=300), nullable=True),
     sa.Column('profile_picture', sa.String(length=255), nullable=True),
     sa.Column('cover_photo', sa.String(length=255), nullable=True),
     sa.Column('created_at', sa.Date(), nullable=True),
@@ -49,8 +49,7 @@ def upgrade():
     )
     op.create_table('posts',
     sa.Column('id', sa.Integer(), nullable=False),
-    sa.Column('img', sa.String(length=255), nullable=True),
-    sa.Column('video', sa.String(length=255), nullable=True),
+    sa.Column('media', sa.String(length=500), nullable=True),
     sa.Column('body', sa.String(), nullable=False),
     sa.Column('user_id', sa.Integer(), nullable=True),
     sa.Column('created_at', sa.Date(), nullable=True),
@@ -76,7 +75,7 @@ def upgrade():
     sa.ForeignKeyConstraint(['user_id'], ['users.id'], ),
     sa.PrimaryKeyConstraint('user_id', 'post_id')
     )
-
+    
     if environment == "production":
         op.execute(f"ALTER TABLE users SET SCHEMA {SCHEMA};")
         op.execute(f"ALTER TABLE follows SET SCHEMA {SCHEMA};")

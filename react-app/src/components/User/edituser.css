@@ -26,10 +26,10 @@
 }
 
 #edit-user-form div {
-    display: flex;
+    /* display: flex;k */
     background-color: #FFF;
     /* gap: 10px; */
-    flex-direction: column;
+    /* flex-direction: column; */
 }
 
 
@@ -64,6 +64,11 @@
     outline: none;
 }
 
+#edit-user-profile-picture input,
+#edit-user-cover-photo input {
+    padding: 10px;
+}
+
 #edit-user-button-disabled {
     background-color: #E4E6EB;
     border: none;
@@ -89,10 +94,20 @@
     color: #FFF;
 }
 
-#edit-user-bio textarea {
-    height: 150px;
+#edit-user-bio textarea, 
+#edit-user-hobbies textarea {
+    height: fit-content;
 }
 
-#edit-user-hobbies textarea {
-    height: 100px;
+
+#edit-user-info-images-div {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    padding: 10px;
+}
+
+#edit-user-info-images-div img {
+    width: 100px;
+    border-radius: 5px;
 }

@@ -1,9 +1,10 @@
 from flask import Blueprint, render_template, request
 from flask_login import login_required, current_user
 from app.models import db, User, Post, Comment
-from app.forms import PostForm
-from app.forms import CommentForm
+from app.forms import PostForm, CommentForm
 from datetime import date
+from app.api.aws_helpers import (
+    upload_file_to_s3, get_unique_filename, remove_file_from_s3)
 
 post_route = Blueprint('posts', __name__)
 print(__name__)
@@ -31,26 +32,39 @@ def posts_form():
 @post_route.route('/<int:userId>/new', methods=['POST'])
 @login_required
 def create_post(userId): 
-    # print("in the create post route!!!")
+    print("in the create post route!!!")
     form = PostForm()
     form["csrf_token"].data = request.cookies["csrf_token"]
     userId = current_user.id
     form.user_id.data = userId
-    # print("current user Id in create post route: ", current_user.id)
-    # print("userId in create post route: ", userId)
-    # print("form data in create post routen ", form.data)
-    # print("user id in the form data: ", form.data['user_id'])
     try: 
-        if form.validate_on_submit:
+        if form.validate_on_submit():
+            print("in the try block of the create post route~~~~")
+
+            media_url = ""
+
+            media = form.data["media"] 
+            print("media form data: ", media)
+
+            upload_media = None
+            if media: 
+                media.filename = get_unique_filename(media.filename)
+                upload_media = upload_file_to_s3(media)
+                media_url = upload_media["url"]
+                print("uploaded media in create post route: ", upload_media)
+
+            if upload_media is not None and "url" not in upload_media:
+                return f"{upload_media}."
+            
             new_post = Post(
-                # title = form.data['title'],
-                img = form.data['img'],
-                video = form.data['video'],
+                media = media_url,
                 body = form.data['body'],
                 user_id = form.data['user_id'],
                 created_at = date.today(),
                 updated_at = date.today(),
             )
+
+            print("new post in create post route: ", new_post)
             db.session.add(new_post)
             db.session.commit()
             return new_post.to_dict()
@@ -74,12 +88,29 @@ def edit_post(postId):
         if not edit_post:
             return "Post not found.", 404
         # print("edit_post in the edit post route: ", edit_post.to_dict())
+
+        media_url = ""
+
+        media = form.data["media"] 
+        # print("media form data: ", media)
+
+        upload_media = None
+        if media: 
+            media.filename = get_unique_filename(media.filename)
+            upload_media = upload_file_to_s3(media)
+            media_url = upload_media["url"]
+            # print("uploaded media in create post route: ", upload_media)
+
+        if upload_media is not None and "url" not in upload_media:
+            return f"{upload_media}."
    
         if edit_post.user.id == current_user.id:
-            edit_post.title = form.data['title']
-            edit_post.img = form.data['img']
-            edit_post.video = form.data['video']
+            # edit_post.title = form.data['title']
+            if edit_post.media: 
+                remove_file_from_s3(edit_post.media)
+            edit_post.media = media_url
             edit_post.body = form.data['body']
+            edit_post.user_id = form.data['user_id']
             edit_post.updated_at = date.today()
             db.session.commit()
             # print("edited post in the edit post route: ", edit_post.to_dict())
@@ -89,6 +120,33 @@ def edit_post(postId):
     except Exception as e: 
         return {"error" : str(e)}, 500
     
+
+@post_route.route('/singlePost/<int:postId>/edit', methods=["POST"])
+@login_required
+def edit_single_post(postId):
+
+    # print("in edit single post route~~~~~")
+
+    try:
+        form = PostForm()
+        form["csrf_token"].data = request.cookies["csrf_token"]
+
+        single_post = Post.query.get(postId)
+        # print("single post in the try block : ", single_post)
+        if not single_post:
+            return "Post not found.", 404
+        
+        if single_post.user.id == current_user.id:
+            # single_post.media = single_post.media
+            single_post.body = form.data['body']
+            single_post.user_id = form.data['user_id']
+            single_post.updated_at = date.today()
+            db.session.commit()
+            return single_post.to_dict()
+        
+    except Exception as e:
+        return {"errors" : str(e)}, 500
+
 
 #delete a post 
 @post_route.route('/<int:postId>/delete', methods=["DELETE"])
@@ -102,6 +160,8 @@ def delete_post(postId):
             return "Post not found.", 404
 
         if delete_post.user.id == current_user.id:
+            if delete_post.media:
+                remove_file_from_s3(delete_post.media)
             db.session.delete(delete_post)
             db.session.commit()
             return "Your post has been deleted."
@@ -143,6 +203,10 @@ def get_single_post(postId):
 @post_route.route('/<int:postId>/comments/new', methods=["POST"])
 @login_required
 def create_comment(postId):
+    """
+    Query the post and create a comment for the selected post
+    and return a dictionary of the new comment.
+    """
     # print("in the create comment route~~~~~~~~~~~~~~~~~~")
     try: 
         post = Post.query.get(postId)
@@ -247,11 +311,4 @@ def delete_like_from_post(postId):
         return {"error" : str(e)}, 500
     
 
-
-
-
-        
-
-
-        
 

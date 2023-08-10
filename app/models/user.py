@@ -34,10 +34,10 @@ class User(db.Model, UserMixin):
     first_name = db.Column(db.String(40), nullable=False)
     last_name = db.Column(db.String(40), nullable=False)
     email = db.Column(db.String(255), nullable=False, unique=True)
-    phone = db.Column(db.String(10))
+    phone = db.Column(db.String(12))
     birth_date = db.Column(db.Date)
-    bio = db.Column(db.String(1000))
-    hobbies = db.Column(db.String(500))
+    bio = db.Column(db.String(500))
+    hobbies = db.Column(db.String(300))
     profile_picture = db.Column(db.String(255))
     cover_photo = db.Column(db.String(255))
     created_at = db.Column(db.Date)
@@ -49,6 +49,8 @@ class User(db.Model, UserMixin):
         back_populates="user", 
         cascade="delete, merge, save-update"
     )
+
+
 
     comments = db.relationship(
         "Comment", 

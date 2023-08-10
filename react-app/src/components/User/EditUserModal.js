@@ -1,18 +1,22 @@
 import { useDispatch, useSelector } from 'react-redux';
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { editUserThunk, getCurrentUserThunk, getSingleUserThunk } from "../../store/user";
+import { editUserInfoThunk, editUserProfilePictureThunk, editUserCoverPhotoThunk,getCurrentUserThunk, getSingleUserThunk } from "../../store/user";
 import { useModal } from "../../context/Modal";
 import userProfilePicture from '../resources/default-user-profile-picture.png';
 import './edituser.css'
 
 
-export default function EditUserModal({sessionUser}) {    
+export default function EditUserModal({sessionUser}) { 
+    const [username, setUsername] = useState(sessionUser.username);
     const [phone, setPhone] = useState(sessionUser.phone);
-    const [bio, setBio] = useState(sessionUser.bio);
-    const [hobbies, setHobbies] = useState(sessionUser.hobbies);
-    const [profilePicture, setProfilePicture] = useState(sessionUser.profile_picture);
-    const [coverPhoto, setcoverPhoto] = useState(sessionUser.cover_photo );
+    const [bio, setBio] = useState(sessionUser.bio ? sessionUser.bio : "");
+    const [hobbies, setHobbies] = useState(sessionUser.hobbies ? sessionUser.hobbies : "");
+    const [profilePicture, setProfilePicture] = useState('');
+    // console.log("sessionuser profile picture in EditUserModal: ", sessionUser.profile_picture)
+    // console.log("profiel picture in EditUserModal: ", profilePicture);
+    const [coverPhoto, setCoverPhoto] = useState('');
+    // console.log("sessionuser cover photo in EditUserModal: ", sessionUser.cover_photo)
     // console.log("coverPhoto in EditUserModal: ", coverPhoto);
     const [validationError, setValidationError] = useState({});
     const dispatch = useDispatch();
@@ -21,34 +25,69 @@ export default function EditUserModal({sessionUser}) {
     const handleSubmit = async (e) => {
         e.preventDefault();
 
-        const userInfo = {
-            user_id : sessionUser.id,
-            phone,
-            bio,
-            hobbies,
-            profile_picture: profilePicture,
-            cover_photo: coverPhoto,
-        };
+        if(profilePicture) {
+            const userInfo = new FormData();
+            userInfo.append("username", username);
+            userInfo.append("phone", phone);
+            userInfo.append("bio", bio);
+            userInfo.append("hobbies", hobbies);
+            userInfo.append("profile_picture", profilePicture);
+            // userInfo.append("cover_photo", sessionUser.cover_photo);
 
-        try {
-            await dispatch(editUserThunk(userInfo));
-            await dispatch(getSingleUserThunk(sessionUser.id));
-            // await dispatch(getCurrentUserThunk());
-
+            await dispatch(editUserProfilePictureThunk(userInfo));
+            await dispatch(getCurrentUserThunk());
+            await dispatch(getSingleUserThunk(sessionUser.id))
             closeModal();
-        } catch(error) {
-            console.log(error);
+        } 
+        if(coverPhoto) {
+            const userInfo = new FormData();
+            userInfo.append("username", username);
+            userInfo.append("phone", phone);
+            userInfo.append("bio", bio);
+            userInfo.append("hobbies", hobbies);
+            // userInfo.append("profile_picture", sessionUser.profile_picture);
+            userInfo.append("cover_photo", coverPhoto);
+
+            await dispatch(editUserCoverPhotoThunk(userInfo));
+            await dispatch(getCurrentUserThunk());
+            await dispatch(getSingleUserThunk(sessionUser.id))
+            closeModal();
+        } 
+
+        if(!profilePicture && !coverPhoto) {
+            const userInfo = {
+                username: username,
+                phone: phone,
+                bio: bio,
+                hobbies: hobbies,
+                // profile_picture: sessionUser.profile_picture,
+                // cover_photo: sessionUser.cover_photo,
+            }
+
+            await dispatch(editUserInfoThunk(userInfo));
+            await dispatch(getCurrentUserThunk());
+            await dispatch(getSingleUserThunk(sessionUser.id))
+            closeModal();
         }
+
     }
 
 
     useEffect(() => {
         const errors = {};
         if(phone && phone.length > 10) errors.phone = "Please enter valid phone number.";
-        if(bio && bio.length > 1000) errors.biolength = "Please enter your bio within 1000 characters."
-        if(hobbies && hobbies.length > 500) errors.hobbylength = "Please enter your hobbies within 500 characters."
-        if(profilePicture && !profilePicture.endsWith('.jpg') && !profilePicture.endsWith('.png') && !profilePicture.endsWith('.jpeg')) errors.profilePictureFormat = "Image URL needs to end in png or jpg (or jpeg)";
-        if(coverPhoto && !coverPhoto.endsWith('.jpg') && !coverPhoto.endsWith('.png') && !coverPhoto.endsWith('.jpeg')) errors.coverPhotoFormat = "Image URL needs to end in png or jpg (or jpeg)";
+        if(bio && bio.length > 500) errors.biolength = "Please enter your bio within 500 characters."
+        if(hobbies && hobbies.length > 300) errors.hobbylength = "Please enter your hobbies within 300 characters."
+        if(profilePicture && 
+           !profilePicture["name"].endsWith('.jpg') && 
+           !profilePicture["name"].endsWith('.png') && 
+           !profilePicture["name"].endsWith('.jpeg')) 
+           errors.profilePictureFormat = "Image URL needs to end in png or jpg (or jpeg)";
+        if(coverPhoto && 
+           !coverPhoto["name"].endsWith('.jpg') && 
+           !coverPhoto["name"].endsWith('.png') && 
+           !coverPhoto["name"].endsWith('.jpeg')) 
+           errors.coverPhotoFormat = "Image URL needs to end in png or jpg (or jpeg)";
 
         setValidationError(errors);
     }, [phone, bio, hobbies, profilePicture, coverPhoto])
@@ -69,13 +108,29 @@ export default function EditUserModal({sessionUser}) {
             <Link to={`/user/${sessionUser.id}/posts`}>{sessionUser.first_name} {sessionUser.last_name}</Link>
         </div>
 
-        <form id='edit-user-form' onSubmit={handleSubmit}>
-            {/* <div id='edit-user-phone'>
+        <form id='edit-user-form' onSubmit={handleSubmit} encType="multipart/form-data">
+            <div id='edit-user-phone'>
+                <div>
+                    <i className="fa-solid fa-user">user name</i>
+                    <input 
+                        type='text'
+                        value={ username }
+                        onChange={(e) => setUsername(e.target.value)}
+                    />
+                </div>
+
+                {validationError.phone ? 
+                    <div id='error-div'>
+                        {validationError.phone && <p>{validationError.phone}</p>}
+                    </div>
+                    : null
+                }
+            </div>
+            <div id='edit-user-phone'>
                 <div>
                     <i className="fa-solid fa-phone">Phone</i>
                     <input 
                         type='text'
-                        placeholder='Please enter your phone'
                         value={ phone }
                         onChange={(e) => setPhone(e.target.value)}
                     />
@@ -88,17 +143,19 @@ export default function EditUserModal({sessionUser}) {
                     : null
                 }
             </div>
-          */}
+         
 
             <div id="edit-user-profile-picture">
                 <div>
+                    
                     <i className="fa-solid fa-image-portrait">Profile picture</i>
-                    <textarea
-                        type="text"
-                        placeholder='Please provide img url ends with png, jpg, or jpeg.'
-                        value={ profilePicture }
-                        onChange={(e) => setProfilePicture(e.target.value)}
-                    />
+                    <div id="edit-user-info-images-div">
+                        <img src={sessionUser.profile_picture} alt={sessionUser.username} />
+                        <input
+                            type="file"
+                            onChange={(e) => setProfilePicture(e.target.files[0])}
+                        />
+                    </div>
                 </div>
 
                 {validationError.profilePictureFormat ? 
@@ -112,13 +169,14 @@ export default function EditUserModal({sessionUser}) {
 
             <div id='edit-user-cover-photo'>
                 <div> 
-                <i className="fa-solid fa-image">Cover photo</i>
-                    <textarea
-                        type='text'
-                        placeholder='Please provide img url ends with png, jpg, or jpeg.'
-                        value={ coverPhoto }
-                        onChange={(e) => setcoverPhoto(e.target.value)}
-                    />
+                    <i className="fa-solid fa-image">Cover photo</i>
+                    <div id="edit-user-info-images-div">
+                        <img src={sessionUser.cover_photo} alt={sessionUser.username} />
+                        <input
+                            type='file'
+                            onChange={(e) => setCoverPhoto(e.target.files[0])}
+                        />
+                    </div>
                 </div>
 
                 {validationError.coverPhotoFormat ? 
@@ -130,12 +188,11 @@ export default function EditUserModal({sessionUser}) {
             </div>
             
 
-            {/* <div id='edit-user-bio'>
+            <div id='edit-user-bio'>
                 <div>
                     <i className="fa-solid fa-book">Bio</i>
                     <textarea
                         type='text'
-                        placeholder='Please enter your bio.'
                         value={ bio }
                         onChange={(e) => setBio(e.target.value)}
                     />
@@ -155,7 +212,7 @@ export default function EditUserModal({sessionUser}) {
                 <i className="fa-solid fa-face-kiss-wink-heart">Hobbies</i>
                 <textarea
                     type='text'
-                    placeholder='Please enter your hobbies'
+                    value={ hobbies }
                     onChange={(e) => setHobbies(e.target.value)}
                 /></div>
 
@@ -166,7 +223,7 @@ export default function EditUserModal({sessionUser}) {
                     : null
                 }
             </div>
-             */}
+            
 
             <button 
                 disabled={Object.values(validationError).length > 0}

@@ -139,7 +139,8 @@
 
 #edit-delete-comment-container {
     position: absolute;
-    right: -160px;
+    top: 45px;
+    right: -90px;
     display: flex;
     background-color: #FFF;
     display: flex;

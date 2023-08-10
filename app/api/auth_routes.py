@@ -72,6 +72,11 @@ def sign_up():
             last_name = form.data['last_name'],
             email=form.data['email'],
             password=form.data['password'],
+            phone="",
+            username="",
+            bio="",
+            hobbies="", 
+            birth_date="",        
             created_at= date.today(),
             updated_at= date.today()
         )

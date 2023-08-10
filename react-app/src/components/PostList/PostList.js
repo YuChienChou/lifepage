@@ -42,6 +42,8 @@ export default function PostList({ sessionUser }) {
     useEffect(()=> {
         dispatch(getAllPostsThunk());
     }, [dispatch])
+
+    if(postsArr.length < 1) return null;
     
     return (
         
@@ -95,20 +97,40 @@ export default function PostList({ sessionUser }) {
                     
                 <div id='post-content'>
                     <div id='content'>
-                        {/* <p>{post.title}</p> */}
                         <p>{post.body}</p>
                     </div>
-                    {post.img? 
-                        <Link to={`/posts/${post.id}`}><div id='img-post'>
-                        <img src={post.img} alt=""/></div></Link>
-                        : null
-                    }  
-                    {post.video ? 
-                        <div id='video-post'>
-                            <ReactPlayer url={post.video} controls width='100%' height='100%'/>
-                        </div>
-                        : null
-                    }
+                   
+                    {(() => {
+                        if(post.media) {
+                            if(post.media.endsWith("pdf") ||
+                               post.media.endsWith("png") ||
+                               post.media.endsWith("jpg") ||
+                               post.media.endsWith("jpeg") ||
+                               post.media.endsWith("gif")) {
+                                return <>
+                                <Link to={`/posts/${post.id}`}><div id='img-post'>
+                                <img src={post.media} alt=""/></div></Link>
+                                </>
+                            } 
+                            else if(post.media.startsWith('https://www.youtube.com')) {
+                                return <>
+                                    <div id='video-post'>
+                                        <ReactPlayer url={post.media} controls width='100%' height='100%'/>
+                                    </div>
+                                </>
+                            }
+                            else {
+                                return <>
+                                <div id='video-post'>
+                                    <video controls width="100%">
+                                        <source src={post.media} type='video/mp4' />
+                                    </video>
+                                </div>
+                                </>
+                            }
+                        }
+
+                    })()}
 
                     <PostLikes sessionUser={sessionUser} postId={post.id} />
 

@@ -82,11 +82,17 @@
     background-color: #FFF;
     display: flex;
     align-items: center;
-    margin-bottom: 10px;
+    padding: 10px;
+    margin-bottom: 15px;
     gap: 10px;
+    justify-content: space-around;
 }
 
-#edit-image-div i {
+#edit-image-div input {
+    background-color: #FFF;
+}
+
+#edit-post-image-div i {
     background-color: #FFF;
     color: #41B35D;
 }
@@ -195,4 +201,16 @@
     background-color: #1A6ED8;
     color: #FFF;
     cursor: pointer;
+}
+
+#edit-image-div img {
+    width: 100px;
+    border-radius: 5px;
+}
+
+#edit-post-image-div {
+    display: flex;
+    gap: 10px;
+    background-color: #FFF;
+    align-items: center;
 }

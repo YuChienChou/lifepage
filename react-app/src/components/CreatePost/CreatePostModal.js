@@ -9,16 +9,15 @@ import './createpost.css'
 
 
 export default function CreatePost({sessionUser}) {
-    // const [title, setTitle] = useState("")
-    
-    const [img, setImg] = useState("");
-    const [video, setVideo] = useState("");
+    const [media, setMedia] = useState("");
     const [body, setBody] = useState("");
     const [validationError, setValidationError] = useState({});
     const [showItem, setShowItem] = useState(false)
     const [hasSubmit, setHasSubmit] = useState(false);
     const dispatch = useDispatch();
     const { closeModal } = useModal();
+
+
 
     const showItemFun = () => {
         setShowItem(!showItem)
@@ -28,13 +27,11 @@ export default function CreatePost({sessionUser}) {
         e.preventDefault();
         setHasSubmit(true);
 
-        const postInfo = {
-            // title,
-            img,
-            video,
-            body,
-            user_id: sessionUser.id,
-        }
+        const postInfo = new FormData();
+        postInfo.append("media", media);
+        postInfo.append("body", body);
+        postInfo.append("user_id", sessionUser.id);
+    
 
         try {
             await dispatch(createPostThunk(sessionUser.id, postInfo));
@@ -51,13 +48,24 @@ export default function CreatePost({sessionUser}) {
         const errors = {}
         if(!body) errors.body = "please enter your post";
         if(body.length > 3000) errors.bodylength = "Please enter content less than 3000 characters.";
-        if(img && !img.endsWith('.jpg') && !img.endsWith('.png') && !img.endsWith('.jpeg')) errors.imgFormat = "Image URL needs to end in png or jpg (or jpeg)";
-        if(video) {
-            const videoFrag = video.split("=");
-            if(!videoFrag[0].includes("https://www.youtube.com/"))  errors.videoFormat = "Please enter valid URL form YouTube."}
+        // if(img && !img.endsWith('.jpg') && !img.endsWith('.png') && !img.endsWith('.jpeg')) errors.imgFormat = "Image URL needs to end in png or jpg (or jpeg)";
+        // if(video) {
+        //     const videoFrag = video.split("=");
+        //     if(!videoFrag[0].includes("https://www.youtube.com/"))  errors.videoFormat = "Please enter valid URL form YouTube."}
+        if(media) {
+            if(!media['name'].endsWith("pdf") && 
+               !media['name'].endsWith("png") &&
+               !media['name'].endsWith("jpg") &&
+               !media['name'].endsWith("jpeg") && 
+               !media['name'].endsWith("gif") && 
+               !media['name'].endsWith("mp4") && 
+               !media['name'].endsWith("avi") && 
+               !media['name'].endsWith("mov") &&
+               !media['name'].endsWith("mkv"))  
+               errors.mediaFormat = "Please provide valid image or video file ends with pdf, png, jpg, gif, jpeg, gif, mp4, avi, mov, or mkv"}
 
         setValidationError(errors)
-    }, [body, img, video]);
+    }, [body, media]);
 
     return (
         <>
@@ -70,13 +78,23 @@ export default function CreatePost({sessionUser}) {
             <Link to={`/user/${sessionUser.id}/posts`}>{sessionUser.first_name} {sessionUser.last_name}</Link>
         </div>
        
-        <form id='create-post-form' onSubmit={handleSubmit}>
+        <form id='create-post-form' onSubmit={handleSubmit} encType="multipart/form-data">
                 <textarea 
                     type='text'
-                    placeholder={`What's on your mind, ${sessionUser.first_name}?`}
+                    placeholder={`What's on your mind, ${sessionUser.username? sessionUser.username : sessionUser.first_name}?`}
                     value={body}
                     onChange={(e) => setBody(e.target.value)}
                 /> 
+
+                        
+                {hasSubmit ? 
+                    <div id="animationDiv" className="animation-container">
+                        <div className="loading-spinner"></div>
+                        <p>Uploading...</p>
+                    </div>
+                    :
+                    null
+                }
                 
                 <div id='error-div'>
                     {validationError.bodylength && <p>{validationError.bodylength}</p>}
@@ -85,35 +103,17 @@ export default function CreatePost({sessionUser}) {
                 {showItem ? 
                         <div id='add-image-div'>
                             <i className="fa-solid fa-photo-film"></i>
-                            <textarea 
-                                type='text'
-                                value={img}
-                                onChange={(e) => setImg(e.target.value)}
-                                placeholder="Please provide img url ends with png, jpg, or jpeg."/>
+                            <input
+                                type="file"
+                                onChange={(e) => setMedia(e.target.files[0])}
+                                />
                         </div>
                     : null
                 }
 
-                {showItem ? 
-                        <div id='add-video-div'>
-                            <i className="fa-solid fa-video"></i>
-                            <textarea 
-                                type='text'
-                                value={video}k
-                                onChange={(e) => setVideo(e.target.value)}
-                                placeholder="Please provide valid url from YouTube."/>
-                        </div>
-                    : null
-                }
-                {validationError.imgFormat ? 
+                {validationError.mediaFormat ? 
                 <div id='error-div'>
-                    {validationError.imgFormat && <p>{validationError.imgFormat}</p>}
-                </div>
-                : null
-                }
-                {validationError.videoFormat ? 
-                <div id='error-div'>
-                    {validationError.videoFormat && <p>{validationError.videoFormat}</p>}
+                    {validationError.mediaFormat && <p>{validationError.mediaFormat}</p>}
                 </div>
                 : null
                 }
@@ -137,6 +137,7 @@ export default function CreatePost({sessionUser}) {
                         Post
                     </button>
         </form>
+
 
         </>
     )

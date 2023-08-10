@@ -2,15 +2,13 @@ import { useState, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { useModal } from '../../context/Modal';
-import { editPostThunk, getAllPostsThunk, getUserPostsThunk } from '../../store/post';
+import { editPostThunk, editSinglePostThunk, getAllPostsThunk, getUserPostsThunk } from '../../store/post';
 import userProfilePicture from '../resources/default-user-profile-picture.png';
 import './editPost.css'
 
 export default function EditPostModal({sessionUser, post }) {
-    // console.log("post in editpostmodal: ", post);
-    // const [title, setTitle] = useState(post.title);
-    const [img, setImg] = useState(post.img);
-    const [video, setVideo] = useState(post.video);
+    const [media, setMedia] = useState("");
+    // console.log("post media in editPostModal: ", post.media)
     const [body, setBody] = useState(post.body);
     const [validationError, setValidationError] = useState({});
     const [hasSubmit, setHasSubmit] = useState(false);
@@ -26,36 +24,64 @@ export default function EditPostModal({sessionUser, post }) {
         e.preventDefault();
         setHasSubmit(true);
 
-        const postInfo = {
-            // title, 
-            img, 
-            video,
-            body,
-            user_id : sessionUser.id
-        }
-        
-        try {
-            await dispatch(editPostThunk(post.id, postInfo)) 
-            await dispatch(getUserPostsThunk(sessionUser.id));
-            await dispatch(getAllPostsThunk());           
+        if(media) {
+            const postInfo = new FormData();
+            postInfo.append("media", media);
+            postInfo.append("body", body);
+            postInfo.append("user_id", sessionUser.id);
             
-            closeModal();
-        } catch(error) {
-            console.log(error);
-        };
+            try {
+                await dispatch(editPostThunk(post.id, postInfo)) 
+                await dispatch(getUserPostsThunk(sessionUser.id));
+                await dispatch(getAllPostsThunk());           
+                
+                closeModal();
+            } catch(error) {
+                console.log(error);
+            };
+        } else {
+            const postInfo = {
+                media : post.media,
+                body : body,
+                user_id : sessionUser.id
+            }
+
+            try {
+                await dispatch(editSinglePostThunk(post.id, postInfo)) 
+                await dispatch(getUserPostsThunk(sessionUser.id));
+                await dispatch(getAllPostsThunk());           
+                
+                closeModal();
+            } catch(error) {
+                console.log(error);
+            };
+        }
+
+       
     };
 
     useEffect(() => {
         const errors = {};
         if(!body) errors.body = "Please enter your post.";
         if(body.length > 3000) errors.body = errors.bodylength = "Please enter content less than 3000 characters.";
-        if(img && !img.endsWith('.jpg') && !img.endsWith('.png') && !img.endsWith('.jpeg')) errors.imgFormat = "Image URL needs to end in png or jpg (or jpeg)";
-        if(video) {
-            const videoFrag = video.split("=");
-            if(!videoFrag[0].includes("https://www.youtube.com/"))  errors.videoFormat = "Please enter valid URL form YouTube."}
-        
+        // if(img && !img.endsWith('.jpg') && !img.endsWith('.png') && !img.endsWith('.jpeg')) errors.imgFormat = "Image URL needs to end in png or jpg (or jpeg)";
+        // if(video) {
+        //     const videoFrag = video.split("=");
+        //     if(!videoFrag[0].includes("https://www.youtube.com/"))  errors.videoFormat = "Please enter valid URL form YouTube."}
+        if(media) {
+            if(!media['name'].endsWith("pdf") && 
+               !media['name'].endsWith("png") &&
+               !media['name'].endsWith("jpg") &&
+               !media['name'].endsWith("jpeg") && 
+               !media['name'].endsWith("gif") && 
+               !media['name'].endsWith("mp4") && 
+               !media['name'].endsWith("avi") && 
+               !media['name'].endsWith("mov") &&
+               !media['name'].endsWith("mkv"))  
+               errors.mediaFormat = "Please provide valid image or video file ends with pdf, png, jpg, gif, jpeg, gif, mp4, avi, mov, or mkv"}
+
         setValidationError(errors)
-    }, [body, img, video])
+    }, [body, media])
 
     return (
         <>
@@ -68,13 +94,22 @@ export default function EditPostModal({sessionUser, post }) {
                      alt={sessionUser.first_name}/></Link>
                 <Link to={`/user/${sessionUser.id}/posts`}><p>{sessionUser.first_name} {sessionUser.last_name}</p></Link>
             </div>
-            <form id='edit-post-form' onSubmit={EditPost}>
+            <form id='edit-post-form' onSubmit={EditPost} encType="multipart/form-data">
       
                     <textarea 
                     
                         value={body}
                         onChange={(e) => setBody(e.target.value)}
                     />
+
+                    {hasSubmit ? 
+                        <div id="animationDiv" className="animation-container">
+                            <div className="loading-spinner"></div>
+                            <p>Uploading...</p>
+                        </div>
+                        :
+                        null
+                    }
 
                     <div id='error-div'>
                         {validationError.bodylength && <p>{validationError.bodylength}</p>}
@@ -83,19 +118,44 @@ export default function EditPostModal({sessionUser, post }) {
                     {showItem? 
                         <div id='edit-image-div-container'>
                             <div id='edit-image-div'>
-                                <i className="fa-solid fa-photo-film"></i>
-                                <textarea 
-                                    type='text'
-                                    value={ img }
-                                    onChange={(e) => setImg(e.target.value)}
-                                    placeholder="Please provide img url ends with png, jpg, or jpeg."
-                                />
+                                {/* <img src={post.media} alt='' /> */}
+                                {(() => {
+                                    if(post.media) {
+                                        if(post.media.endsWith("pdf") ||
+                                        post.media.endsWith("png") ||
+                                        post.media.endsWith("jpg") ||
+                                        post.media.endsWith("jpeg") ||
+                                        post.media.endsWith("gif")) {
+                                            return <>
+                                            
+                                            <img src={post.media} alt=""/>
+                                            </>
+                                        } else {
+                                            return <>
+                            
+                                                <video width="100px">
+                                                    <source src={post.media} type='video/mp4' />
+                                                </video>
+                                            
+                                            </>
+                                        }
+                                    }
+
+                                })()}
+                                <div id='edit-post-image-div'>
+                                    
+                                    <i className="fa-solid fa-photo-film"></i>
+                                    <input 
+                                        type='file'
+                                        onChange={(e) => setMedia(e.target.files[0])}
+                                    />
+                                </div>
                             </div>                             
                         </div>
                         : null
                     }
                     
-                    {showItem ? 
+                    {/* {showItem ? 
                         <div id='edit-video-div'>
                             <i className="fa-solid fa-video"></i>
                             <textarea 
@@ -108,20 +168,20 @@ export default function EditPostModal({sessionUser, post }) {
 
                         
                         : null
-                    }
+                    } */}
 
-                    {validationError.imgFormat ? 
+                    {validationError.mediaFormat ? 
                         <div id='error-div'>
-                            {validationError.imgFormat && <p>{validationError.imgFormat}</p>}
+                            {validationError.mediaFormat && <p>{validationError.mediaFormat}</p>}
                         </div>
                         : null
                     }
-                    {validationError.videoFormat ? 
+                    {/* {validationError.videoFormat ? 
                         <div id='error-div'>
                             {validationError.videoFormat && <p>{validationError.videoFormat}</p>}
                         </div>
                         : null
-                    }
+                    } */}
 
                     <div id='create-post-button-div'>
                         <div onClick={showItemFun}>

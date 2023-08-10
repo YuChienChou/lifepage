@@ -48,14 +48,16 @@ export default function UserPorfile() {
             <div id='user-profile-right'>
                     <div id='user-intro'>
                         <div id='cover-photo'>
-                            <img src={user.cover_photo ? user.cover_photo : userCoverPhoto} 
-                            alt={user.first_name} />
+                            <div id='cover-photo-img'>
+                                <img src={user.cover_photo ? user.cover_photo : userCoverPhoto} 
+                                alt={user.first_name} />
+                            </div>
                         </div>
                         <div id='profile-picture'>
                             <img src={user.profile_picture ? user.profile_picture : userProfilePicture} 
                                  alt={user.first_name} />
                             <div id='edit-profile-div'>
-                                <h4>{user.first_name} {user.last_name}</h4>
+                                <h4>{user.username ? user.username : user.first_name}</h4>
                                 {Number(userId) === sessionUser.id ? 
                                     <OpenModalButton
                                     buttonText={<i className="fa-solid fa-pen-to-square"></i>}

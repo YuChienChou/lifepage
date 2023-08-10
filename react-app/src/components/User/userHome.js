@@ -42,7 +42,7 @@ export default function UserHome() {
                         <img src={currentUser.profile_picture ? currentUser.profile_picture : userProfilePicture} 
                              alt={currentUser.first_name} /></Link>
                     <OpenModalButton
-                        buttonText ={`What's on your mind, ${currentUser.first_name}?`}
+                        buttonText ={`What's on your mind, ${currentUser.username ? currentUser.username : currentUser.first_name}?`}
                         modalComponent={<CreatePost sessionUser={currentUser}/>}
                     />                    
                 </div>
