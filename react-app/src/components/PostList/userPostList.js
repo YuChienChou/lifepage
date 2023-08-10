@@ -16,7 +16,7 @@ import { getCurrentUserThunk } from '../../store/user';
 
 
 export default function UserPostList({ sessionUser, user, posts }) {
-    console.log("user id in userPostList: ", user.id)
+    // console.log("user id in userPostList: ", user.id)
     const currentUser = useSelector((state) => state.users.currentUser);
     const userPostsStore = useSelector((state) => state.posts.userPosts);
     const userPostArr = Object.values(userPostsStore);
