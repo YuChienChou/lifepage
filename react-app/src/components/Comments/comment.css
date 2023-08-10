@@ -8,16 +8,25 @@
 }
 #comment-user-div {
     display: flex;
+    flex-direction: column;
     justify-content: space-between;
     padding: 10px 0 5px 0;
     background-color: #FFF;
 }
 
+#user-comment-div {
+    display: flex;
+    flex-direction: column;
+    width: fit-content;
+}
+
 #user-comment {
     display: flex;
+    grid-gap: 10px;
     gap: 10px;
     align-items: center;
     background-color: #FFF;
+    /* flex-direction: column; */
 }
 
 #user-comment a {
@@ -28,6 +37,28 @@
     width: 32px;
     height: 32px;
     border-radius: 50%;
+}
+
+#comment-day {
+    
+    background-color: #FFF;
+    display: flex;
+    justify-content: flex-end;
+    padding: 5px;
+}
+
+#comment-day p {
+    /* position: relative;
+    left: 70%; */
+    background-color: #FFF;
+    padding-right: 15px;
+}
+
+#comment {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    background-color: #FFF;
 }
 
 #comment-user-div img {

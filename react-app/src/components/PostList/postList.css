@@ -112,3 +112,14 @@
     width: 100%;
     text-align: center;
 }
+
+
+#post-date {
+    background-color: #FFF;
+}
+
+#day {
+    font-size: 12px;
+    background-color: #FFF;
+    margin-top: 5px;
+}

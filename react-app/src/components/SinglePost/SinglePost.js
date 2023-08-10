@@ -18,6 +18,7 @@ export default function SinglePost() {
     const [body, setBody] = useState(singlePost.body);
     const [editPost, setEditPost] = useState(false);
     const dispatch = useDispatch();
+    const currDate = new Date();
 
     const showEditFun = () => {
         setEditPost(true);
@@ -75,9 +76,28 @@ export default function SinglePost() {
                             <Link to={`/user/${singlePost.User.id}/posts`}>
                                 <img src={singlePost.User.profile_picture} alt={singlePost.User.first_name} />
                             </Link>
-                            <Link to={`/user/${singlePost.User.id}/posts`}>
-                                {singlePost.User.firstname} {singlePost.User.lastname}
-                            </Link>
+                            <div id='post-date'>
+                                <Link to={`/user/${singlePost.User.id}/posts`}>
+                                    {singlePost.User.firstname} {singlePost.User.lastname}
+                                </Link>
+                                {(() => {
+                                        
+                                        const createdDate = new Date(singlePost.created_at);
+                                        const timeDiff = Math.round((currDate - createdDate) / (1000 * 60 * 60 * 24));
+                                        if(timeDiff > 1) {
+                                            return <p id="day">{timeDiff}ds ago</p>;
+                                        } else if(timeDiff > 365) {
+                                            return <p id="day">{Math.round(timeDiff / 365) > 1 ? `${Math.round(timeDiff / 365)} years ago.` : `1 year ago` }</p>
+                                        }
+                                        // else if (timeDiff < 1) {
+                                        //     return <p id='day'>{Math.round(timeDiff / 60)} hrs ago</p>
+                                        // }
+                                        return <p id='day'>{Math.round(timeDiff / 60) < 1 ? `Today` : `${(timeDiff / 60).toFixed(1)} hrs ago`} </p>
+                                        // const createdArr = createdStr.split(" ");
+                                        // console.log("createdArr: ", createdArr);
+                                        // return <p>{createdArr[2]} {createdArr[1]} {createdArr[3]}</p>
+                                    })()}
+                            </div>
                         </div>
                         <div id='sp-body'>
 
