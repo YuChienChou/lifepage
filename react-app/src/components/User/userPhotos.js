@@ -41,13 +41,21 @@ export default function UserPhotos({user, userPostArr}) {
                                         post.media.endsWith("jpeg") ||
                                         post.media.endsWith("gif")) {
                                             return <>
-                                            <Link to={`/posts/${post.id}`}><div id='img-post'>
-                                            <img src={post.media} alt=""/></div></Link>
+                                            <Link to={`/posts/${post.id}`}><div id='image-post'>
+                                            <img src={post.media} alt="" width='100%' height='198px'/></div></Link>
                                             </>
-                                        } else {
+                                        } 
+                                        else if(post.media.startsWith('https://www.youtube.com')) {
                                             return <>
-                                            <div id='video-pot'>
-                                                <video controls width="100%">
+                                                <div id='youtube-video-post'>
+                                                    <ReactPlayer url={post.media} controls width='100%' height='198px'/>
+                                                </div>
+                                            </>
+                                        }
+                                        else {
+                                            return <>
+                                            <div id='user-video-post'>
+                                                <video controls width="100%" height="100%">
                                                     <source src={post.media} type='video/mp4' />
                                                 </video>
                                             </div>
