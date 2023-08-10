@@ -130,7 +130,15 @@ export default function UserPostList({ sessionUser, user, posts }) {
                                 <Link to={`/posts/${post.id}`}><div id='img-post'>
                                 <img src={post.media} alt=""/></div></Link>
                                 </>
-                            } else {
+                            } 
+                            else if(post.media.startsWith('https://www.youtube.com')) {
+                                return <>
+                                    <div id='video-post'>
+                                        <ReactPlayer url={post.media} controls width='100%' height='100%'/>
+                                    </div>
+                                </>
+                            }
+                            else {
                                 return <>
                                 <div id='video-pot'>
                                     <video controls width="100%">
