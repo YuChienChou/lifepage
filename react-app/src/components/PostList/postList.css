@@ -57,7 +57,7 @@
 #edit-delete-post-container {
     position: absolute;
     top: 40px;
-    right: -100px;
+    right: -60px;
     z-index: 1;
     background-color: #FFF;
     display: flex;

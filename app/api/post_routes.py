@@ -78,7 +78,7 @@ def create_post(userId):
 def edit_post(postId):
 
     try: 
-        # print("In the edit post route!!!!!!!!")
+        print("In the edit post route!!!!!!!!")
         form = PostForm()
         form["csrf_token"].data = request.cookies["csrf_token"]
         # userId = current_user.id
@@ -87,33 +87,37 @@ def edit_post(postId):
         edit_post = Post.query.get(postId)
         if not edit_post:
             return "Post not found.", 404
-        # print("edit_post in the edit post route: ", edit_post.to_dict())
+        print("edit_post in the edit post route: ", edit_post.to_dict())
+
+        if edit_post.media: 
+                remove_file_from_s3(edit_post.media)
 
         media_url = ""
 
         media = form.data["media"] 
-        # print("media form data: ", media)
+        print("media form data: ", media)
 
         upload_media = None
         if media: 
             media.filename = get_unique_filename(media.filename)
             upload_media = upload_file_to_s3(media)
             media_url = upload_media["url"]
-            # print("uploaded media in create post route: ", upload_media)
+            print("uploaded media in create post route: ", upload_media)
 
         if upload_media is not None and "url" not in upload_media:
             return f"{upload_media}."
    
         if edit_post.user.id == current_user.id:
             # edit_post.title = form.data['title']
-            if edit_post.media: 
-                remove_file_from_s3(edit_post.media)
+            print("edit post old media in edit post route: ", edit_post.media)
+            
             edit_post.media = media_url
+            print("edit post new media in edit post route: ", edit_post.media)
             edit_post.body = form.data['body']
             edit_post.user_id = form.data['user_id']
             edit_post.updated_at = date.today()
             db.session.commit()
-            # print("edited post in the edit post route: ", edit_post.to_dict())
+            print("edited post in the edit post route: ", edit_post.to_dict())
             return edit_post.to_dict()
 
     

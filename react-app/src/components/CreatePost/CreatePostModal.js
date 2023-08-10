@@ -77,6 +77,15 @@ export default function CreatePost({sessionUser}) {
             alt={sessionUser.first_name}/></Link>
             <Link to={`/user/${sessionUser.id}/posts`}>{sessionUser.first_name} {sessionUser.last_name}</Link>
         </div>
+
+        {hasSubmit ? 
+                    <div id="animationDiv" className="animation-container">
+                        <div className="loading-spinner"></div>
+                        <p>Uploading...</p>
+                    </div>
+                    :
+                    null
+                }
        
         <form id='create-post-form' onSubmit={handleSubmit} encType="multipart/form-data">
                 <textarea 
@@ -85,16 +94,6 @@ export default function CreatePost({sessionUser}) {
                     value={body}
                     onChange={(e) => setBody(e.target.value)}
                 /> 
-
-                        
-                {hasSubmit ? 
-                    <div id="animationDiv" className="animation-container">
-                        <div className="loading-spinner"></div>
-                        <p>Uploading...</p>
-                    </div>
-                    :
-                    null
-                }
                 
                 <div id='error-div'>
                     {validationError.bodylength && <p>{validationError.bodylength}</p>}
