@@ -36,7 +36,7 @@ export default function CreatePost({sessionUser}) {
         try {
             await dispatch(createPostThunk(sessionUser.id, postInfo));
             await dispatch(getSingleUserThunk(sessionUser.id));
-            await dispatch(getUserPostsThunk(sessionUser.id));
+            // await dispatch(getUserPostsThunk(sessionUser.id));
             
             closeModal()
         } catch(error) {

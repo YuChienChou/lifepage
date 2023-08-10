@@ -21,6 +21,7 @@ export default function PostList({ sessionUser }) {
     const postsArr = Object.values(postsStore);
     const reversedPostsArr = postsArr.slice().reverse();
     const [showEditPostDiv, setShowEditPostDiv] = useState({}); 
+    const currDate = new Date();
 
     const dispatch = useDispatch()
 
@@ -39,9 +40,9 @@ export default function PostList({ sessionUser }) {
           }));
     }
 
-    useEffect(()=> {
-        dispatch(getAllPostsThunk());
-    }, [dispatch])
+    // useEffect(()=> {
+    //     dispatch(getAllPostsThunk());
+    // }, [dispatch])
 
     if(postsArr.length < 1) return null;
     
@@ -57,7 +58,27 @@ export default function PostList({ sessionUser }) {
                             <Link to={`/user/${post.User.id}/posts`}> 
                                 <img src={post.User.profile_picture ? post.User.profile_picture : userProfilePicture} 
                                     alt={post.User.first_name} /></Link>
-                            <Link to={`/user/${post.User.id}/posts`}>{post.User.firstname} {post.User.lastname}</Link>
+                            <div id='post-date'>
+                                <Link to={`/user/${post.User.id}/posts`}>{post.User.username ? post.User.username : post.User.first_name}</Link>
+                                {(() => {
+                                    
+                                    const createdDate = new Date(post.created_at);
+                                    const timeDiff = Math.round((currDate - createdDate) / (1000 * 60 * 60 * 24));
+                                    if(timeDiff > 1) {
+                                        return <p id="day">{timeDiff}ds ago</p>;
+                                    } else if(timeDiff > 365) {
+                                        return <p id="day">{Math.round(timeDiff / 365) > 1 ? `${Math.round(timeDiff / 365)} years ago.` : `1 year ago` }</p>
+                                    }
+                                    // else if (timeDiff < 1) {
+                                    //     return <p id='day'>{Math.round(timeDiff / 60)} hrs ago</p>
+                                    // }
+                                    return <p id='day'>{Math.round(timeDiff / 60) < 1 ? `Today` : `${(timeDiff / 60).toFixed(1)} hrs ago`} </p>
+                                    // const createdArr = createdStr.split(" ");
+                                    // console.log("createdArr: ", createdArr);
+                                    // return <p>{createdArr[2]} {createdArr[1]} {createdArr[3]}</p>
+                                })()}
+                            
+                            </div>
                             {post.User.id !== sessionUser.id ? 
                                 <UserFollows sessionUser={sessionUser} followedUserId={post.User.id}/>
                                 : null
