@@ -32,9 +32,9 @@ export default function EditPostModal({sessionUser, post }) {
             
             try {
                 await dispatch(editPostThunk(post.id, postInfo)) 
-                await dispatch(getUserPostsThunk(sessionUser.id));
+               
                 await dispatch(getAllPostsThunk());           
-                
+                 await dispatch(getUserPostsThunk(sessionUser.id));
                 closeModal();
             } catch(error) {
                 console.log(error);

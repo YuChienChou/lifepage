@@ -196,7 +196,7 @@
   animation: spin 1s linear infinite;
 }
 
-.loading-spinner p {
+#animationDiv p {
     background-color: #FFF;
 }
 

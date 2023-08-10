@@ -223,6 +223,7 @@
     padding: 5%;
     gap: 20px;
     width: 100%;
+    justify-content: center;
 }
 
 #userinfo {
@@ -231,6 +232,7 @@
 
 #userposts {
     width: 65%;
+    max-width: 680px;
 }
 
 #userposts > div {

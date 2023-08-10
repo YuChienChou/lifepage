@@ -7,7 +7,7 @@ import { getSinglePostThunk } from '../../store/post';
 export default function UserInfo() {
     const {userId} = useParams();
     const user = useSelector((state) => state.users.singleUser);
-    console.log('user in user Info: ', user);
+    // console.log('user in user Info: ', user);
 
     const dispatch = useDispatch()
 
@@ -29,9 +29,9 @@ export default function UserInfo() {
         <p>{user.hobbies}</p>
         {(() => {
             const joinStr = user.created_at;
-            console.log("join string : ", joinStr)
+            // console.log("join string : ", joinStr)
             const joinArr = joinStr?.split(" ");
-            console.log("join arr: ", joinArr)
+            // console.log("join arr: ", joinArr)
             return (
                 <>
                 <h5>Joined:</h5>
