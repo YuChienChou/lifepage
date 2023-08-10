@@ -119,8 +119,14 @@ export default function DefaultHome() {
                 </div>
                 
             </div>
-            <div id='programmer-info'>
-                {/* <p>Progammer info</p> */}
+            <div id='programmer-info-container'>
+                <div id='programmer-info-div'>
+                   |<a href='https://www.lesliechou921.com/' target='_blank'> <p>&copy; Leslie Chou. All rights reserved.</p></a>
+                    <a href="https://www.linkedin.com/in/lesliechou921/" target='_blank'><i className="fa-brands fa-linkedin"></i></a>
+                    <a href="https://github.com/YuChienChou" target='_blank'><i className="fa-brands fa-github"></i></a>
+                    <a href="https://wellfound.com/u/leslie-chou" target='_blank'><i className="fa-brands fa-angellist"></i></a>
+                    <a href="mailto:chouyuchien@gmail.com"><i className="fa-solid fa-envelope"></i></a> |
+                </div>
             </div>
         </div>
         </>

@@ -24,38 +24,52 @@ export default function EditPostModal({sessionUser, post }) {
         e.preventDefault();
         setHasSubmit(true);
 
-        if(media) {
-            const postInfo = new FormData();
-            postInfo.append("media", media);
-            postInfo.append("body", body);
-            postInfo.append("user_id", sessionUser.id);
-            
-            try {
-                await dispatch(editPostThunk(post.id, postInfo)) 
-               
-                await dispatch(getAllPostsThunk());           
-                 await dispatch(getUserPostsThunk(sessionUser.id));
-                closeModal();
-            } catch(error) {
-                console.log(error);
-            };
-        } else {
-            const postInfo = {
-                media : post.media,
-                body : body,
-                user_id : sessionUser.id
-            }
+        const postInfo = new FormData();
+        postInfo.append("media", media);
+        postInfo.append("body", body);
+        postInfo.append("user_id", sessionUser.id);
+        
+        try {
+            await dispatch(editPostThunk(post.id, postInfo)) 
+            await dispatch(getAllPostsThunk());           
+            await dispatch(getUserPostsThunk(sessionUser.id));
+            closeModal();
+        } catch(error) {
+            console.log(error);
+        };
 
-            try {
-                await dispatch(editSinglePostThunk(post.id, postInfo)) 
-                await dispatch(getUserPostsThunk(sessionUser.id));
-                await dispatch(getAllPostsThunk());           
+
+        // if(media) {
+        //     const postInfo = new FormData();
+        //     postInfo.append("media", media);
+        //     postInfo.append("body", body);
+        //     postInfo.append("user_id", sessionUser.id);
+            
+        //     try {
+        //         await dispatch(editPostThunk(post.id, postInfo)) 
+        //         await dispatch(getAllPostsThunk());           
+        //         await dispatch(getUserPostsThunk(sessionUser.id));
+        //         closeModal();
+        //     } catch(error) {
+        //         console.log(error);
+        //     };
+        // } else {
+        //     const postInfo = {
+        //         media : post.media,
+        //         body : body,
+        //         user_id : sessionUser.id
+        //     }
+
+        //     try {
+        //         await dispatch(editSinglePostThunk(post.id, postInfo)) 
+        //         await dispatch(getUserPostsThunk(sessionUser.id));
+        //         await dispatch(getAllPostsThunk());           
                 
-                closeModal();
-            } catch(error) {
-                console.log(error);
-            };
-        }
+        //         closeModal();
+        //     } catch(error) {
+        //         console.log(error);
+        //     };
+        // }
 
        
     };

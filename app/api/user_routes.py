@@ -152,7 +152,7 @@ def edit_user_cover_photo():
         new_cover_photo_url = ""
 
         new_cover_photo = form.data['cover_photo']
-        print("new profile picture form data: ", new_cover_photo)
+        print("new cover photo form data: ", new_cover_photo)
 
         upload_cover_photo = None
         if new_cover_photo:
