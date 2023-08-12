@@ -47,7 +47,8 @@
 #img-and-link a {
     text-decoration: none;
     background-color: #FFF;
-    margin-right: 10px;
+    /* margin: 0 10px 8px 0; */
+
 }
 
 #edit-post-div {
@@ -118,8 +119,12 @@
     background-color: #FFF;
 }
 
+#post-date a{
+    margin-bottom: 5px;
+}
+
 #day {
     font-size: 12px;
     background-color: #FFF;
-    margin-top: 5px;
+    /* margin-top: 5px; */
 }

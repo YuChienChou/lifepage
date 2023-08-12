@@ -8,6 +8,7 @@ import UserPosts from "./userPosts";
 import UserPhotos from "./userPhotos";
 import EditUserModal from "./EditUserModal";
 import UserFollows from "../Follow/UserFollows";
+import UserRequests from "./userRequest";
 import userCoverPhoto from '../resources/default-user-cover-photo.png';
 import userProfilePicture from '../resources/default-user-profile-picture.png';
 import './user.css'
@@ -78,6 +79,7 @@ export default function UserPorfile() {
                            <div id='active-navlink-div'><NavLink to={`/user/${userId}/photos`}><p>Photos / Videos</p></NavLink></div>
                         </div>
                 </div>
+                <UserRequests sessionUser={currentUser} />
                 {page === "posts" ? 
                     <UserPosts sessionUser={currentUser} user={user} userPostArr={userPostArr} page={page}/>
                     : null

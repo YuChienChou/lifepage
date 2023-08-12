@@ -2,6 +2,15 @@ from .db import db, environment, SCHEMA, add_prefix_for_prod
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import UserMixin
 
+requests = db.Table(
+    "requests",
+    db.Column("request", db.Integer, db.ForeignKey(add_prefix_for_prod("users.id")), primary_key=True),
+    db.Column("requested", db.Integer, db.ForeignKey(add_prefix_for_prod("users.id")), primary_key=True),
+)
+
+if environment == "production":
+    requests.schema = SCHEMA
+
 friends = db.Table(
     "friends",
     db.Column("friend", db.Integer, db.ForeignKey(add_prefix_for_prod("users.id")), primary_key=True),
@@ -88,6 +97,14 @@ class User(db.Model, UserMixin):
         primaryjoin=friends.columns.friend_added == id,
         secondaryjoin=friends.columns.friend == id,
         backref='friend_added',
+    )
+
+    requests = db.relationship(
+        "User",
+        secondary="requests",
+        primaryjoin=requests.columns.requested == id,
+        secondaryjoin=requests.columns.request == id,
+        backref="requested",
     )
 
 

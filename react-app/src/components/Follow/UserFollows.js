@@ -23,16 +23,17 @@ export default function UserFollows({sessionUser, followedUserId}) {
 
     const UserFollowFun = async () => {
 
-        const followInfo = {
-            user1Id : sessionUser.id,
-            user2Id : followedUserId
-        }
+        // const followInfo = {
+        //     user1Id : sessionUser.id,
+        //     user2Id : followedUserId
+        // }
 
         if(res.includes(followedUserId)) {
             await dispatch(deleteUserFollowsThunk(sessionUser.id, followedUserId));
             await dispatch(getUserFollowsThunk(sessionUser.id))
         } else {
-            await dispatch(addUserFollowsThunk(sessionUser.id, followedUserId, followInfo));
+            // await dispatch(addUserFollowsThunk(sessionUser.id, followedUserId, followInfo));
+            await dispatch(addUserFollowsThunk(sessionUser.id, followedUserId));
             await dispatch(getUserFollowsThunk(sessionUser.id))
         }
        
