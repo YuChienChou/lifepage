@@ -11,7 +11,7 @@ export default function DeleteUserRequest({sessionUser, requestUser}) {
 
     return (
     <>
-    <button id='delete-requtest-button' onClick={deleteRequestFun}>
+    <button id='delete-request-button' onClick={deleteRequestFun}>
         Decline
     </button>
     </>
