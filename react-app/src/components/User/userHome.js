@@ -8,15 +8,18 @@ import CreatePost from '../CreatePost/CreatePostModal';
 import PostList from '../PostList/PostList';
 import userProfilePicture from '../resources/default-user-profile-picture.png';
 import './user.css'
+import { getUserFollowsThunk } from '../../store/user';
 
 export default function UserHome() {
     const sessionUser = useSelector((state) => state.session.user);
     const currentUser = useSelector((state) => state.users.currentUser);
  
     const dispatch = useDispatch();
+    dispatch(getUserFollowsThunk(sessionUser.id));
  
     useEffect(() => {
         dispatch(getAllPostsThunk());
+        // dispatch(getUserFollowsThunk(sessionUser.id));
     }, [dispatch]);
 
     if(!sessionUser) return null;

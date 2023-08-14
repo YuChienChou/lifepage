@@ -232,7 +232,7 @@ def add_follow_rel(user1_id, user2_id):
 @login_required
 def get_following_user_list(userId):
     """
-    Get the user list the current user follows
+    Get the user list the selected user follows
     """
     try:
         user = User.query.get(userId)

@@ -4,7 +4,9 @@ import { Link } from 'react-router-dom';
 import { editUserInfoThunk, editUserProfilePictureThunk, editUserCoverPhotoThunk,getCurrentUserThunk, getSingleUserThunk } from "../../store/user";
 import { useModal } from "../../context/Modal";
 import userProfilePicture from '../resources/default-user-profile-picture.png';
-import './edituser.css'
+import userCoverPhoto from '../resources/default-user-cover-photo.png';
+import './edituser.css';
+
 
 
 export default function EditUserModal({sessionUser}) { 
@@ -12,10 +14,10 @@ export default function EditUserModal({sessionUser}) {
     const [phone, setPhone] = useState(sessionUser.phone);
     const [bio, setBio] = useState(sessionUser.bio ? sessionUser.bio : "");
     const [hobbies, setHobbies] = useState(sessionUser.hobbies ? sessionUser.hobbies : "");
-    const [profilePicture, setProfilePicture] = useState('');
+    const [profilePicture, setProfilePicture] = useState("");
     // console.log("sessionuser profile picture in EditUserModal: ", sessionUser.profile_picture)
     // console.log("profiel picture in EditUserModal: ", profilePicture);
-    const [coverPhoto, setCoverPhoto] = useState('');
+    const [coverPhoto, setCoverPhoto] = useState("");
     // console.log("sessionuser cover photo in EditUserModal: ", sessionUser.cover_photo)
     // console.log("coverPhoto in EditUserModal: ", coverPhoto);
     const [validationError, setValidationError] = useState({});
@@ -151,7 +153,7 @@ export default function EditUserModal({sessionUser}) {
                     
                     <i className="fa-solid fa-image-portrait">Profile picture</i>
                     <div id="edit-user-info-images-div">
-                        <img src={sessionUser.profile_picture} alt={sessionUser.username} />
+                        <img src={sessionUser.profile_picture ? sessionUser.profile_picture : userProfilePicture} alt={sessionUser.username} />
                         <input
                             type="file"
                             onChange={(e) => setProfilePicture(e.target.files[0])}
@@ -172,7 +174,7 @@ export default function EditUserModal({sessionUser}) {
                 <div> 
                     <i className="fa-solid fa-image">Cover photo</i>
                     <div id="edit-user-info-images-div">
-                        <img src={sessionUser.cover_photo} alt={sessionUser.username} />
+                        <img src={sessionUser.cover_photo ? sessionUser.cover_photo : userCoverPhoto} alt={sessionUser.username} />
                         <input
                             type='file'
                             onChange={(e) => setCoverPhoto(e.target.files[0])}

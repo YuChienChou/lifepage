@@ -12,6 +12,7 @@ import UserFollows from '../Follow/UserFollows';
 import userProfilePicture from '../resources/default-user-profile-picture.png';
 import './postList.css'
 import { getAllPostsThunk } from '../../store/post';
+import { getUserFollowsThunk } from '../../store/user';
 
 
 export default function PostList({ sessionUser }) {
@@ -23,7 +24,8 @@ export default function PostList({ sessionUser }) {
     const [showEditPostDiv, setShowEditPostDiv] = useState({}); 
     const currDate = new Date();
 
-    const dispatch = useDispatch()
+    const dispatch = useDispatch();
+    dispatch(getUserFollowsThunk(sessionUser.id));
 
 
     const showEditPostDivFun = (postId) => {
@@ -41,7 +43,7 @@ export default function PostList({ sessionUser }) {
     }
 
     // useEffect(()=> {
-    //     dispatch(getAllPostsThunk());
+    //     dispatch(getUserFollowsThunk(sessionUser.id));
     // }, [dispatch])
 
     if(postsArr.length < 1) return null;

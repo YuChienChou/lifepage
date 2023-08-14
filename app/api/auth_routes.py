@@ -76,7 +76,9 @@ def sign_up():
             username="",
             bio="",
             hobbies="", 
-            birth_date="",        
+            birth_date=None,     
+            profile_picture="",
+            cover_photo="",
             created_at= date.today(),
             updated_at= date.today()
         )

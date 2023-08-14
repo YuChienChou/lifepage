@@ -1,7 +1,7 @@
 import { useSelector, useDispatch } from "react-redux";
 import { useEffect } from "react";
 import { useParams, Link, NavLink } from "react-router-dom";
-import { getCurrentUserThunk, getSingleUserThunk } from "../../store/user";
+import { getCurrentUserThunk, getSingleUserThunk, getUserFollowersThunk, getUserFollowsThunk } from "../../store/user";
 import Navigation from "../Navigation";
 import OpenModalButton from "../OpenModalButton";
 import UserPosts from "./userPosts";
@@ -10,6 +10,7 @@ import EditUserModal from "./EditUserModal";
 import UserFollows from "../Follow/UserFollows";
 import userCoverPhoto from '../resources/default-user-cover-photo.png';
 import userProfilePicture from '../resources/default-user-profile-picture.png';
+import UserFollowsList from "../Follow/userFollowList";
 import './user.css'
 import './userprofile.css'
 
@@ -31,6 +32,7 @@ export default function UserPorfile() {
     useEffect(() => {
         dispatch(getSingleUserThunk(userId));
         dispatch(getCurrentUserThunk());
+        dispatch(getUserFollowsThunk(sessionUser.id));
     }, [dispatch, userId])
 
 
@@ -78,6 +80,11 @@ export default function UserPorfile() {
                            <div id='active-navlink-div'><NavLink to={`/user/${userId}/photos`}><p>Photos / Videos</p></NavLink></div>
                         </div>
                 </div>
+               
+          
+               <UserFollowsList sessionUser={currentUser} user={user}/>                
+                
+
                 {page === "posts" ? 
                     <UserPosts sessionUser={currentUser} user={user} userPostArr={userPostArr} page={page}/>
                     : null
