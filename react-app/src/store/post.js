@@ -9,6 +9,7 @@ const ADD_USER_LIKE_POST = "post/ADD_USER_LIKE_POST";
 const GET_USER_LIKE_POSTS = "post/GET_USER_LIKE_POSTS";
 const DELETE_USER_LIKE_POST = "post/DELETE_USER_LIKE_POST";
 const EDIT_SINGLE_POST = "post/EDIT_SINGLE_POST";
+const GET_ALL_LIKED_POSTS = 'post/GET_ALL_LIKED_POSTS';
 
 
 //action creator
@@ -82,6 +83,13 @@ const editSinglePost = (post) => {
     }
 }
 
+const getAllLikedPosts = (posts) => {
+    return {
+        type: GET_ALL_LIKED_POSTS,
+        posts
+    }
+}
+
 //thunk creator
 
 export const getAllPostsThunk = () => async (dispatch) => {
@@ -97,8 +105,8 @@ export const getAllPostsThunk = () => async (dispatch) => {
             return posts;
         }
     } catch(err) {
-        const errrors = await err.json();
-        return errrors;
+        const errors = await err.json();
+        return errors;
     }
 };
 
@@ -270,6 +278,21 @@ export const editSinglePostThunk = (singlePostId, postInfo) => async (dispatch) 
     };
 };
 
+
+export const getAllLikedPostsThunk = (postId) => async (dispatch) => {
+    try{
+        const res = await fetch(`/api/posts/favorites/${postId}/all`)
+
+        if(res.ok) {
+            const allLikedPosts = await res.json();
+            dispatch(getAllLikedPosts(allLikedPosts));
+            return allLikedPosts;
+        }
+    } catch(err) {
+        const errors = await err.json();
+        return errors
+    };
+};
 
 
 //reducer function
