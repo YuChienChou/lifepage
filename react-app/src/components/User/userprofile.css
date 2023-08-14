@@ -220,7 +220,7 @@
 
 #user-info-post-container {
     display: flex;
-    padding: 5%;
+    padding: 20px 5% 5% 5%;
     gap: 20px;
     width: 100%;
     justify-content: center;
