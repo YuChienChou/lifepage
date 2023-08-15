@@ -4,11 +4,10 @@ import { getUserPostsThunk } from '../../store/post';
 import './like.css'
 
 export default function PostLikes({sessionUser, postId}) {
-    console.log("user like posts in postlikes component: ", sessionUser.likes)
 
     // console.log("post id in PostLikes component: ", postId)
     const userLikePosts = useSelector((state) => state.posts.userLikes)
-    console.log("user like posts in PostLikes component: ", userLikePosts);
+    // console.log("user like posts in PostLikes component: ", userLikePosts);
     const userLikePostArr = Object.values(userLikePosts);
     const dispatch = useDispatch();
 
@@ -54,11 +53,6 @@ export default function PostLikes({sessionUser, postId}) {
             }
 
             Like
-            {/* {res.includes(postId) ? 
-                <p id='like-p'>Like</p>
-                :
-                <p id='dislike-p'>Like</p>
-            } */}
         </button>
        
         </>

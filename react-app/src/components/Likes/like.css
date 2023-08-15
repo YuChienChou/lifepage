@@ -4,7 +4,7 @@
     padding: 6px 10px;
     /* border-top: 1px solid #BEC3C9;
     border-bottom: 1px solid #BEC3C9; */
-    width: 15%;
+    width: 50%;
     /* margin-bottom: 8px; */
     display: flex;
     justify-content: center;
@@ -30,7 +30,7 @@
     padding: 6px 10px;
     /* border-top: 1px solid #BEC3C9;
     border-bottom: 1px solid #BEC3C9; */
-    width: 15%;
+    width: 50%;
     display: flex;
     justify-content: center;
     align-items: center;

@@ -1,6 +1,6 @@
-import { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { getAllLikedPostUsersThunk } from "../../store/post";
+// import { useEffect } from "react";
+// import { useDispatch, useSelector } from "react-redux";
+// import { getAllLikedPostUsersThunk } from "../../store/post";
 
 
 // export default function PostLikedUser({postId}) {
