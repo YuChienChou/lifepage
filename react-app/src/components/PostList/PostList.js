@@ -162,8 +162,30 @@ export default function PostList({ sessionUser }) {
                     })()}
 
                     <PostLikes sessionUser={sessionUser} postId={post.id} />
-                    <PostLikedUser postId={post.id} />
-                    
+                    {/* <PostLikedUser postId={post.id} /> */}
+                    {(() => {
+                        console.log("post.likes in post list: ", post);
+                        console.log("post likes array length: ", post.likes.length);
+                        if(post.likes.length === 0) {
+                            return (
+                                <>
+                                <p>Be the first to like this post!</p>
+                                </>
+                            )
+                        } else if (post.likes.length === 1) {
+                            return (
+                                <>
+                                1 person like this post.
+                                </>
+                            )
+                        } else {
+                            return (
+                                <>
+                                {post.likes.length} people likes this post.
+                                </>
+                            )
+                        }
+                    })()}
                     <CommentList sessionUser={sessionUser} post={post}/>
                     <CreateComment sessionUser={sessionUser} post={post} />
                 </div>

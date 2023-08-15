@@ -2,7 +2,7 @@
 
 import { useSelector, useDispatch } from 'react-redux';
 import { useEffect } from 'react';
-import { addUserLikePostThunk, deleteUserLikePostThunk, getAllLikedPostUsersThunk, getUserLikePostsThunk } from "../../store/post";
+import { addUserLikePostThunk, deleteUserLikePostThunk, getAllLikedPostUsersThunk, getAllPostsThunk, getUserLikePostsThunk } from "../../store/post";
 import PostLikedUser from './PostLikedUser';
 import './like.css'
 
@@ -36,12 +36,15 @@ export default function PostLikes({sessionUser, postId}) {
         if(res.includes(postId)) {
            await dispatch(deleteUserLikePostThunk(postId));
         //    await dispatch(getAllLikedPostUsersThunk(postId));
+           await dispatch(getAllPostsThunk());
+        
         } else {
             await dispatch(addUserLikePostThunk(payload));
             // await dispatch(getAllLikedPostUsersThunk(postId));
+            await dispatch(getAllPostsThunk());
         }
 
-        await dispatch(getAllLikedPostUsersThunk(postId));
+        // await dispatch(getAllLikedPostUsersThunk(postId));
         await dispatch(getUserLikePostsThunk(sessionUser.id));
     };
     
@@ -55,6 +58,7 @@ export default function PostLikes({sessionUser, postId}) {
 
     return (
         <>
+        
         
         <button 
             onClick={() => userLikeFun(postId)}
@@ -71,6 +75,7 @@ export default function PostLikes({sessionUser, postId}) {
                 <p id='dislike-p'>Like</p>
             }
         </button>
+
             {/* {userLikePosts[postId] ?  */}
                 {/* <PostLikedUser postId={postId} /> */}
                 {/* :  */}
