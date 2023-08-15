@@ -89,11 +89,11 @@
 
 
 #single-post-user-info-body-full {
-    height: 50%;;
+    height: 40%;;
     border-bottom: 1px solid #F0F1F3;
     background-color: #FFF;
     padding: 16px;
-    overflow: scroll;
+    overflow: auto;
     /* overflow-y: auto; */
     position: relative;
 }
@@ -153,7 +153,7 @@
     padding: 16px;
     background-color: #FFF;
     position: relative;
-    overflow: scroll;
+    overflow: auto;
     height: 73%;
 }
 
@@ -161,7 +161,7 @@
     padding: 16px;
     background-color: #FFF;
     position: relative;
-    overflow: scroll;
+    overflow: auto;
     height: 50%;
 }
 
