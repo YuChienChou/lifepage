@@ -153,17 +153,20 @@ export default function PostList({ sessionUser }) {
 
                     })()}
 
-                    <div id='post-likes-container'>
-                        <PostLikes sessionUser={sessionUser} postId={post.id} />
-                    
+<div id='like-circle'>
+                        <i className="fa-regular fa-thumbs-up"></i>
                         {(() => {
 
                             const likedUsers = [];
                             post.likes.map((user) => (
-                                likedUsers.push(user.username)
-                            ))
 
-                            // console.log("likedUsers user name list: ", likedUsers);
+                                (user.username ? 
+                                    likedUsers.push(user.username)
+                                    : 
+                                    likedUsers.push(user.first_name)
+                            )))
+
+                            console.log("likedUsers user name list: ", likedUsers);
                             // console.log("post likes array length: ", post.likes.length);
                             if(post.likes.length === 0) {
                                 return (
@@ -178,7 +181,7 @@ export default function PostList({ sessionUser }) {
                                     </>
                                 )
                             } 
-                            
+
                             else if(post.likes.length === 2) {
                                 
                                     return (
@@ -194,7 +197,11 @@ export default function PostList({ sessionUser }) {
                                     </>
                                 )
                             }
-                        })()}
+                            })()}
+                    </div>
+
+                    <div id='post-likes-container'>
+                        <PostLikes sessionUser={sessionUser} postId={post.id} />
                     </div>
                     
                     <CommentList sessionUser={sessionUser} post={post}/>
