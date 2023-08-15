@@ -163,7 +163,7 @@ export default function UserPostList({ sessionUser, user, posts }) {
 
                     <PostLikes sessionUser={currentUser} postId={post.id} />
                     {(() => {
-                        console.log("post.likes in post list: ", post);
+                        
                         console.log("post likes array length: ", post.likes.length);
                         if(post.likes.length === 0) {
                             return (

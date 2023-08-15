@@ -153,31 +153,49 @@ export default function PostList({ sessionUser }) {
 
                     })()}
 
-                    <PostLikes sessionUser={sessionUser} postId={post.id} />
-                
-                    {(() => {
-                        console.log("post.likes in post list: ", post);
-                        console.log("post likes array length: ", post.likes.length);
-                        if(post.likes.length === 0) {
-                            return (
-                                <>
-                                <p>Be the first to like this post!</p>
-                                </>
-                            )
-                        } else if (post.likes.length === 1) {
-                            return (
-                                <>
-                                1 person like this post.
-                                </>
-                            )
-                        } else {
-                            return (
-                                <>
-                                {post.likes.length} people likes this post.
-                                </>
-                            )
-                        }
-                    })()}
+                    <div id='post-likes-container'>
+                        <PostLikes sessionUser={sessionUser} postId={post.id} />
+                    
+                        {(() => {
+
+                            const likedUsers = [];
+                            post.likes.map((user) => (
+                                likedUsers.push(user.username)
+                            ))
+
+                            // console.log("likedUsers user name list: ", likedUsers);
+                            // console.log("post likes array length: ", post.likes.length);
+                            if(post.likes.length === 0) {
+                                return (
+                                    <>
+                                    <p>Be the first to like this post!</p>
+                                    </>
+                                )
+                            } else if (post.likes.length === 1) {
+                                return (
+                                    <>
+                                    <p>{likedUsers[0]} likes this post.</p>
+                                    </>
+                                )
+                            } 
+                            
+                            else if(post.likes.length === 2) {
+                                
+                                    return (
+                                        <>
+                                        <p>{likedUsers[0]} and {likedUsers[1]} like this post.</p>
+                                        </>
+                                    )
+                            } 
+                            else {
+                                return (
+                                    <>
+                                    <p>{post.likes.length} people like this post.</p>
+                                    </>
+                                )
+                            }
+                        })()}
+                    </div>
                     
                     <CommentList sessionUser={sessionUser} post={post}/>
                     <CreateComment sessionUser={sessionUser} post={post} />
