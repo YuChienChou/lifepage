@@ -44,7 +44,7 @@
     background-color: #FFF;
     display: flex;
     justify-content: flex-end;
-    padding: 5px;
+    padding: 0 5px 5px 5px;
 }
 
 #comment-day p {

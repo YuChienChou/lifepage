@@ -141,7 +141,7 @@ export default function SinglePost() {
                     <PostLikes sessionUser={sessionUser} postId={singlePost.id} />
 
                     {(() => {
-                        console.log("single post.likes in post list: ", singlePost);
+                
                         console.log("single post likes array length: ", singlePost.likes.length);
                         if(singlePost.likes.length === 0) {
                             return (

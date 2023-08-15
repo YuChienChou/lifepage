@@ -15,7 +15,7 @@ export default function UserHome() {
     const currentUser = useSelector((state) => state.users.currentUser);
  
     const dispatch = useDispatch();
-    dispatch(getUserFollowsThunk(sessionUser.id));
+    // dispatch(getUserFollowsThunk(sessionUser.id));
  
     useEffect(() => {
         dispatch(getAllPostsThunk());

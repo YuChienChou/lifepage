@@ -1,15 +1,20 @@
 #like {
     border: none;
     background-color: #FFF;
-    padding: 10px 0;
-    border-top: 1px solid #BEC3C9;
-    border-bottom: 1px solid #BEC3C9;
-    width: 100%;
+    padding: 6px 10px;
+    /* border-top: 1px solid #BEC3C9;
+    border-bottom: 1px solid #BEC3C9; */
+    width: 15%;
     /* margin-bottom: 8px; */
     display: flex;
     justify-content: center;
     align-items: center;
     gap: 10px;
+    cursor: pointer;
+    border-radius: 5px;
+    color: #1674EA;
+    font-size: 14px;
+    font-weight: bold;
 }
 
 #like i {
@@ -22,14 +27,17 @@
 #dislike {
     border: none;
     background-color: #FFF;
-    padding: 10px 0;
-    border-top: 1px solid #BEC3C9;
-    border-bottom: 1px solid #BEC3C9;
-    width: 100%;
+    padding: 6px 10px;
+    /* border-top: 1px solid #BEC3C9;
+    border-bottom: 1px solid #BEC3C9; */
+    width: 15%;
     display: flex;
     justify-content: center;
     align-items: center;
     gap: 10px;
+    cursor: pointer;
+    border-radius: 5px;
+    font-size: 14px;
 }
 
 #dislike i {
@@ -40,18 +48,12 @@
     
 }
 
-#like-p {
-    display: flex;
-    align-items: center;
-    color: #1674EA;
-    background-color: #FFF;
-    font-size: 14px;
-    font-weight: bold;
+
+#like:hover {
+    background-color: #F0F2F5;
 }
 
-#dislike-p {
-    display: flex;
-    align-items: center;
-    background-color: #FFF;
-    font-size: 14px;
+#dislike:hover {
+    background-color: #F0F2F5;
 }
+

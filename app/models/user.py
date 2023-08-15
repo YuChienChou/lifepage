@@ -50,8 +50,6 @@ class User(db.Model, UserMixin):
         cascade="delete, merge, save-update"
     )
 
-
-
     comments = db.relationship(
         "Comment", 
         back_populates="user", 
@@ -101,4 +99,5 @@ class User(db.Model, UserMixin):
             'cover_photo': self.cover_photo,
             'created_at': self.created_at,
             'updated_at': self.updated_at,
+            # 'likes' : [like.to_dict() for like in self.likes],
         }
