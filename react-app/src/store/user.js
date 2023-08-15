@@ -314,7 +314,7 @@ const userReducer = (state = initialState, action) => {
             return newState;
         };
         case GET_USER_FOLLOWS: {
-            const newState = {...state, userFollows: {...state.userFollows}};
+            const newState = {...state, userFollows: {}};
             action.users.forEach((user) => {
                 newState.userFollows[user.id] = user;
             });

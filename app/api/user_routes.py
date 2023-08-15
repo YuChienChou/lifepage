@@ -205,7 +205,7 @@ def delete_user(userId):
         return {"errors" : str(e)}, 500
 
 
-@user_routes.route('<int:user1_id>/follow/<int:user2_id>/add', methods=["POST"])
+@user_routes.route('/<int:user1_id>/follow/<int:user2_id>/add', methods=["POST"])
 @login_required
 def add_follow_rel(user1_id, user2_id):
     """
@@ -228,7 +228,7 @@ def add_follow_rel(user1_id, user2_id):
         return {"error" : str(e)}, 500
     
 
-@user_routes.route("<int:userId>/following/all")
+@user_routes.route("/<int:userId>/following/all")
 @login_required
 def get_following_user_list(userId):
     """
@@ -249,7 +249,7 @@ def get_following_user_list(userId):
         return {"errors" : str(e)}, 500
     
 
-@user_routes.route('<int:userId>/follower/all')
+@user_routes.route('/<int:userId>/follower/all')
 @login_required
 def get_followed_user_list(userId):
     """

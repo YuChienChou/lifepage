@@ -14,7 +14,7 @@ export default function SinglePost() {
     // console.log("page in single post : " , page);
     const sessionUser = useSelector((state) => state.session.user);
     const singlePost = useSelector((state) => state.posts.singlePost);
-    console.log("single post media in single post component: ", singlePost.media);
+    // console.log("single post media in single post component: ", singlePost.media);
     const [body, setBody] = useState(singlePost.body);
     const [editPost, setEditPost] = useState(false);
     const dispatch = useDispatch();

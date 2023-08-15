@@ -1,17 +1,22 @@
 
 
 import { useSelector, useDispatch } from 'react-redux';
-import { addUserLikePostThunk, deleteUserLikePostThunk, getAllPostsThunk, getUserLikePostsThunk } from "../../store/post";
 import { useEffect } from 'react';
+import { addUserLikePostThunk, deleteUserLikePostThunk, getAllLikedPostUsersThunk, getUserLikePostsThunk } from "../../store/post";
+import PostLikedUser from './PostLikedUser';
 import './like.css'
 
 export default function PostLikes({sessionUser, postId}) {
 
     // console.log("post id in PostLikes component: ", postId)
     const userLikePosts = useSelector((state) => state.posts.userLikes)
-    // console.log("user like posts in PostLikes component: ", userLikePosts);
+    // console.log("user like posts in PostLikes component: ", userLikePosts[12]);
     const userLikePostArr = Object.values(userLikePosts);
     // console.log("user like post array in PostLikes component: ", userLikePostArr);
+    // const postLikeUsers = useSelector((state) => state.posts.likedUsers)
+    // console.log("post like users in postlikeduser component: ", postLikeUsers);
+    // const postLideUsersArr = Object.values(postLikeUsers)
+
 
     const dispatch = useDispatch();
 
@@ -30,22 +35,27 @@ export default function PostLikes({sessionUser, postId}) {
 
         if(res.includes(postId)) {
            await dispatch(deleteUserLikePostThunk(postId));
-           await dispatch(getUserLikePostsThunk(sessionUser.id));
-        
+        //    await dispatch(getAllLikedPostUsersThunk(postId));
         } else {
             await dispatch(addUserLikePostThunk(payload));
-            await dispatch(getUserLikePostsThunk(sessionUser.id));
+            // await dispatch(getAllLikedPostUsersThunk(postId));
         }
+
+        await dispatch(getAllLikedPostUsersThunk(postId));
+        await dispatch(getUserLikePostsThunk(sessionUser.id));
     };
-
+    
     useEffect(() => {
+        dispatch(getAllLikedPostUsersThunk(postId));
         dispatch(getUserLikePostsThunk(sessionUser.id));
-    }, [dispatch]);
+        
+    }, [dispatch, sessionUser.id, postId]);
 
-    if(!userLikePostArr) return null;
+    if(!userLikePosts) return null;
 
     return (
         <>
+        
         <button 
             onClick={() => userLikeFun(postId)}
             id={res.includes(postId) ? "like" : "dislike"}
@@ -61,6 +71,12 @@ export default function PostLikes({sessionUser, postId}) {
                 <p id='dislike-p'>Like</p>
             }
         </button>
+            {/* {userLikePosts[postId] ?  */}
+                {/* <PostLikedUser postId={postId} /> */}
+                {/* :  */}
+                {/* null */}
+            {/* } */}
+       
         </>
     );
 };

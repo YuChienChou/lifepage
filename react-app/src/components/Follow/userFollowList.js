@@ -5,12 +5,12 @@ import { Link, useParams } from "react-router-dom";
 
 
 export default function UserFollowsList({sessionUser}) {
-    console.log("session user if in userFollowList: ", sessionUser.id)
+    // console.log("session user if in userFollowList: ", sessionUser.id)
     const {userId} = useParams();
-    console.log("user Id in user follows list component: ", userId)
+    // console.log("user Id in user follows list component: ", userId)
     const userFollowsStore = useSelector((state) => state.users.userFollows);
     const userFollowsArr = Object.values(userFollowsStore);
-    console.log("user follows list in userFollowList component: ", userFollowsArr);
+    // console.log("user follows list in userFollowList component: ", userFollowsArr);
 
     const dispatch = useDispatch();
 
@@ -21,7 +21,14 @@ export default function UserFollowsList({sessionUser}) {
 
 
     if(userFollowsArr.length === 0 && sessionUser.id === Number(userId)) {
-        return  <p>You're not following any people here.</p>
+        return  (
+            <>
+            <div id="user-follows-container">
+                <h3>Peopel you're following:</h3>
+                <p>You're not following any people here.</p>
+            </div>
+            </>
+        )
     } else if(userFollowsArr.length === 0 && sessionUser.id != Number(userId)) {
         return null;
     }

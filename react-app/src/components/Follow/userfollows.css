@@ -79,3 +79,10 @@
 #user-follows-li a:hover {
     background-color: #E4E6E8;
 }
+
+
+#user-follows-container p {
+    padding: 16px;
+    background-color: #FFF;
+    border-radius: 0 0 10px 10px;
+}

@@ -13,6 +13,8 @@ import userProfilePicture from '../resources/default-user-profile-picture.png';
 import './postList.css'
 import { getAllPostsThunk } from '../../store/post';
 import { getUserFollowsThunk } from '../../store/user';
+import PostLikedUser from '../Likes/PostLikedUser';
+import { getAllLikedPostUsersThunk } from '../../store/post';
 
 
 export default function PostList({ sessionUser }) {
@@ -23,6 +25,10 @@ export default function PostList({ sessionUser }) {
     const reversedPostsArr = postsArr.slice().reverse();
     const [showEditPostDiv, setShowEditPostDiv] = useState({}); 
     const currDate = new Date();
+    const likedPostUsers = useSelector((state) => state.posts.likedUsers);
+    const likedPostUsersArr = Object.values(likedPostUsers)
+    console.log("liked post users : ", likedPostUsers);
+    const postLikeUsers = useSelector((state) => state.posts.likedUsers);
 
     const dispatch = useDispatch();
     dispatch(getUserFollowsThunk(sessionUser.id));
@@ -156,7 +162,8 @@ export default function PostList({ sessionUser }) {
                     })()}
 
                     <PostLikes sessionUser={sessionUser} postId={post.id} />
-
+                    <PostLikedUser postId={post.id} />
+                    
                     <CommentList sessionUser={sessionUser} post={post}/>
                     <CreateComment sessionUser={sessionUser} post={post} />
                 </div>
