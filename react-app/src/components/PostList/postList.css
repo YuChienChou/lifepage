@@ -130,7 +130,6 @@
     border-top: 1px solid #BEC3C9;
     border-bottom: 1px solid #BEC3C9;
     background-color: #FFF;
-    justify-content: flex-start;
     gap: 20px;
     padding: 5px 0 5px 20px
 }
