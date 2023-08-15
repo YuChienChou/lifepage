@@ -1,9 +1,6 @@
-
-
 import { useSelector, useDispatch } from 'react-redux';
-import { useEffect } from 'react';
-import { addUserLikePostThunk, deleteUserLikePostThunk, getAllLikedPostUsersThunk, getAllPostsThunk, getUserLikePostsThunk } from "../../store/post";
-import PostLikedUser from './PostLikedUser';
+import { addUserLikePostThunk, deleteUserLikePostThunk, getAllPostsThunk, getSinglePostThunk } from "../../store/post";
+import { getUserPostsThunk } from '../../store/post';
 import './like.css'
 
 export default function PostLikes({sessionUser, postId}) {
@@ -12,12 +9,6 @@ export default function PostLikes({sessionUser, postId}) {
     const userLikePosts = useSelector((state) => state.posts.userLikes)
     // console.log("user like posts in PostLikes component: ", userLikePosts[12]);
     const userLikePostArr = Object.values(userLikePosts);
-    // console.log("user like post array in PostLikes component: ", userLikePostArr);
-    // const postLikeUsers = useSelector((state) => state.posts.likedUsers)
-    // console.log("post like users in postlikeduser component: ", postLikeUsers);
-    // const postLideUsersArr = Object.values(postLikeUsers)
-
-
     const dispatch = useDispatch();
 
     const res = [];
@@ -35,30 +26,21 @@ export default function PostLikes({sessionUser, postId}) {
 
         if(res.includes(postId)) {
            await dispatch(deleteUserLikePostThunk(postId));
-        //    await dispatch(getAllLikedPostUsersThunk(postId));
-           await dispatch(getAllPostsThunk());
         
         } else {
-            await dispatch(addUserLikePostThunk(payload));
-            // await dispatch(getAllLikedPostUsersThunk(postId));
-            await dispatch(getAllPostsThunk());
+           await dispatch(addUserLikePostThunk(payload));
+
         }
-
-        // await dispatch(getAllLikedPostUsersThunk(postId));
-        await dispatch(getUserLikePostsThunk(sessionUser.id));
-    };
-    
-    useEffect(() => {
-        dispatch(getAllLikedPostUsersThunk(postId));
-        dispatch(getUserLikePostsThunk(sessionUser.id));
         
-    }, [dispatch, sessionUser.id, postId]);
+        await dispatch(getAllPostsThunk());
+        await dispatch(getUserPostsThunk(sessionUser.id));
+        await dispatch(getSinglePostThunk(postId))
+    };
 
-    if(!userLikePosts) return null;
+    // if(!userLikePosts) return null;
 
     return (
         <>
-        
         
         <button 
             onClick={() => userLikeFun(postId)}
@@ -75,12 +57,6 @@ export default function PostLikes({sessionUser, postId}) {
                 <p id='dislike-p'>Like</p>
             }
         </button>
-
-            {/* {userLikePosts[postId] ?  */}
-                {/* <PostLikedUser postId={postId} /> */}
-                {/* :  */}
-                {/* null */}
-            {/* } */}
        
         </>
     );

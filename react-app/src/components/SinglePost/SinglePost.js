@@ -140,6 +140,30 @@ export default function SinglePost() {
                     </div>
                     <PostLikes sessionUser={sessionUser} postId={singlePost.id} />
 
+                    {(() => {
+                        console.log("single post.likes in post list: ", singlePost);
+                        console.log("single post likes array length: ", singlePost.likes.length);
+                        if(singlePost.likes.length === 0) {
+                            return (
+                                <>
+                                <p>Be the first to like this post!</p>
+                                </>
+                            )
+                        } else if (singlePost.likes.length === 1) {
+                            return (
+                                <>
+                                1 person like this post.
+                                </>
+                            )
+                        } else {
+                            return (
+                                <>
+                                {singlePost.likes.length} people likes this post.
+                                </>
+                            )
+                        }
+                    })()}
+
                     <div id={singlePost.body.length >= 1000 ? 'single-post-comment-short' : 'single-post-comment'}>
                         <CommentList sessionUser={sessionUser} post={singlePost}/>
  
