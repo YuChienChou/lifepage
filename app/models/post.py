@@ -51,12 +51,13 @@ class Post(db.Model):
             'user_id' : self.user_id,
             'created_at' : self.created_at,
             'updated_at' : self.updated_at,
-            # 'User' : {
-            #     'id': self.user.id,
-            #     'username' : self.user.username,
-            #     'firstname' : self.user.first_name,
-            #     'lastname' : self.user.last_name,
-            # },
+            'User' : {
+                'id': self.user.id,
+                'username' : self.user.username,
+                'firstname' : self.user.first_name,
+                'lastname' : self.user.last_name,
+                'profile_picture' : self.user.profile_picture,
+            },
             # 'Comments' : [comment.to_dict() for comment in self.comments]
             # 'Medias' : [media.to_dict() for media in self.medias]
         }

@@ -9,7 +9,7 @@ const ADD_USER_LIKE_POST = "post/ADD_USER_LIKE_POST";
 const GET_USER_LIKE_POSTS = "post/GET_USER_LIKE_POSTS";
 const DELETE_USER_LIKE_POST = "post/DELETE_USER_LIKE_POST";
 const EDIT_SINGLE_POST = "post/EDIT_SINGLE_POST";
-const GET_ALL_LIKED_POSTS = 'post/GET_ALL_LIKED_POSTS';
+const GET_ALL_LIKEDPOST_USERS = 'post/GET_ALL_LIKEDPOST_USERS';
 
 
 //action creator
@@ -83,9 +83,9 @@ const editSinglePost = (post) => {
     }
 }
 
-const getAllLikedPosts = (posts) => {
+const getAllLikedPostUsers = (posts) => {
     return {
-        type: GET_ALL_LIKED_POSTS,
+        type: GET_ALL_LIKEDPOST_USERS,
         posts
     }
 }
@@ -279,13 +279,14 @@ export const editSinglePostThunk = (singlePostId, postInfo) => async (dispatch) 
 };
 
 
-export const getAllLikedPostsThunk = (postId) => async (dispatch) => {
+export const getAllLikedPostUsersThunk = (postId) => async (dispatch) => {
+    console.log("in getAllLikedPostUsersThunk~~~~~~~~~~~~~~")
     try{
-        const res = await fetch(`/api/posts/favorites/${postId}/all`)
+        const res = await fetch(`/api/posts/${postId}/likes/all`)
 
         if(res.ok) {
             const allLikedPosts = await res.json();
-            dispatch(getAllLikedPosts(allLikedPosts));
+            dispatch(getAllLikedPostUsers(allLikedPosts));
             return allLikedPosts;
         }
     } catch(err) {
@@ -302,6 +303,7 @@ const initialState = {
     singlePost: {},
     userPosts: {},
     userLikes: {},
+    likedUsers: {},
 }
 
 const postReducer = (state = initialState, action) => {
@@ -360,6 +362,13 @@ const postReducer = (state = initialState, action) => {
          case EDIT_SINGLE_POST: {
             const newState = {...state, singlePost: {...state.singlePost}};
             newState.singlePost = action.post;
+            return newState;
+         };
+         case GET_ALL_LIKEDPOST_USERS: {
+            const newState = {...state, likedUsers: {}};
+            action.posts.forEach((post) => {
+                newState.likedUsers[post.id] = post;
+            });
             return newState;
          }
         default: 

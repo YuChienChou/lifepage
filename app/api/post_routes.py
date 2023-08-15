@@ -318,6 +318,8 @@ def delete_like_from_post(postId):
 @post_route.route('/<int:postId>/likes/all')
 @login_required
 def get_all_like_users(postId):
+
+    print("in get all post liked users route!!!!!!!!!!!!!!!!!!!!")
     try:
         liked_post = Post.query.get(postId)
 
