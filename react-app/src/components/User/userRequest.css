@@ -1,7 +1,7 @@
 #user-request-container {
     width: 100%;
     display: flex;
-    justify-content: center;
+    justify-content: flex-start;
     padding: 10px 5% 0 5%;
 }
 
@@ -16,7 +16,7 @@
     list-style: none;
     padding: 15px;
     background-color: #FFF;
-    border-radius: 5px;
+    border-radius: 10px;
 }
 
 #user-request-li > p {

@@ -315,4 +315,19 @@ def delete_like_from_post(postId):
         return {"error" : str(e)}, 500
     
 
+@post_route.route('/<int:postId>/likes/all')
+@login_required
+def get_all_like_users(postId):
+
+    print("in get all post liked users route!!!!!!!!!!!!!!!!!!!!")
+    try:
+        liked_post = Post.query.get(postId)
+
+        result = [post.to_dict() for post in liked_post.likes]
+        return result
+    
+    except Exception as e:
+        return {"error" : str(e)}, 500
+    
+
 

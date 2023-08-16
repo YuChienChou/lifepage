@@ -451,22 +451,22 @@ const userReducer = (state = initialState, action) => {
             return newState;
         };
         case EDIT_USER_INFO: {
-            const newState = {...state, singleUser: {...state.allUsers}};
+            const newState = {...state, singleUser: {}};
             newState.singleUser[action.user.id] = action.user;
             return newState;
         };
         case EDIT_USER_PROFILE_PICTURE: {
-            const newState = {...state, currentUser: {...state.currentUser}};
+            const newState = {...state, currentUser: {}};
             newState.currentUser = action.user;
             return newState;
         };
         case EDIT_USER_COVER_PHOTO: {
-            const newState = {...state, currentUser: {...state.currentUser}};
+            const newState = {...state, currentUser: {}};
             newState.currentUser = action.user;
             return newState;
         }
         case ADD_USER_FOLLOWS: {
-            const newState = {...state, userFollows: {...state.userFollows}};
+            const newState = {...state, userFollows: {}};
             newState.userFollows[action.user.id] = action.user;
             return newState;
         };
@@ -485,7 +485,7 @@ const userReducer = (state = initialState, action) => {
             return newState;
         };
         case DELET_USER_FOLLOWS: {
-            const newState = {...state, userFollows: {...state.userFollows}};
+            const newState = {...state, userFollows: {}};
             delete newState.userFollows[action.userId];
             return newState;
         };

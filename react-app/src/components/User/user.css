@@ -151,7 +151,7 @@
 }
 
 #video-post {
-    width: 616px;
+    width: 100%;
     height: 360px;
     background-color: #FFF;
     display: flex;

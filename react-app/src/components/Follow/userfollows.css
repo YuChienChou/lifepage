@@ -4,6 +4,7 @@
     font-size: 14px;
     border-radius: 5px;
     color: #FFFFFF;
+    cursor: pointer;
 }
 
 #not-follow {
@@ -12,4 +13,76 @@
     font-size: 14px;
     border-radius: 5px;
     color: #FFFFFF;
+    cursor: pointer;
+}
+
+#user-follows-container {
+    width: 100%;
+    padding: 10px 5% 0 5%;
+    /* background-color: #FFF; */
+}
+
+#user-follows-container h3 {
+    background-color: #FFF;
+    padding: 10px 10px 0 10px;
+    border-radius: 10px 10px 0 0;
+}
+
+#user-follows-ul {
+    display: flex;
+    grid-gap: 5px;
+    gap: 10px;
+    padding: 10px 16px 16px 16px;
+    width: 100%;
+    background-color: #FFF;
+    border-radius: 0 0 10px 10px;
+    overflow: auto;
+}
+
+#user-follows-li {
+    list-style: none;
+    display: flex;
+    grid-gap: 8px;
+    gap: 8px;
+    background-color: #FFF;
+    align-items: center;
+    border-right: 1px solid black;
+}
+
+#user-follows-li img {
+    width: 24px;
+    border-radius: 50%;
+    height: 24px;
+    /* padding-right: 10px; */
+}
+
+#user-follows-li p {
+    padding-right: 10px;
+    background-color: #FFF;
+}
+
+#user-follows-li p:hover {
+    background-color: #F0F2F5;
+}
+
+#user-follows-li a {
+    display: flex;
+    gap: 8px;
+    background: none;
+    text-decoration: none;
+    align-items: center;
+    padding: 5px 10px 5px 10px;
+    border-radius: 5px;
+    margin-right: 10px;
+}
+
+#user-follows-li a:hover {
+    background-color: #E4E6E8;
+}
+
+
+#user-follows-container p {
+    padding: 16px;
+    background-color: #FFF;
+    border-radius: 0 0 10px 10px;
 }

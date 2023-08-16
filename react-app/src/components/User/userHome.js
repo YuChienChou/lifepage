@@ -7,6 +7,7 @@ import OpenModalButton from '../OpenModalButton';
 import CreatePost from '../CreatePost/CreatePostModal';
 import PostList from '../PostList/PostList';
 import userProfilePicture from '../resources/default-user-profile-picture.png';
+import UserRequests from './userRequest';
 import './user.css'
 
 export default function UserHome() {
@@ -14,9 +15,11 @@ export default function UserHome() {
     const currentUser = useSelector((state) => state.users.currentUser);
  
     const dispatch = useDispatch();
+    // dispatch(getUserFollowsThunk(sessionUser.id));
  
     useEffect(() => {
         dispatch(getAllPostsThunk());
+        // dispatch(getUserFollowsThunk(sessionUser.id));
     }, [dispatch]);
 
     if(!sessionUser) return null;
@@ -36,6 +39,7 @@ export default function UserHome() {
                 </div></Link>
             </div>
             <div id='userhome-middle'>
+                {/* <UserRequests sessionUser={currentUser} /> */}
                 
                 <div id='create-post-div'>
                     <Link to={`/user/${currentUser.id}/posts`}>

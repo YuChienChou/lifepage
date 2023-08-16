@@ -9,7 +9,7 @@ import './userRequest.css';
 export default function UserRequests ({sessionUser}) {
     const userRequestsStore = useSelector((state) => state.users.userRequests);
     const userRequestArr = Object.values(userRequestsStore);
-    console.log("userRequestArr in userRequeset component", userRequestArr);
+    // console.log("userRequestArr in userRequeset component", userRequestArr);
 
 
     const dispatch = useDispatch();

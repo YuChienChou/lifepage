@@ -1,6 +1,6 @@
 import { useSelector, useDispatch } from 'react-redux';
-import { addUserLikePostThunk, deleteUserLikePostThunk, getAllPostsThunk, getUserLikePostsThunk } from "../../store/post";
-import { useEffect } from 'react';
+import { addUserLikePostThunk, deleteUserLikePostThunk, getAllPostsThunk, getSinglePostThunk } from "../../store/post";
+import { getUserPostsThunk } from '../../store/post';
 import './like.css'
 
 export default function PostLikes({sessionUser, postId}) {
@@ -9,8 +9,6 @@ export default function PostLikes({sessionUser, postId}) {
     const userLikePosts = useSelector((state) => state.posts.userLikes)
     // console.log("user like posts in PostLikes component: ", userLikePosts);
     const userLikePostArr = Object.values(userLikePosts);
-    // console.log("user like post array in PostLikes component: ", userLikePostArr);
-
     const dispatch = useDispatch();
 
     const res = [];
@@ -28,22 +26,22 @@ export default function PostLikes({sessionUser, postId}) {
 
         if(res.includes(postId)) {
            await dispatch(deleteUserLikePostThunk(postId));
-           await dispatch(getUserLikePostsThunk(sessionUser.id));
         
         } else {
-            await dispatch(addUserLikePostThunk(payload));
-            await dispatch(getUserLikePostsThunk(sessionUser.id));
+           await dispatch(addUserLikePostThunk(payload));
+
         }
+        
+        await dispatch(getAllPostsThunk());
+        await dispatch(getUserPostsThunk(sessionUser.id));
+        await dispatch(getSinglePostThunk(postId))
     };
 
-    useEffect(() => {
-        dispatch(getUserLikePostsThunk(sessionUser.id));
-    }, [dispatch]);
-
-    if(!userLikePostArr) return null;
+    // if(!userLikePosts) return null;
 
     return (
         <>
+        
         <button 
             onClick={() => userLikeFun(postId)}
             id={res.includes(postId) ? "like" : "dislike"}
@@ -53,12 +51,10 @@ export default function PostLikes({sessionUser, postId}) {
                 : 
                 <i className="fa-regular fa-thumbs-up"></i>
             }
-            {res.includes(postId) ? 
-                <p id='like-p'>Like</p>
-                :
-                <p id='dislike-p'>Like</p>
-            }
+
+            Like
         </button>
+       
         </>
     );
 };

@@ -87,12 +87,12 @@ export default function EditPostModal({sessionUser, post }) {
                !media['name'].endsWith("png") &&
                !media['name'].endsWith("jpg") &&
                !media['name'].endsWith("jpeg") && 
-               !media['name'].endsWith("gif"))
+               !media['name'].endsWith("gif")) 
             //    !media['name'].endsWith("mp4") && 
             //    !media['name'].endsWith("avi") && 
             //    !media['name'].endsWith("mov") &&
             //    !media['name'].endsWith("mkv"))  
-               errors.mediaFormat = "Please provide valid image or video file ends with pdf, png, jpg, gif, jpeg, or gif."}
+               errors.mediaFormat = "Please provide valid image or video file ends with pdf, png, jpg, or gif."}
 
         setValidationError(errors)
     }, [body, media])

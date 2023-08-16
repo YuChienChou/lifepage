@@ -205,7 +205,7 @@ def delete_user(userId):
         return {"errors" : str(e)}, 500
 
 
-@user_routes.route('<int:user1_id>/follow/<int:user2_id>/add', methods=["POST"])
+@user_routes.route('/<int:user1_id>/follow/<int:user2_id>/add', methods=["POST"])
 @login_required
 def add_follow_rel(user1_id, user2_id):
     """
@@ -228,11 +228,11 @@ def add_follow_rel(user1_id, user2_id):
         return {"error" : str(e)}, 500
     
 
-@user_routes.route("<int:userId>/following/all")
+@user_routes.route("/<int:userId>/following/all")
 @login_required
 def get_following_user_list(userId):
     """
-    Get the user list the current user follows
+    Get the user list the selected user follows
     """
     try:
         user = User.query.get(userId)
@@ -249,7 +249,7 @@ def get_following_user_list(userId):
         return {"errors" : str(e)}, 500
     
 
-@user_routes.route('<int:userId>/follower/all')
+@user_routes.route('/<int:userId>/follower/all')
 @login_required
 def get_followed_user_list(userId):
     """
@@ -306,7 +306,8 @@ def add_friend_rel(user1_id, user2_id):
             return "User not found.", 404
 
         user1.friend_added.append(user2)
-        user1.followed.append(user2) #when add a friend, automatically add the follow relationship
+        if user2 not in user1.followed: 
+         user1.followed.append(user2) #when add a friend, automatically add the follow relationship
         user1.requests.remove(user2) #when add a friend, automatically remove request from user2
         db.session.commit()
         return user2.to_dict()

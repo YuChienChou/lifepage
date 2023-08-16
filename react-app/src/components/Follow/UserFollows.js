@@ -2,14 +2,19 @@ import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useState } from "react";
 import { addUserFollowsThunk, deleteUserFollowsThunk, getUserFollowsThunk } from "../../store/user";
 import './userfollows.css';
+import { useParams } from "react-router-dom";
 
 export default function UserFollows({sessionUser, followedUserId}) {
+    
+    const { userId } = useParams();
     const userFollows = useSelector((state) => state.users.userFollows);
     // console.log("user follows in create Follow component: ", userFollows);
     const userFollowsArr = Object.values(userFollows);
     // console.log("user follows array in create follow component: ", userFollowsArr);
     const [showFunDiv, setShowFunDiv] = useState(false);
     const dispatch = useDispatch();
+
+    
 
     const res = [];
 
@@ -23,25 +28,26 @@ export default function UserFollows({sessionUser, followedUserId}) {
 
     const UserFollowFun = async () => {
 
-        // const followInfo = {
-        //     user1Id : sessionUser.id,
-        //     user2Id : followedUserId
-        // }
+        const followInfo = {
+            user1Id : sessionUser.id,
+            user2Id : followedUserId
+        }
 
         if(res.includes(followedUserId)) {
             await dispatch(deleteUserFollowsThunk(sessionUser.id, followedUserId));
-            await dispatch(getUserFollowsThunk(sessionUser.id))
+            // await dispatch(getUserFollowsThunk(sessionUser.id));
         } else {
-            // await dispatch(addUserFollowsThunk(sessionUser.id, followedUserId, followInfo));
-            await dispatch(addUserFollowsThunk(sessionUser.id, followedUserId));
-            await dispatch(getUserFollowsThunk(sessionUser.id))
+            await dispatch(addUserFollowsThunk(sessionUser.id, followedUserId, followInfo));
+            // await dispatch(getUserFollowsThunk(sessionUser.id));
         }
+
+        await dispatch(getUserFollowsThunk(sessionUser.id));
        
     };
 
     useEffect(()=> {
-        dispatch(getUserFollowsThunk(sessionUser.id))
-    }, [dispatch])
+        dispatch(getUserFollowsThunk(sessionUser.id));
+    }, [dispatch]);
 
     if(userFollowsArr.length === 0) {
         return (
@@ -56,7 +62,11 @@ export default function UserFollows({sessionUser, followedUserId}) {
         <div id='add-user-follow-div'>
             {/* <i className="fa-solid fa-ellipsis" onClick={showFun}></i> */}
             {res.includes(followedUserId) ? 
-                <p id='following' onClick={UserFollowFun}>Following</p>      
+            <div>
+                <i className="fa-solid fa-square-check"></i>
+                <p id='following' onClick={UserFollowFun}>Following</p>   
+            </div>
+                   
                 : 
                 <p id='not-follow' onClick={UserFollowFun}>Follow</p>      
             }

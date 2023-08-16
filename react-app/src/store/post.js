@@ -9,6 +9,7 @@ const ADD_USER_LIKE_POST = "post/ADD_USER_LIKE_POST";
 const GET_USER_LIKE_POSTS = "post/GET_USER_LIKE_POSTS";
 const DELETE_USER_LIKE_POST = "post/DELETE_USER_LIKE_POST";
 const EDIT_SINGLE_POST = "post/EDIT_SINGLE_POST";
+const GET_ALL_LIKEDPOST_USERS = 'post/GET_ALL_LIKEDPOST_USERS';
 
 
 //action creator
@@ -82,6 +83,13 @@ const editSinglePost = (post) => {
     }
 }
 
+const getAllLikedPostUsers = (posts) => {
+    return {
+        type: GET_ALL_LIKEDPOST_USERS,
+        posts
+    }
+}
+
 //thunk creator
 
 export const getAllPostsThunk = () => async (dispatch) => {
@@ -97,8 +105,8 @@ export const getAllPostsThunk = () => async (dispatch) => {
             return posts;
         }
     } catch(err) {
-        const errrors = await err.json();
-        return errrors;
+        const errors = await err.json();
+        return errors;
     }
 };
 
@@ -271,6 +279,22 @@ export const editSinglePostThunk = (singlePostId, postInfo) => async (dispatch) 
 };
 
 
+export const getAllLikedPostUsersThunk = (postId) => async (dispatch) => {
+    console.log("in getAllLikedPostUsersThunk~~~~~~~~~~~~~~")
+    try{
+        const res = await fetch(`/api/posts/${postId}/likes/all`)
+
+        if(res.ok) {
+            const allLikedPosts = await res.json();
+            dispatch(getAllLikedPostUsers(allLikedPosts));
+            return allLikedPosts;
+        }
+    } catch(err) {
+        const errors = await err.json();
+        return errors
+    };
+};
+
 
 //reducer function
 
@@ -279,6 +303,7 @@ const initialState = {
     singlePost: {},
     userPosts: {},
     userLikes: {},
+    likedUsers: {},
 }
 
 const postReducer = (state = initialState, action) => {
@@ -337,6 +362,13 @@ const postReducer = (state = initialState, action) => {
          case EDIT_SINGLE_POST: {
             const newState = {...state, singlePost: {...state.singlePost}};
             newState.singlePost = action.post;
+            return newState;
+         };
+         case GET_ALL_LIKEDPOST_USERS: {
+            const newState = {...state, likedUsers: {}};
+            action.posts.forEach((post) => {
+                newState.likedUsers[post.id] = post;
+            });
             return newState;
          }
         default: 
