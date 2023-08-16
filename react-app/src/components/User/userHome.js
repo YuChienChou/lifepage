@@ -8,6 +8,7 @@ import CreatePost from '../CreatePost/CreatePostModal';
 import PostList from '../PostList/PostList';
 import userProfilePicture from '../resources/default-user-profile-picture.png';
 import UserRequests from './userRequest';
+import UserFriends from '../Friend/userFriends';
 import './user.css'
 
 export default function UserHome() {
@@ -56,7 +57,9 @@ export default function UserHome() {
                     </ul>
                 </div>
             </div>
-            <div id='userhome-right'></div>
+            <div id='userhome-right'>
+                <UserFriends sessionUser={sessionUser} />
+            </div>
         </div>
         </>
     )

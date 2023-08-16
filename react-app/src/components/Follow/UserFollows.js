@@ -63,7 +63,7 @@ export default function UserFollows({sessionUser, followedUserId}) {
             {/* <i className="fa-solid fa-ellipsis" onClick={showFun}></i> */}
             {res.includes(followedUserId) ? 
             <div>
-                <i className="fa-solid fa-square-check"></i>
+                {/* <i className="fa-solid fa-square-check"></i> */}
                 <p id='following' onClick={UserFollowFun}>Following</p>   
             </div>
                    

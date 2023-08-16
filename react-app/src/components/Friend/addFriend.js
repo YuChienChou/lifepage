@@ -1,5 +1,5 @@
 import { useDispatch } from "react-redux";
-import { addUserFriendsThunk, getUserRequestsThunk } from "../../store/user";
+import { addUserFriendsThunk, getUserFollowsThunk, getUserRequestsThunk } from "../../store/user";
 
 
 export default function AddFriend({sessionUser, requestUser}) {
@@ -9,6 +9,7 @@ export default function AddFriend({sessionUser, requestUser}) {
     const addFriendFun = () => { 
         dispatch(addUserFriendsThunk(sessionUser.id, requestUser.id));
         dispatch(getUserRequestsThunk(sessionUser.id));
+        dispatch(getUserFollowsThunk(sessionUser.id));
     };
 
     return (
