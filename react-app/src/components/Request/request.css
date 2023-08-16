@@ -1,0 +1,18 @@
+#friend-status-container {
+    background-color: transparent;
+    display: flex;
+    grid-gap: 10px;
+    gap: 10px;
+    align-items: center;
+    position: relative;
+    margin-left: 10px;
+}
+
+#friend-status-container p {
+    padding: 5px;
+    background-color: #36A420;
+    font-size: 14px;
+    border-radius: 5px;
+    color: #FFFFFF;
+    cursor: pointer;
+}

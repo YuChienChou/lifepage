@@ -285,7 +285,7 @@ def delete_follow_rel(user1_id, user2_id):
         
         user1.followed.remove(user2)
         db.session.commit()
-        return "Cancel following relationship."
+        return f"Cancel following relationship with {user2.first_name}."
     
     except Exception as e:
         return {"error" : str(e)}, 500
@@ -305,11 +305,20 @@ def add_friend_rel(user1_id, user2_id):
         if not user1 or not user2:
             return "User not found.", 404
 
-        user1.friend_added.append(user2)
+        user1.friends.append(user2)
+        user2.friends.append(user1)
+
         if user2 not in user1.followed: 
-         user1.followed.append(user2) #when add a friend, automatically add the follow relationship
+            user1.followed.append(user2) #when add a friend, automatically add the follow relationship
+
+        if user1 not in user2.followed:
+            user2.followed.append(user1)
+
         user1.requests.remove(user2) #when add a friend, automatically remove request from user2
+
         db.session.commit()
+        db.session.refresh(user1)
+
         return user2.to_dict()
     
     except Exception as e:
@@ -351,10 +360,13 @@ def delete_friend_rel(user1_id, user2_id):
         if not user1 or not user2:
             return "User not found.", 404
         
-        user1.friend_added.remove(user2)
+        user1.friends.remove(user2)
+        
         if user2 in user1.followed: 
             user1.followed.remove(user2) # when cancel friend rel, automatically cancel follow relationship
+
         db.session.commit()
+        db.session.refresh(user1)
         return f'Cancel friend relationship with {user2.username}.'
     
     except Exception as e:
@@ -378,6 +390,8 @@ def add_request_rel(user1_id, user2_id):
 
         user1.requested.append(user2)
         db.session.commit()
+        db.session.refresh(user1)
+
         return user2.to_dict()
     
     except Exception as e:
@@ -419,7 +433,7 @@ def delete_request_rel(user1_id, user2_id):
         if not user1 or not user2:
             return "User not found.", 404
         
-        user1.requests.remove(user2)
+        user1.request.remove(user2)
         # if user2 in user1.requested: 
         #     user1.requested.remove(user2) # when cancel friend rel, automatically cancel follow relationship
         db.session.commit()

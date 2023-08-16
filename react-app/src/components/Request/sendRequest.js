@@ -12,7 +12,8 @@ export default function SendRequest({sessionUser, requestUser}) {
         setHasSubmit(true)
     };
 
-    console.log("sessionUser friend list: ", sessionUser.friends)
+    console.log("sessionUser friend list: ", sessionUser.friends);
+
     const friendId = []
     sessionUser.friends.map((friend) => {
         friendId.push(friend.id);
@@ -29,7 +30,7 @@ export default function SendRequest({sessionUser, requestUser}) {
 
                     <button id='send-request-button' onClick={addRequestFun}>
                         {hasSubmit ? 
-                            "Send Add Friend Request"
+                            "Sent Friend Request"
                             :
                             "Add Friend"
                         }
