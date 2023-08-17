@@ -1,7 +1,8 @@
 import { useDispatch } from "react-redux";
 import { useState, useEffect } from "react";
 import { useModal } from "../../context/Modal";
-import { editCommentThunk } from "../../store/comment";
+import { editCommentThunk, getAllCommentsThunk } from "../../store/comment";
+import { getAllPostsThunk } from "../../store/post";
 import './EditComment.css';
 
 
@@ -22,6 +23,7 @@ export default function EditComment({sessionUser, post, comment}) {
 
         try {
             await dispatch(editCommentThunk(comment.id, commentInfo));
+            // await dispatch(getAllPostsThunk(post.id));
             
             closeModal()
         } catch (error) {

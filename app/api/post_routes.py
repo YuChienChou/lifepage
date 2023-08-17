@@ -233,7 +233,9 @@ def create_comment(postId):
             )
 
             db.session.add(new_comment)
+
             db.session.commit()
+            db.session.refresh(post)
             return new_comment.to_dict()
     
     except Exception as e:
@@ -329,5 +331,11 @@ def get_all_like_users(postId):
     except Exception as e:
         return {"error" : str(e)}, 500
     
+
+# @post_route.route('/<int:postId>/comments/all')
+# @login_required
+# def get_all_comments(postId):
+#     try:
+#         post = Post.query.get(postId)
 
 
