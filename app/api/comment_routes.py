@@ -12,6 +12,7 @@ print(__name__)
 @login_required
 def get_all_comments():
 
+        # all_comments = Comment.query.filter_by(post_id=postId).all()
         all_comments = Comment.query.all()
         return [comment.to_dict() for comment in all_comments]
 
@@ -57,6 +58,7 @@ def delete_comment(commentId):
         if delete_comment.user.id == current_user.id:
             db.session.delete(delete_comment)
             db.session.commit()
+            # db.session.refresh(Comment)
             return "Your comment has been deleted."
         
     except Exception as e:
