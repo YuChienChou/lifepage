@@ -13,6 +13,7 @@ import userProfilePicture from '../resources/default-user-profile-picture.png';
 import UserFollowsList from "../Follow/userFollowList";
 import './user.css'
 import './userprofile.css'
+import UserFollowers from "../Follow/userFollowerList";
 
 
 
@@ -82,7 +83,8 @@ export default function UserPorfile() {
                 </div>
                
           
-               <UserFollowsList sessionUser={currentUser} user={user}/>                
+               <UserFollowsList sessionUser={currentUser} user={user}/>    
+               <UserFollowers sessionUser={currentUser} user={user} />            
                 
 
                 {page === "posts" ? 

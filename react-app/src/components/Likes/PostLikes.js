@@ -4,7 +4,7 @@ import { getUserPostsThunk } from '../../store/post';
 import './like.css'
 import { useEffect } from 'react';
 
-export default function PostLikes({sessionUser, postId}) {
+export default function PostLikes({sessionUser, postId, user}) {
 
     // console.log("post id in PostLikes component: ", postId)
     const userLikePosts = useSelector((state) => state.posts.userLikes);
@@ -28,7 +28,7 @@ export default function PostLikes({sessionUser, postId}) {
         }
         
         await dispatch(getAllPostsThunk());
-        await dispatch(getUserPostsThunk(sessionUser.id));
+        await dispatch(getUserPostsThunk(user.id));
         await dispatch(getSinglePostThunk(postId));
 
     };

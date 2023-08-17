@@ -156,14 +156,14 @@ export default function SinglePost() {
                             if(singlePost.likes.length === 0) {
                                 return (
                                     <>
-                                    <p>Be the first to like this post!</p>
+                                    <p>Be the first to like this post</p>
                                     </>
                                 )
                             } else if (singlePost.likes.length === 1) {
                                 return (
                                     <>
                                     {/* <p>{likedUsers[0]} likes this post.</p> */}
-                                    <p>1 like.</p>
+                                    <p>1 like</p>
                                     </>
                                 )
                             } 
@@ -180,7 +180,7 @@ export default function SinglePost() {
                                 return (
                                     <>
                                     {/* <p>{singlePost.likes.length} people like this post.</p> */}
-                                    <p>{singlePost.likes.length} likes.</p>
+                                    <p>{singlePost.likes.length} likes</p>
                                     </>
                                 )
                             }
@@ -189,7 +189,7 @@ export default function SinglePost() {
                     
 
                     <div id='post-likes-container'>
-                        <PostLikes sessionUser={sessionUser} postId={singlePost.id} />
+                        <PostLikes sessionUser={sessionUser} postId={singlePost.id} user={singlePost.User}/>
                     </div>
 
                     <div id={singlePost.body.length >= 1000 ? 'single-post-comment-short' : 'single-post-comment'}>

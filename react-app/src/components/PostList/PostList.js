@@ -171,7 +171,7 @@ export default function PostList({ sessionUser }) {
                             if(post.likes.length === 0) {
                                 return (
                                     <>
-                                    <p>Be the first to like this post!</p>
+                                    <p>Be the first to like this post</p>
                                     </>
                                 )
                             } else if (post.likes.length === 1) {
@@ -179,7 +179,7 @@ export default function PostList({ sessionUser }) {
                                     <>
                                     {/* <p>{likedUsers[0]} likes this post.</p> */}
                                     {/* <p>1 person likes this post.</p> */}
-                                    <p>1 like.</p>
+                                    <p>1 like</p>
                                     </>
                                 )
                             } 
@@ -195,7 +195,7 @@ export default function PostList({ sessionUser }) {
                             else {
                                 return (
                                     <>
-                                    <p>{post.likes.length} likes.</p>
+                                    <p>{post.likes.length} likes</p>
                                     </>
                                 )
                                 // if(likedUsers.includes(sessionUser.username) || likedUsers.includes(sessionUser.first_name)) {
@@ -217,7 +217,7 @@ export default function PostList({ sessionUser }) {
                     </div>
 
                     <div id='post-likes-container'>
-                        <PostLikes sessionUser={sessionUser} postId={post.id} />
+                        <PostLikes sessionUser={sessionUser} postId={post.id} user={post.User} />
                     </div>
                     
                     <CommentList sessionUser={sessionUser} post={post}/>

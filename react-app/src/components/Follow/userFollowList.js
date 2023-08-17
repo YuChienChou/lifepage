@@ -17,7 +17,7 @@ export default function UserFollowsList({sessionUser}) {
     useEffect(() => {
         dispatch(getUserFollowsThunk(sessionUser.id));
         // dispatch(getSingleUserThunk(user.id));
-    }, [dispatch, userId]);
+    }, [dispatch, sessionUser]);
 
 
     if(userFollowsArr.length === 0 && sessionUser.id === Number(userId)) {

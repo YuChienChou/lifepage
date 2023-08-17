@@ -42,7 +42,7 @@ export default function UserPostList({ sessionUser, user, posts }) {
 
     useEffect(() => {
         dispatch(getUserPostsThunk(user.id));
-        dispatch(getCurrentUserThunk());
+        // dispatch(getCurrentUserThunk());
     }, [dispatch, user]);
 
     if(reversedPostsArr.length === 0) {
@@ -179,14 +179,14 @@ export default function UserPostList({ sessionUser, user, posts }) {
                             if(post.likes.length === 0) {
                                 return (
                                     <>
-                                    <p>Be the first to like this post!</p>
+                                    <p>Be the first to like this post</p>
                                     </>
                                 )
                             } else if (post.likes.length === 1) {
                                 return (
                                     <>
                                     {/* <p>{likedUsers[0]} likes this post.</p> */}
-                                    <p>1 like.</p>
+                                    <p>1 like</p>
                                     </>
                                 )
                             } 
@@ -202,14 +202,14 @@ export default function UserPostList({ sessionUser, user, posts }) {
                             else {
                                 return (
                                     <>
-                                    <p>{post.likes.length} likes.</p>
+                                    <p>{post.likes.length} likes</p>
                                     </>
                                 )
                             }
                             })()}
                     </div>
                     <div id='post-likes-container'>
-                     <PostLikes sessionUser={currentUser} postId={post.id} />
+                     <PostLikes sessionUser={currentUser} postId={post.id} user={user}/>
                     </div>
                   
                     <CommentList sessionUser={currentUser} post={post}/>
