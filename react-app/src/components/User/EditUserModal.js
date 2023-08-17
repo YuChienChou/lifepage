@@ -112,39 +112,41 @@ export default function EditUserModal({sessionUser}) {
         </div>
 
         <form id='edit-user-form' onSubmit={handleSubmit} encType="multipart/form-data">
-            <div id='edit-user-phone'>
-                <div>
-                    <i className="fa-solid fa-user">user name</i>
-                    <input 
-                        type='text'
-                        value={ username }
-                        onChange={(e) => setUsername(e.target.value)}
-                    />
-                </div>
-
-                {validationError.phone ? 
-                    <div id='error-div'>
-                        {validationError.phone && <p>{validationError.phone}</p>}
+            <div id='username-phone'>
+                <div id='edit-user-phone'>
+                    <div>
+                        <i className="fa-solid fa-user">user name</i>
+                        <input 
+                            type='text'
+                            value={ username }
+                            onChange={(e) => setUsername(e.target.value)}
+                        />
                     </div>
-                    : null
-                }
-            </div>
-            <div id='edit-user-phone'>
-                <div>
-                    <i className="fa-solid fa-phone">Phone</i>
-                    <input 
-                        type='text'
-                        value={ phone }
-                        onChange={(e) => setPhone(e.target.value)}
-                    />
-                </div>
 
-                {validationError.phone ? 
-                    <div id='error-div'>
-                        {validationError.phone && <p>{validationError.phone}</p>}
+                    {validationError.phone ? 
+                        <div id='error-div'>
+                            {validationError.phone && <p>{validationError.phone}</p>}
+                        </div>
+                        : null
+                    }
+                </div>
+                <div id='edit-user-phone'>
+                    <div>
+                        <i className="fa-solid fa-phone">Phone</i>
+                        <input 
+                            type='text'
+                            value={ phone }
+                            onChange={(e) => setPhone(e.target.value)}
+                        />
                     </div>
-                    : null
-                }
+
+                    {validationError.phone ? 
+                        <div id='error-div'>
+                            {validationError.phone && <p>{validationError.phone}</p>}
+                        </div>
+                        : null
+                    }
+                </div>
             </div>
          
 

@@ -151,34 +151,36 @@ export default function SinglePost() {
                                     likedUsers.push(user.first_name)
                             )))
 
-                            console.log("likedUsers user name list: ", likedUsers);
+                            // console.log("likedUsers user name list: ", likedUsers);
                             // console.log("post likes array length: ", post.likes.length);
                             if(singlePost.likes.length === 0) {
                                 return (
                                     <>
-                                    <p>Be the first to like this post!</p>
+                                    <p>Be the first to like this post</p>
                                     </>
                                 )
                             } else if (singlePost.likes.length === 1) {
                                 return (
                                     <>
-                                    <p>{likedUsers[0]} likes this post.</p>
+                                    {/* <p>{likedUsers[0]} likes this post.</p> */}
+                                    <p>1 like</p>
                                     </>
                                 )
                             } 
 
-                            else if(singlePost.likes.length === 2) {
+                            // else if(singlePost.likes.length === 2) {
                                 
-                                    return (
-                                        <>
-                                        <p>{likedUsers[0]} and {likedUsers[1]} like this post.</p>
-                                        </>
-                                    )
-                            } 
+                            //         return (
+                            //             <>
+                            //             <p>{likedUsers[0]} and {likedUsers[1]} like this post.</p>
+                            //             </>
+                            //         )
+                            // } 
                             else {
                                 return (
                                     <>
-                                    <p>{singlePost.likes.length} people like this post.</p>
+                                    {/* <p>{singlePost.likes.length} people like this post.</p> */}
+                                    <p>{singlePost.likes.length} likes</p>
                                     </>
                                 )
                             }
@@ -187,7 +189,7 @@ export default function SinglePost() {
                     
 
                     <div id='post-likes-container'>
-                        <PostLikes sessionUser={sessionUser} postId={singlePost.id} />
+                        <PostLikes sessionUser={sessionUser} postId={singlePost.id} user={singlePost.User}/>
                     </div>
 
                     <div id={singlePost.body.length >= 1000 ? 'single-post-comment-short' : 'single-post-comment'}>

@@ -11,8 +11,6 @@ import PostLikes from '../Likes/PostLikes';
 import userProfilePicture from '../resources/default-user-profile-picture.png';
 import './postList.css'
 import { getUserPostsThunk } from '../../store/post';
-import { getCurrentUserThunk } from '../../store/user';
-
 
 
 export default function UserPostList({ sessionUser, user, posts }) {
@@ -42,7 +40,7 @@ export default function UserPostList({ sessionUser, user, posts }) {
 
     useEffect(() => {
         dispatch(getUserPostsThunk(user.id));
-        dispatch(getCurrentUserThunk());
+        // dispatch(getCurrentUserThunk());
     }, [dispatch, user]);
 
     if(reversedPostsArr.length === 0) {
@@ -59,6 +57,7 @@ export default function UserPostList({ sessionUser, user, posts }) {
     return (
         
         <>
+
         {reversedPostsArr.map((post) => (
         <li key={post.id} className='post-list'>
 
@@ -174,41 +173,42 @@ export default function UserPostList({ sessionUser, user, posts }) {
                                     likedUsers.push(user.first_name)
                             )))
 
-                            console.log("likedUsers user name list: ", likedUsers);
+                            // console.log("likedUsers user name list: ", likedUsers);
                             // console.log("post likes array length: ", post.likes.length);
                             if(post.likes.length === 0) {
                                 return (
                                     <>
-                                    <p>Be the first to like this post!</p>
+                                    <p>Be the first to like this post</p>
                                     </>
                                 )
                             } else if (post.likes.length === 1) {
                                 return (
                                     <>
-                                    <p>{likedUsers[0]} likes this post.</p>
+                                    {/* <p>{likedUsers[0]} likes this post.</p> */}
+                                    <p>1 like</p>
                                     </>
                                 )
                             } 
 
-                            else if(post.likes.length === 2) {
+                            // else if(post.likes.length === 2) {
                                 
-                                    return (
-                                        <>
-                                        <p>{likedUsers[0]} and {likedUsers[1]} like this post.</p>
-                                        </>
-                                    )
-                            } 
+                            //         return (
+                            //             <>
+                            //             <p>{likedUsers[0]} and {likedUsers[1]} like this post.</p>
+                            //             </>
+                            //         )
+                            // } 
                             else {
                                 return (
                                     <>
-                                    <p>{post.likes.length} people like this post.</p>
+                                    <p>{post.likes.length} likes</p>
                                     </>
                                 )
                             }
                             })()}
                     </div>
                     <div id='post-likes-container'>
-                     <PostLikes sessionUser={currentUser} postId={post.id} />
+                     <PostLikes sessionUser={currentUser} postId={post.id} user={user}/>
                     </div>
                   
                     <CommentList sessionUser={currentUser} post={post}/>

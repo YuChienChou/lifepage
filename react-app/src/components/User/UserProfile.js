@@ -13,6 +13,7 @@ import userProfilePicture from '../resources/default-user-profile-picture.png';
 import UserFollowsList from "../Follow/userFollowList";
 import './user.css'
 import './userprofile.css'
+import UserFollowers from "../Follow/userFollowerList";
 
 
 
@@ -80,10 +81,6 @@ export default function UserPorfile() {
                            <div id='active-navlink-div'><NavLink to={`/user/${userId}/photos`}><p>Photos / Videos</p></NavLink></div>
                         </div>
                 </div>
-               
-          
-               <UserFollowsList sessionUser={currentUser} user={user}/>                
-                
 
                 {page === "posts" ? 
                     <UserPosts sessionUser={currentUser} user={user} userPostArr={userPostArr} page={page}/>
