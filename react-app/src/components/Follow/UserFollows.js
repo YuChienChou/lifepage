@@ -8,7 +8,7 @@ export default function UserFollows({sessionUser, followedUserId}) {
     
     const { userId } = useParams();
     const userFollows = useSelector((state) => state.users.userFollows);
-    // console.log("user follows in create Follow component: ", userFollows);
+    console.log("user follows in create Follow component: ", userFollows);
     const userFollowsArr = Object.values(userFollows);
     // console.log("user follows array in create follow component: ", userFollowsArr);
     const [showFunDiv, setShowFunDiv] = useState(false);
@@ -16,11 +16,11 @@ export default function UserFollows({sessionUser, followedUserId}) {
 
     
 
-    const res = [];
+    // const res = [];
 
-    for (let user of userFollowsArr) {
-        res.push(user.id)
-    };
+    // for (let user of userFollowsArr) {
+    //     res.push(user.id)
+    // };
 
     const showFun = () => {
         setShowFunDiv(!showFunDiv);
@@ -33,7 +33,7 @@ export default function UserFollows({sessionUser, followedUserId}) {
             user2Id : followedUserId
         }
 
-        if(res.includes(followedUserId)) {
+        if(userFollows[followedUserId]) {
             await dispatch(deleteUserFollowsThunk(sessionUser.id, followedUserId));
             // await dispatch(getUserFollowsThunk(sessionUser.id));
         } else {
@@ -47,7 +47,7 @@ export default function UserFollows({sessionUser, followedUserId}) {
 
     useEffect(()=> {
         dispatch(getUserFollowsThunk(sessionUser.id));
-    }, [dispatch]);
+    }, [dispatch, sessionUser]);
 
     if(userFollowsArr.length === 0) {
         return (
@@ -61,7 +61,7 @@ export default function UserFollows({sessionUser, followedUserId}) {
         <>
         <div id='add-user-follow-div'>
             {/* <i className="fa-solid fa-ellipsis" onClick={showFun}></i> */}
-            {res.includes(followedUserId) ? 
+            {userFollows[followedUserId] ? 
                 <p id='following' onClick={UserFollowFun}>Following</p>      
                 : 
                 <p id='not-follow' onClick={UserFollowFun}>Follow</p>      

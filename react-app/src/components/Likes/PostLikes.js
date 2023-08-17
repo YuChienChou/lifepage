@@ -36,7 +36,7 @@ export default function PostLikes({sessionUser, postId, user}) {
 
     useEffect(() => {
         dispatch(getUserLikePostsThunk(sessionUser.id))
-    }, [dispatch, sessionUser.id, postId]);
+    }, [dispatch, sessionUser.id]);
 
     if(!userLikePosts) return null;
 
