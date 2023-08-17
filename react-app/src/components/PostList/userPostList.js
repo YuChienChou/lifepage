@@ -11,8 +11,6 @@ import PostLikes from '../Likes/PostLikes';
 import userProfilePicture from '../resources/default-user-profile-picture.png';
 import './postList.css'
 import { getUserPostsThunk } from '../../store/post';
-import { getCurrentUserThunk } from '../../store/user';
-
 
 
 export default function UserPostList({ sessionUser, user, posts }) {
@@ -59,6 +57,7 @@ export default function UserPostList({ sessionUser, user, posts }) {
     return (
         
         <>
+
         {reversedPostsArr.map((post) => (
         <li key={post.id} className='post-list'>
 

@@ -280,7 +280,7 @@ export const editSinglePostThunk = (singlePostId, postInfo) => async (dispatch) 
 
 
 export const getAllLikedPostUsersThunk = (postId) => async (dispatch) => {
-    console.log("in getAllLikedPostUsersThunk~~~~~~~~~~~~~~")
+    // console.log("in getAllLikedPostUsersThunk~~~~~~~~~~~~~~")
     try{
         const res = await fetch(`/api/posts/${postId}/likes/all`)
 
