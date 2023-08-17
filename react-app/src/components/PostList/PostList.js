@@ -1,5 +1,5 @@
 import ReactPlayer from 'react-player/youtube';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import OpenModalButton from '../OpenModalButton';
@@ -45,6 +45,7 @@ export default function PostList({ sessionUser }) {
     }
 
     if(postsArr.length < 1) return null;
+
     
     return (
         

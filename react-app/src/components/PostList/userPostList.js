@@ -47,7 +47,12 @@ export default function UserPostList({ sessionUser, user, posts }) {
         return (
             <>
             <div>
-                <p id='no-post'>{user.username} doesn't have any posts yet.</p>
+                {sessionUser.first_name === user.first_name ? 
+                <p id='no-post'>You don't have any post yet.</p>
+                :
+                <p id='no-post'>{user.username ? user.username : user.first_name} doesn't have any posts yet.</p>
+            }
+                
             </div>
             
             </>

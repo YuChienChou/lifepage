@@ -8,7 +8,7 @@ export default function UserFollows({sessionUser, followedUserId}) {
     
     const { userId } = useParams();
     const userFollows = useSelector((state) => state.users.userFollows);
-    console.log("user follows in create Follow component: ", userFollows);
+    // console.log("user follows in create Follow component: ", userFollows);
     const userFollowsArr = Object.values(userFollows);
     // console.log("user follows array in create follow component: ", userFollowsArr);
     const [showFunDiv, setShowFunDiv] = useState(false);
