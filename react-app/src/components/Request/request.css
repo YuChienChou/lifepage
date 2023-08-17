@@ -16,3 +16,28 @@
     color: #FFFFFF;
     cursor: pointer;
 }
+
+#friends-div {
+    display: flex;
+    background-color: transparent;
+    align-items: center;
+}
+
+#friends img {
+    width: 25px;
+    height: 25px;
+    /* background-color: transparent; */
+    border: none;
+}
+
+#friends {
+    display: flex;
+    align-items: center;
+    border-radius: 5px;
+    padding: 5px 8px 5px 5px;
+    background-color: #E4E6EB;
+}
+
+#friends p {
+    background-color: #E4E6EB;
+}

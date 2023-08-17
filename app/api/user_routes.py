@@ -221,7 +221,9 @@ def add_follow_rel(user1_id, user2_id):
             return "User not found.", 404
 
         user1.followed.append(user2)
+
         db.session.commit()
+        db.session.refresh(user1)
         return user2.to_dict()
     
     except Exception as e:
@@ -285,6 +287,8 @@ def delete_follow_rel(user1_id, user2_id):
         
         user1.followed.remove(user2)
         db.session.commit()
+        db.session.refresh(user1)
+
         return f"Cancel following relationship with {user2.first_name}."
     
     except Exception as e:
@@ -360,7 +364,7 @@ def delete_friend_rel(user1_id, user2_id):
         if not user1 or not user2:
             return "User not found.", 404
         
-        user1.friends.remove(user2)
+        user1.friend_added.remove(user2)
         
         if user2 in user1.followed: 
             user1.followed.remove(user2) # when cancel friend rel, automatically cancel follow relationship

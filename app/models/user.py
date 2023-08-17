@@ -133,5 +133,6 @@ class User(db.Model, UserMixin):
             'created_at': self.created_at,
             'updated_at': self.updated_at,
             # 'likes' : [like.to_dict() for like in self.likes],
-            'friends' : [{'id': friend.id, 'username': friend.username, 'user_first_name': friend.first_name, 'profile_picture': friend.profile_picture, } for friend in self.friends]
+            'friends' : [{'id': friend.id, 'username': friend.username, 'user_first_name': friend.first_name, 'profile_picture': friend.profile_picture, } for friend in self.friends],
+            'follows' : [{'id': follow.id, 'username': follow.username, 'user_first_name': follow.first_name, 'profile_picture': follow.profile_picture, } for follow in self.followers],
         }

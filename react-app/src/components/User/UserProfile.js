@@ -88,8 +88,15 @@ export default function UserPorfile() {
                         </div>
                 </div>
 
+                    
+                {sessionUser.id === Number(userId) ? 
+                <UserFollowsList sessionUser={currentUser} user={user}/>
+                    :
+                    null
+                }
+
                
-               <UserFollowsList sessionUser={currentUser} user={user}/>  
+                
                {sessionUser.id === user.id? 
                     <UserRequests sessionUser={currentUser} />
                     :
