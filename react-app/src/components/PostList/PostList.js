@@ -166,7 +166,7 @@ export default function PostList({ sessionUser }) {
                                     likedUsers.push(user.first_name)
                             )))
 
-                            console.log("likedUsers user name list: ", likedUsers);
+                            // console.log("likedUsers user name list: ", likedUsers);
                             // console.log("post likes array length: ", post.likes.length);
                             if(post.likes.length === 0) {
                                 return (
@@ -177,26 +177,42 @@ export default function PostList({ sessionUser }) {
                             } else if (post.likes.length === 1) {
                                 return (
                                     <>
-                                    <p>{likedUsers[0]} likes this post.</p>
+                                    {/* <p>{likedUsers[0]} likes this post.</p> */}
+                                    {/* <p>1 person likes this post.</p> */}
+                                    <p>1 like.</p>
                                     </>
                                 )
                             } 
 
-                            else if(post.likes.length === 2) {
+                            // else if(post.likes.length > 1) {
                                 
-                                    return (
-                                        <>
-                                        <p>{likedUsers[0]} and {likedUsers[1]} like this post.</p>
-                                        </>
-                                    )
-                            } 
+                            //         return (
+                            //             <>
+                            //             <p>{likedUsers[0]} and {likedUsers[1]} like this post.</p>
+                            //             </>
+                            //         )
+                            // } 
                             else {
                                 return (
                                     <>
-                                    <p>{post.likes.length} people like this post.</p>
+                                    <p>{post.likes.length} likes.</p>
                                     </>
                                 )
+                                // if(likedUsers.includes(sessionUser.username) || likedUsers.includes(sessionUser.first_name)) {
+                                //     return (
+                                //         <>
+                                //         <p>You and {post.likes.length -1} others</p>
+                                //         </>
+                                //     )
+                                // } else {
+                                //     return (
+                                //         <>
+                                //         <p>{post.likes.length} people like this post.</p>
+                                //         </>
+                                //     )
+                                // }
                             }
+                                
                             })()}
                     </div>
 

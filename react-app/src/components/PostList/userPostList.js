@@ -174,7 +174,7 @@ export default function UserPostList({ sessionUser, user, posts }) {
                                     likedUsers.push(user.first_name)
                             )))
 
-                            console.log("likedUsers user name list: ", likedUsers);
+                            // console.log("likedUsers user name list: ", likedUsers);
                             // console.log("post likes array length: ", post.likes.length);
                             if(post.likes.length === 0) {
                                 return (

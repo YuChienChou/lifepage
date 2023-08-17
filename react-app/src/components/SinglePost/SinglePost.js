@@ -151,7 +151,7 @@ export default function SinglePost() {
                                     likedUsers.push(user.first_name)
                             )))
 
-                            console.log("likedUsers user name list: ", likedUsers);
+                            // console.log("likedUsers user name list: ", likedUsers);
                             // console.log("post likes array length: ", post.likes.length);
                             if(singlePost.likes.length === 0) {
                                 return (
