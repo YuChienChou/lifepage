@@ -51,9 +51,9 @@ const deleteComment = (commentId) => {
 //     };
 // };
 
-export const getAllCommentsThunk = () => async (dispatch) => {
+export const getAllCommentsThunk = (postId) => async (dispatch) => {
     try {
-        const res = await fetch('/api/comments/all')
+        const res = await fetch(`/api/comments/${postId}/all`)
 
         if(res.ok) {
             const allComments = await res.json();

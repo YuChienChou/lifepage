@@ -11,7 +11,9 @@ import './comment.css'
 export default function CommentList({sessionUser, post}) {
     const [editComment, setEditComment] = useState(null);
     const postCommentStore = useSelector((state) => state.comments.allComments);
-    const postCommentArr = Object.values(postCommentStore).filter((comment) => comment.post_id === post.id);
+    console.log("All comments in CommentLIst component: ", postCommentStore);
+    const postCommentArr = Object.values(postCommentStore);
+    console.log("All comments array in CommentList component:", postCommentArr);
     const currDate = new Date();
 
     const dispatch = useDispatch();
