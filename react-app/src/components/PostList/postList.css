@@ -111,6 +111,9 @@
 #no-post {
     width: 100%;
     text-align: center;
+    background-color: #FFF;
+    padding: 16px;
+    border-radius: 10px;
 }
 
 
