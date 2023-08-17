@@ -38,7 +38,7 @@ export default function PostLikes({sessionUser, postId, user}) {
         dispatch(getUserLikePostsThunk(sessionUser.id))
     }, [dispatch, sessionUser.id]);
 
-    if(!userLikePosts) return null;
+    // if(!userLikePosts) return null;
 
     return (
         <>
