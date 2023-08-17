@@ -185,23 +185,24 @@ export default function UserPostList({ sessionUser, user, posts }) {
                             } else if (post.likes.length === 1) {
                                 return (
                                     <>
-                                    <p>{likedUsers[0]} likes this post.</p>
+                                    {/* <p>{likedUsers[0]} likes this post.</p> */}
+                                    <p>1 like.</p>
                                     </>
                                 )
                             } 
 
-                            else if(post.likes.length === 2) {
+                            // else if(post.likes.length === 2) {
                                 
-                                    return (
-                                        <>
-                                        <p>{likedUsers[0]} and {likedUsers[1]} like this post.</p>
-                                        </>
-                                    )
-                            } 
+                            //         return (
+                            //             <>
+                            //             <p>{likedUsers[0]} and {likedUsers[1]} like this post.</p>
+                            //             </>
+                            //         )
+                            // } 
                             else {
                                 return (
                                     <>
-                                    <p>{post.likes.length} people like this post.</p>
+                                    <p>{post.likes.length} likes.</p>
                                     </>
                                 )
                             }

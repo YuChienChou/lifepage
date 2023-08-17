@@ -1,21 +1,16 @@
 import { useSelector, useDispatch } from 'react-redux';
-import { addUserLikePostThunk, deleteUserLikePostThunk, getAllPostsThunk, getSinglePostThunk } from "../../store/post";
+import { addUserLikePostThunk, deleteUserLikePostThunk, getAllPostsThunk, getSinglePostThunk, getUserLikePostsThunk } from "../../store/post";
 import { getUserPostsThunk } from '../../store/post';
 import './like.css'
+import { useEffect } from 'react';
 
 export default function PostLikes({sessionUser, postId}) {
 
     // console.log("post id in PostLikes component: ", postId)
-    const userLikePosts = useSelector((state) => state.posts.userLikes)
+    const userLikePosts = useSelector((state) => state.posts.userLikes);
     // console.log("user like posts in PostLikes component: ", userLikePosts);
-    const userLikePostArr = Object.values(userLikePosts);
+    // const userLikePostArr = Object.values(userLikePosts);
     const dispatch = useDispatch();
-
-    const res = [];
-
-    for (let post of userLikePostArr) {
-        res.push(post.id);
-    }
 
     const userLikeFun = async (postId) => {
 
@@ -24,7 +19,7 @@ export default function PostLikes({sessionUser, postId}) {
             post_id: postId,
         }
 
-        if(res.includes(postId)) {
+        if(userLikePosts[postId]) {
            await dispatch(deleteUserLikePostThunk(postId));
         
         } else {
@@ -34,19 +29,25 @@ export default function PostLikes({sessionUser, postId}) {
         
         await dispatch(getAllPostsThunk());
         await dispatch(getUserPostsThunk(sessionUser.id));
-        await dispatch(getSinglePostThunk(postId))
+        await dispatch(getSinglePostThunk(postId));
+
     };
 
-    // if(!userLikePosts) return null;
+
+    useEffect(() => {
+        dispatch(getUserLikePostsThunk(sessionUser.id))
+    }, [dispatch, sessionUser.id, postId]);
+
+    if(!userLikePosts) return null;
 
     return (
         <>
         
         <button 
             onClick={() => userLikeFun(postId)}
-            id={res.includes(postId) ? "like" : "dislike"}
+            id={userLikePosts[postId] ? "like" : "dislike"}
         >
-            {res.includes(postId) ? 
+            {userLikePosts[postId] ? 
                 <i className="fa-solid fa-thumbs-up"></i>
                 : 
                 <i className="fa-regular fa-thumbs-up"></i>

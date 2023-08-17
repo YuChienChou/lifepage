@@ -162,23 +162,25 @@ export default function SinglePost() {
                             } else if (singlePost.likes.length === 1) {
                                 return (
                                     <>
-                                    <p>{likedUsers[0]} likes this post.</p>
+                                    {/* <p>{likedUsers[0]} likes this post.</p> */}
+                                    <p>1 like.</p>
                                     </>
                                 )
                             } 
 
-                            else if(singlePost.likes.length === 2) {
+                            // else if(singlePost.likes.length === 2) {
                                 
-                                    return (
-                                        <>
-                                        <p>{likedUsers[0]} and {likedUsers[1]} like this post.</p>
-                                        </>
-                                    )
-                            } 
+                            //         return (
+                            //             <>
+                            //             <p>{likedUsers[0]} and {likedUsers[1]} like this post.</p>
+                            //             </>
+                            //         )
+                            // } 
                             else {
                                 return (
                                     <>
-                                    <p>{singlePost.likes.length} people like this post.</p>
+                                    {/* <p>{singlePost.likes.length} people like this post.</p> */}
+                                    <p>{singlePost.likes.length} likes.</p>
                                     </>
                                 )
                             }
