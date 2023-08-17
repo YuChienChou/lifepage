@@ -19,12 +19,7 @@ export default function CreateComment({sessionUser, post}) {
             post_id: post.id,
         }
 
-        try {
-            await dispatch(createCommentThunk(post.id, commentInfo));
-
-        } catch(error) {
-            console.log(error);
-        };
+        await dispatch(createCommentThunk(post.id, commentInfo));
 
         setContent("")
         

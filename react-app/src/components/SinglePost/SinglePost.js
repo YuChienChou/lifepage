@@ -32,13 +32,9 @@ export default function SinglePost() {
             user_id : sessionUser.id
         }
       
-        try {
-            await dispatch(editSinglePostThunk(singlePost.id, postInfo));
-            await dispatch(getSinglePostThunk(singlePost.id));
-        } catch (error) {
-            console.log(error);
-        };
-
+        await dispatch(editSinglePostThunk(singlePost.id, postInfo));
+        await dispatch(getSinglePostThunk(singlePost.id));
+     
         setEditPost(false)
     };
 

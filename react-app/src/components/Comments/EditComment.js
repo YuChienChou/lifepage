@@ -21,14 +21,11 @@ export default function EditComment({sessionUser, post, comment}) {
             post_id : post.id
         }
 
-        try {
-            await dispatch(editCommentThunk(comment.id, commentInfo));
-            // await dispatch(getAllPostsThunk(post.id));
-            
-            closeModal()
-        } catch (error) {
-            console.log(error)
-        };
+        await dispatch(editCommentThunk(comment.id, commentInfo));
+        // await dispatch(getAllPostsThunk(post.id));
+        
+        closeModal();
+    
     };
 
     useEffect(() => {
