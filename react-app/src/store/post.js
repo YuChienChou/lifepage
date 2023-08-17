@@ -144,7 +144,7 @@ export const editPostThunk = (postId, postInfo) => async (dispatch) => {
         });
         // console.log("after the res fetch of the editpostthunk", res)
         if(res.ok) {
-            console.log("result from the backend in the edit post thunk: ", res)
+            // console.log("result from the backend in the edit post thunk: ", res)
             const updatedPost = await res.json();
             dispatch(editPost(updatedPost));
             return updatedPost;

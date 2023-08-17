@@ -28,7 +28,7 @@ export default function EditUserModal({sessionUser}) {
         e.preventDefault();
 
         if(profilePicture) {
-            console.log("profile picture in edit user component: ", profilePicture)
+            // console.log("profile picture in edit user component: ", profilePicture)
             const userInfo = new FormData();
             userInfo.append("username", username);
             userInfo.append("phone", phone);

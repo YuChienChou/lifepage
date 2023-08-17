@@ -1,8 +1,8 @@
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { createPostThunk, getUserPostsThunk } from "../../store/post";
-import { getAllUsersThunk, getSingleUserThunk } from "../../store/user";
+import { createPostThunk } from "../../store/post";
+import { getSingleUserThunk } from "../../store/user";
 import { useModal } from "../../context/Modal";
 import userProfilePicture from '../resources/default-user-profile-picture.png';
 import './createpost.css'
@@ -32,17 +32,12 @@ export default function CreatePost({sessionUser}) {
         postInfo.append("body", body);
         postInfo.append("user_id", sessionUser.id);
     
-
-        try {
-            await dispatch(createPostThunk(sessionUser.id, postInfo));
-            await dispatch(getSingleUserThunk(sessionUser.id));
-            // await dispatch(getUserPostsThunk(sessionUser.id));
-            
-            closeModal()
-        } catch(error) {
-            console.log(error);
-        }
-    }
+        await dispatch(createPostThunk(sessionUser.id, postInfo));
+        await dispatch(getSingleUserThunk(sessionUser.id));
+        // await dispatch(getUserPostsThunk(sessionUser.id));
+        
+        closeModal()
+    };
 
     useEffect(() => {
         const errors = {}
@@ -57,11 +52,11 @@ export default function CreatePost({sessionUser}) {
                !media['name'].endsWith("png") &&
                !media['name'].endsWith("jpg") &&
                !media['name'].endsWith("jpeg") && 
-               !media['name'].endsWith("gif"))
-            //    !media['name'].endsWith("mp4") && 
-            //    !media['name'].endsWith("avi") && 
-            //    !media['name'].endsWith("mov") &&
-            //    !media['name'].endsWith("mkv"))  
+               !media['name'].endsWith("gif") &&
+               !media['name'].endsWith("mp4") && 
+               !media['name'].endsWith("avi") && 
+               !media['name'].endsWith("mov") &&
+               !media['name'].endsWith("mkv"))  
                errors.mediaFormat = "Please provide valid image or video file ends with pdf, png, jpg, or gif."}
 
         setValidationError(errors)

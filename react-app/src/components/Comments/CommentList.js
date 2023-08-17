@@ -12,9 +12,9 @@ export default function CommentList({sessionUser, post}) {
     // console.log("post comments in CommentList component: ", post.Comments);
     const [editComment, setEditComment] = useState(null);
     const postCommentStore = useSelector((state) => state.comments.allComments);
-    console.log("All comments in CommentLIst component: ", postCommentStore);
+    // console.log("All comments in CommentLIst component: ", postCommentStore);
     const postCommentArr = Object.values(postCommentStore).filter(comment => comment.post_id === post.id);
-    console.log("All comments array in CommentList component:", postCommentArr);
+    // console.log("All comments array in CommentList component:", postCommentArr);
     const currDate = new Date();
 
     const dispatch = useDispatch();
@@ -30,13 +30,6 @@ export default function CommentList({sessionUser, post}) {
     useEffect(() => {
         dispatch(getAllCommentsThunk());
     }, [dispatch, post]);
-    // useEffect(() => {
-    //     const fetchCommentsForPost = async (postId) => {
-    //         await dispatch(getAllCommentsThunk(postId));
-    //     };
-    
-    //     fetchCommentsForPost(post.id);
-    // }, [dispatch, post.id]);
 
     return (
         <>
