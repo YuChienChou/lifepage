@@ -55,14 +55,11 @@ export default function EditPostModal({sessionUser, post }) {
             postInfo.append("body", body);
             postInfo.append("user_id", sessionUser.id);
             
-            try {
                 await dispatch(editPostThunk(post.id, postInfo)) 
                 await dispatch(getAllPostsThunk());           
                 await dispatch(getUserPostsThunk(sessionUser.id));
                 closeModal();
-            } catch(error) {
-                console.log(error);
-            };
+         
         } else {
             const postInfo = {
                 media : post.media,
@@ -70,18 +67,12 @@ export default function EditPostModal({sessionUser, post }) {
                 user_id : sessionUser.id
             }
 
-            try {
                 await dispatch(editSinglePostThunk(post.id, postInfo)) 
                 await dispatch(getUserPostsThunk(sessionUser.id));
                 await dispatch(getAllPostsThunk());           
                 
                 closeModal();
-            } catch(error) {
-                console.log(error);
-            };
-        }
-
-       
+        }       
     };
 
     useEffect(() => {

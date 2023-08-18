@@ -13,7 +13,7 @@ export default function UserFollows({sessionUser, followedUserId}) {
     // console.log("user follows array in create follow component: ", userFollowsArr);
     const [showFunDiv, setShowFunDiv] = useState(false);
     const dispatch = useDispatch();
-    console.log("session user follows in UserFollows component: ", sessionUser.follows);
+    // console.log("session user follows in UserFollows component: ", sessionUser.follows);
 
     
 
