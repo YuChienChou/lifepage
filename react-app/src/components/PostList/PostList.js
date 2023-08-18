@@ -158,6 +158,8 @@ export default function PostList({ sessionUser }) {
                         <i className="fa-regular fa-thumbs-up"></i>
                         {(() => {
 
+
+                            console.log("post likes in PostList component: ", post.likes);
                             const likedUsers = [];
                             post.likes.map((user) => (
 
