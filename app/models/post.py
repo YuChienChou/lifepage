@@ -59,7 +59,7 @@ class Post(db.Model):
                 'profile_picture' : self.user.profile_picture,
             },
             'likes' : [like.to_dict() for like in self.likes],
-            'Comments' : [comment.to_dict() for comment in self.comments]
+            # 'Comments' : [comment.to_dict() for comment in self.comments]
             # 'Medias' : [media.to_dict() for media in self.medias]
         }
 
