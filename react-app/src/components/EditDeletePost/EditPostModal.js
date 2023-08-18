@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { useModal } from '../../context/Modal';
-import { editPostThunk, editSinglePostThunk, getAllPostsThunk, getUserPostsThunk } from '../../store/post';
+import { editPostThunk, getAllPostsThunk, getUserPostsThunk } from '../../store/post';
 import userProfilePicture from '../resources/default-user-profile-picture.png';
 import './editPost.css'
 
@@ -20,6 +20,20 @@ export default function EditPostModal({sessionUser, post }) {
         setShowItem(!showItem)
     }
 
+    const handleMediaChange = (e) => {
+        const selectedMedia = e.target.files[0];
+
+        if (selectedMedia) {
+            const fileSizeInKB = selectedMedia.size;
+            if (fileSizeInKB > 110 * 1024 * 1024) {
+                setValidationError({ ...validationError, mediaSize: "Please provide file size under 100MB." });
+            } else {
+                setValidationError({ ...validationError, mediaSize: "" });
+                setMedia(selectedMedia);
+            }
+        }
+    };
+
     const EditPost = async (e) => {
         e.preventDefault();
         setHasSubmit(true);
@@ -29,43 +43,11 @@ export default function EditPostModal({sessionUser, post }) {
         postInfo.append("body", body);
         postInfo.append("user_id", sessionUser.id);
         
-        await dispatch(editPostThunk(post.id, postInfo)) 
-        await dispatch(getAllPostsThunk());           
-        await dispatch(getUserPostsThunk(sessionUser.id));
+        await dispatch(editPostThunk(post.id, postInfo));
+        // await dispatch(getUserPostsThunk(sessionUser.id)); 
+        // await dispatch(getAllPostsThunk());           
+        
         closeModal();
-
-        // if(media) {
-        //     const postInfo = new FormData();
-        //     postInfo.append("media", media);
-        //     postInfo.append("body", body);
-        //     postInfo.append("user_id", sessionUser.id);
-            
-        //     try {
-        //         await dispatch(editPostThunk(post.id, postInfo)) 
-        //         await dispatch(getAllPostsThunk());           
-        //         await dispatch(getUserPostsThunk(sessionUser.id));
-        //         closeModal();
-        //     } catch(error) {
-        //         console.log(error);
-        //     };
-        // } else {
-        //     const postInfo = {
-        //         media : post.media,
-        //         body : body,
-        //         user_id : sessionUser.id
-        //     }
-
-        //     try {
-        //         await dispatch(editSinglePostThunk(post.id, postInfo)) 
-        //         await dispatch(getUserPostsThunk(sessionUser.id));
-        //         await dispatch(getAllPostsThunk());           
-                
-        //         closeModal();
-        //     } catch(error) {
-        //         console.log(error);
-        //     };
-        // }
-
        
     };
 
@@ -82,15 +64,15 @@ export default function EditPostModal({sessionUser, post }) {
                !media['name'].endsWith("png") &&
                !media['name'].endsWith("jpg") &&
                !media['name'].endsWith("jpeg") && 
-               !media['name'].endsWith("gif") &&
-               !media['name'].endsWith("mp4") && 
-               !media['name'].endsWith("avi") && 
-               !media['name'].endsWith("mov") &&
-               !media['name'].endsWith("mkv"))  
+               !media['name'].endsWith("gif"))
+            //    !media['name'].endsWith("mp4") && 
+            //    !media['name'].endsWith("avi") && 
+            //    !media['name'].endsWith("mov") &&
+            //    !media['name'].endsWith("mkv"))  
                errors.mediaFormat = "Please provide valid image or video file ends with pdf, png, jpg, or gif."}
 
         setValidationError(errors)
-    }, [body, media])
+    }, [body, media, post])
 
     return (
         <>
@@ -157,12 +139,20 @@ export default function EditPostModal({sessionUser, post }) {
                                     <input 
                                         type='file'
                                         onChange={(e) => setMedia(e.target.files[0])}
+                                        // onChange={handleMediaChange}
                                     />
                                 </div>
                             </div>                             
                         </div>
                         : null
                     }
+
+                      {/* {validationError.mediaSize ?
+                           <div id='error-div'>
+                                <p>{validationError.mediaSize}</p>
+                            </div>
+                            : null
+                       } */}
                     
                     {/* {showItem ? 
                         <div id='edit-video-div'>

@@ -11,8 +11,8 @@ export default function UserPosts({sessionUser, user }) {
     
     return (
         <>
-                {/* <div id='user-follows-div'> */}
-                <UserFollowsList sessionUser={sessionUser} user={user}/>  
+        {/* <div id='user-follows-div'> */}
+            <UserFollowsList sessionUser={sessionUser} user={user}/>  
             <UserFollowers sessionUser={sessionUser} user={user} /> 
         {/* </div>   */}
 
