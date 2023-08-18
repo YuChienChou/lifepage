@@ -7,12 +7,13 @@ import CommentList from "../Comments/CommentList";
 import CreateComment from "../Comments/CreateComment";
 import logo from '../resources/lifepage favicon.png';
 import './singlepost.css'
+import { getCurrentUserThunk } from "../../store/user";
 
 
 export default function SinglePost() {
     const { postId } = useParams();
     // console.log("page in single post : " , page);
-    const sessionUser = useSelector((state) => state.session.user);
+    const currentUser = useSelector((state) => state.users.currentUser);
     const singlePost = useSelector((state) => state.posts.singlePost);
     // console.log("single post media in single post component: ", singlePost.media);
     const [body, setBody] = useState(singlePost.body);
@@ -29,7 +30,7 @@ export default function SinglePost() {
 
         const postInfo = {
             body,
-            user_id : sessionUser.id
+            user_id : currentUser.id
         }
       
         await dispatch(editSinglePostThunk(singlePost.id, postInfo));
@@ -44,6 +45,7 @@ export default function SinglePost() {
 
     useEffect(() => {
         dispatch(getSinglePostThunk(postId));
+        dispatch(getCurrentUserThunk());
     }, [dispatch, postId]);
 
     if (!singlePost.id) {
@@ -98,7 +100,7 @@ export default function SinglePost() {
                         <div id='sp-body'>
 
                             {(() => {
-                                if(singlePost.User.id === sessionUser.id) {
+                                if(singlePost.User.id === currentUser.id) {
 
                                         if(editPost === true) {
 
@@ -185,15 +187,15 @@ export default function SinglePost() {
                     
 
                     <div id='post-likes-container'>
-                        <PostLikes sessionUser={sessionUser} postId={singlePost.id} user={singlePost.User}/>
+                        <PostLikes sessionUser={currentUser} postId={singlePost.id} user={singlePost.User}/>
                     </div>
 
                     <div id={singlePost.body.length >= 1000 ? 'single-post-comment-short' : 'single-post-comment'}>
-                        <CommentList sessionUser={sessionUser} post={singlePost}/>
+                        <CommentList sessionUser={currentUser} post={singlePost}/>
  
                     </div> 
                     <div id='single-post-create-comment'>
-                        <CreateComment sessionUser={sessionUser} post={singlePost} />  
+                        <CreateComment sessionUser={currentUser} post={singlePost} />  
                     </div>
             </div>
         </div>
