@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { useModal } from '../../context/Modal';
-import { editPostThunk, getAllPostsThunk, getUserPostsThunk } from '../../store/post';
+import { editPostThunk, editSinglePostThunk, getAllPostsThunk, getUserPostsThunk } from '../../store/post';
 import userProfilePicture from '../resources/default-user-profile-picture.png';
 import './editPost.css'
 
@@ -38,16 +38,49 @@ export default function EditPostModal({sessionUser, post }) {
         e.preventDefault();
         setHasSubmit(true);
 
-        const postInfo = new FormData();
-        postInfo.append("media", media);
-        postInfo.append("body", body);
-        postInfo.append("user_id", sessionUser.id);
+        // const postInfo = new FormData();
+        // postInfo.append("media", media);
+        // postInfo.append("body", body);
+        // postInfo.append("user_id", sessionUser.id);
         
-        await dispatch(editPostThunk(post.id, postInfo));
+        // await dispatch(editPostThunk(post.id, postInfo));
         // await dispatch(getUserPostsThunk(sessionUser.id)); 
         // await dispatch(getAllPostsThunk());           
         
-        closeModal();
+        // closeModal();
+
+        if(media) {
+            const postInfo = new FormData();
+            postInfo.append("media", media);
+            postInfo.append("body", body);
+            postInfo.append("user_id", sessionUser.id);
+            
+            try {
+                await dispatch(editPostThunk(post.id, postInfo)) 
+                await dispatch(getAllPostsThunk());           
+                await dispatch(getUserPostsThunk(sessionUser.id));
+                closeModal();
+            } catch(error) {
+                console.log(error);
+            };
+        } else {
+            const postInfo = {
+                media : post.media,
+                body : body,
+                user_id : sessionUser.id
+            }
+
+            try {
+                await dispatch(editSinglePostThunk(post.id, postInfo)) 
+                await dispatch(getUserPostsThunk(sessionUser.id));
+                await dispatch(getAllPostsThunk());           
+                
+                closeModal();
+            } catch(error) {
+                console.log(error);
+            };
+        }
+
        
     };
 
@@ -72,7 +105,7 @@ export default function EditPostModal({sessionUser, post }) {
                errors.mediaFormat = "Please provide valid image or video file ends with pdf, png, jpg, or gif."}
 
         setValidationError(errors)
-    }, [body, media, post])
+    }, [body, media])
 
     return (
         <>
@@ -138,8 +171,8 @@ export default function EditPostModal({sessionUser, post }) {
                                     <i className="fa-solid fa-photo-film"></i>
                                     <input 
                                         type='file'
-                                        onChange={(e) => setMedia(e.target.files[0])}
-                                        // onChange={handleMediaChange}
+                                        // onChange={(e) => setMedia(e.target.files[0])}
+                                        onChange={handleMediaChange}
                                     />
                                 </div>
                             </div>                             
@@ -147,12 +180,12 @@ export default function EditPostModal({sessionUser, post }) {
                         : null
                     }
 
-                      {/* {validationError.mediaSize ?
+                      {validationError.mediaSize ?
                            <div id='error-div'>
                                 <p>{validationError.mediaSize}</p>
                             </div>
                             : null
-                       } */}
+                       }
                     
                     {/* {showItem ? 
                         <div id='edit-video-div'>
