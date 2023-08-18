@@ -34,7 +34,7 @@ export default function UserPorfile() {
         dispatch(getSingleUserThunk(userId));
         dispatch(getCurrentUserThunk());
         dispatch(getUserFollowsThunk(sessionUser.id));
-    }, [dispatch, userId])
+    }, [dispatch, userId, sessionUser.id])
 
 
     return (
