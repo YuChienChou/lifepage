@@ -3,14 +3,24 @@ import { addUserLikePostThunk, deleteUserLikePostThunk, getAllPostsThunk, getSin
 import { getUserPostsThunk } from '../../store/post';
 import './like.css'
 import { useEffect } from 'react';
+import { getCurrentUserThunk, getSingleUserThunk } from '../../store/user';
 
 export default function PostLikes({sessionUser, postId, user}) {
 
+
     // console.log("post id in PostLikes component: ", postId)
-    const userLikePosts = useSelector((state) => state.posts.userLikes);
+    // const userLikePosts = useSelector((state) => state.posts.userLikes);
     // console.log("user like posts in PostLikes component: ", userLikePosts);
     // const userLikePostArr = Object.values(userLikePosts);
+    // console.log("session user likes in PostLikes component: ", sessionUser.likes);
     const dispatch = useDispatch();
+
+    const res = [];
+    for (let like of sessionUser.likes) {
+        res.push(like.id)
+    };
+
+    // console.log("res in PostLikes component: ", res);
 
     const userLikeFun = async (postId) => {
 
@@ -19,14 +29,16 @@ export default function PostLikes({sessionUser, postId, user}) {
             post_id: postId,
         }
 
-        if(userLikePosts[postId]) {
+        if(res.includes(postId)) {
            await dispatch(deleteUserLikePostThunk(postId));
+           
         
         } else {
            await dispatch(addUserLikePostThunk(payload));
 
         }
-        
+
+        await dispatch(getCurrentUserThunk());
         await dispatch(getAllPostsThunk());
         await dispatch(getUserPostsThunk(user.id));
         await dispatch(getSinglePostThunk(postId));
@@ -45,9 +57,9 @@ export default function PostLikes({sessionUser, postId, user}) {
         
         <button 
             onClick={() => userLikeFun(postId)}
-            id={userLikePosts[postId] ? "like" : "dislike"}
+            id={res.includes(postId) ? "like" : "dislike"}
         >
-            {userLikePosts[postId] ? 
+            {res.includes(postId) ? 
                 <i className="fa-solid fa-thumbs-up"></i>
                 : 
                 <i className="fa-regular fa-thumbs-up"></i>

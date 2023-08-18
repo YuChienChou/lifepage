@@ -100,4 +100,7 @@ class User(db.Model, UserMixin):
             'created_at': self.created_at,
             'updated_at': self.updated_at,
             # 'likes' : [like.to_dict() for like in self.likes],
+            'likes' : [{'id': like.id} for like in self.likes],
+            # 'follows': [follow.to_dict() for follow in self.followed],
+            'follows': [{'id': follow.id} for follow in self.followed],
         }
