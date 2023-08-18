@@ -16,7 +16,7 @@ export default function PostLikes({sessionUser, postId, user}) {
     const dispatch = useDispatch();
 
     const res = [];
-    for (let like of sessionUser.likes) {
+    for (let like of sessionUser.likes) { 
         res.push(like.id)
     };
 
