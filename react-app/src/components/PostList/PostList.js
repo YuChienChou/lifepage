@@ -159,7 +159,7 @@ export default function PostList({ sessionUser }) {
                         {(() => {
 
 
-                            console.log("post likes in PostList component: ", post.likes);
+                            // console.log("post likes in PostList component: ", post.likes);
                             // const likedUsers = [];
                             // post.likes.map((user) => (
 

@@ -133,7 +133,7 @@ export const createPostThunk = (userId, post) => async (dispatch) => {
 
 
 export const editPostThunk = (postId, postInfo) => async (dispatch) => {
-    console.log("in the edit post thunk~~~~~~~~~~~~~~~~~~~~~")
+    // console.log("in the edit post thunk~~~~~~~~~~~~~~~~~~~~~")
     try {
         // console.log("in the try block of the editpostthunk")
         const res = await fetch(`/api/posts/${postId}/edit`, {
