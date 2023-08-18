@@ -9,10 +9,10 @@ export default function PostLikes({sessionUser, postId, user}) {
 
 
     // console.log("post id in PostLikes component: ", postId)
-    const userLikePosts = useSelector((state) => state.posts.userLikes);
+    // const userLikePosts = useSelector((state) => state.posts.userLikes);
     // console.log("user like posts in PostLikes component: ", userLikePosts);
-    const userLikePostArr = Object.values(userLikePosts);
-    console.log("session user likes in PostLikes component: ", sessionUser.likes);
+    // const userLikePostArr = Object.values(userLikePosts);
+    // console.log("session user likes in PostLikes component: ", sessionUser.likes);
     const dispatch = useDispatch();
 
     const res = [];
@@ -20,7 +20,7 @@ export default function PostLikes({sessionUser, postId, user}) {
         res.push(like.id)
     };
 
-    console.log("res in PostLikes component: ", res);
+    // console.log("res in PostLikes component: ", res);
 
     const userLikeFun = async (postId) => {
 
