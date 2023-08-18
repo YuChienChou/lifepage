@@ -38,6 +38,7 @@ def edit_comment(commentId):
             edit_comment.updated_at = date.today()
             
             db.session.commit()
+            db.session.refresh(edit_comment)
             return edit_comment.to_dict()
         
     except Exception as e:
