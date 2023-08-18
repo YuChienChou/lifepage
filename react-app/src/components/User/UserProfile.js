@@ -70,7 +70,7 @@ export default function UserPorfile() {
                                 }
                                 {sessionUser.id === Number(userId) ? 
                                     null
-                                    : <UserFollows sessionUser={sessionUser} followedUserId={user.id} />
+                                    : <UserFollows sessionUser={currentUser} followedUserId={user.id} />
                                 }
                             </div>
                             
