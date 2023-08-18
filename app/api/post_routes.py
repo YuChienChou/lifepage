@@ -117,6 +117,7 @@ def edit_post(postId):
             edit_post.user_id = form.data['user_id']
             edit_post.updated_at = date.today()
             db.session.commit()
+            db.session.refresh(edit_post)
             print("edited post in the edit post route: ", edit_post.to_dict())
             return edit_post.to_dict()
 

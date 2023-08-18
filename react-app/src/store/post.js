@@ -316,12 +316,13 @@ const postReducer = (state = initialState, action) => {
             return newState;
         };
         case CREATE_POST: {
-            const newState = {...state, allPosts: {...state.allPosts}};
+            const newState = {...state, allPosts: {}};
             newState.allPosts[action.post.id] = action.post;
             return newState;
         };
         case EDIT_POST: {
-            const newState = {...state, allPosts: {...state.allPosts}};
+            const newState = {...state, allPosts: {...state.allPosts}, userPosts: {...state.userPosts}};
+            newState.userPosts[action.post.id] = action.post;
             newState.allPosts[action.post.id] = action.post;
             return newState;
         };
