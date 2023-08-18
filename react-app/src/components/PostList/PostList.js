@@ -160,14 +160,16 @@ export default function PostList({ sessionUser }) {
 
 
                             console.log("post likes in PostList component: ", post.likes);
-                            const likedUsers = [];
-                            post.likes.map((user) => (
+                            // const likedUsers = [];
+                            // post.likes.map((user) => (
 
-                                (user.username ? 
-                                    likedUsers.push(user.username)
-                                    : 
-                                    likedUsers.push(user.first_name)
-                            )))
+                            //     (user.username ? 
+                            //         likedUsers.push(user.username)
+                            //         : 
+                            //         likedUsers.push(user.first_name)
+                            // )
+                            // )
+                            // )
 
                             // console.log("likedUsers user name list: ", likedUsers);
                             // console.log("post likes array length: ", post.likes.length);
