@@ -4,6 +4,11 @@ lifepage, a social media app, is a website for users to share pictures/videos/th
 - Live Link: [lifepage](https://lifepage.onrender.com/)
 
 ## Technologies used: 
+<div align='center'>
+<kbd><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg" width="50" height="50"/></kdb>
+<img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/flask/flask-original-wordmark.svg" width="50" height="50"/>  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-plain.svg" width="50" height="50"/><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg" width="50" height="50"/><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/redux/redux-original.svg" width="50" height="50"/><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/sqlite/sqlite-original-wordmark.svg" width="50" height="50"/><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/sqlalchemy/sqlalchemy-original.svg" width="50" height="50"/>  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/amazonwebservices/amazonwebservices-plain-wordmark.svg" width="50" height="50"/>
+</div>
+          
 ![Static Badge](https://img.shields.io/badge/Python-%2336A59B?style=for-the-badge&logo=python)
 ![Static Badge](https://img.shields.io/badge/Flask-%23979797?style=for-the-badge&logo=flask)
 ![Static Badge](https://img.shields.io/badge/JavaScript-%23CDBC4A?style=for-the-badge&logo=Javascript)
