@@ -3,7 +3,11 @@
 lifepage, a social media app, is a website for users to share pictures/videos/thoughts, see other users posts, and interact with the community by liking and commenting.
 - Live Link: [lifepage](https://lifepage.onrender.com/)
 
-## Technologies used: 
+
+## Index
+[MVP Feature List](https://github.com/YuChienChou/lifepage/wiki/MVP-Feature-List) | [Database Schema and Backend Routes](https://github.com/YuChienChou/lifepage/wiki/Database-Schema-and-Backend-Routes) | [User Stories](https://github.com/YuChienChou/lifepage/wiki/User-Stories) | [WireFframes](https://github.com/YuChienChou/lifepage/wiki/Wireframes)
+
+## Technologies used
 <div align="center" width="100">
 <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg" width="60" height="60"/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/flask/flask-original-wordmark.svg" width="60" height="60"/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-plain.svg" width="60" height="60"/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg" width="60" height="60"/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/redux/redux-original.svg" width="60" height="60"/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/sqlite/sqlite-original-wordmark.svg" width="60" height="60"/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/sqlalchemy/sqlalchemy-original.svg" width="60" height="60"/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/amazonwebservices/amazonwebservices-plain-wordmark.svg" width="60" height="60"/>
 </div>
@@ -11,41 +15,51 @@ lifepage, a social media app, is a website for users to share pictures/videos/th
 
 
 
-## Screenshots:
+## Screenshots
+Log in / Sign up page: 
+<div align='center'>
+          <img src='https://github.com/YuChienChou/lifepage/assets/108157183/a7d13cc2-7ec4-46a6-a187-d3bb10a34a7a' alt="" width="800">
+</div>
+<br></br>
 
-### Log in / Sign up page: 
-<img src='https://github.com/YuChienChou/lifepage/assets/108157183/a4439b9b-894e-46e1-b55e-f2ff283a3c3a' alt="">
+User landing page:
+<div align='center'>
+          <img src='https://github.com/YuChienChou/lifepage/assets/108157183/519a4bb5-59fc-4ce0-973e-4874ac38a19a6' alt="" width='800'>
+</div>
+<br></br>
 
-### User landing page:
-<img src='https://github.com/YuChienChou/lifepage/assets/108157183/7ef896a9-49df-442e-833b-944070a9d3a6' alt="">
+User home page: 
+<div align='center'>
+          <img src='https://github.com/YuChienChou/lifepage/assets/108157183/7f335281-5318-4252-8ebd-6136d3f89c11' alt="" width='800'>
+</div>
+<br></br>
 
-### User home page: 
-<img src='https://github.com/YuChienChou/lifepage/assets/108157183/7f335281-5318-4252-8ebd-6136d3f89c11' alt="">
+Create a post:
+<div align='center'>
+          <img src='https://github.com/YuChienChou/lifepage/assets/108157183/f4201deb-a82e-4971-8bbe-9d9f2af108bf' alt="" width='800'>
+</div>
+<br></br>
 
-### Create a post:
-<img src='https://github.com/YuChienChou/lifepage/assets/108157183/f4201deb-a82e-4971-8bbe-9d9f2af108bf' alt="">
-
-### Single post page:
-<img src='https://github.com/YuChienChou/lifepage/assets/108157183/7530b8cc-ddba-4a7d-a7cd-bccb506e327a' alt="">
-
+Single post page:
+<div align='center'>
+          <img src='https://github.com/YuChienChou/lifepage/assets/108157183/7530b8cc-ddba-4a7d-a7cd-bccb506e327a' alt="" width='800'>
+</div>
 
 
 
-## Features (logged-in users)
-- Create / update / delete / read posts
-- Create / update / delete / read comments
-- Like / dislike posts
-- Follow / unfollow other users
-- Update user info
+## Current Features (logged-in users)
+- Create/update/delete/read posts by uploading images or videos.
+- Create/update/delete/read comments.
+- Like/dislike posts.
+- Follow/unfollow other users.
+- Update user info.
 
-## Technologies used: 
-- Flask
-- React.js
-- Redux.js
-- SQL
-- Sqlalchemy
-- AWS
-  
+## Future Features (logged-in users)
+- Sent friend requests to users.
+- Add/delete friend relationships between friends.
+- Send instant messages to friends.
+- Search for users.
+
 
 
 
