@@ -30,7 +30,7 @@ export default function CreatePost({sessionUser}) {
         if (selectedMedia) {
             const fileSizeInKB = selectedMedia.size;
             if (fileSizeInKB > 110 * 1024 * 1024) {
-                setValidationError({ ...validationError, mediaSize: "Please provide file size under 100MB." });
+                setValidationError({ ...validationError, mediaSize: "Please provide a file size under 100MB." });
             } else {
                 setValidationError({ ...validationError, mediaSize: "" });
                 setMedia(selectedMedia);
@@ -68,12 +68,12 @@ export default function CreatePost({sessionUser}) {
                !media['name'].endsWith("png") &&
                !media['name'].endsWith("jpg") &&
                !media['name'].endsWith("jpeg") && 
-               !media['name'].endsWith("gif"))
-            //    !media['name'].endsWith("mp4") && 
-            //    !media['name'].endsWith("avi") && 
-            //    !media['name'].endsWith("mov") &&
-            //    !media['name'].endsWith("mkv"))  
-               errors.mediaFormat = "Please provide valid image or video file ends with pdf, png, jpg, or gif."}
+               !media['name'].endsWith("gif") &&
+               !media['name'].endsWith("mp4") && 
+               !media['name'].endsWith("avi") && 
+               !media['name'].endsWith("mov") &&
+               !media['name'].endsWith("mkv"))  
+               errors.mediaFormat = "Please provide valid image or video file ends with pdf, png, jpg, gif, mp4, avi, mov, or mkv."}
 
         setValidationError(errors)
     }, [body, media]);
@@ -112,21 +112,25 @@ export default function CreatePost({sessionUser}) {
     
                 {showItem ? 
                         <div id='add-image-div'>
-                            <i className="fa-solid fa-photo-film"></i>
-                            <input
-                                type="file"
-                                onChange={(e) => setMedia(e.target.files[0])}
-                                // onChange={handleMediaChange}
-                                />
+                            
+                            <div>
+                                <i className="fa-solid fa-photo-film"></i>
+                                <input
+                                    type="file"
+                                    // onChange={(e) => setMedia(e.target.files[0])}
+                                    onChange={handleMediaChange}
+                                    />
+                            </div>
+                            <p>Please provide a file size under 100MB.</p>
                         </div>
                     : null
                 }
-                {/* {validationError.mediaSize ?
+                {validationError.mediaSize ?
                     <div id='error-div'>
                         <p>{validationError.mediaSize}</p>
                     </div>
                     : null
-                } */}
+                }
 
                 {validationError.mediaFormat ? 
                 <div id='error-div'>
