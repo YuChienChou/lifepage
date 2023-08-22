@@ -26,7 +26,7 @@ export default function EditPostModal({sessionUser, post }) {
         if (selectedMedia) {
             const fileSizeInKB = selectedMedia.size;
             if (fileSizeInKB > 110 * 1024 * 1024) {
-                setValidationError({ ...validationError, mediaSize: "Please provide file size under 100MB." });
+                setValidationError({ ...validationError, mediaSize: "Please provide a file size under 100MB." });
             } else {
                 setValidationError({ ...validationError, mediaSize: "" });
                 setMedia(selectedMedia);
