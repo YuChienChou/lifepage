@@ -94,6 +94,8 @@
 
 #add-image-div > div {
     background: none;
+    display: flex;
+    gap: 10px;
 }
 
 
