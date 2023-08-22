@@ -1,9 +1,10 @@
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { createPostThunk, getUserPostsThunk } from "../../store/post";
-import { getAllUsersThunk, getSingleUserThunk } from "../../store/user";
+import { createPostThunk, getAllPostsThunk } from "../../store/post";
+import { getUserPostsThunk } from "../../store/post";
 import { useModal } from "../../context/Modal";
+import { getSingleUserThunk } from "../../store/user"
 import userProfilePicture from '../resources/default-user-profile-picture.png';
 import './createpost.css'
 
@@ -23,6 +24,20 @@ export default function CreatePost({sessionUser}) {
         setShowItem(!showItem)
     }
 
+    const handleMediaChange = (e) => {
+        const selectedMedia = e.target.files[0];
+
+        if (selectedMedia) {
+            const fileSizeInKB = selectedMedia.size;
+            if (fileSizeInKB > 110 * 1024 * 1024) {
+                setValidationError({ ...validationError, mediaSize: "Please provide a file size under 100MB." });
+            } else {
+                setValidationError({ ...validationError, mediaSize: "" });
+                setMedia(selectedMedia);
+            }
+        }
+    };
+
     const handleSubmit = async (e) => {
         e.preventDefault();
         setHasSubmit(true);
@@ -32,17 +47,13 @@ export default function CreatePost({sessionUser}) {
         postInfo.append("body", body);
         postInfo.append("user_id", sessionUser.id);
     
-
-        try {
-            await dispatch(createPostThunk(sessionUser.id, postInfo));
-            await dispatch(getSingleUserThunk(sessionUser.id));
-            // await dispatch(getUserPostsThunk(sessionUser.id));
-            
-            closeModal()
-        } catch(error) {
-            console.log(error);
-        }
-    }
+        await dispatch(createPostThunk(sessionUser.id, postInfo));
+        await dispatch(getSingleUserThunk(sessionUser.id));
+        // await dispatch(getUserPostsThunk(sessionUser.id));
+        await dispatch(getAllPostsThunk());
+        
+        closeModal()
+    };
 
     useEffect(() => {
         const errors = {}
@@ -57,12 +68,12 @@ export default function CreatePost({sessionUser}) {
                !media['name'].endsWith("png") &&
                !media['name'].endsWith("jpg") &&
                !media['name'].endsWith("jpeg") && 
-               !media['name'].endsWith("gif"))
-            //    !media['name'].endsWith("mp4") && 
-            //    !media['name'].endsWith("avi") && 
-            //    !media['name'].endsWith("mov") &&
-            //    !media['name'].endsWith("mkv"))  
-               errors.mediaFormat = "Please provide valid image or video file ends with pdf, png, jpg, or gif."}
+               !media['name'].endsWith("gif") &&
+               !media['name'].endsWith("mp4") && 
+               !media['name'].endsWith("avi") && 
+               !media['name'].endsWith("mov") &&
+               !media['name'].endsWith("mkv"))  
+               errors.mediaFormat = "Please provide valid image or video file ends with pdf, png, jpg, gif, mp4, avi, mov, or mkv."}
 
         setValidationError(errors)
     }, [body, media]);
@@ -101,12 +112,23 @@ export default function CreatePost({sessionUser}) {
     
                 {showItem ? 
                         <div id='add-image-div'>
-                            <i className="fa-solid fa-photo-film"></i>
-                            <input
-                                type="file"
-                                onChange={(e) => setMedia(e.target.files[0])}
-                                />
+                            
+                            <div>
+                                <i className="fa-solid fa-photo-film"></i>
+                                <input
+                                    type="file"
+                                    // onChange={(e) => setMedia(e.target.files[0])}
+                                    onChange={handleMediaChange}
+                                    />
+                            </div>
+                            <p>Please provide a file size under 100MB.</p>
                         </div>
+                    : null
+                }
+                {validationError.mediaSize ?
+                    <div id='error-div'>
+                        <p>{validationError.mediaSize}</p>
+                    </div>
                     : null
                 }
 

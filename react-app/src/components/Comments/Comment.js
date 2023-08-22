@@ -38,14 +38,10 @@ export default function Comment({sessionUser, post}) {
             post_id: post.id,
         }
 
-        try {
-            await dispatch(createCommentThunk(post.id, commentInfo));
-            await dispatch(getAllPostsThunk());
-            await dispatch(getUserPostsThunk(sessionUser.id))
-        } catch(error) {
-            console.log(error)
-        };
-
+        await dispatch(createCommentThunk(post.id, commentInfo));
+        await dispatch(getAllPostsThunk());
+        await dispatch(getUserPostsThunk(sessionUser.id))
+    
         setContent("")
         
     };

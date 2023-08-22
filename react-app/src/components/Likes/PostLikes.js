@@ -1,21 +1,26 @@
 import { useSelector, useDispatch } from 'react-redux';
-import { addUserLikePostThunk, deleteUserLikePostThunk, getAllPostsThunk, getSinglePostThunk } from "../../store/post";
+import { addUserLikePostThunk, deleteUserLikePostThunk, getAllPostsThunk, getSinglePostThunk, getUserLikePostsThunk } from "../../store/post";
 import { getUserPostsThunk } from '../../store/post';
 import './like.css'
+import { useEffect } from 'react';
+import { getCurrentUserThunk, getSingleUserThunk } from '../../store/user';
 
-export default function PostLikes({sessionUser, postId}) {
+export default function PostLikes({sessionUser, postId, user}) {
+
 
     // console.log("post id in PostLikes component: ", postId)
-    const userLikePosts = useSelector((state) => state.posts.userLikes)
+    // const userLikePosts = useSelector((state) => state.posts.userLikes);
     // console.log("user like posts in PostLikes component: ", userLikePosts);
-    const userLikePostArr = Object.values(userLikePosts);
+    // const userLikePostArr = Object.values(userLikePosts);
+    // console.log("session user likes in PostLikes component: ", sessionUser.likes);
     const dispatch = useDispatch();
 
     const res = [];
+    for (let like of sessionUser.likes) { 
+        res.push(like.id)
+    };
 
-    for (let post of userLikePostArr) {
-        res.push(post.id);
-    }
+    // console.log("res in PostLikes component: ", res);
 
     const userLikeFun = async (postId) => {
 
@@ -26,16 +31,24 @@ export default function PostLikes({sessionUser, postId}) {
 
         if(res.includes(postId)) {
            await dispatch(deleteUserLikePostThunk(postId));
+           
         
         } else {
            await dispatch(addUserLikePostThunk(payload));
 
         }
-        
+
+        await dispatch(getCurrentUserThunk());
         await dispatch(getAllPostsThunk());
-        await dispatch(getUserPostsThunk(sessionUser.id));
-        await dispatch(getSinglePostThunk(postId))
+        await dispatch(getUserPostsThunk(user.id));
+        await dispatch(getSinglePostThunk(postId));
+
     };
+
+
+    useEffect(() => {
+        dispatch(getUserLikePostsThunk(sessionUser.id))
+    }, [dispatch, sessionUser.id]);
 
     // if(!userLikePosts) return null;
 

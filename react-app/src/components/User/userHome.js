@@ -7,23 +7,27 @@ import OpenModalButton from '../OpenModalButton';
 import CreatePost from '../CreatePost/CreatePostModal';
 import PostList from '../PostList/PostList';
 import userProfilePicture from '../resources/default-user-profile-picture.png';
+import { getCurrentUserThunk } from '../../store/user';
 import UserRequests from './userRequest';
 import UserFriends from '../Friend/userFriends';
 import './user.css'
+import { getUserFollowsThunk } from '../../store/user';
 
 export default function UserHome() {
     const sessionUser = useSelector((state) => state.session.user);
     const currentUser = useSelector((state) => state.users.currentUser);
+    // console.log("currentUser in userHome component: ", currentUser);
  
     const dispatch = useDispatch();
     // dispatch(getUserFollowsThunk(sessionUser.id));
  
     useEffect(() => {
         dispatch(getAllPostsThunk());
+        dispatch(getCurrentUserThunk(sessionUser.id));
         // dispatch(getUserFollowsThunk(sessionUser.id));
     }, [dispatch]);
 
-    if(!sessionUser) return null;
+    if(!currentUser.id) return null;
 
     return (
         <>

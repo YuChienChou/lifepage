@@ -14,7 +14,7 @@
     display: flex; 
     flex-direction: column;
     gap: 15px;
-    padding: 16px;
+    padding: 0 16px 16px 16px;
     border-radius: 0 0 10px 10px;
 }
 
@@ -54,6 +54,11 @@
     font-size: 16px;
     padding: 10px 0 5px 10px;
     color: #41B35D;
+}
+
+#username-phone {
+    display: flex;
+    justify-content: space-between;
 }
 
 #edit-user-phone input {
@@ -108,6 +113,7 @@
 }
 
 #edit-user-info-images-div img {
-    width: 100px;
+    width: 60px;
     border-radius: 5px;
+    height: 50px;
 }

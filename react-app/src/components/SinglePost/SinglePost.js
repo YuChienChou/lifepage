@@ -7,12 +7,13 @@ import CommentList from "../Comments/CommentList";
 import CreateComment from "../Comments/CreateComment";
 import logo from '../resources/lifepage favicon.png';
 import './singlepost.css'
+import { getCurrentUserThunk } from "../../store/user";
 
 
 export default function SinglePost() {
     const { postId } = useParams();
     // console.log("page in single post : " , page);
-    const sessionUser = useSelector((state) => state.session.user);
+    const currentUser = useSelector((state) => state.users.currentUser);
     const singlePost = useSelector((state) => state.posts.singlePost);
     // console.log("single post media in single post component: ", singlePost.media);
     const [body, setBody] = useState(singlePost.body);
@@ -29,16 +30,12 @@ export default function SinglePost() {
 
         const postInfo = {
             body,
-            user_id : sessionUser.id
+            user_id : currentUser.id
         }
       
-        try {
-            await dispatch(editSinglePostThunk(singlePost.id, postInfo));
-            await dispatch(getSinglePostThunk(singlePost.id));
-        } catch (error) {
-            console.log(error);
-        };
-
+        await dispatch(editSinglePostThunk(singlePost.id, postInfo));
+        await dispatch(getSinglePostThunk(singlePost.id));
+     
         setEditPost(false)
     };
 
@@ -48,6 +45,7 @@ export default function SinglePost() {
 
     useEffect(() => {
         dispatch(getSinglePostThunk(postId));
+        dispatch(getCurrentUserThunk());
     }, [dispatch, postId]);
 
     if (!singlePost.id) {
@@ -102,7 +100,7 @@ export default function SinglePost() {
                         <div id='sp-body'>
 
                             {(() => {
-                                if(singlePost.User.id === sessionUser.id) {
+                                if(singlePost.User.id === currentUser.id) {
 
                                         if(editPost === true) {
 
@@ -151,34 +149,36 @@ export default function SinglePost() {
                                     likedUsers.push(user.first_name)
                             )))
 
-                            console.log("likedUsers user name list: ", likedUsers);
+                            // console.log("likedUsers user name list: ", likedUsers);
                             // console.log("post likes array length: ", post.likes.length);
                             if(singlePost.likes.length === 0) {
                                 return (
                                     <>
-                                    <p>Be the first to like this post!</p>
+                                    <p>Be the first to like this post</p>
                                     </>
                                 )
                             } else if (singlePost.likes.length === 1) {
                                 return (
                                     <>
-                                    <p>{likedUsers[0]} likes this post.</p>
+                                    {/* <p>{likedUsers[0]} likes this post.</p> */}
+                                    <p>1 like</p>
                                     </>
                                 )
                             } 
 
-                            else if(singlePost.likes.length === 2) {
+                            // else if(singlePost.likes.length === 2) {
                                 
-                                    return (
-                                        <>
-                                        <p>{likedUsers[0]} and {likedUsers[1]} like this post.</p>
-                                        </>
-                                    )
-                            } 
+                            //         return (
+                            //             <>
+                            //             <p>{likedUsers[0]} and {likedUsers[1]} like this post.</p>
+                            //             </>
+                            //         )
+                            // } 
                             else {
                                 return (
                                     <>
-                                    <p>{singlePost.likes.length} people like this post.</p>
+                                    {/* <p>{singlePost.likes.length} people like this post.</p> */}
+                                    <p>{singlePost.likes.length} likes</p>
                                     </>
                                 )
                             }
@@ -187,15 +187,15 @@ export default function SinglePost() {
                     
 
                     <div id='post-likes-container'>
-                        <PostLikes sessionUser={sessionUser} postId={singlePost.id} />
+                        <PostLikes sessionUser={currentUser} postId={singlePost.id} user={singlePost.User}/>
                     </div>
 
                     <div id={singlePost.body.length >= 1000 ? 'single-post-comment-short' : 'single-post-comment'}>
-                        <CommentList sessionUser={sessionUser} post={singlePost}/>
+                        <CommentList sessionUser={currentUser} post={singlePost}/>
  
                     </div> 
                     <div id='single-post-create-comment'>
-                        <CreateComment sessionUser={sessionUser} post={singlePost} />  
+                        <CreateComment sessionUser={currentUser} post={singlePost} />  
                     </div>
             </div>
         </div>

@@ -220,10 +220,12 @@
 
 #user-info-post-container {
     display: flex;
-    padding: 20px 5% 5% 5%;
-    gap: 20px;
+    padding: 20px 10% 10% 10%;
+    grid-gap: 20px;
+    /* gap: 20px; */
     width: 100%;
-    justify-content: center;
+    justify-content: space-between;
+    /* max-width: 80%; */
 }
 
 #userinfo {

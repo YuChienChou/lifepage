@@ -15,6 +15,7 @@ import userProfilePicture from '../resources/default-user-profile-picture.png';
 import UserFollowsList from "../Follow/userFollowList";
 import './user.css'
 import './userprofile.css'
+import UserFollowers from "../Follow/userFollowerList";
 
 
 
@@ -35,7 +36,7 @@ export default function UserPorfile() {
         dispatch(getSingleUserThunk(userId));
         dispatch(getCurrentUserThunk());
         dispatch(getUserFollowsThunk(sessionUser.id));
-    }, [dispatch, userId])
+    }, [dispatch, userId, sessionUser.id])
 
 
     return (
@@ -71,7 +72,7 @@ export default function UserPorfile() {
                                 }
                                 {sessionUser.id === Number(userId) ? 
                                     null
-                                    : <UserFollows sessionUser={sessionUser} followedUserId={user.id} />
+                                    : <UserFollows sessionUser={currentUser} followedUserId={user.id} />
                                 }
                             </div>
                             {Number(userId) !== sessionUser.id ? 

@@ -4,12 +4,18 @@ import UserPostList from '../PostList/userPostList';
 import OpenModalButton from "../OpenModalButton";
 import UserInfo from './userInfo';
 import userProfilePicture from '../resources/default-user-profile-picture.png';
-
+import UserFollowers from '../Follow/userFollowerList';
+import UserFollowsList from '../Follow/userFollowList';
 
 export default function UserPosts({sessionUser, user }) {
     
     return (
         <>
+        {/* <div id='user-follows-div'> */}
+            <UserFollowsList sessionUser={sessionUser} user={user}/>  
+            <UserFollowers sessionUser={sessionUser} user={user} /> 
+        {/* </div>   */}
+
         <div id='user-info-post-container'>
             <div id="userinfo">
                 <UserInfo user={user} />

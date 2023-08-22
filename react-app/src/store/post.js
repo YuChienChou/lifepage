@@ -133,7 +133,7 @@ export const createPostThunk = (userId, post) => async (dispatch) => {
 
 
 export const editPostThunk = (postId, postInfo) => async (dispatch) => {
-    console.log("in the edit post thunk~~~~~~~~~~~~~~~~~~~~~")
+    // console.log("in the edit post thunk~~~~~~~~~~~~~~~~~~~~~")
     try {
         // console.log("in the try block of the editpostthunk")
         const res = await fetch(`/api/posts/${postId}/edit`, {
@@ -144,7 +144,7 @@ export const editPostThunk = (postId, postInfo) => async (dispatch) => {
         });
         // console.log("after the res fetch of the editpostthunk", res)
         if(res.ok) {
-            console.log("result from the backend in the edit post thunk: ", res)
+            // console.log("result from the backend in the edit post thunk: ", res)
             const updatedPost = await res.json();
             dispatch(editPost(updatedPost));
             return updatedPost;
@@ -280,7 +280,7 @@ export const editSinglePostThunk = (singlePostId, postInfo) => async (dispatch) 
 
 
 export const getAllLikedPostUsersThunk = (postId) => async (dispatch) => {
-    console.log("in getAllLikedPostUsersThunk~~~~~~~~~~~~~~")
+    // console.log("in getAllLikedPostUsersThunk~~~~~~~~~~~~~~")
     try{
         const res = await fetch(`/api/posts/${postId}/likes/all`)
 
@@ -316,12 +316,13 @@ const postReducer = (state = initialState, action) => {
             return newState;
         };
         case CREATE_POST: {
-            const newState = {...state, allPosts: {...state.allPosts}};
+            const newState = {...state, allPosts: {}};
             newState.allPosts[action.post.id] = action.post;
             return newState;
         };
         case EDIT_POST: {
-            const newState = {...state, allPosts: {...state.allPosts}};
+            const newState = {...state, allPosts: {...state.allPosts}, userPosts: {...state.userPosts}};
+            newState.userPosts[action.post.id] = action.post;
             newState.allPosts[action.post.id] = action.post;
             return newState;
         };

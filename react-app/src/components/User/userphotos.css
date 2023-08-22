@@ -5,8 +5,8 @@
     flex-wrap: wrap;
     align-items: center;
     gap: 15px;
-    padding:50px 8%;
-
+    padding: 10px 10%;
+    /* max-width: 80%; */
 }
 
 #user-photos-li {
@@ -27,6 +27,10 @@
 #image-post {
     width: 100%;
     height: 198px;
+}
+
+#image-post img {
+    border-radius: 10px;
 }
 
 /* #image-post img{

@@ -9,9 +9,12 @@ import userProfilePicture from '../resources/default-user-profile-picture.png';
 import './comment.css'
 
 export default function CommentList({sessionUser, post}) {
+    // console.log("post comments in CommentList component: ", post.Comments);
     const [editComment, setEditComment] = useState(null);
     const postCommentStore = useSelector((state) => state.comments.allComments);
-    const postCommentArr = Object.values(postCommentStore).filter((comment) => comment.post_id === post.id);
+    // console.log("All comments in CommentLIst component: ", postCommentStore);
+    const postCommentArr = Object.values(postCommentStore).filter(comment => comment.post_id === post.id);
+    // console.log("All comments array in CommentList component:", postCommentArr);
     const currDate = new Date();
 
     const dispatch = useDispatch();
@@ -25,7 +28,7 @@ export default function CommentList({sessionUser, post}) {
     };
 
     useEffect(() => {
-        dispatch(getAllCommentsThunk(post.id));
+        dispatch(getAllCommentsThunk());
     }, [dispatch, post]);
 
     return (

@@ -1,5 +1,5 @@
 import ReactPlayer from 'react-player/youtube';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import OpenModalButton from '../OpenModalButton';
@@ -12,6 +12,7 @@ import UserFollows from '../Follow/UserFollows';
 import userProfilePicture from '../resources/default-user-profile-picture.png';
 import './postList.css'
 import { getUserFollowsThunk } from '../../store/user';
+import { getAllPostsThunk } from '../../store/post';
 
 
 export default function PostList({ sessionUser }) {
@@ -27,7 +28,7 @@ export default function PostList({ sessionUser }) {
   
 
     const dispatch = useDispatch();
-    dispatch(getUserFollowsThunk(sessionUser.id));
+    // dispatch(getUserFollowsThunk(sessionUser.id));
 
 
     const showEditPostDivFun = (postId) => {
@@ -44,7 +45,12 @@ export default function PostList({ sessionUser }) {
           }));
     }
 
-    if(postsArr.length < 1) return null;
+    useEffect(() => {
+        dispatch(getAllPostsThunk());
+    }, [dispatch]);
+
+    if(!sessionUser.id) return null;
+
     
     return (
         
@@ -157,51 +163,71 @@ export default function PostList({ sessionUser }) {
                         <i className="fa-regular fa-thumbs-up"></i>
                         {(() => {
 
-                            const likedUsers = [];
-                            post.likes.map((user) => (
 
-                                (user.username ? 
-                                    likedUsers.push(user.username)
-                                    : 
-                                    likedUsers.push(user.first_name)
-                            )))
+                            // console.log("post likes in PostList component: ", post.likes);
+                            // const likedUsers = [];
+                            // post.likes.map((user) => (
+
+                            //     (user.username ? 
+                            //         likedUsers.push(user.username)
+                            //         : 
+                            //         likedUsers.push(user.first_name)
+                            // )
+                            // )
+                            // )
 
                             // console.log("likedUsers user name list: ", likedUsers);
                             // console.log("post likes array length: ", post.likes.length);
                             if(post.likes.length === 0) {
                                 return (
                                     <>
-                                    <p>Be the first to like this post!</p>
+                                    <p>Be the first to like this post</p>
                                     </>
                                 )
                             } else if (post.likes.length === 1) {
                                 return (
                                     <>
-                                    <p>{likedUsers[0]} likes this post.</p>
+                                    {/* <p>{likedUsers[0]} likes this post.</p> */}
+                                    {/* <p>1 person likes this post.</p> */}
+                                    <p>1 like</p>
                                     </>
                                 )
                             } 
 
-                            else if(post.likes.length === 2) {
+                            // else if(post.likes.length > 1) {
                                 
-                                    return (
-                                        <>
-                                        <p>{likedUsers[0]} and {likedUsers[1]} like this post.</p>
-                                        </>
-                                    )
-                            } 
+                            //         return (
+                            //             <>
+                            //             <p>{likedUsers[0]} and {likedUsers[1]} like this post.</p>
+                            //             </>
+                            //         )
+                            // } 
                             else {
                                 return (
                                     <>
-                                    <p>{post.likes.length} people like this post.</p>
+                                    <p>{post.likes.length} likes</p>
                                     </>
                                 )
+                                // if(likedUsers.includes(sessionUser.username) || likedUsers.includes(sessionUser.first_name)) {
+                                //     return (
+                                //         <>
+                                //         <p>You and {post.likes.length -1} others</p>
+                                //         </>
+                                //     )
+                                // } else {
+                                //     return (
+                                //         <>
+                                //         <p>{post.likes.length} people like this post.</p>
+                                //         </>
+                                //     )
+                                // }
                             }
+                                
                             })()}
                     </div>
 
                     <div id='post-likes-container'>
-                        <PostLikes sessionUser={sessionUser} postId={post.id} />
+                        <PostLikes sessionUser={sessionUser} postId={post.id} user={post.User} />
                     </div>
                     
                     <CommentList sessionUser={sessionUser} post={post}/>
