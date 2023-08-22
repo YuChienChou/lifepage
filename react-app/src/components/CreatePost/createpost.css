@@ -79,11 +79,23 @@
 #add-image-div {
     background-color: #FFF;
     display: flex;
-    align-items: center;
+    /* align-items: center; */
     padding: 10px;
     margin-bottom: 15px;
     gap: 10px;
+    flex-direction: column;
+    width: 100%;
 }
+
+#add-image-div p {
+    font-size: 13px;
+    background: none;
+}
+
+#add-image-div > div {
+    background: none;
+}
+
 
 #add-video-div {
     background-color: #FFF;

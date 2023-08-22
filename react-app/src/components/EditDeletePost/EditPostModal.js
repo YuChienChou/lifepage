@@ -88,11 +88,11 @@ export default function EditPostModal({sessionUser, post }) {
                !media['name'].endsWith("png") &&
                !media['name'].endsWith("jpg") &&
                !media['name'].endsWith("jpeg") && 
-               !media['name'].endsWith("gif"))
-            //    !media['name'].endsWith("mp4") && 
-            //    !media['name'].endsWith("avi") && 
-            //    !media['name'].endsWith("mov") &&
-            //    !media['name'].endsWith("mkv"))  
+               !media['name'].endsWith("gif") &&
+               !media['name'].endsWith("mp4") && 
+               !media['name'].endsWith("avi") && 
+               !media['name'].endsWith("mov") &&
+               !media['name'].endsWith("mkv"))  
                errors.mediaFormat = "Please provide valid image or video file ends with pdf, png, jpg, or gif."}
 
         setValidationError(errors)
@@ -158,13 +158,15 @@ export default function EditPostModal({sessionUser, post }) {
 
                                 })()}
                                 <div id='edit-post-image-div'>
-                                    
-                                    <i className="fa-solid fa-photo-film"></i>
-                                    <input 
-                                        type='file'
-                                        // onChange={(e) => setMedia(e.target.files[0])}
-                                        onChange={handleMediaChange}
-                                    />
+                                    <div>
+                                        <i className="fa-solid fa-photo-film"></i>
+                                        <input 
+                                            type='file'
+                                            // onChange={(e) => setMedia(e.target.files[0])}
+                                            onChange={handleMediaChange}
+                                        />
+                                    </div>
+                                    <p>Please provide a file size under 100MB.</p>
                                 </div>
                             </div>                             
                         </div>
