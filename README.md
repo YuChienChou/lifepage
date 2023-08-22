@@ -2,7 +2,7 @@
 
 lifepage, a social media app, is a website for users to share pictures/videos/thoughts, see other users posts, and interact with the community by liking and commenting.
 - Live Link: [lifepage](https://lifepage.onrender.com/)
-
+<br></br>
 
 ## Index
 [MVP Feature List](https://github.com/YuChienChou/lifepage/wiki/MVP-Feature-List) | [Database Schema and Backend Routes](https://github.com/YuChienChou/lifepage/wiki/Database-Schema-and-Backend-Routes) | [User Stories](https://github.com/YuChienChou/lifepage/wiki/User-Stories) | [WireFframes](https://github.com/YuChienChou/lifepage/wiki/Wireframes)
@@ -11,10 +11,8 @@ lifepage, a social media app, is a website for users to share pictures/videos/th
 <div align="center" width="100">
 <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg" width="60" height="60"/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/flask/flask-original-wordmark.svg" width="60" height="60"/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-plain.svg" width="60" height="60"/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg" width="60" height="60"/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/redux/redux-original.svg" width="60" height="60"/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/sqlite/sqlite-original-wordmark.svg" width="60" height="60"/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/sqlalchemy/sqlalchemy-original.svg" width="60" height="60"/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/amazonwebservices/amazonwebservices-plain-wordmark.svg" width="60" height="60"/>
 </div>
+<br></br>
           
-
-
-
 ## Screenshots
 Log in / Sign up page: 
 <div align='center'>
@@ -45,7 +43,7 @@ Single post page:
           <img src='https://github.com/YuChienChou/lifepage/assets/108157183/7530b8cc-ddba-4a7d-a7cd-bccb506e327a' alt="" width='800'>
 </div>
 
-
+<br></br>
 
 ## Current Features (logged-in users)
 - Create/update/delete/read posts by uploading images or videos.
@@ -53,6 +51,7 @@ Single post page:
 - Like/dislike posts.
 - Follow/unfollow other users.
 - Update user info.
+<br></br>
 
 ## Future Features (logged-in users)
 - Sent friend requests to users.
