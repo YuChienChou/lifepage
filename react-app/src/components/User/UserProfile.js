@@ -90,11 +90,11 @@ export default function UserPorfile() {
                 </div>
 
                     
-                {sessionUser.id === Number(userId) ? 
+                {/* {sessionUser.id === Number(userId) ? 
                 <UserFollowsList sessionUser={currentUser} user={user}/>
                     :
                     null
-                }
+                } */}
 
                
                 

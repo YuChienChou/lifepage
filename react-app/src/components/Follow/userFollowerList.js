@@ -33,24 +33,18 @@ export default function UserFollowers({sessionUser}) {
 
     return (
         <>
-             {sessionUser.id === Number(userId) ? 
-                <>
-                <div id="user-follows-container">
-                    <h3>Your followers:</h3>
+        <div id="user-follows-container">
+            <h3>Your followers:</h3>
 
-                    <ul id='user-follows-ul'>
-                        {userFollowersArr.map((user) => (
-                            <li key={user.id} id='user-follows-li'>
-                                <Link to={`/user/${user.id}/posts`}><img src={user.profile_picture} alt={user.username} />
-                                {user.username}</Link>
-                            </li>
-                        ))}
-                    </ul>
-                </div>
-                </>
-                :
-                null
-            }
+            <ul id='user-follows-ul'>
+                {userFollowersArr.map((user) => (
+                    <li key={user.id} id='user-follows-li'>
+                        <Link to={`/user/${user.id}/posts`}><img src={user.profile_picture} alt={user.username} />
+                        {user.username}</Link>
+                    </li>
+                ))}
+            </ul>
+        </div>
         </>
     )
 }
