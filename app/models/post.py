@@ -12,6 +12,7 @@ class Post(db.Model):
     # img = db.Column(db.String(255))
     # video = db.Column(db.String(255))
     media = db.Column(db.String(500))
+    share_link = db.Column(db.String(500))
     body = db.Column(db.String, nullable=False)
     user_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod("users.id")))
     created_at = db.Column(db.Date)
@@ -47,6 +48,7 @@ class Post(db.Model):
             # 'img' : self.img,
             # 'video' : self.video,
             "media" : self.media,
+            "share_link" : self.share_link,
             'body' : self.body,
             'user_id' : self.user_id,
             'created_at' : self.created_at,
