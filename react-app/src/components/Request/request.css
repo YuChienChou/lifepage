@@ -34,10 +34,20 @@
     display: flex;
     align-items: center;
     border-radius: 5px;
-    padding: 5px 8px 5px 5px;
+    padding: 2px 8px 2px 5px;
+    font-size: 14px;
     background-color: #E4E6EB;
 }
 
 #friends p {
     background-color: #E4E6EB;
+}
+
+#send-request-button {
+    padding: 5px;
+    background-color: #1674ea;
+    border-radius: 5px;
+    color: #FFF;
+    font-size: 14px;
+    border: none;
 }

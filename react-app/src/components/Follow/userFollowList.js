@@ -29,7 +29,7 @@ export default function UserFollowsList({sessionUser}) {
             </div>
             </>
         )
-    } else if(userFollowsArr.length === 0 && sessionUser.id != Number(userId)) {
+    } else if(userFollowsArr.length === 0 && sessionUser.id !== Number(userId)) {
         return null;
     }
 

@@ -14,7 +14,7 @@ export default function UserFollowers({sessionUser}) {
 
     useEffect(() => {
         dispatch(getUserFollowersThunk(sessionUser.id));
-    }, [dispatch, sessionUser]);
+    }, [dispatch, sessionUser.id]);
 
     
     if(userFollowersArr.length === 0 && sessionUser.id === Number(userId)) {
@@ -26,7 +26,7 @@ export default function UserFollowers({sessionUser}) {
             </div>
             </>
         )
-    } else if(userFollowersArr.length === 0 && sessionUser.id != Number(userId)) {
+    } else if(userFollowersArr.length === 0 && sessionUser.id !== Number(userId)) {
         return null;
     }
 

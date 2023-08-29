@@ -53,7 +53,7 @@ export default function UserFollows({sessionUser, followedUserId}) {
 
     // useEffect(()=> {
     //     dispatch(getUserFollowsThunk(sessionUser.id));
-    // }, [dispatch, sessionUser]);
+    // }, [dispatch, sessionUser.id]);
 
     if(res.length === 0) {
         return (

@@ -97,7 +97,7 @@ export default function EditUserModal({sessionUser}) {
 
     useEffect(() => {
         dispatch(getSingleUserThunk(sessionUser.id));
-    }, [dispatch])
+    }, [dispatch, sessionUser.id])
 
     return (
         <>

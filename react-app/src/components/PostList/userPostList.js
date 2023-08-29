@@ -41,7 +41,7 @@ export default function UserPostList({ sessionUser, user, posts }) {
     useEffect(() => {
         dispatch(getUserPostsThunk(user.id));
         // dispatch(getCurrentUserThunk());
-    }, [dispatch, user]);
+    }, [dispatch, user.id]);
 
     if(reversedPostsArr.length === 0) {
         return (

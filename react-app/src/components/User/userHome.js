@@ -25,7 +25,7 @@ export default function UserHome() {
         dispatch(getAllPostsThunk());
         dispatch(getCurrentUserThunk(sessionUser.id));
         // dispatch(getUserFollowsThunk(sessionUser.id));
-    }, [dispatch]);
+    }, [dispatch, sessionUser.id]);
 
     if(!currentUser.id) return null;
 

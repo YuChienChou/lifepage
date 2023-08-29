@@ -21,10 +21,11 @@ import UserFollowers from "../Follow/userFollowerList";
 
 export default function UserPorfile() {
     const { userId, page } = useParams();
+    
     const user = useSelector((state) => state.users.singleUser);
     const sessionUser = useSelector((state) => state.session.user);
     const currentUser = useSelector((state) => state.users.currentUser);
-    
+    console.log("user id and session user id: ", user.id, currentUser.id )
     const userPostsStore = useSelector((state) => state.posts.userPosts);
     const userPostArr = Object.values(userPostsStore);
     
@@ -74,12 +75,15 @@ export default function UserPorfile() {
                                     null
                                     : <UserFollows sessionUser={currentUser} followedUserId={user.id} />
                                 }
+
+
+                                {Number(userId) !== currentUser.id ? 
+                                    <SendRequest sessionUser={currentUser} requestUser={user} />
+                                    :
+                                    null
+                                }
                             </div>
-                            {Number(userId) !== sessionUser.id ? 
-                                <SendRequest sessionUser={currentUser} requestUser={user} />
-                                :
-                                null
-                            }
+                           
                             
                             
                         </div>

@@ -220,7 +220,7 @@
     top: 70px;
 }
 
-#edit-profile-div button {
+/* #edit-profile-div button {
     background-color: transparent;
     cursor: pointer;
     border: none;
@@ -228,7 +228,7 @@
     display: flex;
     align-items: center;
     margin-right: 10px;
-}
+} */
 
 #user-info-post-container {
     display: flex;

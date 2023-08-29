@@ -9,6 +9,10 @@ export default function SendRequest({sessionUser, requestUser}) {
     // console.log("userFollow in sendRequest component: ", userFollows);
     const userFriends = useSelector((state) => state.users.userFriends);
     // console.log("user friends in sendRequest component: ", userFriends);
+    const userRequests = useSelector((state) => state.users.userRequests);
+    console.log("user request in sendRequest component: ", userRequests);
+
+
     const [hasSubmit, setHasSubmit] = useState(false);
     const [showRel, setShowRel] = useState(false);
 

@@ -6,10 +6,10 @@ import { getUserFriendsThunk } from '../../store/user';
 
 export default function UserFriends({sessionUser}) {
     const userFriends = useSelector((state) => state.users.userFriends);
-    console.log("user friends in userFriends component: ", userFriends);
+    // console.log("user friends in userFriends component: ", userFriends);
     const userFriendsArr = Object.values(userFriends);
-    console.log("user friend list in userFriends component: ", userFriendsArr);
-    console.log("session user friend list in userFriends component: ", sessionUser.friends);
+    // console.log("user friend list in userFriends component: ", userFriendsArr);
+    // console.log("session user friend list in userFriends component: ", sessionUser.friends);
     const dispatch = useDispatch()
 
     useEffect(() => {
