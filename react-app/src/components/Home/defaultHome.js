@@ -127,6 +127,14 @@ export default function DefaultHome() {
                     <a href="https://wellfound.com/u/leslie-chou" target='_blank'><i className="fa-brands fa-angellist"></i></a>
                     <a href="mailto:chouyuchien@gmail.com"><i className="fa-solid fa-envelope"></i></a> |
                 </div>
+                <div id='programmer-info-div-small'>
+                    |<a href='https://www.lesliechou921.com/' target='_blank'> <p>&copy; Leslie Chou</p></a>
+                    <a href="https://www.linkedin.com/in/lesliechou921/" target='_blank'><i className="fa-brands fa-linkedin"></i></a>
+                    <a href="https://github.com/YuChienChou" target='_blank'><i className="fa-brands fa-github"></i></a>
+                    <a href="https://wellfound.com/u/leslie-chou" target='_blank'><i className="fa-brands fa-angellist"></i></a>
+                    <a href="mailto:chouyuchien@gmail.com"><i className="fa-solid fa-envelope"></i></a> |
+                </div>
+              
             </div>
         </div>
         </>

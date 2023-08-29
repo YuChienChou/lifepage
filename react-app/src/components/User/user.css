@@ -12,6 +12,13 @@
     z-index: 1;
 }
 
+@media screen and (max-width: 414px) {
+    #userhome-left, 
+    #userhome-right {
+        display: none;
+    }
+}
+
 #userhome-left a {
     text-decoration: none;
 }
@@ -81,6 +88,12 @@
     justify-content: center;
     padding: 20px 30% 0 30%;
     position: absolute;
+}
+
+@media screen and (max-width: 414px) {
+    #userhome-middle {
+        padding: 20px 3% 0 3%;
+    }
 }
 
 #userhome-right {

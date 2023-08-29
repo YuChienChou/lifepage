@@ -16,6 +16,12 @@
     gap: 10px;
 }
 
+@media screen and (max-width: 414px) {
+    #user-profile-left {
+        display: none;
+    }
+}
+
 #user-profile-left i {
     font-size: 20px;
     background-color: transparent;
@@ -110,6 +116,12 @@
     bottom: 125px;
     padding-left: 15%;
     background: transparent;
+}
+
+@media screen and (max-width: 414px) {
+    #profile-picture {
+        
+    }
 }
 
 #profile-picture > img {
