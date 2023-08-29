@@ -1,0 +1,53 @@
+#friend-status-container {
+    background-color: transparent;
+    display: flex;
+    grid-gap: 10px;
+    gap: 10px;
+    align-items: center;
+    position: relative;
+    margin-left: 10px;
+}
+
+#friend-status-container p {
+    padding: 5px;
+    background-color: #36A420;
+    font-size: 14px;
+    border-radius: 5px;
+    color: #FFFFFF;
+    cursor: pointer;
+}
+
+#friends-div {
+    display: flex;
+    background-color: transparent;
+    align-items: center;
+}
+
+#friends img {
+    width: 25px;
+    height: 25px;
+    /* background-color: transparent; */
+    border: none;
+}
+
+#friends {
+    display: flex;
+    align-items: center;
+    border-radius: 5px;
+    padding: 2px 8px 2px 5px;
+    font-size: 14px;
+    background-color: #E4E6EB;
+}
+
+#friends p {
+    background-color: #E4E6EB;
+}
+
+#send-request-button {
+    padding: 5px;
+    background-color: #1674ea;
+    border-radius: 5px;
+    color: #FFF;
+    font-size: 14px;
+    border: none;
+}

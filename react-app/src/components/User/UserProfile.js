@@ -8,6 +8,8 @@ import UserPosts from "./userPosts";
 import UserPhotos from "./userPhotos";
 import EditUserModal from "./EditUserModal";
 import UserFollows from "../Follow/UserFollows";
+import UserRequests from "./userRequest";
+import SendRequest from "../Request/sendRequest";
 import userCoverPhoto from '../resources/default-user-cover-photo.png';
 import userProfilePicture from '../resources/default-user-profile-picture.png';
 import UserFollowsList from "../Follow/userFollowList";
@@ -19,10 +21,11 @@ import UserFollowers from "../Follow/userFollowerList";
 
 export default function UserPorfile() {
     const { userId, page } = useParams();
+    
     const user = useSelector((state) => state.users.singleUser);
     const sessionUser = useSelector((state) => state.session.user);
     const currentUser = useSelector((state) => state.users.currentUser);
-    
+    console.log("user id and session user id: ", user.id, currentUser.id )
     const userPostsStore = useSelector((state) => state.posts.userPosts);
     const userPostArr = Object.values(userPostsStore);
     
@@ -72,7 +75,15 @@ export default function UserPorfile() {
                                     null
                                     : <UserFollows sessionUser={currentUser} followedUserId={user.id} />
                                 }
+
+
+                                {Number(userId) !== currentUser.id ? 
+                                    <SendRequest sessionUser={currentUser} requestUser={user} />
+                                    :
+                                    null
+                                }
                             </div>
+                           
                             
                             
                         </div>
@@ -82,6 +93,22 @@ export default function UserPorfile() {
                         </div>
                 </div>
 
+                    
+                {/* {sessionUser.id === Number(userId) ? 
+                <UserFollowsList sessionUser={currentUser} user={user}/>
+                    :
+                    null
+                } */}
+
+               
+                
+               {sessionUser.id === user.id? 
+                    <UserRequests sessionUser={currentUser} />
+                    :
+                    null
+                }              
+               
+               
                 {page === "posts" ? 
                     <UserPosts sessionUser={currentUser} user={user} userPostArr={userPostArr} page={page}/>
                     : null

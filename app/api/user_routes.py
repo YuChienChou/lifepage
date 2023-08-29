@@ -221,7 +221,9 @@ def add_follow_rel(user1_id, user2_id):
             return "User not found.", 404
 
         user1.followed.append(user2)
+
         db.session.commit()
+        db.session.refresh(user1)
         return user2.to_dict()
     
     except Exception as e:
@@ -285,10 +287,162 @@ def delete_follow_rel(user1_id, user2_id):
         
         user1.followed.remove(user2)
         db.session.commit()
-        return "Cancel following relationship."
+        db.session.refresh(user1)
+
+        return f"Cancel following relationship with {user2.first_name}."
     
     except Exception as e:
         return {"error" : str(e)}, 500
 
 
+@user_routes.route('<int:user1_id>/friend/<int:user2_id>/add', methods=["POST"])
+@login_required
+def add_friend_rel(user1_id, user2_id):
+    """
+    query the user table and add the friend relationship, return the user 
+    who is added as a friend by the current user as a dictionary.
+    """
+    try: 
+        user1 = User.query.get(user1_id) #current user
+        user2 = User.query.get(user2_id) #the user that current user adds as a friend
+
+        if not user1 or not user2:
+            return "User not found.", 404
+
+        user1.friends.append(user2)
+        user2.friends.append(user1)
+
+        if user2 not in user1.followed: 
+            user1.followed.append(user2) #when add a friend, automatically add the follow relationship
+
+        if user1 not in user2.followed:
+            user2.followed.append(user1)
+
+        user1.requests.remove(user2) #when add a friend, automatically remove request from user2
+
+        db.session.commit()
+        db.session.refresh(user1)
+
+        return user2.to_dict()
+    
+    except Exception as e:
+        return {"error" : str(e)}, 500
+
+
+@user_routes.route("<int:userId>/friend/all")
+@login_required
+def get_friend_list(userId):
+    """
+    Get the friends list of the current user
+    """
+    try:
+        user = User.query.get(userId)
+
+        if not user:
+            return "User not found.", 404
+        
+        user_friends = user.friend_added
+    
+        result = [user.to_dict() for user in user_friends]
+        return result
+    
+    except Exception as e:
+        return {"errors" : str(e)}, 500
+    
+
+@user_routes.route('<int:user1_id>/friend/<int:user2_id>/delete', methods=["DELETE"])
+@login_required
+def delete_friend_rel(user1_id, user2_id):
+    """
+    Remove friend relationship between the current user and the selected user. 
+    """
+    try: 
+        user1 = User.query.get(user1_id) #current user
+        user2 = User.query.get(user2_id) #the user that the current user want to cancel friend relationship
+        # print('user 2 in delete friend rel route: ', user2)
+
+        if not user1 or not user2:
+            return "User not found.", 404
+        
+        user1.friend_added.remove(user2)
+        
+        if user2 in user1.followed: 
+            user1.followed.remove(user2) # when cancel friend rel, automatically cancel follow relationship
+
+        db.session.commit()
+        db.session.refresh(user1)
+        return f'Cancel friend relationship with {user2.username}.'
+    
+    except Exception as e:
+        return {"error" : str(e)}, 500
+    
+
+
+@user_routes.route('<int:user1_id>/request/<int:user2_id>/add', methods=["POST"])
+@login_required
+def add_request_rel(user1_id, user2_id):
+    """
+    query the user table and add the request relationship, return the user 
+    who is requested for a friend rel by the current user as a dictionary.
+    """
+    try: 
+        user1 = User.query.get(user1_id) #current user
+        user2 = User.query.get(user2_id) #the user that current user adds as a friend
+
+        if not user1 or not user2:
+            return "User not found.", 404
+
+        user1.requested.append(user2)
+        db.session.commit()
+        db.session.refresh(user1)
+
+        return user2.to_dict()
+    
+    except Exception as e:
+        return {"error" : str(e)}, 500
+    
+
+@user_routes.route("<int:userId>/request/all")
+@login_required
+def get_request_list(userId):
+    """
+    Get the add friend request list of the current user
+    """
+    try:
+        user = User.query.get(userId)
+
+        if not user:
+            return "User not found.", 404
+        
+        user_requests = user.requests
+    
+        result = [user.to_dict() for user in user_requests]
+        return result
+    
+    except Exception as e:
+        return {"errors" : str(e)}, 500
+
+
+@user_routes.route('<int:user1_id>/request/<int:user2_id>/delete', methods=["DELETE"])
+@login_required
+def delete_request_rel(user1_id, user2_id):
+    """
+    Remove add friend request relationship between the current user and the selected user. 
+    """
+    try: 
+        user1 = User.query.get(user1_id) #current user
+        user2 = User.query.get(user2_id) #the user that the current user want to cancel friend relationship
+        # print('user 2 in delete friend rel route: ', user2)
+
+        if not user1 or not user2:
+            return "User not found.", 404
+        
+        user1.request.remove(user2)
+        # if user2 in user1.requested: 
+        #     user1.requested.remove(user2) # when cancel friend rel, automatically cancel follow relationship
+        db.session.commit()
+        return f'Declined add friend request from {user2.username}.'
+    
+    except Exception as e:
+        return {"error" : str(e)}, 500
     

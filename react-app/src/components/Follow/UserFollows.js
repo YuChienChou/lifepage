@@ -53,7 +53,7 @@ export default function UserFollows({sessionUser, followedUserId}) {
 
     // useEffect(()=> {
     //     dispatch(getUserFollowsThunk(sessionUser.id));
-    // }, [dispatch, sessionUser]);
+    // }, [dispatch, sessionUser.id]);
 
     if(res.length === 0) {
         return (
@@ -69,7 +69,11 @@ export default function UserFollows({sessionUser, followedUserId}) {
             {/* <i className="fa-solid fa-ellipsis" onClick={showFun}></i> */}
             {/* {userFollows[followedUserId] ?  */}
             {res.includes(followedUserId) ? 
-                <p id='following' onClick={UserFollowFun}>Following</p>      
+            <div>
+                {/* <i className="fa-solid fa-square-check"></i> */}
+                <p id='following' onClick={UserFollowFun}>Following</p>   
+            </div>
+                   
                 : 
                 <p id='not-follow' onClick={UserFollowFun}>Follow</p>      
             }

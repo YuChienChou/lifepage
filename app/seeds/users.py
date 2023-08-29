@@ -21,7 +21,7 @@ def seed_users():
         updated_at = date.today(),
         )
     marnie = User(
-        username='marnie', 
+        username='Marnie', 
         email='marnie@aa.io', 
         password='password',
         first_name = 'Marnie',
@@ -36,7 +36,7 @@ def seed_users():
         updated_at = date.today(),
         )
     bobbie = User(
-        username='bobbie', 
+        username='Bobbie', 
         email='bobbie@aa.io', 
         password='password',
         first_name = 'Bobbie',
@@ -51,7 +51,7 @@ def seed_users():
         updated_at = date.today(),
         )
     menfred = User(
-        username='menfred',
+        username='Menfred',
         email = 'menfred@aa.io' ,
         password = 'password' ,
         first_name = 'Menfred' ,
@@ -66,7 +66,7 @@ def seed_users():
         updated_at = date.today()
     )
     emily = User(
-        username='emily',
+        username='Emily',
         email = 'emily@aa.io',
         password = 'password',
         first_name = 'Emily',
@@ -81,7 +81,7 @@ def seed_users():
         updated_at = date.today()
     )
     alex = User(
-        username= 'alex',
+        username= 'Alex',
         email = 'alex@aa.io',
         password = 'password',
         first_name = "Alex",

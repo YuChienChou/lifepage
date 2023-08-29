@@ -14,7 +14,7 @@ export default function UserFollowers({sessionUser}) {
 
     useEffect(() => {
         dispatch(getUserFollowersThunk(sessionUser.id));
-    }, [dispatch, sessionUser]);
+    }, [dispatch, sessionUser.id]);
 
     
     if(userFollowersArr.length === 0 && sessionUser.id === Number(userId)) {
@@ -26,31 +26,25 @@ export default function UserFollowers({sessionUser}) {
             </div>
             </>
         )
-    } else if(userFollowersArr.length === 0 && sessionUser.id != Number(userId)) {
+    } else if(userFollowersArr.length === 0 && sessionUser.id !== Number(userId)) {
         return null;
     }
 
 
     return (
         <>
-             {sessionUser.id === Number(userId) ? 
-                <>
-                <div id="user-follows-container">
-                    <h3>Your followers:</h3>
+        <div id="user-follows-container">
+            <h3>Your followers:</h3>
 
-                    <ul id='user-follows-ul'>
-                        {userFollowersArr.map((user) => (
-                            <li key={user.id} id='user-follows-li'>
-                                <Link to={`/user/${user.id}/posts`}><img src={user.profile_picture} alt={user.username} />
-                                {user.username}</Link>
-                            </li>
-                        ))}
-                    </ul>
-                </div>
-                </>
-                :
-                null
-            }
+            <ul id='user-follows-ul'>
+                {userFollowersArr.map((user) => (
+                    <li key={user.id} id='user-follows-li'>
+                        <Link to={`/user/${user.id}/posts`}><img src={user.profile_picture} alt={user.username} />
+                        {user.username}</Link>
+                    </li>
+                ))}
+            </ul>
+        </div>
         </>
     )
 }

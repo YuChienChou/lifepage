@@ -29,14 +29,14 @@ export default function UserFollowsList({sessionUser}) {
             </div>
             </>
         )
-    } else if(userFollowsArr.length === 0 && sessionUser.id != Number(userId)) {
+    } else if(userFollowsArr.length === 0 && sessionUser.id !== Number(userId)) {
         return null;
     }
 
     return (
         <>
         
-            {sessionUser.id === Number(userId) ? 
+            {/* {sessionUser.id === Number(userId) ?  */}
                 <>
                 <div id="user-follows-container">
                     <h3>Peopel you're following:</h3>
@@ -51,9 +51,9 @@ export default function UserFollowsList({sessionUser}) {
                     </ul>
                 </div>
                 </>
-                :
+                {/* :
                 null
-            }
+            } */}
         
         </>
     );

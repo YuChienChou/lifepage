@@ -12,8 +12,13 @@ export default function UserPosts({sessionUser, user }) {
     return (
         <>
         {/* <div id='user-follows-div'> */}
+        {sessionUser.id === Number(user.id) ? 
+        <>
             <UserFollowsList sessionUser={sessionUser} user={user}/>  
-            <UserFollowers sessionUser={sessionUser} user={user} /> 
+            <UserFollowers sessionUser={sessionUser} user={user} /> </>
+            :
+            null
+        }
         {/* </div>   */}
 
         <div id='user-info-post-container'>

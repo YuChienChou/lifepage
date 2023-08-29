@@ -1,0 +1,39 @@
+#friends-container {
+    padding: 20px 10px 20px 10px;
+}
+
+@media screen and (max-width: 414px) {
+    #friends-container {
+        display: none;
+    }
+}
+
+#friends-list {
+    list-style: none;
+}
+
+#friends-list img{
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+}
+
+#friends-list a {
+    display: flex;
+    gap: 5px;
+    text-decoration: none;
+    /* margin: 10px 0 10px 0; */
+    padding: 8px;
+    border-radius: 5px;
+    align-items: center;
+}
+
+#friends-list a:hover {
+    background-color: #E4E6E8;
+}
+
+#friends-list p {
+    display: flex;
+    align-items: center;
+    font-size: 16px;
+}

@@ -9,6 +9,12 @@ const DELET_USER_FOLLOWS = "user/DELETE_USER_FOLLOWS";
 const GET_CURRENT_USER = "user/GET_CURRENT_USER";
 const EDIT_USER_PROFILE_PICTURE = "user/EDIT_USER_PROFILE_PICTURE";
 const EDIT_USER_COVER_PHOTO = 'user/EDIT_USER_COVER_PHOTO';
+const ADD_USER_REQUESTS = 'user/ADD_USER_REQUESTS';
+const GET_USER_REQUESTS = 'user/GET_USER_REQUESTS';
+const DELETE_USER_REQUESTS = 'uesr/DELETE_USER_REQUESTS';
+const ADD_USER_FRIENDS ='user/ADD_USER_FRIENDS';
+const GET_USER_FRIENDS = 'user/GET_USER_FRIENDS';
+const DELETE_USER_FRIENDS = 'user/DELETE_USER_FRIENDS';
 
 
 //action creator
@@ -30,7 +36,7 @@ const getSingleUser = (user) => {
 const editUserInfo = (user) => {
     return {
         type: EDIT_USER_INFO,
-        user
+        user,
     }
 }
 
@@ -54,7 +60,7 @@ const editUserCoverPhoto = (user) => {
 const addUserFollows = (user) => {
     return {
         type: ADD_USER_FOLLOWS,
-        user
+        user,
     };
 };
 
@@ -68,23 +74,65 @@ const getUserFollows = (users) => {
 const getUserFollowers = (users) => {
     return {
         type: GET_USER_FOLLOWERS,
-        users
+        users,
     };
 };
 
 const deleteUserFollows = (userId) => {
     return {
         type: DELET_USER_FOLLOWS,
-        userId
+        userId,
     };
 };
 
 const getCurrentUser = (user) => {
     return {
         type: GET_CURRENT_USER,
-        user
-    }
-}
+        user,
+    };
+};
+
+const addUserRequests = (user) => {
+    return {
+        type: ADD_USER_REQUESTS,
+        user,
+    };
+};
+
+const getUserRequests = (users) => {
+    return {
+        type: GET_USER_REQUESTS,
+        users
+    };
+};
+
+const deleteUserRequests = (userId) => {
+    return {
+        type: DELETE_USER_REQUESTS,
+        userId,
+    };
+};
+
+const addUserFriends = (user) => {
+    return {
+        type: ADD_USER_FRIENDS,
+        user,
+    };
+};
+
+const getUserFriends = (users) => {
+    return {
+        type: GET_USER_FRIENDS,
+        users,
+    };
+};
+
+const deleteUserFriends = (userId) => {
+    return {
+        type: DELETE_USER_FRIENDS,
+        userId,
+    };
+};
 
 //thunk creator
 
@@ -139,6 +187,8 @@ export const editUserInfoThunk = (userInfo) => async (dispatch) => {
         return errors;
     };
 };
+
+
 export const editUserProfilePictureThunk = (userInfo) => async (dispatch) => {
     // console.log("in the edit user thunk!!!!!!!!!!!!!!!!!!!!!")
     try {
@@ -159,6 +209,8 @@ export const editUserProfilePictureThunk = (userInfo) => async (dispatch) => {
         return errors;
     };
 };
+
+
 export const editUserCoverPhotoThunk = (userInfo) => async (dispatch) => {
     // console.log("in the edit user thunk!!!!!!!!!!!!!!!!!!!!!")
     try {
@@ -182,14 +234,12 @@ export const editUserCoverPhotoThunk = (userInfo) => async (dispatch) => {
 
 
 
-
-
-export const addUserFollowsThunk = (user1Id, user2Id, followInfo) => async (dispatch) => {
+export const addUserFollowsThunk = (user1Id, user2Id) => async (dispatch) => {
     try {
         const res = await fetch(`/api/users/${user1Id}/follow/${user2Id}/add`, {
             method: "POST",
             headers: { "Content-Type": "application/json" },
-            body: JSON.stringify(followInfo),
+            body: JSON.stringify(),
         })
 
         if(res.ok) {
@@ -268,6 +318,111 @@ export const getCurrentUserThunk = () => async (dispatch) => {
 };
 
 
+export const addUserRequestsThunk = (user1Id, user2Id) => async (dispatch) => {
+    try {
+        const res = await fetch(`/api/users/${user1Id}/request/${user2Id}/add`, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(),
+        })
+
+        if(res.ok) {
+            const requestedUser = await res.json();
+            dispatch(addUserRequests(requestedUser));
+            return requestedUser;
+        }
+    } catch(err) {
+        const errors = await err.json();
+        return errors
+    };
+};
+
+
+export const getUserRequestsThunk = (userId) => async (dispatch) => {
+    try {
+        const res = await fetch(`/api/users/${userId}/request/all`);
+
+        if(res.ok) {
+            const requests = await res.json();
+            dispatch(getUserRequests(requests));
+            return requests;
+        };
+    } catch(err) {
+        const errors = await err.json();
+        return errors;
+    };
+};
+
+
+export const deleteUserRequestsThunk = (user1Id, user2Id) => async (dispatch) => {
+    try {
+        const res = await fetch(`/api/users/${user1Id}/request/${user2Id}/delete`, {
+            method: "DELETE",
+        })
+
+        if(res.ok) {
+            dispatch(deleteUserRequests(user2Id));
+            return;
+        }
+    } catch(err) {
+        const errors = await err.json();
+        return errors;
+    };
+};
+
+
+
+export const addUserFriendsThunk = (user1Id, user2Id) => async (dispatch) => {
+    try {
+        const res = await fetch(`/api/users/${user1Id}/friend/${user2Id}/add`, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(),
+        })
+
+        if(res.ok) {
+            const addedFriend = await res.json();
+            dispatch(addUserFriends(addedFriend));
+            return addedFriend;
+        }
+    } catch(err) {
+        const errors = await err.json();
+        return errors;
+    };
+};
+
+
+export const getUserFriendsThunk = (userId) => async (dispatch) => {
+    try {
+        const res = await fetch(`/api/users/${userId}/friend/all`)
+
+        if(res.ok) {
+            const friends = await res.json();
+            dispatch(getUserFriends(friends));
+            return friends;
+        }
+    } catch(err) {
+        const errors = await err.json();
+        return errors;
+    };
+};
+
+
+export const deleteUserFriendsThunk = (user1Id, user2Id) => async (dispatch) => {
+    try {
+        const res = await fetch(`/api/users/${user1Id}/friend/${user2Id}/delete`, {
+            method: "DELETE",
+        })
+
+        if(res.ok) {
+            dispatch(deleteUserFriends(user2Id));
+            return;
+        }
+    } catch(err) {
+        const errors = await err.json();
+        return errors;
+    };
+};
 
 //reducer function
 
@@ -277,6 +432,8 @@ const initialState = {
     userFollows: {},
     userFollowers: {},
     currentUser: {},
+    userRequests: {},
+    userFriends: {},
 }
 
 const userReducer = (state = initialState, action) => {
@@ -296,7 +453,7 @@ const userReducer = (state = initialState, action) => {
         case EDIT_USER_INFO: {
             const newState = {...state, singleUser: {}};
             newState.singleUser[action.user.id] = action.user;
-            return newState
+            return newState;
         };
         case EDIT_USER_PROFILE_PICTURE: {
             const newState = {...state, currentUser: {}};
@@ -335,6 +492,40 @@ const userReducer = (state = initialState, action) => {
         case GET_CURRENT_USER: {
             const newState = {...state, currentUser: {}};
             newState.currentUser = action.user;
+            return newState;
+        };
+        case ADD_USER_REQUESTS: {
+            const newState = {...state, userRequests: {...state.userRequests}};
+            newState.userRequests[action.user.id]  = action.user;
+            return newState;
+        };
+        case GET_USER_REQUESTS: {
+            const newState = {...state, userRequests: {}};
+            action.users.forEach((user) => {
+                newState.userRequests[user.id] = user;
+            });
+            return newState;
+        };
+        case DELETE_USER_REQUESTS: {
+            const newState = {...state, userRequests: {...state.userRequests}};
+            delete newState.userRequests[action.userId];
+            return newState
+        };
+        case ADD_USER_FRIENDS: {
+            const newState = {...state, userFriends: {...state.userFriends}};
+            newState.userFriends[action.user.id] = action.user;
+            return newState;
+        };
+        case GET_USER_FRIENDS: {
+            const newState = {...state, userFriends: {}};
+            action.users.forEach((user) => {
+                newState.userFriends[user.id] = user;
+            });
+            return newState;
+        };
+        case DELETE_USER_FRIENDS: {
+            const newState = {...state, userFriends: {...state.userFriends}};
+            delete newState.userFriends[action.userId];
             return newState;
         };
         default:

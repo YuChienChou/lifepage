@@ -16,6 +16,12 @@
     gap: 10px;
 }
 
+@media screen and (max-width: 414px) {
+    #user-profile-left {
+        display: none;
+    }
+}
+
 #user-profile-left i {
     font-size: 20px;
     background-color: transparent;
@@ -112,7 +118,13 @@
     background: transparent;
 }
 
-#profile-picture img {
+@media screen and (max-width: 414px) {
+    #profile-picture {
+        
+    }
+}
+
+#profile-picture > img {
     width: 168px;
     height: 168px;
     border-radius: 50%;
@@ -208,7 +220,7 @@
     top: 70px;
 }
 
-#edit-profile-div button {
+/* #edit-profile-div button {
     background-color: transparent;
     cursor: pointer;
     border: none;
@@ -216,7 +228,7 @@
     display: flex;
     align-items: center;
     margin-right: 10px;
-}
+} */
 
 #user-info-post-container {
     display: flex;

@@ -19,15 +19,7 @@
     background-color: #FFF;
 }
 
-#userhome-right {
-    width: fit-content;
-    position: fixed;
-    top: 56px;
-    right: 0px;
-    height: 100%;
-    align-content: right;
-    padding: 10px;
-}
+
 
 #user-img-name {
     display: flex;
@@ -47,7 +39,8 @@
 #img-and-link a {
     text-decoration: none;
     background-color: #FFF;
-    margin-right: 10px;
+    /* margin: 0 10px 8px 0; */
+
 }
 
 #edit-post-div {
@@ -121,10 +114,31 @@
     background-color: #FFF;
 }
 
+#post-date a{
+    margin-bottom: 5px;
+}
+
 #day {
     font-size: 12px;
     background-color: #FFF;
-    margin-top: 5px;
+    /* margin-top: 5px; */
+}
+
+#post-likes-container {
+    display: flex;
+    justify-content: center;
+    border-top: 1px solid #BEC3C9;
+    border-bottom: 1px solid #BEC3C9;
+    background-color: #FFF;
+    gap: 20px;
+    padding: 5px 0 5px 20px
+}
+
+#post-likes-container p {
+    background-color: #FFF;
+    display: flex;
+    align-items: center;
+    font-size: 14px;
 }
 
 #post-likes-container {
