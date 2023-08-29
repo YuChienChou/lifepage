@@ -158,6 +158,29 @@ export default function PostList({ sessionUser }) {
                         }
 
                     })()}
+                    {(() => {
+                        if(post.share_img) {
+                            if(post.share_img.endsWith("pdf") ||
+                               post.share_img.endsWith("png") ||
+                               post.share_img.endsWith("jpg") ||
+                               post.share_img.endsWith("jpeg") ||
+                               post.share_img.endsWith("gif")) {
+                                return <>
+                                <Link to={`/posts/${post.id}`}><div id='img-post'>
+                                <img src={post.share_img} alt=""/></div></Link>
+                                </>
+                            }                            
+                        }
+                    })()}
+
+                    {post.share_video ? 
+                        <div id='video-post'>
+                            <ReactPlayer url={post.share_video} controls width='100%' height='100%'/>
+                        </div>
+                        :
+                        null
+                    }
+                    
 
 <div id='like-circle'>
                         <i className="fa-regular fa-thumbs-up"></i>

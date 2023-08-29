@@ -58,6 +58,7 @@ def create_post(userId):
             
             new_post = Post(
                 media = media_url,
+                share_link = form.data['share_link'],
                 body = form.data['body'],
                 user_id = form.data['user_id'],
                 created_at = date.today(),
@@ -109,10 +110,11 @@ def edit_post(postId):
    
         if edit_post.user.id == current_user.id:
             # edit_post.title = form.data['title']
-            print("edit post old media in edit post route: ", edit_post.media)
+            # print("edit post old media in edit post route: ", edit_post.media)
             
             edit_post.media = media_url
-            print("edit post new media in edit post route: ", edit_post.media)
+            edit_post.share_link = form.data['share_link'],
+            # print("edit post new media in edit post route: ", edit_post.media)
             edit_post.body = form.data['body']
             edit_post.user_id = form.data['user_id']
             edit_post.updated_at = date.today()
