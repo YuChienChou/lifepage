@@ -1,7 +1,7 @@
 from flask_wtf import FlaskForm
 from flask_wtf.file import FileField, FileAllowed, FileRequired
 from wtforms import StringField, TextAreaField, IntegerField, SubmitField
-from wtforms.validators import DataRequired, ValidationError  
+from wtforms.validators import DataRequired, ValidationError, Length  
 from datetime import date
 from app.api.aws_helpers import ALLOWED_EXTENSIONS
 
@@ -18,6 +18,8 @@ class MaxFileSize(object):
 class PostForm(FlaskForm):
     # title = StringField('title')
     media = FileField("media", validators=[FileAllowed(list(ALLOWED_EXTENSIONS)),  MaxFileSize(max_size=110 * 1024 * 1024)])
+    share_img = StringField("share_img", validators=[Length(min= 0, max=250, message='Please enter a link within 250 characters.')])
+    share_video = StringField("share_video", validators=[Length(min= 0, max=250, message='Please enter a link within 250 characters.')])
     body = TextAreaField('body', validators=[DataRequired()])
     user_id = IntegerField('user id', validators=[DataRequired()])
     created_at = date.today()

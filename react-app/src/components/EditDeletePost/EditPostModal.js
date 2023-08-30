@@ -8,7 +8,9 @@ import './editPost.css'
 
 export default function EditPostModal({sessionUser, post }) {
     const [media, setMedia] = useState("");
-    // console.log("post media in editPostModal: ", post.media)
+    // console.log("post media in editPostModal: ", post.media);
+    const [shareImg, setShareImg] = useState(post.share_img);
+    const [shareVideo, setShareVideo] = useState(post.share_video);
     const [body, setBody] = useState(post.body);
     const [validationError, setValidationError] = useState({});
     const [hasSubmit, setHasSubmit] = useState(false);
@@ -38,51 +40,63 @@ export default function EditPostModal({sessionUser, post }) {
         e.preventDefault();
         setHasSubmit(true);
 
-        // const postInfo = new FormData();
-        // postInfo.append("media", media);
-        // postInfo.append("body", body);
-        // postInfo.append("user_id", sessionUser.id);
-        
-        // await dispatch(editPostThunk(post.id, postInfo));
-        // await dispatch(getUserPostsThunk(sessionUser.id)); 
-        // await dispatch(getAllPostsThunk());           
-        
-        // closeModal();
-
+        const postInfo = new FormData();
         if(media) {
-            const postInfo = new FormData();
             postInfo.append("media", media);
-            postInfo.append("body", body);
+            postInfo.append('body', body);
             postInfo.append("user_id", sessionUser.id);
-            
-                await dispatch(editPostThunk(post.id, postInfo)) 
-                await dispatch(getAllPostsThunk());           
-                await dispatch(getUserPostsThunk(sessionUser.id));
-                closeModal();
-         
+            postInfo.append("share_img", shareImg);
+            postInfo.append("share_video", shareVideo);
         } else {
-            const postInfo = {
-                media : post.media,
-                body : body,
-                user_id : sessionUser.id
-            }
+            postInfo.append("media", post.media);
+            postInfo.append('body', body);
+            postInfo.append("user_id", sessionUser.id);
+            postInfo.append("share_img", shareImg);
+            postInfo.append("share_video", shareVideo);
+        }
+        
+        await dispatch(editPostThunk(post.id, postInfo)) 
+        await dispatch(getAllPostsThunk());           
+        await dispatch(getUserPostsThunk(sessionUser.id));
+        closeModal();
 
-                await dispatch(editSinglePostThunk(post.id, postInfo)) 
-                await dispatch(getUserPostsThunk(sessionUser.id));
-                await dispatch(getAllPostsThunk());           
+        // if(media) {
+        //     const postInfo = new FormData();
+        //     postInfo.append("media", media);
+        //     postInfo.append("body", body);
+        //     postInfo.append("user_id", sessionUser.id);
+        //     postInfo.append("share_img", shareImg);
+        //     postInfo.append("share_video", shareVideo);
+            
+        //     await dispatch(editPostThunk(post.id, postInfo)) 
+        //     await dispatch(getAllPostsThunk());           
+        //     await dispatch(getUserPostsThunk(sessionUser.id));
+        //     closeModal();
+         
+        // } 
+        // else {
+        //     const postInfo = {
+        //         media : post.media,
+        //         body : body,
+        //         user_id : sessionUser.id,
+        //         share_img : shareImg,
+        //         share_video : shareVideo,
+
+        //     }
+        //         await dispatch(editPostThunk(post.id, postInfo)) 
+        //         await dispatch(getUserPostsThunk(sessionUser.id));
+        //         await dispatch(getAllPostsThunk());           
                 
-                closeModal();
-        }       
+        //         closeModal();
+        // }       
     };
+
 
     useEffect(() => {
         const errors = {};
         if(!body) errors.body = "Please enter your post.";
         if(body.length > 3000) errors.body = errors.bodylength = "Please enter content less than 3000 characters.";
-        // if(img && !img.endsWith('.jpg') && !img.endsWith('.png') && !img.endsWith('.jpeg')) errors.imgFormat = "Image URL needs to end in png or jpg (or jpeg)";
-        // if(video) {
-        //     const videoFrag = video.split("=");
-        //     if(!videoFrag[0].includes("https://www.youtube.com/"))  errors.videoFormat = "Please enter valid URL form YouTube."}
+   
         if(media) {
             if(!media['name'].endsWith("pdf") && 
                !media['name'].endsWith("png") &&
@@ -95,8 +109,20 @@ export default function EditPostModal({sessionUser, post }) {
                !media['name'].endsWith("mkv"))  
                errors.mediaFormat = "Please provide valid image or video file ends with pdf, png, jpg, or gif."}
 
+            if(shareImg) {
+                if(
+                    !shareImg.endsWith('.jpg') && 
+                    !shareImg.endsWith('.png') && 
+                    !shareImg.endsWith('.jpeg'))
+                    errors.shareImgFormat = "Image URL needs to end in png or jpg (or jpeg)."} 
+
+            if(shareVideo) {
+                const videoFrag = shareVideo.split("=");
+                if(!videoFrag[0].includes("https://www.youtube.com/"))  errors.shareVideoFormat = "Please enter valid URL form YouTube."}
+    
+
         setValidationError(errors)
-    }, [body, media])
+    }, [body, media, shareImg, shareVideo])
 
     return (
         <>
@@ -166,7 +192,23 @@ export default function EditPostModal({sessionUser, post }) {
                                             onChange={handleMediaChange}
                                         />
                                     </div>
-                                    <p>Please provide a file size under 100MB.</p>
+                                    <p>Please provide a file size under 100MB or you can share an image/video by providing a valid URL..</p>
+                                    <input 
+                                        type='text'
+                                        value={shareImg}
+                                        placeholder="Please enter an image URL."
+                                        onChange={(e) => setShareImg(e.target.value)}
+                                    />
+                                    <input 
+                                        type='text'
+                                        value={shareVideo}
+                                        placeholder="Please enter an video URL."
+                                        onChange={(e) => setShareVideo(e.target.value)}
+                                    />
+                                </div>
+                                <div id='error-div'>
+                                    {validationError.shareImgFormat && <p>{validationError.shareImgFormat}</p>}
+                                    {validationError.shareVideoFormat && <p>{validationError.shareVideoFormat}</p>}
                                 </div>
                             </div>                             
                         </div>
@@ -179,21 +221,7 @@ export default function EditPostModal({sessionUser, post }) {
                             </div>
                             : null
                        }
-                    
-                    {/* {showItem ? 
-                        <div id='edit-video-div'>
-                            <i className="fa-solid fa-video"></i>
-                            <textarea 
-                                type='text'
-                                value={ video }
-                                onChange={(e) => setVideo(e.target.value)}
-                                placeholder="Please provide valid url from YouTube."
-                            />
-                        </div>
-
-                        
-                        : null
-                    } */}
+        
 
                     {validationError.mediaFormat ? 
                         <div id='error-div'>
@@ -201,12 +229,6 @@ export default function EditPostModal({sessionUser, post }) {
                         </div>
                         : null
                     }
-                    {/* {validationError.videoFormat ? 
-                        <div id='error-div'>
-                            {validationError.videoFormat && <p>{validationError.videoFormat}</p>}
-                        </div>
-                        : null
-                    } */}
 
                     <div id='create-post-button-div'>
                         <div onClick={showItemFun}>

@@ -62,11 +62,11 @@ def sign_up():
     """
     Creates a new user and logs them in
     """
-    print("in the sign up route~~~~~~~~~~")
+    # print("in the sign up route~~~~~~~~~~")
     form = SignUpForm()
     form['csrf_token'].data = request.cookies['csrf_token']
     if form.validate_on_submit():
-        print("after the form validation!!!!!!")
+        # print("after the form validation!!!!!!")
         user = User(
             first_name = form.data['first_name'],
             last_name = form.data['last_name'],
@@ -107,5 +107,5 @@ def signup_form():
 @auth_routes.route('/login', methods=['GET'])
 def login_form():
     form = LoginForm()
-    print("user log in", current_user)
+    # print("user log in", current_user)
     return render_template("login.html", form=form)

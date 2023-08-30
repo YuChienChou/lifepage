@@ -47,7 +47,7 @@ def edit_user_info():
     Query for session user and update user information 
     and return the user as a dictionary.
     """
-    print("in the edit user route~~~~~~")
+    # print("in the edit user route~~~~~~")
     try: 
         form = UserForm()
         form["csrf_token"].data = request.cookies["csrf_token"]
@@ -98,7 +98,7 @@ def edit_user_profile_picture():
         new_profile_picture_url = ""
 
         new_profile_picture = form.data['profile_picture']
-        print("new profile picture form data: ", new_profile_picture)
+        # print("new profile picture form data: ", new_profile_picture)
 
         upload_profile_picture = None
         if new_profile_picture:
@@ -135,16 +135,16 @@ def edit_user_cover_photo():
     Query for session user and update user cover_photo 
     and return the user as a dictionary.
     """
-    print("in the edit user route~~~~~~")
+    # print("in the edit user route~~~~~~")
     try: 
         form = UserForm()
         form["csrf_token"].data = request.cookies["csrf_token"]
         form.user_id.data = current_user.id
-        print("current user id in edit user route: ", current_user.id)
+        # print("current user id in edit user route: ", current_user.id)
 
         edit_user = User.query.get(current_user.id)
 
-        print("in the try block of the edit user route~~~~~~")
+        # print("in the try block of the edit user route~~~~~~")
 
         if not edit_user:
             return "User not found", 404
@@ -152,7 +152,7 @@ def edit_user_cover_photo():
         new_cover_photo_url = ""
 
         new_cover_photo = form.data['cover_photo']
-        print("new cover photo form data: ", new_cover_photo)
+        # print("new cover photo form data: ", new_cover_photo)
 
         upload_cover_photo = None
         if new_cover_photo:

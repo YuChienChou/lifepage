@@ -12,6 +12,8 @@ import './createpost.css'
 export default function CreatePost({sessionUser}) {
     const [media, setMedia] = useState("");
     const [body, setBody] = useState("");
+    const [shareImg, setShareImg] = useState("");
+    const [shareVideo, setShareVideo] = useState("")
     const [validationError, setValidationError] = useState({});
     const [showItem, setShowItem] = useState(false)
     const [hasSubmit, setHasSubmit] = useState(false);
@@ -46,10 +48,12 @@ export default function CreatePost({sessionUser}) {
         postInfo.append("media", media);
         postInfo.append("body", body);
         postInfo.append("user_id", sessionUser.id);
+        postInfo.append("share_img", shareImg);
+        postInfo.append("share_video", shareVideo)
     
         await dispatch(createPostThunk(sessionUser.id, postInfo));
-        await dispatch(getSingleUserThunk(sessionUser.id));
-        // await dispatch(getUserPostsThunk(sessionUser.id));
+        // await dispatch(getSingleUserThunk(sessionUser.id));
+        await dispatch(getUserPostsThunk(sessionUser.id));
         await dispatch(getAllPostsThunk());
         
         closeModal()
@@ -59,10 +63,8 @@ export default function CreatePost({sessionUser}) {
         const errors = {}
         if(!body) errors.body = "please enter your post";
         if(body.length > 3000) errors.bodylength = "Please enter content less than 3000 characters.";
-        // if(img && !img.endsWith('.jpg') && !img.endsWith('.png') && !img.endsWith('.jpeg')) errors.imgFormat = "Image URL needs to end in png or jpg (or jpeg)";
-        // if(video) {
-        //     const videoFrag = video.split("=");
-        //     if(!videoFrag[0].includes("https://www.youtube.com/"))  errors.videoFormat = "Please enter valid URL form YouTube."}
+       
+       
         if(media) {
             if(!media['name'].endsWith("pdf") && 
                !media['name'].endsWith("png") &&
@@ -74,9 +76,20 @@ export default function CreatePost({sessionUser}) {
                !media['name'].endsWith("mov") &&
                !media['name'].endsWith("mkv"))  
                errors.mediaFormat = "Please provide valid image or video file ends with pdf, png, jpg, gif, mp4, avi, mov, or mkv."}
+        
+        if(shareImg) {
+            if(
+                !shareImg.endsWith('.jpg') && 
+                !shareImg.endsWith('.png') && 
+                !shareImg.endsWith('.jpeg'))
+                errors.shareImgFormat = "Image URL needs to end in png or jpg (or jpeg)."} 
+
+         if(shareVideo) {
+            const videoFrag = shareVideo.split("=");
+            if(!videoFrag[0].includes("https://www.youtube.com/"))  errors.shareVideoFormat = "Please enter valid URL form YouTube."}
 
         setValidationError(errors)
-    }, [body, media]);
+    }, [body, media, shareImg, shareVideo]);
 
     return (
         <>
@@ -111,6 +124,7 @@ export default function CreatePost({sessionUser}) {
                 </div>
     
                 {showItem ? 
+                    <>
                         <div id='add-image-div'>
                             
                             <div>
@@ -121,8 +135,27 @@ export default function CreatePost({sessionUser}) {
                                     onChange={handleMediaChange}
                                     />
                             </div>
-                            <p>Please provide a file size under 100MB.</p>
+                            <p>Please provide a file size under 100MB or you can share an image/video by providing a valid URL.</p>
+
+                            <input 
+                            type='text'
+                            value={shareImg}
+                            placeholder="Please enter an image URL."
+                            onChange={(e) => setShareImg(e.target.value)}
+                            />
+                            <input 
+                            type='text'
+                            value={shareVideo}
+                            placeholder="Please enter an video URL."
+                            onChange={(e) => setShareVideo(e.target.value)}
+                            />
                         </div>
+                        <div id='error-div'>
+                            {validationError.shareImgFormat && <p>{validationError.shareImgFormat}</p>}
+                            {validationError.shareVideoFormat && <p>{validationError.shareVideoFormat}</p>}
+                        </div>
+
+                    </>
                     : null
                 }
                 {validationError.mediaSize ?

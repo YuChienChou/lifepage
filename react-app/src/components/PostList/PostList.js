@@ -158,6 +158,24 @@ export default function PostList({ sessionUser }) {
                         }
 
                     })()}
+             
+                    {post.share_img ? 
+                        <>
+                            <Link to={`/posts/${post.id}`}><div id='img-post'>
+                            <img src={post.share_img} alt=""/></div></Link>
+                        </>
+                        :
+                        null
+                    }
+
+                    {post.share_video ? 
+                        <div id='video-post'>
+                            <ReactPlayer url={post.share_video} controls width='100%' height='100%'/>
+                        </div>
+                        :
+                        null
+                    }
+                    
 
 <div id='like-circle'>
                         <i className="fa-regular fa-thumbs-up"></i>
