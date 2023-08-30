@@ -65,6 +65,7 @@ export default function SinglePost() {
                     </div>
                     <div id='single-post-img'>
                         <img src={singlePost.media} alt="" />
+                        {/* <img src={singlePost.share_img} alt="" /> */}
                     </div>
                 </div>
        

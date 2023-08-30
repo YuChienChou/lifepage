@@ -25,7 +25,7 @@ export default function UserPorfile() {
     const user = useSelector((state) => state.users.singleUser);
     const sessionUser = useSelector((state) => state.session.user);
     const currentUser = useSelector((state) => state.users.currentUser);
-    console.log("user id and session user id: ", user.id, currentUser.id )
+    // console.log("user id and session user id: ", user.id, currentUser.id )
     const userPostsStore = useSelector((state) => state.posts.userPosts);
     const userPostArr = Object.values(userPostsStore);
     
