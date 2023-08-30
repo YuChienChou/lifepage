@@ -64,7 +64,9 @@ export default function SinglePost() {
                         <Link to='/user'><img src={logo} alt='lifepage logo' /></Link>
                     </div>
                     <div id='single-post-img'>
-                        <img src={singlePost.media} alt="" />
+                        <img src={singlePost.media ? singlePost.media : singlePost.share_img} alt=""/>
+                        {/* <img src={singlePost.media} alt="" /> */}
+                        {/* <img src={singlePost.share_img} alt="" /> */}
                     </div>
                 </div>
        
