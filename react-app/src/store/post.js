@@ -135,16 +135,16 @@ export const createPostThunk = (userId, post) => async (dispatch) => {
 export const editPostThunk = (postId, postInfo) => async (dispatch) => {
     // console.log("in the edit post thunk~~~~~~~~~~~~~~~~~~~~~")
     try {
-        // console.log("in the try block of the editpostthunk")
+        // console.log("in the try block of the editpostthunk");
         const res = await fetch(`/api/posts/${postId}/edit`, {
             method: "POST",
             // headers: { "Content-Type": "application/json" },
             // body: JSON.stringify(postInfo),
             body: postInfo
         });
-        // console.log("after the res fetch of the editpostthunk", res)
+        // console.log("after the res fetch of the editpostthunk", res);
         if(res.ok) {
-            // console.log("result from the backend in the edit post thunk: ", res)
+            // console.log("result from the backend in the edit post thunk: ", res);
             const updatedPost = await res.json();
             dispatch(editPost(updatedPost));
             return updatedPost;

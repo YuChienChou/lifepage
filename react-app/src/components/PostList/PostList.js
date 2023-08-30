@@ -158,20 +158,15 @@ export default function PostList({ sessionUser }) {
                         }
 
                     })()}
-                    {(() => {
-                        if(post.share_img) {
-                            if(post.share_img.endsWith("pdf") ||
-                               post.share_img.endsWith("png") ||
-                               post.share_img.endsWith("jpg") ||
-                               post.share_img.endsWith("jpeg") ||
-                               post.share_img.endsWith("gif")) {
-                                return <>
-                                <Link to={`/posts/${post.id}`}><div id='img-post'>
-                                <img src={post.share_img} alt=""/></div></Link>
-                                </>
-                            }                            
-                        }
-                    })()}
+             
+                    {post.share_img ? 
+                        <>
+                            <Link to={`/posts/${post.id}`}><div id='img-post'>
+                            <img src={post.share_img} alt=""/></div></Link>
+                        </>
+                        :
+                        null
+                    }
 
                     {post.share_video ? 
                         <div id='video-post'>

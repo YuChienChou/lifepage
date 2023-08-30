@@ -48,12 +48,12 @@ export default function CreatePost({sessionUser}) {
         postInfo.append("media", media);
         postInfo.append("body", body);
         postInfo.append("user_id", sessionUser.id);
-        postInfo.append("share_link", shareImg);
+        postInfo.append("share_img", shareImg);
         postInfo.append("share_video", shareVideo)
     
         await dispatch(createPostThunk(sessionUser.id, postInfo));
-        await dispatch(getSingleUserThunk(sessionUser.id));
-        // await dispatch(getUserPostsThunk(sessionUser.id));
+        // await dispatch(getSingleUserThunk(sessionUser.id));
+        await dispatch(getUserPostsThunk(sessionUser.id));
         await dispatch(getAllPostsThunk());
         
         closeModal()
@@ -82,7 +82,7 @@ export default function CreatePost({sessionUser}) {
                 !shareImg.endsWith('.jpg') && 
                 !shareImg.endsWith('.png') && 
                 !shareImg.endsWith('.jpeg'))
-                errors.shareImgFormat = "Image URL needs to end in png or jpg (or jpeg) or an valide video URL from YouTube."} 
+                errors.shareImgFormat = "Image URL needs to end in png or jpg (or jpeg)."} 
 
          if(shareVideo) {
             const videoFrag = shareVideo.split("=");
@@ -135,7 +135,7 @@ export default function CreatePost({sessionUser}) {
                                     onChange={handleMediaChange}
                                     />
                             </div>
-                            <p>Please provide a file size under 100MB or provide a link to share your image/video.</p>
+                            <p>Please provide a file size under 100MB or you can share an image/video by providing a valid URL.</p>
 
                             <input 
                             type='text'
@@ -149,6 +149,10 @@ export default function CreatePost({sessionUser}) {
                             placeholder="Please enter an video URL."
                             onChange={(e) => setShareVideo(e.target.value)}
                             />
+                        </div>
+                        <div id='error-div'>
+                            {validationError.shareImgFormat && <p>{validationError.shareImgFormat}</p>}
+                            {validationError.shareVideoFormat && <p>{validationError.shareVideoFormat}</p>}
                         </div>
 
                     </>

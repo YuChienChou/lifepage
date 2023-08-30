@@ -32,40 +32,41 @@ def posts_form():
 @post_route.route('/<int:userId>/new', methods=['POST'])
 @login_required
 def create_post(userId): 
-    print("in the create post route!!!")
+    # print("in the create post route!!!")
     form = PostForm()
     form["csrf_token"].data = request.cookies["csrf_token"]
     userId = current_user.id
     form.user_id.data = userId
     try: 
         if form.validate_on_submit():
-            print("in the try block of the create post route~~~~")
+            # print("in the try block of the create post route~~~~")
 
             media_url = ""
 
             media = form.data["media"] 
-            print("media form data: ", media)
+            # print("media form data: ", media)
 
             upload_media = None
             if media: 
                 media.filename = get_unique_filename(media.filename)
                 upload_media = upload_file_to_s3(media)
                 media_url = upload_media["url"]
-                print("uploaded media in create post route: ", upload_media)
+                # print("uploaded media in create post route: ", upload_media)
 
             if upload_media is not None and "url" not in upload_media:
                 return f"{upload_media}."
             
             new_post = Post(
                 media = media_url,
-                share_link = form.data['share_link'],
+                share_img = form.data['share_img'],
+                share_video = form.data['share_video'],
                 body = form.data['body'],
                 user_id = form.data['user_id'],
                 created_at = date.today(),
                 updated_at = date.today(),
             )
 
-            print("new post in create post route: ", new_post)
+            # print("new post in create post route: ", new_post)
             db.session.add(new_post)
             db.session.commit()
             return new_post.to_dict()
@@ -79,7 +80,7 @@ def create_post(userId):
 def edit_post(postId):
 
     try: 
-        print("In the edit post route!!!!!!!!")
+        # print("In the edit post route!!!!!!!!")
         form = PostForm()
         form["csrf_token"].data = request.cookies["csrf_token"]
         # userId = current_user.id
@@ -88,39 +89,38 @@ def edit_post(postId):
         edit_post = Post.query.get(postId)
         if not edit_post:
             return "Post not found.", 404
-        print("edit_post in the edit post route: ", edit_post.to_dict())
-
-        if edit_post.media: 
-                remove_file_from_s3(edit_post.media)
+        # print("edit_post in the edit post route: ", edit_post.to_dict())
 
         media_url = ""
-
-        media = form.data["media"] 
-        print("media form data: ", media)
-
-        upload_media = None
-        if media: 
-            media.filename = get_unique_filename(media.filename)
-            upload_media = upload_file_to_s3(media)
-            media_url = upload_media["url"]
-            print("uploaded media in create post route: ", upload_media)
-
-        if upload_media is not None and "url" not in upload_media:
-            return f"{upload_media}."
    
         if edit_post.user.id == current_user.id:
-            # edit_post.title = form.data['title']
-            # print("edit post old media in edit post route: ", edit_post.media)
+         
+            if form.media.data:
+                if edit_post.media:
+                    remove_file_from_s3(edit_post.media)
+                    
+                media = form.media.data
+                media.filename = get_unique_filename(media.filename)
+                upload_media = upload_file_to_s3(media)
+                media_url = upload_media["url"]
+                
+                if "url" not in upload_media:
+                    return f"{upload_media}."
+                
+                edit_post.media = media_url
+                    
             
-            edit_post.media = media_url
-            edit_post.share_link = form.data['share_link'],
+            # edit_post.media = media_url
+            edit_post.share_img = form.data['share_img']
+            # print("edit post new share img url: ", edit_post.share_img)
+            edit_post.share_video = form.data['share_video']
             # print("edit post new media in edit post route: ", edit_post.media)
             edit_post.body = form.data['body']
             edit_post.user_id = form.data['user_id']
             edit_post.updated_at = date.today()
             db.session.commit()
             db.session.refresh(edit_post)
-            print("edited post in the edit post route: ", edit_post.to_dict())
+            # print("edited post in the edit post route: ", edit_post.to_dict())
             return edit_post.to_dict()
 
     

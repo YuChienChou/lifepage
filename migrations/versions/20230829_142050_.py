@@ -1,20 +1,16 @@
 """empty message
 
-Revision ID: 68263f2d2731
+Revision ID: 2e9e2b4a5f66
 Revises: 
-Create Date: 2023-08-29 13:25:18.575910
+Create Date: 2023-08-29 14:20:50.482723
 
 """
 from alembic import op
 import sqlalchemy as sa
 
-import os
-environment = os.getenv("FLASK_ENV")
-SCHEMA = os.environ.get("SCHEMA")
-
 
 # revision identifiers, used by Alembic.
-revision = '68263f2d2731'
+revision = '2e9e2b4a5f66'
 down_revision = None
 branch_labels = None
 depends_on = None
@@ -57,7 +53,8 @@ def upgrade():
     op.create_table('posts',
     sa.Column('id', sa.Integer(), nullable=False),
     sa.Column('media', sa.String(length=500), nullable=True),
-    sa.Column('share_link', sa.String(length=500), nullable=True),
+    sa.Column('share_img', sa.String(length=250), nullable=True),
+    sa.Column('share_video', sa.String(length=250), nullable=True),
     sa.Column('body', sa.String(), nullable=False),
     sa.Column('user_id', sa.Integer(), nullable=True),
     sa.Column('created_at', sa.Date(), nullable=True),
@@ -90,13 +87,6 @@ def upgrade():
     sa.ForeignKeyConstraint(['user_id'], ['users.id'], ),
     sa.PrimaryKeyConstraint('user_id', 'post_id')
     )
-    
-    if environment == "production":
-        op.execute(f"ALTER TABLE users SET SCHEMA {SCHEMA};")
-        op.execute(f"ALTER TABLE follows SET SCHEMA {SCHEMA};")
-        op.execute(f"ALTER TABLE posts SET SCHEMA {SCHEMA};")
-        op.execute(f"ALTER TABLE comments SET SCHEMA {SCHEMA};")
-        op.execute(f"ALTER TABLE user_likes SET SCHEMA {SCHEMA};")
     # ### end Alembic commands ###
 
 
