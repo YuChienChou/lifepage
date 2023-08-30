@@ -50,6 +50,9 @@ Single post page:
 - Create/update/delete/read comments.
 - Like/dislike posts.
 - Follow/unfollow other users.
+- Send friend requests to other users.
+- Receive friend requests from other users.
+- Add friends/unfriend other users.
 - Update user info.
 <br></br>
 
