@@ -63,11 +63,36 @@ export default function SinglePost() {
                         </div>
                         <Link to='/user'><img src={logo} alt='lifepage logo' /></Link>
                     </div>
-                    <div id='single-post-img'>
+
+                  
+                    {(() => {
+                        if((singlePost.media && !singlePost.share_img) || (!singlePost.media && singlePost.share_img)) {
+                            return <div id='single-post-img'>
                         <img src={singlePost.media ? singlePost.media : singlePost.share_img} alt=""/>
                         {/* <img src={singlePost.media} alt="" /> */}
                         {/* <img src={singlePost.share_img} alt="" /> */}
                     </div>
+                        } 
+                        else if (singlePost.media && singlePost.share_img) {
+                            return <>
+                            <session aria-label='Singlepost Photos'>
+                                <div className='carousel'>
+                                    <button className="carousel-button prev"><i className="fa-solid fa-arrow-right"></i></button>
+                                    <button className="carousel-button next"><i className="fa-solid fa-arrow-left"></i></button>
+                                    <ul>
+                                        <li className='slide' data-active>
+                                            <img src={singlePost.media} alt="media photo" />
+                                        </li>
+                                        <li className='slide'>
+                                            <img src={singlePost.share_img} alt="share image" />
+                                        </li>
+                                    </ul>
+                                </div>
+                            </session>
+                            </>
+                        }
+                    })()}
+                    
                 </div>
        
                 <div id='single-post-content-div'>
