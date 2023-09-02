@@ -8,3 +8,7 @@
     color: #393c3f;
 }
 
+*::before, *::after {
+    box-sizing: border-box;
+}
+

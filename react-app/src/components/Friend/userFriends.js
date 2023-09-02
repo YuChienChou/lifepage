@@ -21,13 +21,13 @@ export default function UserFriends({sessionUser}) {
         <>
         {userFriendsArr.length === 0 ? 
             <>
-                <h3>Contacts</h3>
-                <p>You don't have contacts now.</p>
+                <h3>Friends</h3>
+                <p>You don't have friends now.</p>
             </>
             :
             <>
             <div id='friends-container'>
-                <h3>Contacts</h3>
+                <h3>Friends</h3>
                 <ul>
                     {userFriendsArr.map((friend) => (
                         <li key={friend.id} id='friends-list'>

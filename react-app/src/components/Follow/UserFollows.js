@@ -13,7 +13,7 @@ export default function UserFollows({sessionUser, followedUserId}) {
     // console.log("user follows array in create follow component: ", userFollowsArr);
     const [showFunDiv, setShowFunDiv] = useState(false);
     const dispatch = useDispatch();
-    // console.log("session user follows in UserFollows component: ", sessionUser.follows);
+    console.log("session user follows in UserFollows component: ", sessionUser.follows);
 
     
 
@@ -39,14 +39,14 @@ export default function UserFollows({sessionUser, followedUserId}) {
         // if(userFollows[followedUserId]) {
         if(res.includes(followedUserId)) {
             await dispatch(deleteUserFollowsThunk(sessionUser.id, followedUserId));
-            await dispatch(getCurrentUserThunk());
             // await dispatch(getUserFollowsThunk(sessionUser.id));
+
         } else {
             await dispatch(addUserFollowsThunk(sessionUser.id, followedUserId, followInfo));
             // await dispatch(getUserFollowsThunk(sessionUser.id));
-            await dispatch(getCurrentUserThunk());
+            // await dispatch(getCurrentUserThunk());
         }
-
+        await dispatch(getCurrentUserThunk());
         await dispatch(getUserFollowsThunk(sessionUser.id));
        
     };
