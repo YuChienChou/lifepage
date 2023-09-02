@@ -368,9 +368,10 @@ def delete_friend_rel(user1_id, user2_id):
         
         if user2 in user1.followed: 
             user1.followed.remove(user2) # when cancel friend rel, automatically cancel follow relationship
-
-        db.session.commit()
         db.session.refresh(user1)
+        
+        db.session.commit()
+        # db.session.refresh(user1)
         return f'Cancel friend relationship with {user2.username}.'
     
     except Exception as e:

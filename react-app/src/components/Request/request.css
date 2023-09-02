@@ -21,6 +21,7 @@
     display: flex;
     background-color: transparent;
     align-items: center;
+    cursor: pointer;
 }
 
 #friends img {
@@ -50,4 +51,33 @@
     color: #FFF;
     font-size: 14px;
     border: none;
+}
+
+#show-rel-div {
+    display: flex;
+    padding: 8px;
+    background-color: #fff;
+    position: absolute;
+    bottom: 26px;
+    right: -50px;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgb(224, 218, 218);
+}
+
+#show-rel-div img {
+    width: 25px;
+    height: 20px;
+}
+
+#show-rel-div button {
+    border: none;
+    background-color: #FFF;
+    padding: 0 5px 0 5px;
+    font-size: 14px;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+#show-rel-div button:hover {
+    background-color: #E4E6E8;
 }

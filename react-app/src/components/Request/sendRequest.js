@@ -2,6 +2,9 @@ import { useDispatch, useSelector } from "react-redux";
 import { addUserFollowsThunk, addUserFriendsThunk, addUserRequestsThunk, deleteUserFollowsThunk, deleteUserFriendsThunk, getCurrentUserThunk, getUserFollowsThunk, getUserFriendsThunk } from "../../store/user"; 
 import { useEffect, useState } from 'react';
 import friendsIcon from '../resources/friends-icon.png';
+import unfriendIcon from '../resources/unfriend-icon.png';
+import OpenModalButton from "../OpenModalButton";
+import DeleteFriendRelModal from "../Friend/deleteFriendModal";
 import './request.css'
 
 export default function SendRequest({sessionUser, requestUser}) {
@@ -22,43 +25,14 @@ export default function SendRequest({sessionUser, requestUser}) {
         setShowRel(!showRel);
     };
 
+    const hideRelFun = () => {
+        setShowRel(false)
+    }
+
     const addRequestFun = () => {
         dispatch(addUserRequestsThunk(sessionUser.id, requestUser.id));
         setHasSubmit(true)
     };
-
-    // console.log("sessionUser friend list: ", sessionUser.friends);
-    // console.log("sessionUser.follows list: ", sessionUser.follows);
-
-    // const friendId = []
-    // sessionUser.friends.map((friend) => {
-    //     friendId.push(friend.id);
-    // });
-
-    // const followId = [];
-    // sessionUser.follows.map((follow) => {
-    //     followId.push(follow.id)
-    // });
-
-    const setFollowRelFun = async () => {
-        if(userFollows[requestUser.id]) {
-            await dispatch(deleteUserFollowsThunk(sessionUser.id, requestUser.id));
-        } else {
-            await dispatch(addUserFollowsThunk(sessionUser.id, requestUser.id));
-        }
-
-        await dispatch(getUserFollowsThunk(sessionUser.id));
-    }
-
-    const deleteFriendRelFun = async () => {
-        // if(userFriends[requestUser.id]) {
-        //     await dispatch(deleteUserFriendsThunk(sessionUser.id, requestUser.id));
-        // } else {
-        //     await dispatch(addUserFriendsThunk(sessionUser.id, requestUser.id))
-        // }
-        await dispatch(deleteUserFriendsThunk(sessionUser.id, requestUser.id));
-        await dispatch(getUserFriendsThunk(sessionUser.id));
-    }
 
     useEffect(() => {
         dispatch(getUserFollowsThunk(sessionUser.id));
@@ -95,22 +69,23 @@ export default function SendRequest({sessionUser, requestUser}) {
 
                     {showRel ? 
 
-                        <div id='show-rel-div'>
-                            <button id='follow-rel' onClick={setFollowRelFun} >
+                        <div id='show-rel-div' onMouseLeave={hideRelFun}>
+                            {/* <button id='follow-rel' onClick={setFollowRelFun} >
                                 {userFollows[requestUser.id] ? 
                                     "unfollow"
                                     :
                                     "follow"
                                 }
-                            </button>
-                            <button id='friend-rel' onClick={deleteFriendRelFun}>
-                                {/* {userFriends[requestUser.id] ?
-                                    "unfriend"
-                                    :
-                                    "add friend"
-                                } */}
+                            </button> */}
+                            <img src={unfriendIcon} alt='unfriend icon'/>
+                            <OpenModalButton 
+                                buttonText="unfriend"
+                                modalComponent={<DeleteFriendRelModal sessionUser={sessionUser} requestedUser={requestUser} />} 
+                            />
+                            {/* <button id='friend-rel' onClick={deleteFriendRelFun}>
+                             
                                 unfriend
-                            </button>
+                            </button> */}
                         </div>
                         :
                         null

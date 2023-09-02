@@ -239,7 +239,7 @@
 }
 
 
-#create-comment-form input {
+/* #create-comment-form input {
     width: 93%;
     height: auto;
     background-color: none;
@@ -251,7 +251,7 @@
     word-wrap: break-word;
     word-break: break-all;
     font-size: 14px;
-}
+} */
 
 #create-comment-form textarea::placeholder {
     position: absolute;
