@@ -13,14 +13,14 @@ export default function SendRequest({sessionUser, requestUser}) {
     const userFriends = useSelector((state) => state.users.userFriends);
     // console.log("user friends in sendRequest component: ", userFriends);
     // const userRequests = useSelector((state) => state.users.userRequests);
-    console.log("user request in sendRequest component: ", requestUser.requests);
+    // console.log("user request in sendRequest component: ", requestUser.requests);
 
     const friendRequests = [];
     for (let user of requestUser.requests) {
         friendRequests.push(user.id);
     }
 
-    console.log("friendRequests", friendRequests)
+    // console.log("friendRequests", friendRequests);
 
     const [hasSubmit, setHasSubmit] = useState(false);
     const [showRel, setShowRel] = useState(false);
@@ -51,7 +51,8 @@ export default function SendRequest({sessionUser, requestUser}) {
     useEffect(() => {
         dispatch(getUserFollowsThunk(sessionUser.id));
         dispatch(getUserFriendsThunk(sessionUser.id));
-        // dispatch(getUserRequestsThunk(requestUser.id));
+        // dispatch(getSingleUserThunk(requestUser.id));
+        dispatch(getUserRequestsThunk(sessionUser.id));
     }, [dispatch, sessionUser, requestUser])
 
     // console.log("friend id list in sendRequest component: ", friendId);

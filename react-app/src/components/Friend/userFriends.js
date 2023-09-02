@@ -21,8 +21,11 @@ export default function UserFriends({sessionUser}) {
         <>
         {userFriendsArr.length === 0 ? 
             <>
+             <div id='friends-container'>
                 <h3>Friends</h3>
-                <p>You don't have friends now.</p>
+                <p>You don't have friends yet.</p>
+                {/* <p>Let's make new connections!</p> */}
+            </div>
             </>
             :
             <>
