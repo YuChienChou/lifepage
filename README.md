@@ -57,8 +57,6 @@ Single post page:
 <br></br>
 
 ## Future Features (logged-in users)
-- Sent friend requests to users.
-- Add/delete friend relationships between friends.
 - Send instant messages to friends.
 - Search for users.
 
