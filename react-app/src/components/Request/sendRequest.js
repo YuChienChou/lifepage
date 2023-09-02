@@ -20,7 +20,7 @@ export default function SendRequest({sessionUser, requestUser}) {
         friendRequests.push(user.id);
     }
 
-    // console.log("friendRequests", friendRequests)
+    // console.log("friendRequests", friendRequests);
 
     const [hasSubmit, setHasSubmit] = useState(false);
     const [showRel, setShowRel] = useState(false);
@@ -51,7 +51,8 @@ export default function SendRequest({sessionUser, requestUser}) {
     useEffect(() => {
         dispatch(getUserFollowsThunk(sessionUser.id));
         dispatch(getUserFriendsThunk(sessionUser.id));
-        // dispatch(getUserRequestsThunk(requestUser.id));
+        // dispatch(getSingleUserThunk(requestUser.id));
+        dispatch(getUserRequestsThunk(sessionUser.id));
     }, [dispatch, sessionUser, requestUser])
 
     // console.log("friend id list in sendRequest component: ", friendId);

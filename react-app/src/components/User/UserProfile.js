@@ -40,6 +40,8 @@ export default function UserPorfile() {
     }, [dispatch, userId, sessionUser.id])
 
 
+    if(!user.requests) return null;
+
     return (
         <>
         <Navigation />

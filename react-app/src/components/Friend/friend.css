@@ -8,6 +8,10 @@
     }
 }
 
+#friends-container p {
+    padding: 10px 0;
+}
+
 #friends-list {
     list-style: none;
 }
