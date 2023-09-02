@@ -13,14 +13,14 @@ export default function SendRequest({sessionUser, requestUser}) {
     const userFriends = useSelector((state) => state.users.userFriends);
     // console.log("user friends in sendRequest component: ", userFriends);
     // const userRequests = useSelector((state) => state.users.userRequests);
-    console.log("user request in sendRequest component: ", requestUser.requests);
+    // console.log("user request in sendRequest component: ", requestUser.requests);
 
     const friendRequests = [];
     for (let user of requestUser.requests) {
         friendRequests.push(user.id);
     }
 
-    console.log("friendRequests", friendRequests)
+    // console.log("friendRequests", friendRequests)
 
     const [hasSubmit, setHasSubmit] = useState(false);
     const [showRel, setShowRel] = useState(false);
