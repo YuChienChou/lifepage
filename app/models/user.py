@@ -134,6 +134,7 @@ class User(db.Model, UserMixin):
             'updated_at': self.updated_at,
             # 'likes' : [like.to_dict() for like in self.likes],
             'likes' : [{'id': like.id} for like in self.likes],
+            'requests' : [{'id' : user.id} for user in self.requests],
             # 'follows': [follow.to_dict() for follow in self.followed],
             'follows': [{'id': follow.id} for follow in self.followed],
             'friends' : [{'id': friend.id, 'username': friend.username, 'user_first_name': friend.first_name, 'profile_picture': friend.profile_picture, } for friend in self.friends],

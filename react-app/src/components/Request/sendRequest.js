@@ -1,5 +1,5 @@
 import { useDispatch, useSelector } from "react-redux";
-import { addUserFollowsThunk, addUserFriendsThunk, addUserRequestsThunk, deleteUserFollowsThunk, deleteUserFriendsThunk, getCurrentUserThunk, getUserFollowsThunk, getUserFriendsThunk } from "../../store/user"; 
+import {addUserRequestsThunk, deleteUserRequestsThunk, getSingleUserThunk, getUserFollowsThunk, getUserFriendsThunk, getUserRequestsThunk } from "../../store/user"; 
 import { useEffect, useState } from 'react';
 import friendsIcon from '../resources/friends-icon.png';
 import unfriendIcon from '../resources/unfriend-icon.png';
@@ -12,9 +12,15 @@ export default function SendRequest({sessionUser, requestUser}) {
     // console.log("userFollow in sendRequest component: ", userFollows);
     const userFriends = useSelector((state) => state.users.userFriends);
     // console.log("user friends in sendRequest component: ", userFriends);
-    const userRequests = useSelector((state) => state.users.userRequests);
-    // console.log("user request in sendRequest component: ", userRequests);
+    // const userRequests = useSelector((state) => state.users.userRequests);
+    console.log("user request in sendRequest component: ", requestUser.requests);
 
+    const friendRequests = [];
+    for (let user of requestUser.requests) {
+        friendRequests.push(user.id);
+    }
+
+    console.log("friendRequests", friendRequests)
 
     const [hasSubmit, setHasSubmit] = useState(false);
     const [showRel, setShowRel] = useState(false);
@@ -29,15 +35,24 @@ export default function SendRequest({sessionUser, requestUser}) {
         setShowRel(false)
     }
 
-    const addRequestFun = () => {
-        dispatch(addUserRequestsThunk(sessionUser.id, requestUser.id));
-        setHasSubmit(true)
+    const addRequestFun = async() => {
+        await dispatch(addUserRequestsThunk(sessionUser.id, requestUser.id));
+        await dispatch(getSingleUserThunk(requestUser.id));
+        
+        setHasSubmit(true);
     };
+
+    const deleteRequestFun = async () => {
+        await dispatch(deleteUserRequestsThunk(requestUser.id, sessionUser.id));
+        await dispatch(getSingleUserThunk(requestUser.id));
+        setHasSubmit(false)
+    }
 
     useEffect(() => {
         dispatch(getUserFollowsThunk(sessionUser.id));
         dispatch(getUserFriendsThunk(sessionUser.id));
-    }, [dispatch, sessionUser])
+        // dispatch(getUserRequestsThunk(requestUser.id));
+    }, [dispatch, sessionUser, requestUser])
 
     // console.log("friend id list in sendRequest component: ", friendId);
 
@@ -48,13 +63,19 @@ export default function SendRequest({sessionUser, requestUser}) {
                 return (
                     <>
 
-                    <button id='send-request-button' onClick={addRequestFun}>
+                    {/* <button id='send-request-button' onClick={addRequestFun}>
                         {hasSubmit ? 
                             "Sent Friend Request"
                             :
                             "Add Friend"
                         }
-                    </button>
+                    </button> */}
+                    {friendRequests.includes(sessionUser.id) ?
+                    <><p id='send-request-button' onClick={deleteRequestFun}>Sent Friend Request</p></>
+                    :
+                    <p id='send-request-button' onClick={addRequestFun}>Add Friend</p>
+                    
+                    }
                     </>
                 ) 
             } else {

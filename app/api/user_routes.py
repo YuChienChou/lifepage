@@ -393,9 +393,10 @@ def add_request_rel(user1_id, user2_id):
         if not user1 or not user2:
             return "User not found.", 404
 
-        user1.requested.append(user2)
+        user2.requests.append(user1)
         db.session.commit()
         db.session.refresh(user1)
+        db.session.refresh(user2)
 
         return user2.to_dict()
     
@@ -438,10 +439,14 @@ def delete_request_rel(user1_id, user2_id):
         if not user1 or not user2:
             return "User not found.", 404
         
-        user1.request.remove(user2)
+        # user2.requested.remove(user1)
+        user1.requests.remove(user2)
+        # user2.requests.remove(user1)
         # if user2 in user1.requested: 
         #     user1.requested.remove(user2) # when cancel friend rel, automatically cancel follow relationship
         db.session.commit()
+        db.session.refresh(user1)
+        db.session.refresh(user2)
         return f'Declined add friend request from {user2.username}.'
     
     except Exception as e:

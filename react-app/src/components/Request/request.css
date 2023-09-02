@@ -51,6 +51,7 @@
     color: #FFF;
     font-size: 14px;
     border: none;
+    cursor: pointer;
 }
 
 #show-rel-div {
