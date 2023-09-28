@@ -11,7 +11,7 @@
     width: 100%;
     height: 72%;
     display: flex;
-    padding: 20% 10% 20% 10%;
+    padding: 10% 10%;
     align-items: center;
     justify-content: center;
     gap: 20px;
@@ -20,9 +20,9 @@
 
 
 #default-home-welcome {
-    width: 40%;
+    width: 500px;
     margin: 0 30px;
-    padding: 50px;
+    padding: 50px 0;
     display: flex;
     flex-direction: column;
     align-items: flex-start;
@@ -45,7 +45,7 @@
 }
 
 #login-form-div {
-    width: 30%;
+    width: 396px;
     height: fit-content;
     background-color: #FFFFFF;
     padding: 16px;
